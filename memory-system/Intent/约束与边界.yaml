@@ -1,0 +1,63 @@
+# Intent 主动输入轨道 - 约束与边界
+# 用户主动设定的约束条件和边界
+
+last_updated: "2026-01-07T09:00:00+08:00"
+
+# 硬约束（不可违反）
+hard_constraints:
+  - constraint: "育儿与健康调理阶段，精力有限"
+    impact: "每日可用工作时间有限，需要合理分配"
+    
+  - constraint: "家庭与身体是硬约束"
+    impact: "家庭事务优先，健康问题需要及时处理"
+    
+  - constraint: "不做低回报的忙碌"
+    impact: "拒绝低复利价值的任务和机会"
+
+# 软约束（可灵活处理）
+soft_constraints:
+  - constraint: "倾向低成本验证"
+    flexibility: "紧急情况可适当增加投入"
+    
+  - constraint: "外包协作优先"
+    flexibility: "核心能力可自建"
+    
+  - constraint: "减少固定团队负担"
+    flexibility: "关键岗位可招聘"
+
+# 时间约束
+time_constraints:
+  available_hours_per_day: 4
+  preferred_work_times:
+    - "09:00-11:00"
+    - "14:00-16:00"
+  unavailable_times:
+    - "12:00-14:00"  # 午休
+    - "18:00-21:00"  # 家庭时间
+  note: "精力有限，需要高效利用"
+
+# 资源约束
+resource_constraints:
+  budget:
+    monthly_limit: "控制在合理范围"
+    preference: "低成本验证优先"
+  tools:
+    preferred: "免费或低成本工具"
+    exception: "核心生产力工具可付费"
+
+# 边界设定
+boundaries:
+  work_boundaries:
+    - "不接受无意义的会议"
+    - "不做重复性低价值工作"
+    - "不为短期利益牺牲长期价值"
+  personal_boundaries:
+    - "保护独处和思考时间"
+    - "保证睡眠和运动"
+    - "家庭时间不被打扰"
+
+# 红线（绝对不做）
+red_lines:
+  - "违背核心价值观的事"
+  - "损害健康的过度工作"
+  - "忽视家庭责任"

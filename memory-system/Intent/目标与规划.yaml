@@ -1,0 +1,181 @@
+# Intent 主动输入轨道 - 目标与规划
+# 用户主动设定的长期目标和当前聚焦
+
+last_updated: "2026-01-09T21:00:00+08:00"
+
+# 长期目标
+long_term_goals:
+  # ===== 工作线 =====
+  - goal: "数字关爱平台工具复用评估"
+    category: "work"
+    description: "扫描/梳理公益平台后台的工具与逻辑，以关爱平台机构视角，分析盘点可复用/可打通的工具清单与判断"
+    target_date: "2026-01-15"
+    compound_value: 95
+    status: "active"
+    context:
+      platform: "数字关爱平台 - 聚焦城市/乡村社区公益项目，承担捐赠方与受助者撮合"
+      key_person: "曹帆（原大豫网副总裁，SSV救灾负责人），痛点是机构后台难用"
+      six_demands:
+        - "效率工具 - 评估公益平台已有工具能否借用/打通"
+        - "机构3.0打通 - 仅限账号层面"
+        - "爱心商家/机构/被关爱者需各自关爱号/关爱主页"
+        - "直达乡村 - 用插件能力不要求乡村侧入驻"
+        - "扩大捐赠者与受助者规模"
+        - "城市社区受助人触达解决方案"
+      reminder: "回到公益组织/项目视角：哪个环节需要？为什么需要？能不能不要？有没有更好的？带着关于未来的思考去做眼前的事儿"
+    milestones:
+      - milestone: "完成公益平台机构后台完整走查"
+        target_date: "2026-01-10"
+        completed: false
+      - milestone: "输出《公益平台工具复用评估报告》"
+        target_date: "2026-01-12"
+        completed: false
+      - milestone: "形成关爱平台机构理想工作流设计"
+        target_date: "2026-01-15"
+        completed: false
+
+  - goal: "社区慈善调研报告"
+    category: "work"
+    description: "系统梳理社区慈善全貌，包括深根者培训、共富学堂、一起学等项目，分析与国家战略和腾讯布局的关系"
+    target_date: "2026-01-20"
+    compound_value: 85
+    status: "active"
+    milestones:
+      - milestone: "完成调研报告框架"
+        target_date: "2026-01-08"
+        completed: true
+      - milestone: "完成 PPT 可视化改造"
+        target_date: "2026-01-09"
+        completed: true
+      - milestone: "完成深根者培训专题分析"
+        target_date: "2026-01-12"
+        completed: false
+      - milestone: "完成社区慈善全景报告"
+        target_date: "2026-01-20"
+        completed: false
+
+  - goal: "善治美公益组件 MVP 上线"
+    category: "work"
+    description: "完成乡村公益认证与交付系统的最小可用版本（暂缓，团队转入关爱平台）"
+    target_date: "2026-03-31"
+    compound_value: 60
+    status: "paused"
+    note: "团队大概率从善治美转入数字关爱平台，此项目暂缓"
+    milestones:
+      - milestone: "完成爱心小卖部方案设计"
+        target_date: "2026-01-15"
+        completed: false
+      - milestone: "完成技术方案评审"
+        target_date: "2026-01-31"
+        completed: false
+      - milestone: "试点村上线运行"
+        target_date: "2026-03-15"
+        completed: false
+        
+  - goal: "农事预警系统 Demo 完成"
+    category: "work"
+    description: "成都郫都区小麦农事预警 Demo，把气象数据转化为可执行的农事提醒"
+    target_date: "2026-02-28"
+    compound_value: 70
+    status: "active"
+    milestones:
+      - milestone: "完成最小可用字段集定义"
+        target_date: "2026-01-20"
+        completed: false
+      - milestone: "阈值表规则化"
+        target_date: "2026-02-10"
+        completed: false
+
+  # ===== 第二人生线 =====
+  - goal: "线下门店AI降本提效商业验证"
+    category: "life"
+    description: "将AI提效能力迁移到离用户更近的商业场景，验证变现可能，形成可复制资产"
+    target_date: "2026-03-31"
+    compound_value: 85
+    status: "active"
+    context:
+      trigger: "AI红利窗口判断1-2年，需快速验证"
+      partner: "新消费/线下门店创业团队"
+      my_positioning: "AI产品经理，不写代码"
+      constraint: "低单价需形成复利资产才值得投入"
+    milestones:
+      - milestone: "完成《线下门店AI降本提效四件套》"
+        target_date: "2026-01-09"
+        completed: true
+      - milestone: "落地1个方向的MVP验证"
+        target_date: "2026-02-15"
+        completed: false
+      - milestone: "形成可复制的产品化方案"
+        target_date: "2026-03-31"
+        completed: false
+    four_directions:
+      - name: "微信小程序开发"
+        priority: 1
+        current_case: "公寓出租小程序迭代"
+      - name: "员工培训评估闭环"
+        priority: 2
+        approach: "SOP知识库+AI情景演练+测评"
+      - name: "营销内容创作"
+        priority: 3
+        approach: "飞书多维表格+n8n内容工厂"
+      - name: "私域运营裂变"
+        priority: 4
+        approach: "玩法SOP库+自动化流程"
+
+  - goal: "动画 AI 制片系统 Demo"
+    category: "life"
+    description: "搭建前期创作 Agent 协作网络，产出第一个可演示的定调 Demo"
+    target_date: "2026-06-30"
+    compound_value: 95
+    status: "active"
+    milestones:
+      - milestone: "完成前期创作流程调研"
+        target_date: "2026-01-31"
+        completed: false
+      - milestone: "设计 Agent 协作架构"
+        target_date: "2026-02-28"
+        completed: false
+      - milestone: "与刘导完成导演定调访谈"
+        target_date: "2026-03-15"
+        completed: false
+      - milestone: "产出第一个 Mood Trailer"
+        target_date: "2026-05-31"
+        completed: false
+        
+  - goal: "数字分身系统稳定运行"
+    category: "life"
+    description: "完成五层记忆架构和双引擎任务系统的搭建，实现每日自动产出"
+    target_date: "2026-02-28"
+    compound_value: 90
+    status: "active"
+    milestones:
+      - milestone: "MVP 上线运行"
+        target_date: "2026-01-10"
+        completed: false
+      - milestone: "完成 Seed Pack 导入和记忆系统初始化"
+        target_date: "2026-01-07"
+        completed: true
+      - milestone: "连续运行 30 天"
+        target_date: "2026-02-15"
+        completed: false
+
+# 当前聚焦
+current_focus:
+  - "数字关爱平台工具复用评估"
+  - "动画 AI 制片系统调研"
+  - "线下门店AI降本提效商业验证"
+
+# 本周目标
+weekly_goals:
+  week_of: "2026-01-06"
+  goals:
+    - goal: "完成记忆系统初始化"
+      status: "completed"
+    - goal: "社区慈善调研报告框架"
+      status: "completed"
+    - goal: "社区慈善报告 PPT 可视化改造"
+      status: "completed"
+    - goal: "公益平台后台工具梳理"
+      status: "in_progress"
+    - goal: "日报邮件系统稳定运行"
+      status: "in_progress"

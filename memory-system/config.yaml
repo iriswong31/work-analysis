@@ -1,0 +1,95 @@
+# Iris 数字分身记忆系统配置
+# 版本: 1.0.0
+
+system:
+  name: "Iris Memory System"
+  version: "1.0.0"
+  owner: "Iris"
+  created_at: "2026-01-07"
+
+# 存储配置
+storage:
+  base_path: "./memory-system"
+  format: "yaml"
+  encoding: "utf-8"
+
+# 同步配置
+sync:
+  # Git 配置
+  git:
+    enabled: true
+    auto_commit: true
+    commit_message_template: "[memory] {action}: {layer} - {summary}"
+    branch: "main"
+  
+  # GitHub Gist 配置
+  gist:
+    enabled: false  # 需要配置 token 后启用
+    gist_id: ""     # 首次同步后自动填充
+    description: "Iris Digital Twin Memory System"
+    public: false
+
+# 沉淀规则配置
+sedimentation:
+  # L0 → L1 沉淀条件
+  L0_to_L1:
+    trigger: "session_end"
+    min_dialogue_turns: 3
+    auto_summarize: true
+  
+  # L1 → L2 沉淀条件
+  L1_to_L2:
+    trigger: "pattern_detected"
+    min_occurrence: 3
+    review_cycle: "weekly"
+  
+  # L2 → L3 沉淀条件
+  L2_to_L3:
+    trigger: "stable_pattern"
+    review_cycle: "quarterly"
+    require_human_confirm: true
+  
+  # L3 → L4 沉淀条件
+  L3_to_L4:
+    trigger: "core_value_detected"
+    review_cycle: "yearly"
+    require_human_confirm: true
+    human_only: true
+
+# 清理规则
+cleanup:
+  L0:
+    max_age_days: 1
+    archive: false
+  L1:
+    max_age_days: 30
+    archive: true
+    archive_path: "./memory-system/archive/L1"
+
+# 复盘周期配置
+review:
+  daily:
+    enabled: true
+    time: "21:00"
+    template: "Meta/复盘记录/复盘模板.yaml"
+  weekly:
+    enabled: true
+    day: "sunday"
+    focus: ["L1", "L2"]
+  monthly:
+    enabled: true
+    day: 1
+    focus: ["L2", "L3"]
+  quarterly:
+    enabled: true
+    months: [3, 6, 9, 12]
+    focus: ["L3", "L4"]
+    require_deep_reflection: true
+
+# 调度器集成配置
+scheduler_integration:
+  enabled: true
+  scheduler_path: "../auto-agent-scheduler"
+  memory_export_path: "../auto-agent-scheduler/data/memory"
+  sync_on_update: true
+  layers_to_sync: ["L1", "L2", "L3", "L4"]

@@ -1,0 +1,21 @@
+{
+  "name": "memory-system-scripts",
+  "version": "1.0.0",
+  "description": "Iris 数字分身记忆系统脚本",
+  "type": "module",
+  "scripts": {
+    "init": "npx tsx init-from-seedpack.ts",
+    "sync": "npx tsx sync-gist.ts",
+    "update": "npx tsx update-memory.ts",
+    "commit": "npx tsx git-commit.ts"
+  },
+  "dependencies": {
+    "yaml": "^2.3.4",
+    "octokit": "^3.1.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.0"
+  }
+}

@@ -1,0 +1,80 @@
+# L2 行为层 (Procedural Memory)
+# 工作习惯、沟通风格、工具偏好、时间模式
+# 沉淀条件: 行为背后发现稳定思维模式 → 沉淀为认知模式 (L3)
+# 确认周期: 季度 review 时人工确认
+
+last_updated: "2026-01-07T09:00:00+08:00"
+
+# 工作习惯
+work_habits:
+  - habit: "喜欢先看大纲再写内容"
+    frequency: "always"
+    context: "写作、规划、设计"
+    observed_count: 10
+    first_observed: "2026-01-01"
+    examples:
+      - "写文章前先列提纲"
+      - "做项目前先画架构图"
+      
+  - habit: "偏好 10-20 分钟颗粒度的任务拆解"
+    frequency: "often"
+    context: "任务规划"
+    observed_count: 8
+    first_observed: "2026-01-01"
+    examples:
+      - "将大任务拆成可执行的小步骤"
+      - "每个任务控制在 20 分钟内"
+      
+  - habit: "产出必须可复用"
+    frequency: "always"
+    context: "工作产出"
+    observed_count: 15
+    first_observed: "2026-01-01"
+    examples:
+      - "写 SOP 而不是一次性笔记"
+      - "做模板而不是单次文档"
+
+# 沟通风格
+communication_style:
+  preferred_format: "结构化、分层次"
+  response_length: "moderate"
+  tone: "专业但不失温度"
+  examples:
+    - "先给结论，再给论据"
+    - "用列表和层级组织信息"
+    - "避免冗长的铺垫"
+
+# 工具偏好
+tool_preferences:
+  - category: "笔记"
+    preferred_tool: "Notion"
+    reason: "结构化、可协作、支持数据库"
+    
+  - category: "数据格式"
+    preferred_tool: "YAML"
+    reason: "人类可读、机器可解析"
+    
+  - category: "代码编辑"
+    preferred_tool: "VS Code + CodeBuddy"
+    reason: "AI 辅助编程"
+    
+  - category: "项目管理"
+    preferred_tool: "TAPD"
+    reason: "工作需要"
+
+# 时间模式
+time_patterns:
+  peak_hours:
+    - "09:00-11:00"
+    - "14:00-16:00"
+  task_duration_preference: "10-20 分钟一个任务块"
+  break_patterns: "每 45 分钟休息 5-10 分钟"
+  best_for_creative: "上午"
+  best_for_routine: "下午"
+
+# 行为模式观察队列（待确认沉淀到 L3）
+pending_patterns:
+  - pattern: "遇到复杂问题先画图"
+    observed_count: 3
+    status: "observing"
+    potential_cognition: "视觉化思维"

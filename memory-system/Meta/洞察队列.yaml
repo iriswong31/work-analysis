@@ -1,0 +1,28 @@
+last_updated: 2026-01-07T08:36:06.344Z
+pending_insights:
+  - insight: 3 个任务失败，需要分析原因并调整策略
+    source_layer: L1_情境层
+    target_layer: L3_认知层
+    observed_at: 2026-01-07T08:36:06.344Z
+    observation_count: 1
+    status: pending
+confirmed_insights: []
+rejected_insights: []
+sedimentation_rules:
+  L0_to_L1:
+    trigger: 会话结束
+    condition: 对话轮次 >= 3 或包含重要决策
+    action: 自动生成对话摘要
+  L1_to_L2:
+    trigger: 模式检测
+    condition: 同一行为模式出现 >= 3 次
+    action: 提示用户确认是否沉淀为习惯
+  L2_to_L3:
+    trigger: 稳定模式
+    condition: 行为背后发现稳定思维模式
+    action: 季度 review 时人工确认
+  L3_to_L4:
+    trigger: 核心价值发现
+    condition: 认知模式背后发现核心价值驱动
+    action: 年度 review 时人工深度反思
+    note: L4 只能人工修改

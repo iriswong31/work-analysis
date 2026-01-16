@@ -1,0 +1,55 @@
+# Intent 主动输入轨道 - 偏好与要求
+# 用户主动设定的工作偏好和沟通要求
+
+last_updated: "2026-01-07T09:00:00+08:00"
+
+# 工作与生活比例
+work_life_ratio:
+  work: 0.6
+  life: 0.4
+  note: "工作占 60%，第二人生探索占 40%"
+
+# 决策风格
+decision_style:
+  summary: "先给全景地图，再给第一步；小步快跑，10-20分钟颗粒度；产出必须可复用"
+  details:
+    - "先看全局，再看细节"
+    - "任务拆解到 10-20 分钟颗粒度"
+    - "每个产出都要考虑复用性"
+    - "用数据和证据支持决策"
+
+# 产出格式偏好
+output_formats:
+  preferred:
+    - "复盘日记"
+    - "公众号文章"
+    - "SOP/模板"
+    - "可视化页面"
+  avoid:
+    - "冗长的纯文字报告"
+    - "没有结构的流水账"
+
+# 沟通偏好
+communication_preferences:
+  response_style: "结构化、分层次、先结论后论据"
+  detail_level: "适中，关键信息完整但不冗余"
+  tone: "专业但不失温度"
+  format_preferences:
+    - "使用列表和层级组织信息"
+    - "重要信息加粗或高亮"
+    - "复杂概念配图解释"
+
+# AI 协作偏好
+ai_collaboration:
+  preferred_style: "主动思考，给出建议，不只是执行"
+  feedback_style: "直接指出问题，给出改进建议"
+  autonomy_level: "高自主性，但重大决策需确认"
+  
+# 任务处理偏好
+task_preferences:
+  priority_factors:
+    - "复利价值"
+    - "目标对齐度"
+    - "紧急程度"
+  batch_size: "每次专注 1-3 个任务"
+  review_frequency: "每日复盘"

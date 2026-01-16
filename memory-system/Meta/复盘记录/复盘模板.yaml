@@ -1,0 +1,62 @@
+# 复盘记录模板
+# 用于日/周/月/季度/年度复盘
+
+# ===== 使用说明 =====
+# 1. 复制此模板到 复盘记录/ 目录
+# 2. 重命名为 YYYY-MM-DD_周期.yaml（如 2026-01-07_daily.yaml）
+# 3. 填写复盘内容
+# 4. 提取洞察到 洞察队列.yaml
+
+# ===== 模板开始 =====
+
+date: ""  # 复盘日期，格式 YYYY-MM-DD
+period: ""  # 复盘周期：daily/weekly/monthly/quarterly/yearly
+created_at: ""  # 创建时间
+
+# 回顾：做了什么
+achievements:
+  - achievement: ""
+    category: ""  # work/life
+    impact: ""  # 影响/价值
+
+# 学习：学到了什么
+learnings:
+  - learning: ""
+    source: ""  # 来源（项目/对话/阅读等）
+    applicable_to: ""  # 可应用场景
+
+# 改进：可以做得更好的地方
+improvements:
+  - area: ""
+    current_state: ""
+    desired_state: ""
+    action_plan: ""
+
+# 洞察：发现的模式或规律
+insights:
+  - insight: ""
+    evidence: ""  # 支持证据
+    potential_layer: ""  # 可能沉淀到的层级（L1/L2/L3/L4）
+    action: ""  # 下一步行动
+
+# 下一步：接下来要做的事
+next_actions:
+  - action: ""
+    priority: ""  # high/medium/low
+    due_date: ""
+    related_goal: ""  # 关联的长期目标
+
+# 情绪与能量
+emotional_state:
+  overall_mood: ""
+  energy_level: ""  # high/medium/low
+  highlights: ""  # 开心的事
+  challenges: ""  # 挑战
+
+# 感恩
+gratitude:
+  - ""
+
+# 自由笔记
+free_notes: |
+  

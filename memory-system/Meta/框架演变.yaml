@@ -1,0 +1,71 @@
+# Meta 系统元数据 - 框架演变
+# 记忆系统的演变历史
+
+version: "1.0.0"
+created_at: "2026-01-07"
+last_updated: "2026-01-07T09:00:00+08:00"
+
+# 版本历史
+version_history:
+  - version: "1.0.0"
+    date: "2026-01-07"
+    changes:
+      - "初始化五层记忆系统"
+      - "基于晓辉博士记忆架构设计"
+      - "创建 Memory/Intent/Meta 三轨道结构"
+      - "从 Seed Pack 导入初始数据"
+    reason: "建立数字分身记忆系统基础设施"
+
+# 架构说明
+architecture:
+  name: "晓辉博士五层记忆系统"
+  source: "晓辉博士 AI 记忆系统教程"
+  structure:
+    Memory:
+      description: "被动沉淀轨道"
+      layers:
+        - "L0_状态层 (Working Memory)"
+        - "L1_情境层 (Episodic Memory)"
+        - "L2_行为层 (Procedural Memory)"
+        - "L3_认知层 (Semantic Memory)"
+        - "L4_核心层 (Core Identity)"
+    Intent:
+      description: "主动输入轨道"
+      files:
+        - "目标与规划.yaml"
+        - "偏好与要求.yaml"
+        - "约束与边界.yaml"
+    Meta:
+      description: "系统元数据"
+      files:
+        - "洞察队列.yaml"
+        - "框架演变.yaml"
+        - "复盘记录/"
+
+# 设计原则
+design_principles:
+  - principle: "分层沉淀"
+    description: "信息从 L0 逐层沉淀到 L4，越往上越稳定"
+    
+  - principle: "人机协作"
+    description: "L0-L3 可自动更新，L4 只能人工修改"
+    
+  - principle: "可迁移性"
+    description: "使用 YAML 文件存储，支持 Git 管理和跨设备迁移"
+    
+  - principle: "复利迭代"
+    description: "通过日常对话持续积累和优化记忆"
+
+# 待改进项
+improvements_backlog:
+  - item: "添加自动沉淀检测机制"
+    priority: "medium"
+    status: "planned"
+    
+  - item: "实现 Gist 云同步"
+    priority: "high"
+    status: "planned"
+    
+  - item: "添加记忆搜索功能"
+    priority: "low"
+    status: "backlog"

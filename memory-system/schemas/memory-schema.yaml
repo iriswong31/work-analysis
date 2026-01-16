@@ -1,0 +1,532 @@
+# 五层记忆系统 YAML Schema 定义
+# 基于晓辉博士的记忆系统理论
+# 版本: 1.0.0
+
+version: "1.0.0"
+description: "Iris 数字分身五层记忆系统 Schema"
+
+# ============================================================
+# L0 状态层 (Working Memory)
+# 当前对话消息、任务指令、临时数据
+# 沉淀条件: 会话结束时沉淀到 L1
+# ============================================================
+L0_状态层:
+  type: object
+  description: "当前工作状态快照，临时性数据"
+  properties:
+    last_updated:
+      type: string
+      format: datetime
+    current_session:
+      type: object
+      properties:
+        session_id:
+          type: string
+        started_at:
+          type: string
+          format: datetime
+        focus_task:
+          type: string
+          description: "当前聚焦的任务"
+        active_files:
+          type: array
+          items:
+            type: string
+          description: "正在处理的文件列表"
+        temp_notes:
+          type: array
+          items:
+            type: string
+          description: "临时笔记"
+    energy_state:
+      type: object
+      properties:
+        level:
+          type: string
+          enum: [high, medium, low]
+        mood:
+          type: string
+        blockers:
+          type: array
+          items:
+            type: string
+
+# ============================================================
+# L1 情境层 (Episodic Memory)
+# 近期对话摘要、项目状态、待办事项
+# 沉淀条件: 同一行为模式出现3次以上 → 沉淀为习惯 (L2)
+# 清理条件: 超过30天的情境记忆自动归档或删除
+# ============================================================
+L1_情境层:
+  type: object
+  description: "近期上下文记忆，按日期组织"
+  properties:
+    last_updated:
+      type: string
+      format: datetime
+    recent_dialogues:
+      type: array
+      description: "近期对话摘要（按日期）"
+      items:
+        type: object
+        properties:
+          date:
+            type: string
+            format: date
+          summary:
+            type: string
+          key_decisions:
+            type: array
+            items:
+              type: string
+          action_items:
+            type: array
+            items:
+              type: string
+    project_states:
+      type: array
+      description: "当前项目状态"
+      items:
+        type: object
+        properties:
+          project_id:
+            type: string
+          name:
+            type: string
+          status:
+            type: string
+            enum: [active, paused, completed, blocked]
+          last_activity:
+            type: string
+            format: datetime
+          next_action:
+            type: string
+    pending_items:
+      type: array
+      description: "待办事项和关注点"
+      items:
+        type: object
+        properties:
+          item:
+            type: string
+          priority:
+            type: string
+            enum: [high, medium, low]
+          due_date:
+            type: string
+            format: date
+          context:
+            type: string
+
+# ============================================================
+# L2 行为层 (Procedural Memory)
+# 工作习惯、沟通风格、工具偏好、时间模式
+# 沉淀条件: 行为背后发现稳定思维模式 → 沉淀为认知模式 (L3)
+# 确认周期: 季度 review 时人工确认
+# ============================================================
+L2_行为层:
+  type: object
+  description: "行为模式和习惯记录"
+  properties:
+    last_updated:
+      type: string
+      format: datetime
+    work_habits:
+      type: array
+      description: "工作习惯"
+      items:
+        type: object
+        properties:
+          habit:
+            type: string
+          frequency:
+            type: string
+          context:
+            type: string
+          observed_count:
+            type: integer
+          first_observed:
+            type: string
+            format: date
+          examples:
+            type: array
+            items:
+              type: string
+    communication_style:
+      type: object
+      description: "沟通风格"
+      properties:
+        preferred_format:
+          type: string
+        response_length:
+          type: string
+          enum: [concise, moderate, detailed]
+        tone:
+          type: string
+        examples:
+          type: array
+          items:
+            type: string
+    tool_preferences:
+      type: array
+      description: "工具偏好"
+      items:
+        type: object
+        properties:
+          category:
+            type: string
+          preferred_tool:
+            type: string
+          reason:
+            type: string
+    time_patterns:
+      type: object
+      description: "时间模式"
+      properties:
+        peak_hours:
+          type: array
+          items:
+            type: string
+        task_duration_preference:
+          type: string
+        break_patterns:
+          type: string
+
+# ============================================================
+# L3 认知层 (Semantic Memory)
+# 思维模式、决策框架、心智模型、知识结构
+# 沉淀条件: 认知模式背后发现核心价值驱动 → 沉淀为价值观 (L4)
+# 确认周期: 年度 review 时人工深度反思
+# ============================================================
+L3_认知层:
+  type: object
+  description: "思维模式和决策框架"
+  properties:
+    last_updated:
+      type: string
+      format: datetime
+    thinking_patterns:
+      type: array
+      description: "思维模式"
+      items:
+        type: object
+        properties:
+          pattern_name:
+            type: string
+          description:
+            type: string
+          application_scenarios:
+            type: array
+            items:
+              type: string
+          examples:
+            type: array
+            items:
+              type: string
+    decision_frameworks:
+      type: array
+      description: "决策框架"
+      items:
+        type: object
+        properties:
+          framework_name:
+            type: string
+          description:
+            type: string
+          steps:
+            type: array
+            items:
+              type: string
+          when_to_use:
+            type: string
+    mental_models:
+      type: array
+      description: "心智模型"
+      items:
+        type: object
+        properties:
+          model_name:
+            type: string
+          core_principle:
+            type: string
+          applications:
+            type: array
+            items:
+              type: string
+    knowledge_domains:
+      type: array
+      description: "擅长领域和学习方式"
+      items:
+        type: object
+        properties:
+          domain:
+            type: string
+          expertise_level:
+            type: string
+            enum: [expert, proficient, learning, interested]
+          key_insights:
+            type: array
+            items:
+              type: string
+          learning_approach:
+            type: string
+
+# ============================================================
+# L4 核心层 (Core Identity)
+# 核心价值观、人生信念、性格特征、决策原则
+# 特殊规则: 只能人工修改，AI不能自动更新
+# 修改需要记录原因和时间（演变历史）
+# 作为其他层级的"校准锚点"
+# ============================================================
+L4_核心层:
+  type: object
+  description: "核心身份认同，只能人工修改"
+  properties:
+    last_updated:
+      type: string
+      format: datetime
+    updated_by:
+      type: string
+      enum: [human, system_init]
+      description: "只能是 human 或初始化时的 system_init"
+    core_values:
+      type: array
+      description: "核心价值观"
+      items:
+        type: object
+        properties:
+          value:
+            type: string
+          description:
+            type: string
+          origin:
+            type: string
+            description: "这个价值观的来源/形成原因"
+    life_beliefs:
+      type: array
+      description: "人生信念"
+      items:
+        type: object
+        properties:
+          belief:
+            type: string
+          why:
+            type: string
+    personality_traits:
+      type: array
+      description: "性格特征"
+      items:
+        type: object
+        properties:
+          trait:
+            type: string
+          manifestation:
+            type: string
+            description: "具体表现"
+    decision_principles:
+      type: array
+      description: "决策原则"
+      items:
+        type: object
+        properties:
+          principle:
+            type: string
+          priority:
+            type: integer
+          examples:
+            type: array
+            items:
+              type: string
+    identity:
+      type: object
+      description: "身份认同"
+      properties:
+        name:
+          type: string
+        roles:
+          type: array
+          items:
+            type: string
+        mission_statement:
+          type: string
+    evolution_history:
+      type: array
+      description: "演变历史记录"
+      items:
+        type: object
+        properties:
+          date:
+            type: string
+            format: date
+          change:
+            type: string
+          reason:
+            type: string
+          changed_by:
+            type: string
+
+# ============================================================
+# Intent 主动输入轨道
+# 用户主动设定的目标、偏好、约束
+# ============================================================
+Intent:
+  目标与规划:
+    type: object
+    properties:
+      long_term_goals:
+        type: array
+        items:
+          type: object
+          properties:
+            goal:
+              type: string
+            category:
+              type: string
+              enum: [work, life]
+            target_date:
+              type: string
+              format: date
+            milestones:
+              type: array
+              items:
+                type: object
+                properties:
+                  milestone:
+                    type: string
+                  target_date:
+                    type: string
+                    format: date
+                  completed:
+                    type: boolean
+            compound_value:
+              type: integer
+              minimum: 0
+              maximum: 100
+      current_focus:
+        type: array
+        items:
+          type: string
+  
+  偏好与要求:
+    type: object
+    properties:
+      work_life_ratio:
+        type: object
+        properties:
+          work:
+            type: number
+          life:
+            type: number
+      decision_style:
+        type: string
+      output_formats:
+        type: array
+        items:
+          type: string
+      communication_preferences:
+        type: object
+        properties:
+          response_style:
+            type: string
+          detail_level:
+            type: string
+  
+  约束与边界:
+    type: object
+    properties:
+      hard_constraints:
+        type: array
+        description: "硬约束，不可违反"
+        items:
+          type: string
+      soft_constraints:
+        type: array
+        description: "软约束，可灵活处理"
+        items:
+          type: string
+      time_constraints:
+        type: object
+        properties:
+          available_hours_per_day:
+            type: number
+          preferred_work_times:
+            type: array
+            items:
+              type: string
+
+# ============================================================
+# Meta 系统元数据
+# 洞察队列、框架演变、复盘记录
+# ============================================================
+Meta:
+  洞察队列:
+    type: object
+    description: "待沉淀的洞察"
+    properties:
+      pending_insights:
+        type: array
+        items:
+          type: object
+          properties:
+            insight:
+              type: string
+            source_layer:
+              type: string
+              enum: [L0, L1, L2, L3]
+            target_layer:
+              type: string
+              enum: [L1, L2, L3, L4]
+            observed_at:
+              type: string
+              format: datetime
+            observation_count:
+              type: integer
+            status:
+              type: string
+              enum: [pending, confirmed, rejected]
+  
+  框架演变:
+    type: object
+    description: "记忆系统的演变记录"
+    properties:
+      version:
+        type: string
+      changes:
+        type: array
+        items:
+          type: object
+          properties:
+            date:
+              type: string
+              format: date
+            change:
+              type: string
+            reason:
+              type: string
+  
+  复盘模板:
+    type: object
+    description: "复盘记录模板"
+    properties:
+      date:
+        type: string
+        format: date
+      period:
+        type: string
+        enum: [daily, weekly, monthly, quarterly, yearly]
+      achievements:
+        type: array
+        items:
+          type: string
+      learnings:
+        type: array
+        items:
+          type: string
+      improvements:
+        type: array
+        items:
+          type: string
+      next_actions:
+        type: array
+        items:
+          type: string

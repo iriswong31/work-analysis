@@ -1,0 +1,121 @@
+# L3 认知层 (Semantic Memory)
+# 思维模式、决策框架、心智模型、知识结构
+# 沉淀条件: 认知模式背后发现核心价值驱动 → 沉淀为价值观 (L4)
+# 确认周期: 年度 review 时人工深度反思
+
+last_updated: "2026-01-07T09:00:00+08:00"
+
+# 思维模式
+thinking_patterns:
+  - pattern_name: "系统性思考"
+    description: "看问题先看全局，再看局部；先看结构，再看细节"
+    application_scenarios:
+      - "项目规划"
+      - "问题诊断"
+      - "架构设计"
+    examples:
+      - "做产品先画用户旅程图"
+      - "分析问题先列出所有相关因素"
+      
+  - pattern_name: "先原理后应用"
+    description: "理解底层原理后再学习具体应用，避免只会用不知道为什么"
+    application_scenarios:
+      - "学习新技术"
+      - "理解新概念"
+    examples:
+      - "学 AI 先理解 Transformer 原理"
+      - "用工具前先了解设计理念"
+      
+  - pattern_name: "复利视角"
+    description: "用复利思维评估机会，优先做能持续积累价值的事"
+    application_scenarios:
+      - "机会评估"
+      - "时间分配"
+      - "项目选择"
+    examples:
+      - "写可复用的模板而非一次性文档"
+      - "建系统而非做单点"
+
+# 决策框架
+decision_frameworks:
+  - framework_name: "重要紧急矩阵"
+    description: "按重要性和紧急性对任务分类，优先处理重要不紧急的事"
+    steps:
+      - "列出所有待办事项"
+      - "按重要性和紧急性打分"
+      - "优先处理重要不紧急的事"
+      - "委托或快速处理紧急不重要的事"
+    when_to_use: "日常任务优先级排序"
+    
+  - framework_name: "成本收益分析"
+    description: "量化投入和产出，选择 ROI 最高的选项"
+    steps:
+      - "列出所有选项"
+      - "估算每个选项的成本（时间、精力、金钱）"
+      - "估算每个选项的收益（短期、长期、复利）"
+      - "计算 ROI，选择最优"
+    when_to_use: "重大决策、资源分配"
+    
+  - framework_name: "小步快跑"
+    description: "快速验证假设，用最小成本获取最大学习"
+    steps:
+      - "明确要验证的假设"
+      - "设计最小可行实验"
+      - "快速执行并收集反馈"
+      - "根据反馈调整方向"
+    when_to_use: "新项目启动、不确定性高的场景"
+
+# 心智模型
+mental_models:
+  - model_name: "第一性原理"
+    core_principle: "回归问题本质，从基本事实出发推导，而非类比"
+    applications:
+      - "产品设计"
+      - "问题解决"
+      - "创新思考"
+      
+  - model_name: "增长思维"
+    core_principle: "能力可以通过努力和学习获得，失败是学习机会"
+    applications:
+      - "面对挑战"
+      - "接受反馈"
+      - "持续学习"
+      
+  - model_name: "复利效应"
+    core_principle: "持续的小改进会产生指数级的长期收益"
+    applications:
+      - "个人成长"
+      - "投资决策"
+      - "习惯养成"
+
+# 知识领域
+knowledge_domains:
+  - domain: "产品管理"
+    expertise_level: "expert"
+    key_insights:
+      - "产品是用户问题的解决方案"
+      - "数据驱动决策，但不唯数据论"
+      - "用户体验是竞争力"
+    learning_approach: "实践 + 复盘 + 系统学习"
+    
+  - domain: "AI 应用"
+    expertise_level: "proficient"
+    key_insights:
+      - "AI 是工具，关键是问题定义"
+      - "Prompt 工程是新的编程范式"
+      - "Agent 是 AI 应用的未来"
+    learning_approach: "边做边学，保持好奇"
+    
+  - domain: "动画制作"
+    expertise_level: "learning"
+    key_insights:
+      - "前期创作决定 80% 的成败"
+      - "导演意图是核心"
+    learning_approach: "与专业人士合作学习"
+
+# 认知模式观察队列（待确认沉淀到 L4）
+pending_cognitions:
+  - cognition: "追求真实和深度"
+    observed_in: ["沟通风格", "决策偏好"]
+    potential_value: "核心价值观"
+    status: "observing"
