@@ -1,26 +1,27 @@
-last_updated: 2026-01-17T01:00:11.925Z
+last_updated: 2026-01-22T01:00:07.976Z
 current_session:
-  session_id: session-20260109
-  started_at: 2026-01-09T09:00:00+08:00
-  focus_task: 公益平台后台工具梳理
+  session_id: session-20260117-weekend
+  started_at: 2026-01-17T09:00:00+08:00
+  focus_task: Life探索优先（90%）+ 工作线维护（10%）
   active_files:
-    - memory-system/Memory/L1_情境层.yaml
-    - auto-agent-scheduler/data/daily-reports/2026-01-09.md
+    - kunming-apartment-video-scripts-corrected.md
+    - universal-content-factory.html
+    - ai-animation-research-report/
   temp_notes:
     - 今日完成 0/4 任务
     - "效率: 100%"
 energy_state:
   level: low
   mood: 需要调整
-  blockers:
-    - 需要获取公益平台机构后台访问权限
+  blockers: []
 working_context:
-  current_project: 数字关爱平台
-  current_task: 公益平台后台工具梳理
+  current_project: Life探索 + 数字关爱平台
+  current_task: 周末Life探索（内容工厂+动画制片）
   pending_decisions:
-    - 哪些工具可直接复用？
-    - 哪些需要适配？
-    - 关爱平台机构的理想工作流是什么？
+    - 内容工厂：哪些脚本最有爆款潜力？
+    - 动画制片：哪些环节最适合AI介入？
+    - 通用平台：如何实现参数化行业切换？
   quick_notes:
-    - 曹帆痛点：机构后台难用
-    - 负责人提醒：带着未来思考做眼前的事
+    - 内容工厂已完成昆明长租公寓验证
+    - 动画制片复利价值95分（最高）
+    - 工作线维护：分分捐功能描述
