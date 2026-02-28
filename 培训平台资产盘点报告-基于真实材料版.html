@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>培训平台资产盘点报告（基于真实材料）</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .section {
+            margin-bottom: 50px;
+        }
+        
+        .section-title {
+            font-size: 2em;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #3498db;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: #e74c3c;
+        }
+        
+        .matrix-container {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            overflow-x: auto;
+        }
+        
+        .matrix-title {
+            text-align: center;
+            font-size: 1.5em;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        .matrix-table th {
+            background: #34495e;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        
+        .matrix-table th.corner {
+            background: #2c3e50;
+        }
+        
+        .matrix-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e9ecef;
+            vertical-align: top;
+            text-align: center;
+        }
+        
+        .platform-row {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #2c3e50;
+            text-align: left;
+            padding-left: 20px;
+        }
+        
+        .capability-yes {
+            color: #27ae60;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        
+        .capability-no {
+            color: #e74c3c;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        
+        .capability-partial {
+            color: #f39c12;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        
+        .capability-detail {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 8px;
+            text-align: left;
+            line-height: 1.4;
+        }
+        
+        .legend {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        
+        .legend h4 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+        
+        .legend-item {
+            display: inline-block;
+            margin-right: 20px;
+            margin-bottom: 5px;
+        }
+        
+        .legend-symbol {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+        
+        .content-asset-box {
+            background: #e8f4f8;
+            border-left: 4px solid #3498db;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .asset-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .reuse-analysis {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+        
+        .reuse-title {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        
+        ul, ol {
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                border-radius: 15px;
+            }
+            
+            .header {
+                padding: 30px 20px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .matrix-container {
+                padding: 15px;
+            }
+            
+            .matrix-table th,
+            .matrix-table td {
+                padding: 10px;
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>培训平台资产盘点报告</h1>
+            <p>基于真实材料的产品能力与内容资产分析</p>
+        </div>
+        
+        <div class="content">
+            <!-- 第一板块：产品能力矩阵 -->
+            <div class="section">
+                <h2 class="section-title">一、产品能力矩阵（基于真实功能）</h2>
+                
+                <div class="legend">
+                    <h4>符号说明</h4>
+                    <div class="legend-item">
+                        <span class="legend-symbol capability-yes">✓</span>有此功能
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-symbol capability-no">✗</span>无此功能
+                    </div>
+                </div>
+                
+                <!-- 用户管理体系 -->
+                <div class="matrix-container">
+                    <div class="matrix-title">1. 用户管理体系能力矩阵</div>
+                    
+                    <table class="matrix-table">
+                        <thead>
+                            <tr>
+                                <th class="corner">平台 \ 功能</th>
+                                <th>用户注册登录</th>
+                                <th>身份管理</th>
+                                <th>权限管理</th>
+                                <th>组织架构</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="platform-row">共富学堂</td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-detail">支持用户注册登录</div>
+                                </td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-detail">支持多角色身份管理</div>
+                                </td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-detail">完整权限控制体系</div>
+                                </td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-detail">三级组织架构管理</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="platform-row">一起学（乐享版）</td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-detail">基于乐享平台登录</div>
+                                </td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-detail">学员身份管理</div>
+                                </td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-detail">基础权限控制</div>
+                                </td>
+                                <td>
+                                    <span class="capability-no">✗</span>
+                                    <div class="capability-detail">无组织架构管理</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="platform-row">一起学（自研版）</td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-detail">手机号登录、微信扫码登录</div>
+                                </td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-detail">机构身份、专家身份、成员身份申请</div>
+                                </td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-detail">超级管理员权限转移</div>
+                                </td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-detail">机构管理（机构审核、机构列表、添加机构）</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="platform-row">耕耘者学习平台</td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-detail">微信小程序登录</div>
+                                </td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-detail">耕耘者身份认证功能</div>
+                                </td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-detail">多角色权限矩阵（工作组、机构、政府代表等）</div>
+                                </td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-detail">三端分离：运营后台、培训机构后台、C端学习平台</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- 学习过程体系 -->
+                <div class="matrix-container">
+                    <div class="matrix-title">2. 学习过程体系能力矩阵</div>
+                    
+                    <table class="matrix-table">
+                        <thead>
+                            <tr>
+                                <th class="corner">平台 \ 功能</th>
+                                <th>在线学习</th>
+                                <th>班级管理</th>
+                                <th>进度跟踪</th>
+                                <th>互动功能</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="platform-row">共富学堂</td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-detail">完整在线学习功能</div>
+                                </td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-detail">班级管理功能</div>
+                                </td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-detail">学习进度跟踪</div>
+                                </td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-detail">支持直播互动</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="platform-row">一起学（乐享版）</td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-detail">视频课程学习</div>
+                                </td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-detail">学习班级概念</div>
+                                </td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-detail">学习记录跟踪</div>
+                                </td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-detail">社区讨论功能</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="platform-row">一起学（自研版）</td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-detail">小程序学习功能</div>
+                                </td>
+                                <td>
+                                    <span class="capability-no">✗</span>
+                                    <div class="capability-detail">主要面向活动管理，无班级概念</div>
+                                </td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-detail">个人活动记录</div>
+                                </td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-detail">活动报名、问卷互动</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="platform-row">耕耘者学习平台</td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-detail">视频倍速播放功能，首次观看无法拖动进度条</div>
+                                </td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-detail">班级页管理：查询培训信息、线上课程、学习计划、作业、签到</div>
+                                </td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-detail">学习进度跟踪，班主任可查看学员各项进度</div>
+                                </td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-detail">写日记功能，实时记录学习心得和治理经验</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- 考试评估体系 -->
+                <div class="matrix-container">
+                    <div class="matrix-title">3. 考试评估体系能力矩阵</div>
+                    
+                    <table class="matrix-table">
+                        <thead>
+                            <tr>
+                                <th class="corner">平台 \ 功能</th>
+                                <th>在线考试</th>
+                                <th>题库管理</th>
+                                <th>证书颁发</th>
+                                <th>问卷调研</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="platform-row">共富学堂</td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-detail">在线考试功能</div>
+                                </td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-detail">题库管理系统</div>
+                                </td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-detail">自动证书颁发</div>
+                                </td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-detail">问卷调研功能</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="platform-row">一起学（乐享版）</td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-detail">基础测验功能</div>
+                                </td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-detail">基础题库功能</div>
+                                </td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-detail">学习证明</div>
+                                </td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-detail">基础问卷功能</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="platform-row">一起学（自研版）</td>
+                                <td>
+                                    <span class="capability-no">✗</span>
+                                    <div class="capability-detail">无在线考试功能</div>
+                                </td>
+                                <td>
+                                    <span class="capability-no">✗</span>
+                                    <div class="capability-detail">无题库管理</div>
+                                </td>
+                                <td>
+                                    <span class="capability-no">✗</span>
+                                    <div class="capability-detail">无证书系统</div>
+                                </td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-detail">问卷管理（问卷创建、问卷发放）</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="platform-row">耕耘者学习平台</td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-detail">线上考试题库/答案配置和管理，题型主要是选择题</div>
+                                </td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-detail">考试题库管理，记录最高分</div>
+                                </td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-detail">电子培训证明体系（发证、查证、展示）</div>
+                                </td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-detail">问卷管理，支持多场景问卷，比如讲师评价、学员评价、机构评价等</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- 活动管理体系 -->
+                <div class="matrix-container">
+                    <div class="matrix-title">4. 活动管理体系能力矩阵</div>
+                    
+                    <table class="matrix-table">
+                        <thead>
+                            <tr>
+                                <th class="corner">平台 \ 功能</th>
+                                <th>活动创建</th>
+                                <th>报名管理</th>
+                                <th>签到核销</th>
+                                <th>现场管理</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="platform-row">共富学堂</td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-detail">培训活动创建</div>
+                                </td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-detail">报名管理功能</div>
+                                </td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-detail">签到功能</div>
+                                </td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-detail">现场培训管理</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="platform-row">一起学（乐享版）</td>
+                                <td>
+                                    <span class="capability-no">✗</span>
+                                    <div class="capability-detail">无活动管理功能</div>
+                                </td>
+                                <td>
+                                    <span class="capability-no">✗</span>
+                                    <div class="capability-detail">无报名管理</div>
+                                </td>
+                                <td>
+                                    <span class="capability-no">✗</span>
+                                    <div class="capability-detail">无签到功能</div>
+                                </td>
+                                <td>
+                                    <span class="capability-no">✗</span>
+                                    <div class="capability-detail">无现场管理</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="platform-row">一起学（自研版）</td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-detail">活动管理（单场活动、系列活动、大型会议、峰会）</div>
+                                </td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-detail">活动报名系统</div>
+                                </td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-detail">小程序入场核销</div>
+                                </td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-detail">嘉宾管理、海报与邀请函管理</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="platform-row">耕耘者学习平台</td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-detail">开班申请（多逻辑、审批流）</div>
+                                </td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-detail">招生活动页配置、报名表单（多逻辑）</div>
+                                </td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-detail">二维码签到（近场签到，无法远程扫码）</div>
+                                </td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-detail">课堂管理工具包（积分、考勤、异常上报、拍照记录）</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- 第二板块：内容资产盘点 -->
+            <div class="section">
+                <h2 class="section-title">二、内容资产盘点与复用分析</h2>
+                
+                <div class="content-asset-box">
+                    <div class="asset-title">一起学（乐享版）内容资产</div>
+                    <ul>
+                        <li><strong>课程数量：</strong>13门专业课程</li>
+                        <li><strong>总时长：</strong>5576.5分钟</li>
+                        <li><strong>核心领域：</strong>互联网筹款、组织管理、传播能力、公众沟通力、组织公信力等</li>
+                        <li><strong>复用价值：</strong>通用管理能力培训，可直接用于深根者项目的管理模块</li>
+                    </ul>
+                </div>
+                
+                <div class="content-asset-box">
+                    <div class="asset-title">耕耘者学习平台内容资产</div>
+                    <ul>
+                        <li><strong>课程数量：</strong>1568门课程</li>
+                        <li><strong>更新周期：</strong>持续2年更新（2021年12月-2023年7月）</li>
+                        <li><strong>核心领域：</strong>乡村治理、农业技术、数字化工具（腾讯文档、腾讯会议、企业微信）、产业发展</li>
+                        <li><strong>复用价值：</strong>与深根者项目目标高度契合，基层治理内容可直接使用</li>
+                    </ul>
+                </div>
+                
+                <div class="content-asset-box">
+                    <div class="asset-title">一起学（自研版）管理能力</div>
+                    <ul>
+                        <li><strong>活动管理：</strong>完整的线下培训活动组织管理能力</li>
+                        <li><strong>问卷系统：</strong>培训效果评估、数据收集工具</li>
+                        <li><strong>多端展示：</strong>官网、小程序同步展示能力</li>
+                        <li><strong>复用价值：</strong>线下活动组织经验和问卷调研工具可复用</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- 第三板块：深根者复用建议 -->
+            <div class="section">
+                <h2 class="section-title">三、深根者项目复用建议</h2>
+                
+                <div class="reuse-analysis">
+                    <div class="reuse-title">基于真实功能的复用分析</div>
+                    
+                    <h4>🎯 共富学堂作为主平台的优势：</h4>
+                    <ul>
+                        <li>完整的用户管理体系：三级组织架构、多角色权限控制</li>
+                        <li>完整的学习过程管理：在线学习、班级管理、进度跟踪、直播互动</li>
+                        <li>完整的考试评估体系：在线考试、题库管理、自动证书颁发</li>
+                        <li>深根者专属后台已创建，3月份可正式启动</li>
+                    </ul>
+                    
+                    <h4>📚 内容资产补充策略：</h4>
+                    <ul>
+                        <li><strong>耕耘者平台内容迁移：</strong>1568门基层治理课程，与深根者目标完全契合</li>
+                        <li><strong>一起学（乐享版）专家资源：</strong>13门管理课程，补充通用能力培训</li>
+                        <li><strong>数字化工具培训：</strong>腾讯文档、会议、企业微信培训内容可直接复用</li>
+                    </ul>
+                    
+                    <h4>🔧 功能能力补强：</h4>
+                    <ul>
+                        <li><strong>线下活动管理：</strong>借鉴一起学（自研版）和耕耘者平台的活动管理经验</li>
+                        <li><strong>问卷调研功能：</strong>集成一起学（自研版）的问卷管理系统</li>
+                        <li><strong>现场管理工具：</strong>参考耕耘者平台的课堂管理工具包</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- 结论 -->
+            <div class="reuse-analysis">
+                <div class="reuse-title">📋 核心结论</div>
+                <p>
+                    <strong>基于真实材料分析：</strong><br>
+                    1. 共富学堂具备完整的培训平台能力，可直接承载深根者项目<br>
+                    2. 耕耘者平台的1568门基层治理课程与深根者目标高度契合，具有极高复用价值<br>
+                    3. 一起学（自研版）的活动管理和问卷功能可补强共富学堂的线下管理能力<br>
+                    4. 建议以共富学堂为主平台，通过内容迁移和功能补强实现资源整合
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>家庭保险规划师</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#F0FDFA',
+                            100: '#CCFBF1',
+                            200: '#99F6E4',
+                            300: '#5EEAD4',
+                            400: '#2DD4BF',
+                            500: '#14B8A6',
+                            600: '#0D9488',
+                            700: '#0F766E',
+                            800: '#115E59',
+                            900: '#134E4A',
+                        },
+                        secondary: {
+                            50: '#F8FAFC',
+                            100: '#F1F5F9',
+                            200: '#E2E8F0',
+                            300: '#CBD5E1',
+                            400: '#94A3B8',
+                            500: '#64748B',
+                            600: '#475569',
+                            700: '#334155',
+                            800: '#1E293B',
+                            900: '#0F172A',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .animate-fade-in { animation: fadeIn 0.5s ease-in-out; }
+        .animate-slide-up { animation: slideUp 0.3s ease-out; }
+        .animate-bounce-in { animation: bounceIn 0.6s ease-out; }
+        
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            0% { transform: translateY(20px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+        
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-primary-50 to-secondary-50 min-h-screen">
+    <div class="min-h-screen flex flex-col items-center justify-center p-4">
+        <div class="w-full max-w-md mx-auto space-y-8 animate-fade-in">
+            <!-- Logo and Title -->
+            <div class="text-center space-y-4">
+                <div class="flex justify-center">
+                    <div class="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center shadow-lg animate-bounce-in">
+                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                        </svg>
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <h1 class="text-2xl font-bold text-secondary-900">
+                        家庭保险规划师
+                    </h1>
+                    <p class="text-secondary-600 text-sm leading-relaxed">
+                        让保险规划更简单，为您的家庭量身定制专业保障方案
+                    </p>
+                </div>
+            </div>
+
+            <!-- Feature Cards -->
+            <div class="space-y-3">
+                <div class="bg-white border-0 shadow-sm hover:shadow-md transition-all duration-300 animate-slide-up rounded-lg">
+                    <div class="p-4">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 bg-primary-100 rounded-lg flex items-center justify-center">
+                                <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"></path>
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-medium text-secondary-900">科学计算</h3>
+                                <p class="text-xs text-secondary-600">基于双十原则和生命价值法</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white border-0 shadow-sm hover:shadow-md transition-all duration-300 animate-slide-up rounded-lg" style="animation-delay: 0.1s">
+                    <div class="p-4">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 bg-primary-100 rounded-lg flex items-center justify-center">
+                                <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-medium text-secondary-900">智能诊断</h3>
+                                <p class="text-xs text-secondary-600">AI识别保单，分析保障缺口</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="space-y-3">
+                <button onclick="startPlanning()" class="w-full h-12 bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white font-medium rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 animate-slide-up" style="animation-delay: 0.2s">
+                    <span class="flex items-center justify-center space-x-2">
+                        <span>开始规划</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </span>
+                </button>
+
+                <button onclick="policyDiagnosis()" class="w-full h-12 border border-primary-200 text-primary-700 hover:bg-primary-50 font-medium rounded-xl transition-all duration-300 animate-slide-up" style="animation-delay: 0.3s">
+                    保单诊断
+                </button>
+            </div>
+
+            <!-- Trust Indicators -->
+            <div class="text-center space-y-2 animate-slide-up" style="animation-delay: 0.4s">
+                <div class="flex justify-center space-x-4 text-xs text-secondary-500">
+                    <span class="flex items-center space-x-1">
+                        <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                        <span>数据安全</span>
+                    </span>
+                    <span class="flex items-center space-x-1">
+                        <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                        <span>专业算法</span>
+                    </span>
+                    <span class="flex items-center space-x-1">
+                        <div class="w-2 h-2 bg-purple-500 rounded-full"></div>
+                        <span>免费使用</span>
+                    </span>
+                </div>
+                <p class="text-xs text-secondary-400">
+                    所有数据仅在本地存储，绝不上传服务器
+                </p>
+            </div>
+
+            <!-- Demo Notice -->
+            <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 animate-slide-up" style="animation-delay: 0.5s">
+                <div class="flex items-start space-x-3">
+                    <svg class="w-5 h-5 text-yellow-600 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <div class="flex-1">
+                        <h4 class="text-sm font-medium text-yellow-800">演示版本</h4>
+                        <p class="text-xs text-yellow-700 mt-1">
+                            这是家庭保险规划师的演示版本，展示了完整的产品功能和交互流程。
+                            包含科学的保险预算计算、智能保单诊断、产品推荐等核心功能。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function startPlanning() {
+            alert('开始规划功能演示\n\n本功能将引导您完成：\n1. 家庭成员信息录入\n2. 收入和健康状况评估\n3. 基于双十原则的预算计算\n4. 四大险种配置建议\n5. 个性化保险方案生成\n\n完整版本支持分步表单、实时计算、可视化图表等功能。');
+        }
+
+        function policyDiagnosis() {
+            alert('保单诊断功能演示\n\n本功能将提供：\n1. AI智能识别保单信息\n2. 保障缺口分析\n3. 专业评分和建议\n4. 优化方案推荐\n\n完整版本支持图片上传、OCR识别、智能分析等功能。');
+        }
+
+        // 添加一些交互效果
+        document.addEventListener('DOMContentLoaded', function() {
+            // 为按钮添加点击效果
+            const buttons = document.querySelectorAll('button');
+            buttons.forEach(button => {
+                button.addEventListener('click', function() {
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 150);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

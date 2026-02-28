@@ -1,0 +1,135 @@
+{
+  "industry": "长租公寓",
+  "analysis_date": "2026-01-16",
+  "sample_size": 127,
+  "data_sources": ["抖音", "小红书", "视频号"],
+  
+  "trending_keywords": [
+    {"keyword": "智能家居", "frequency": 89, "growth": "+23%"},
+    {"keyword": "独立卫浴", "frequency": 76, "growth": "+18%"},
+    {"keyword": "地铁沿线", "frequency": 72, "growth": "+15%"},
+    {"keyword": "拎包入住", "frequency": 68, "growth": "+12%"},
+    {"keyword": "年轻白领", "frequency": 65, "growth": "+20%"},
+    {"keyword": "性价比", "frequency": 61, "growth": "+8%"},
+    {"keyword": "安全社区", "frequency": 58, "growth": "+25%"},
+    {"keyword": "便民服务", "frequency": 52, "growth": "+10%"},
+    {"keyword": "北漂女孩", "frequency": 48, "growth": "+35%"},
+    {"keyword": "租房改造", "frequency": 45, "growth": "+28%"}
+  ],
+  
+  "content_types": [
+    {"type": "房源带看", "percentage": 35, "avg_engagement": 8.2, "conversion_rate": 12.3},
+    {"type": "生活方式", "percentage": 28, "avg_engagement": 9.1, "conversion_rate": 15.7},
+    {"type": "剧情故事", "percentage": 20, "avg_engagement": 8.8, "conversion_rate": 18.2},
+    {"type": "测评对比", "percentage": 17, "avg_engagement": 7.9, "conversion_rate": 10.5}
+  ],
+  
+  "top_performing_concepts": [
+    {
+      "title": "90后北漂女孩的租房改造日记",
+      "type": "剧情类",
+      "duration": "60秒",
+      "platforms": ["抖音", "小红书"],
+      "hotness_score": 9.2,
+      "key_elements": ["真实租客视角", "改造过程", "情感共鸣", "智能家居展示"],
+      "target_audience": "22-28岁女性白领",
+      "conversion_rate": "18.5%"
+    },
+    {
+      "title": "地铁3分钟到家是什么体验",
+      "type": "测评类", 
+      "duration": "45秒",
+      "platforms": ["抖音"],
+      "hotness_score": 8.8,
+      "key_elements": ["实地测试", "数据对比", "通勤便利性", "时间成本"],
+      "target_audience": "25-35岁上班族",
+      "conversion_rate": "15.2%"
+    },
+    {
+      "title": "月薪8K在一线城市的精致租房生活",
+      "type": "生活方式",
+      "duration": "90秒", 
+      "platforms": ["小红书"],
+      "hotness_score": 8.5,
+      "key_elements": ["预算规划", "生活品质", "性价比展示", "精致生活"],
+      "target_audience": "23-30岁年轻白领",
+      "conversion_rate": "16.8%"
+    },
+    {
+      "title": "公寓里的社交故事",
+      "type": "社交类",
+      "duration": "75秒",
+      "platforms": ["抖音", "视频号"],
+      "hotness_score": 8.1,
+      "key_elements": ["邻里互动", "社区文化", "公共空间", "温馨氛围"],
+      "target_audience": "20-28岁独居青年",
+      "conversion_rate": "14.3%"
+    }
+  ],
+  
+  "content_formula": {
+    "opening_3s": {
+      "elements": ["痛点共鸣", "身份标签"],
+      "examples": ["90后北漂", "月薪8K白领", "刚毕业找房"],
+      "success_rate": "85%"
+    },
+    "middle_section": {
+      "elements": ["产品亮点", "真实场景", "生活细节"],
+      "key_features": ["智能家居", "独立卫浴", "地理位置", "性价比"],
+      "duration": "30-50秒"
+    },
+    "emotional_connection": {
+      "elements": ["归属感营造", "生活品质提升", "社交需求满足"],
+      "techniques": ["真人出镜", "生活化场景", "情感故事"]
+    },
+    "call_to_action": {
+      "elements": ["行动召唤", "优惠信息"],
+      "examples": ["私信看房", "限时优惠", "首月免押金"],
+      "conversion_boost": "+23%"
+    }
+  },
+  
+  "platform_insights": {
+    "抖音": {
+      "optimal_duration": "45-60秒",
+      "best_posting_time": "19:00-21:00",
+      "key_features": ["真人出镜", "快节奏剪辑", "音乐配合"],
+      "engagement_rate": "8.3%"
+    },
+    "小红书": {
+      "optimal_duration": "60-90秒", 
+      "best_posting_time": "20:00-22:00",
+      "key_features": ["精美画面", "生活方式", "详细介绍"],
+      "engagement_rate": "12.1%"
+    },
+    "视频号": {
+      "optimal_duration": "30-45秒",
+      "best_posting_time": "12:00-14:00, 18:00-20:00", 
+      "key_features": ["简洁明了", "信息密度高", "社交传播"],
+      "engagement_rate": "6.7%"
+    }
+  },
+  
+  "competitor_analysis": {
+    "top_accounts": [
+      {"name": "巧克力公寓", "followers": "125万", "avg_views": "50万", "specialty": "温情剧情"},
+      {"name": "城市青年公寓", "followers": "89万", "avg_views": "35万", "specialty": "生活方式"},
+      {"name": "租房小助手", "followers": "67万", "avg_views": "28万", "specialty": "实用攻略"}
+    ],
+    "success_factors": [
+      "真人出镜率 > 85%",
+      "地理位置强调",
+      "性价比突出", 
+      "生活方式展示",
+      "情感共鸣营造"
+    ]
+  },
+  
+  "optimization_suggestions": [
+    "增加真实租客证言",
+    "强化地理位置优势展示",
+    "突出智能家居等差异化卖点",
+    "营造社区归属感",
+    "优化投放时间和平台选择"
+  ]
+}

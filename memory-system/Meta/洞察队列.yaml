@@ -1,4 +1,4 @@
-last_updated: 2026-01-17T01:00:12.067Z
+last_updated: 2026-01-22T01:00:08.133Z
 pending_insights:
   - insight: 3 个任务失败，需要分析原因并调整策略
     source_layer: L1_情境层
@@ -9,8 +9,8 @@ pending_insights:
   - insight: 4 个任务失败，需要分析原因并调整策略
     source_layer: L1_情境层
     target_layer: L3_认知层
-    observed_at: 2026-01-17T01:00:12.067Z
-    observation_count: 2
+    observed_at: 2026-01-22T01:00:08.133Z
+    observation_count: 3
     status: pending
 confirmed_insights: []
 rejected_insights: []

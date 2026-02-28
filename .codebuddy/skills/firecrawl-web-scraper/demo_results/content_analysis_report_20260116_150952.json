@@ -1,0 +1,93 @@
+{
+  "analysis_summary": {
+    "total_content": 4,
+    "average_hotness": 5.0,
+    "content_types": {
+      "article": 4
+    },
+    "sentiment_distribution": {
+      "neutral": 4
+    }
+  },
+  "trending_analysis": {
+    "trending_keywords": [],
+    "trending_topics": [],
+    "high_engagement_content": [],
+    "content_type_distribution": {
+      "article": 4
+    },
+    "sentiment_distribution": {
+      "neutral": 4
+    },
+    "platform_analysis": {
+      "其他": 4
+    }
+  },
+  "content_ideas": [],
+  "detailed_analyses": [
+    {
+      "url": "https://httpbin.org/html",
+      "title": "",
+      "content_type": "article",
+      "keywords": [],
+      "topics": [],
+      "sentiment": "neutral",
+      "hotness_score": 5.0,
+      "engagement": {
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "views": 0
+      },
+      "summary": ""
+    },
+    {
+      "url": "https://example.com",
+      "title": "",
+      "content_type": "article",
+      "keywords": [],
+      "topics": [],
+      "sentiment": "neutral",
+      "hotness_score": 5.0,
+      "engagement": {
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "views": 0
+      },
+      "summary": ""
+    },
+    {
+      "url": "https://httpbin.org/json",
+      "title": "",
+      "content_type": "article",
+      "keywords": [],
+      "topics": [],
+      "sentiment": "neutral",
+      "hotness_score": 5.0,
+      "engagement": {
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "views": 0
+      },
+      "summary": ""
+    },
+    {
+      "url": "https://jsonplaceholder.typicode.com/posts/1",
+      "title": "",
+      "content_type": "article",
+      "keywords": [],
+      "topics": [],
+      "sentiment": "neutral",
+      "hotness_score": 5.0,
+      "engagement": {
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "views": 0
+      },
+      "summary": ""
+    }
+  ]
+}

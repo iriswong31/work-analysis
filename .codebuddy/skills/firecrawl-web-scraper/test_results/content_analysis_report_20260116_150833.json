@@ -1,0 +1,112 @@
+{
+  "analysis_summary": {
+    "total_content": 5,
+    "average_hotness": 5.1,
+    "content_types": {
+      "article": 4,
+      "video": 1
+    },
+    "sentiment_distribution": {
+      "neutral": 5
+    }
+  },
+  "trending_analysis": {
+    "trending_keywords": [],
+    "trending_topics": [],
+    "high_engagement_content": [],
+    "content_type_distribution": {
+      "article": 4,
+      "video": 1
+    },
+    "sentiment_distribution": {
+      "neutral": 5
+    },
+    "platform_analysis": {
+      "其他": 4,
+      "微信视频号": 1
+    }
+  },
+  "content_ideas": [],
+  "detailed_analyses": [
+    {
+      "url": "https://36kr.com/",
+      "title": "",
+      "content_type": "article",
+      "keywords": [],
+      "topics": [],
+      "sentiment": "neutral",
+      "hotness_score": 5.0,
+      "engagement": {
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "views": 0
+      },
+      "summary": ""
+    },
+    {
+      "url": "https://www.huxiu.com/",
+      "title": "",
+      "content_type": "article",
+      "keywords": [],
+      "topics": [],
+      "sentiment": "neutral",
+      "hotness_score": 5.0,
+      "engagement": {
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "views": 0
+      },
+      "summary": ""
+    },
+    {
+      "url": "https://www.tmtpost.com/",
+      "title": "",
+      "content_type": "article",
+      "keywords": [],
+      "topics": [],
+      "sentiment": "neutral",
+      "hotness_score": 5.0,
+      "engagement": {
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "views": 0
+      },
+      "summary": ""
+    },
+    {
+      "url": "https://mp.weixin.qq.com/",
+      "title": "",
+      "content_type": "video",
+      "keywords": [],
+      "topics": [],
+      "sentiment": "neutral",
+      "hotness_score": 5.5,
+      "engagement": {
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "views": 0
+      },
+      "summary": ""
+    },
+    {
+      "url": "https://www.zhihu.com/hot",
+      "title": "",
+      "content_type": "article",
+      "keywords": [],
+      "topics": [],
+      "sentiment": "neutral",
+      "hotness_score": 5.0,
+      "engagement": {
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "views": 0
+      },
+      "summary": ""
+    }
+  ]
+}

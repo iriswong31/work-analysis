@@ -1,0 +1,259 @@
+/* =========================================
+   Iris Daily Reminder - 暖棕沙丘主题
+   ========================================= */
+
+/* CSS 变量 */
+:root {
+  --cb-color-primary-dark: #6D4C33;
+  --cb-color-primary-medium: #8F6E53;
+  --cb-color-accent-coral: #D49A85;
+  --cb-color-accent-green: #A8C298;
+  --cb-bg-card: rgba(255, 250, 245, 0.85);
+  --cb-text-on-primary: #FFFFFF;
+  --cb-radius-lg: 24px;
+  --cb-radius-md: 16px;
+  --cb-shadow-soft: 0 8px 24px rgba(109, 76, 51, 0.08);
+  --cb-border-subtle: 1px solid rgba(143, 110, 83, 0.1);
+  --cb-font-family: 'Nunito', 'Quicksand', system-ui, -apple-system, sans-serif;
+}
+
+/* 提醒页面容器 */
+.reminder-page {
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: linear-gradient(180deg, #FFF3E6 0%, #FFDECC 30%, #F5C9A8 50%, #E8B896 70%, #DBA880 100%);
+  background-attachment: fixed;
+  font-family: var(--cb-font-family);
+  color: var(--cb-color-primary-dark);
+  position: relative;
+  overflow-x: hidden;
+  touch-action: pan-y;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* 背景图层 */
+.reminder-page::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url('/reminder/bg.png');
+  background-size: 100% 100%;
+  background-position: center center;
+  background-repeat: no-repeat;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.reminder-page > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* 磨砂卡片 */
+.cb-glass-card {
+  background: var(--cb-bg-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: var(--cb-radius-lg);
+  border: var(--cb-border-subtle);
+  box-shadow: var(--cb-shadow-soft);
+}
+
+/* 任务卡片 */
+.cb-task-card {
+  background: var(--cb-bg-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: var(--cb-radius-lg);
+  border: var(--cb-border-subtle);
+  box-shadow: var(--cb-shadow-soft);
+  padding: 16px 20px;
+  transition: all 0.3s ease;
+}
+
+.cb-task-card:hover {
+  box-shadow: 0 12px 32px rgba(109, 76, 51, 0.12);
+  transform: translateY(-1px);
+}
+
+.cb-task-card.is-next {
+  box-shadow: 0 8px 28px rgba(212, 154, 133, 0.25);
+  border: 1.5px solid rgba(212, 154, 133, 0.3);
+}
+
+.cb-task-card.is-done {
+  opacity: 0.55;
+}
+
+/* 标签 */
+.cb-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: var(--cb-radius-md);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.cb-tag--coral {
+  background-color: var(--cb-color-accent-coral);
+  color: var(--cb-text-on-primary);
+}
+
+.cb-tag--green {
+  background-color: var(--cb-color-accent-green);
+  color: var(--cb-text-on-primary);
+}
+
+.cb-tag--outline {
+  background: rgba(109, 76, 51, 0.08);
+  color: var(--cb-color-primary-medium);
+}
+
+/* 底部导航 */
+.cb-bottom-nav {
+  background: var(--cb-bg-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: var(--cb-radius-lg);
+  box-shadow: var(--cb-shadow-soft);
+  padding: 6px;
+  display: flex;
+  gap: 4px;
+}
+
+.cb-nav-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 12px;
+  border-radius: var(--cb-radius-md);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--cb-color-primary-medium);
+}
+
+.cb-nav-btn.is-active {
+  background-color: var(--cb-color-primary-dark);
+  color: var(--cb-text-on-primary);
+  box-shadow: 0 4px 12px rgba(109, 76, 51, 0.2);
+}
+
+/* 进度环容器 */
+.cb-progress-ring-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 种子图标 */
+.cb-seed-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  filter: drop-shadow(0 2px 4px rgba(109, 76, 51, 0.2));
+}
+
+/* 浮动按钮 */
+.cb-fab {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #5A3D28 0%, #6D4C33 100%);
+  color: white;
+  border: 2.5px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 6px 24px rgba(60, 30, 10, 0.45), 0 0 0 4px rgba(255,255,255,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cb-fab:hover {
+  box-shadow: 0 8px 28px rgba(60, 30, 10, 0.55), 0 0 0 4px rgba(255,255,255,0.2);
+}
+
+.cb-fab--small {
+  width: 44px;
+  height: 44px;
+  background: var(--cb-bg-card);
+  color: var(--cb-color-primary-dark);
+  box-shadow: 0 4px 16px rgba(109, 76, 51, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* 金句区域 */
+.cb-quote {
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--cb-color-primary-dark);
+  font-weight: 500;
+  max-width: 85%;
+  margin: 0 auto;
+  opacity: 0.85;
+  font-style: italic;
+}
+
+/* 设置按钮 */
+.cb-settings-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(109, 76, 51, 0.08);
+  color: var(--cb-color-primary-medium);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cb-settings-btn:hover {
+  background: rgba(109, 76, 51, 0.15);
+}
+
+/* 版块分隔标题 */
+.cb-section-divider {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  padding-left: 4px;
+}
+
+.cb-section-divider__icon {
+  font-size: 18px;
+}
+
+.cb-section-divider__label {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--cb-color-primary-dark);
+}
+
+.cb-section-divider__line {
+  flex: 1;
+  height: 1px;
+  background: rgba(109, 76, 51, 0.1);
+}
+
+/* 弹窗覆盖暖色主题 */
+.reminder-dialog [data-slot="dialog-content"] {
+  font-family: var(--cb-font-family);
+  color: var(--cb-color-primary-dark);
+}

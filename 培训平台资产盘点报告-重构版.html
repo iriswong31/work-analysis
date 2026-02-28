@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>培训平台资产盘点报告（重构版）</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .section {
+            margin-bottom: 50px;
+        }
+        
+        .section-title {
+            font-size: 2em;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #3498db;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: #e74c3c;
+        }
+        
+        .subsection {
+            margin-bottom: 30px;
+        }
+        
+        .subsection h3 {
+            font-size: 1.4em;
+            color: #34495e;
+            margin-bottom: 15px;
+            padding-left: 20px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .platform-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .platform-card {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+        
+        .platform-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-color: #3498db;
+        }
+        
+        .platform-name {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .platform-type {
+            background: #3498db;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        
+        .platform-desc {
+            color: #666;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+        
+        .matrix-container {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            overflow-x: auto;
+        }
+        
+        .matrix-title {
+            text-align: center;
+            font-size: 1.5em;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .matrix-desc {
+            text-align: center;
+            color: #666;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #e8f4f8;
+            border-radius: 8px;
+            font-style: italic;
+        }
+        
+        .matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        .matrix-table th {
+            background: #34495e;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        
+        .matrix-table th.corner {
+            background: #2c3e50;
+        }
+        
+        .matrix-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e9ecef;
+            vertical-align: top;
+            text-align: center;
+        }
+        
+        .platform-row {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #2c3e50;
+            text-align: left;
+            padding-left: 20px;
+        }
+        
+        .capability-yes {
+            color: #27ae60;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        
+        .capability-no {
+            color: #e74c3c;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        
+        .capability-partial {
+            color: #f39c12;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        
+        .capability-note {
+            font-size: 0.85em;
+            color: #666;
+            margin-top: 5px;
+            font-style: italic;
+            line-height: 1.3;
+        }
+        
+        .legend {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        
+        .legend h4 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+        
+        .legend-item {
+            display: inline-block;
+            margin-right: 20px;
+            margin-bottom: 5px;
+        }
+        
+        .legend-symbol {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+        
+        .requirement-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .requirement-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #856404;
+            margin-bottom: 10px;
+        }
+        
+        .conclusion {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .conclusion h3 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+        
+        .conclusion p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+        
+        ul, ol {
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                border-radius: 15px;
+            }
+            
+            .header {
+                padding: 30px 20px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .matrix-container {
+                padding: 15px;
+            }
+            
+            .matrix-table th,
+            .matrix-table td {
+                padding: 10px;
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>培训平台资产盘点报告</h1>
+            <p>基于五大核心模块的产品能力分析与深根者项目复用评估</p>
+        </div>
+        
+        <div class="content">
+            <!-- 第一板块：盘点背景与目标 -->
+            <div class="section">
+                <h2 class="section-title">一、盘点背景与目标</h2>
+                
+                <div class="subsection">
+                    <h3>1.1 盘点背景</h3>
+                    <p>随着数字化培训需求的快速增长，腾讯内部积累了多个培训平台产品。为支持"深根者计划"等新项目的快速启动，需要系统梳理现有培训平台的产品能力和内容资产，评估复用可行性，避免重复建设。同时，从组织角度考虑如何整合资源，支持未来更多培训项目。</p>
+                </div>
+                
+                <div class="subsection">
+                    <h3>1.2 盘点目标</h3>
+                    <ul>
+                        <li>全面梳理现有培训平台的产品能力矩阵</li>
+                        <li>盘点可复用的内容资产和教学资源</li>
+                        <li>评估各平台对深根者计划的适配度</li>
+                        <li>提出平台复用和整合建议，支持未来培训项目</li>
+                    </ul>
+                </div>
+                
+                <div class="subsection">
+                    <h3>1.3 平台基本信息</h3>
+                    <div class="platform-grid">
+                        <div class="platform-card">
+                            <div class="platform-name">共富学堂</div>
+                            <div class="platform-type">乡村人才培训平台</div>
+                            <div class="platform-desc">
+                                腾讯SSV为村共富乡村旗下，面向乡村经营人才的培训平台。深根者计划已在共富学堂创建专属管理后台，3月份正式启动。
+                            </div>
+                        </div>
+                        
+                        <div class="platform-card">
+                            <div class="platform-name">一起学（乐享版）</div>
+                            <div class="platform-type">基于乐享的培训平台</div>
+                            <div class="platform-desc">
+                                腾讯基金会基于乐享平台搭建的培训版本，拥有13门专业课程，涵盖互联网筹款、组织管理等领域，总计5576.5分钟内容资源。
+                            </div>
+                        </div>
+                        
+                        <div class="platform-card">
+                            <div class="platform-name">一起学（自研版）</div>
+                            <div class="platform-type">自研培训平台</div>
+                            <div class="platform-desc">
+                                腾讯基金会自主研发的培训平台，支持机构管理、专家管理、活动管理等完整功能，可生成独立小程序，具备完整的用户管理和活动组织能力。
+                            </div>
+                        </div>
+                        
+                        <div class="platform-card">
+                            <div class="platform-name">耕耘者学习平台</div>
+                            <div class="platform-type">农村治理培训平台</div>
+                            <div class="platform-desc">
+                                专注于农村基层治理人员培训，拥有1568门课程，涵盖乡村治理、农业技术、数字化工具等领域，是农村治理培训的专业平台。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 第二板块：产品能力盘点 -->
+            <div class="section">
+                <h2 class="section-title">二、产品能力盘点</h2>
+                
+                <div class="subsection">
+                    <h3>2.1 五大核心模块说明</h3>
+                    <div class="platform-grid">
+                        <div class="platform-card">
+                            <div class="platform-name">用户管理体系</div>
+                            <div class="platform-desc">
+                                负责用户注册、权限管理、组织架构等功能。核心功能包括：多角色权限控制、组织层级管理、用户信息维护、学员生命周期管理、身份认证等。
+                            </div>
+                        </div>
+                        
+                        <div class="platform-card">
+                            <div class="platform-name">课程内容体系</div>
+                            <div class="platform-desc">
+                                负责课程创建、内容管理、学习路径设计等功能。核心功能包括：多媒体课件支持、课程版本管理、学习路径规划、内容制作工具、资源库管理等。
+                            </div>
+                        </div>
+                        
+                        <div class="platform-card">
+                            <div class="platform-name">学习过程体系</div>
+                            <div class="platform-desc">
+                                负责在线学习、互动功能、学习进度跟踪等功能。核心功能包括：视频播放、直播互动、学习路径引导、社区讨论、活动管理等。
+                            </div>
+                        </div>
+                        
+                        <div class="platform-card">
+                            <div class="platform-name">考试评估体系</div>
+                            <div class="platform-desc">
+                                负责在线测验、自动评分、证书颁发等功能。核心功能包括：题库管理、考试组织、防作弊机制、成绩分析、问卷调查等。
+                            </div>
+                        </div>
+                        
+                        <div class="platform-card">
+                            <div class="platform-name">数据分析体系</div>
+                            <div class="platform-desc">
+                                负责学习行为分析、效果评估、个性化推荐等功能。核心功能包括：数据采集、统计分析、可视化报表、智能推荐、运营分析等。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="legend">
+                    <h4>符号说明</h4>
+                    <div class="legend-item">
+                        <span class="legend-symbol capability-yes">✓</span>完全支持
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-symbol capability-partial">△</span>部分支持
+                    </div>
+                    <div class="legend-item">
+                        <span class="legend-symbol capability-no">✗</span>不支持
+                    </div>
+                </div>
+                
+                <!-- 矩阵图1：用户管理体系 -->
+                <div class="matrix-container">
+                    <div class="matrix-title">1. 用户管理体系能力矩阵</div>
+                    <div class="matrix-desc">
+                        负责用户注册、权限管理、组织架构等功能。包括：多角色权限控制、组织层级管理、用户信息维护、学员生命周期管理等基础能力。
+                    </div>
+                    
+                    <table class="matrix-table">
+                        <thead>
+                            <tr>
+                                <th class="corner">平台 \ 培训阶段</th>
+                                <th>培训前<br><small>用户招募、组织架构、权限分配</small></th>
+                                <th>培训中<br><small>班级管理、学员管理、进度跟踪</small></th>
+                                <th>培训后<br><small>结业管理、档案管理、数据归档</small></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="platform-row">共富学堂</td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-note">支持三级组织架构管理<br>完整的权限分配体系<br>多角色用户管理</div>
+                                </td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-note">完整班级学员管理<br>学习进度实时跟踪<br>出勤统计功能</div>
+                                </td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-note">结业条件设置<br>完整档案管理<br>数据导出功能</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="platform-row">一起学（乐享版）</td>
+                                <td>
+                                    <span class="capability-partial">△</span>
+                                    <div class="capability-note">基础用户管理<br>简单权限控制<br>缺乏组织架构管理</div>
+                                </td>
+                                <td>
+                                    <span class="capability-partial">△</span>
+                                    <div class="capability-note">简单学员管理<br>基础进度跟踪<br>社区互动功能</div>
+                                </td>
+                                <td>
+                                    <span class="capability-partial">△</span>
+                                    <div class="capability-note">基础档案功能<br>学习记录保存<br>简单统计功能</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="platform-row">一起学（自研版）</td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-note">机构管理功能<br>培训机构权限管理<br>报名审核流程</div>
+                                </td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-note">培训活动管理<br>线下活动组织<br>签到打卡功能</div>
+                                </td>
+                                <td>
+                                    <span class="capability-partial">△</span>
+                                    <div class="capability-note">基础结业功能<br>简单档案管理<br>缺乏深度分析</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="platform-row">耕耘者学习平台</td>
+                                <td>
+                                    <span class="capability-partial">△</span>
+                                    <div class="capability-note">简单用户管理<br>基础权限控制<br>农村用户特色功能</div>
+                                </td>
+                                <td>
+                                    <span class="capability-partial">△</span>
+                                    <div class="capability-note">基础学习管理<br>简单进度跟踪<br>农村场景适配</div>
+                                </td>
+                                <td>
+                                    <span class="capability-partial">△</span>
+                                    <div class="capability-note">简单结业功能<br>基础档案管理<br>农村特色认证</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- 矩阵图2：课程内容体系 -->
+                <div class="matrix-container">
+                    <div class="matrix-title">2. 课程内容体系能力矩阵</div>
+                    <div class="matrix-desc">
+                        负责课程创建、内容管理、学习路径设计等功能。包括：多媒体课件支持、课程版本管理、学习路径规划、内容制作工具等能力。
+                    </div>
+                    
+                    <table class="matrix-table">
+                        <thead>
+                            <tr>
+                                <th class="corner">平台 \ 培训阶段</th>
+                                <th>培训前<br><small>课程规划、内容制作、资源准备</small></th>
+                                <th>培训中<br><small>内容发布、版本管理、学习支持</small></th>
+                                <th>培训后<br><small>内容优化、效果分析、迭代更新</small></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="platform-row">共富学堂</td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-note">完整课程制作体系<br>多媒体内容支持<br>学习路径设计</div>
+                                </td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-note">课程发布管理<br>版本控制功能<br>内容权限控制</div>
+                                </td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-note">内容效果分析<br>学习数据统计<br>内容优化建议</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="platform-row">一起学（乐享版）</td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-note">丰富内容资源库<br>专家课程资源<br>成熟制作工具</div>
+                                </td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-note">课程学习功能<br>社区化学习<br>专家互动支持</div>
+                                </td>
+                                <td>
+                                    <span class="capability-partial">△</span>
+                                    <div class="capability-note">基础统计功能<br>学习反馈收集<br>缺乏深度分析</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="platform-row">一起学（自研版）</td>
+                                <td>
+                                    <span class="capability-partial">△</span>
+                                    <div class="capability-note">课程配置功能<br>基础内容管理<br>依赖外部资源</div>
+                                </td>
+                                <td>
+                                    <span class="capability-partial">△</span>
+                                    <div class="capability-note">跳转乐享学习<br>活动内容管理<br>线下内容支持</div>
+                                </td>
+                                <td>
+                                    <span class="capability-no">✗</span>
+                                    <div class="capability-note">无内容分析功能<br>缺乏优化工具<br>依赖人工统计</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="platform-row">耕耘者学习平台</td>
+                                <td>
+                                    <span class="capability-partial">△</span>
+                                    <div class="capability-note">农村治理专业内容<br>垂直领域资源<br>简单制作工具</div>
+                                </td>
+                                <td>
+                                    <span class="capability-partial">△</span>
+                                    <div class="capability-note">基础学习功能<br>农村场景适配<br>简单内容管理</div>
+                                </td>
+                                <td>
+                                    <span class="capability-no">✗</span>
+                                    <div class="capability-note">无分析功能<br>缺乏优化机制<br>内容更新缓慢</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- 其他三个矩阵图 -->
+                <div class="matrix-container">
+                    <div class="matrix-title">3. 学习过程体系能力矩阵</div>
+                    <div class="matrix-desc">
+                        负责在线学习、互动功能、学习进度跟踪等功能。包括：视频播放、直播互动、学习路径引导、社区讨论、活动管理等能力。
+                    </div>
+                    
+                    <table class="matrix-table">
+                        <thead>
+                            <tr>
+                                <th class="corner">平台 \ 培训阶段</th>
+                                <th>培训前<br><small>学习计划、资源准备、预习安排</small></th>
+                                <th>培训中<br><small>在线学习、互动交流、进度跟踪</small></th>
+                                <th>培训后<br><small>复习巩固、社区交流、持续学习</small></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="platform-row">共富学堂</td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-note">学习计划制定<br>资源预分配<br>预习任务设置</div>
+                                </td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-note">完整在线学习<br>直播互动支持<br>实时进度跟踪</div>
+                                </td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-note">复习功能<br>学习社区<br>持续学习推荐</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="platform-row">一起学（乐享版）</td>
+                                <td>
+                                    <span class="capability-partial">△</span>
+                                    <div class="capability-note">基础学习计划<br>资源库丰富<br>简单预习功能</div>
+                                </td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-note">优质学习体验<br>社区化学习<br>专家互动</div>
+                                </td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-note">学习记录保存<br>活跃学习社区<br>持续内容更新</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="platform-row">一起学（自研版）</td>
+                                <td>
+                                    <span class="capability-partial">△</span>
+                                    <div class="capability-note">活动规划功能<br>报名管理<br>前期准备工具</div>
+                                </td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-note">线下活动管理<br>签到打卡<br>现场互动支持</div>
+                                </td>
+                                <td>
+                                    <span class="capability-partial">△</span>
+                                    <div class="capability-note">活动总结<br>简单回顾功能<br>基础社区功能</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="platform-row">耕耘者学习平台</td>
+                                <td>
+                                    <span class="capability-partial">△</span>
+                                    <div class="capability-note">简单学习计划<br>农村内容资源<br>基础预习功能</div>
+                                </td>
+                                <td>
+                                    <span class="capability-partial">△</span>
+                                    <div class="capability-note">基础在线学习<br>简单互动功能<br>农村场景适配</div>
+                                </td>
+                                <td>
+                                    <span class="capability-partial">△</span>
+                                    <div class="capability-note">学习记录<br>简单社区功能<br>农村特色内容</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="matrix-container">
+                    <div class="matrix-title">4. 考试评估体系能力矩阵</div>
+                    <div class="matrix-desc">
+                        负责在线测验、自动评分、证书颁发等功能。包括：题库管理、考试组织、防作弊机制、成绩分析、问卷调查等能力。
+                    </div>
+                    
+                    <table class="matrix-table">
+                        <thead>
+                            <tr>
+                                <th class="corner">平台 \ 培训阶段</th>
+                                <th>培训前<br><small>题库准备、考试设计、评估规划</small></th>
+                                <th>培训中<br><small>在线测验、实时评估、过程考核</small></th>
+                                <th>培训后<br><small>结业考试、证书颁发、成绩分析</small></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="platform-row">共富学堂</td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-note">完整题库管理<br>考试规则设置<br>评估标准制定</div>
+                                </td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-note">在线考试功能<br>自动评分<br>防作弊机制</div>
+                                </td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-note">证书自动颁发<br>成绩统计分析<br>结业条件判定</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="platform-row">一起学（乐享版）</td>
+                                <td>
+                                    <span class="capability-partial">△</span>
+                                    <div class="capability-note">基础题库功能<br>简单考试设置<br>评估工具有限</div>
+                                </td>
+                                <td>
+                                    <span class="capability-partial">△</span>
+                                    <div class="capability-note">基础测验功能<br>简单评分<br>防作弊能力有限</div>
+                                </td>
+                                <td>
+                                    <span class="capability-partial">△</span>
+                                    <div class="capability-note">学习证明<br>基础成绩统计<br>简单分析功能</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="platform-row">一起学（自研版）</td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-note">问卷管理系统<br>调查问卷设计<br>评估规划工具</div>
+                                </td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-note">问卷发放管理<br>数据收集<br>实时统计</div>
+                                </td>
+                                <td>
+                                    <span class="capability-partial">△</span>
+                                    <div class="capability-note">基础证书功能<br>简单成绩管理<br>依赖人工分析</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="platform-row">耕耘者学习平台</td>
+                                <td>
+                                    <span class="capability-no">✗</span>
+                                    <div class="capability-note">无题库管理<br>无考试设计<br>缺乏评估工具</div>
+                                </td>
+                                <td>
+                                    <span class="capability-no">✗</span>
+                                    <div class="capability-note">无在线考试<br>无自动评分<br>无防作弊机制</div>
+                                </td>
+                                <td>
+                                    <span class="capability-no">✗</span>
+                                    <div class="capability-note">无证书系统<br>无成绩分析<br>缺乏结业管理</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="matrix-container">
+                    <div class="matrix-title">5. 数据分析体系能力矩阵</div>
+                    <div class="matrix-desc">
+                        负责学习行为分析、效果评估、个性化推荐等功能。包括：数据采集、统计分析、可视化报表、智能推荐、运营分析等能力。
+                    </div>
+                    
+                    <table class="matrix-table">
+                        <thead>
+                            <tr>
+                                <th class="corner">平台 \ 培训阶段</th>
+                                <th>培训前<br><small>用户画像、需求分析、资源配置</small></th>
+                                <th>培训中<br><small>学习行为跟踪、实时分析、动态调整</small></th>
+                                <th>培训后<br><small>效果评估、数据报表、优化建议</small></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="platform-row">共富学堂</td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-note">用户画像分析<br>学习需求评估<br>智能资源推荐</div>
+                                </td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-note">实时学习数据<br>行为轨迹分析<br>动态内容调整</div>
+                                </td>
+                                <td>
+                                    <span class="capability-yes">✓</span>
+                                    <div class="capability-note">完整效果评估<br>可视化报表<br>优化建议生成</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="platform-row">一起学（乐享版）</td>
+                                <td>
+                                    <span class="capability-partial">△</span>
+                                    <div class="capability-note">基础用户分析<br>简单需求识别<br>内容推荐功能</div>
+                                </td>
+                                <td>
+                                    <span class="capability-partial">△</span>
+                                    <div class="capability-note">学习数据收集<br>基础行为分析<br>简单统计功能</div>
+                                </td>
+                                <td>
+                                    <span class="capability-partial">△</span>
+                                    <div class="capability-note">基础效果统计<br>简单报表功能<br>有限优化建议</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="platform-row">一起学（自研版）</td>
+                                <td>
+                                    <span class="capability-partial">△</span>
+                                    <div class="capability-note">用户信息管理<br>机构数据分析<br>活动规划支持</div>
+                                </td>
+                                <td>
+                                    <span class="capability-partial">△</span>
+                                    <div class="capability-note">活动数据统计<br>参与度分析<br>基础运营数据</div>
+                                </td>
+                                <td>
+                                    <span class="capability-partial">△</span>
+                                    <div class="capability-note">活动效果统计<br>简单数据导出<br>人工分析为主</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="platform-row">耕耘者学习平台</td>
+                                <td>
+                                    <span class="capability-no">✗</span>
+                                    <div class="capability-note">无用户画像<br>无需求分析<br>无智能推荐</div>
+                                </td>
+                                <td>
+                                    <span class="capability-no">✗</span>
+                                    <div class="capability-note">无行为跟踪<br>无实时分析<br>无动态调整</div>
+                                </td>
+                                <td>
+                                    <span class="capability-no">✗</span>
+                                    <div class="capability-note">无效果评估<br>无数据报表<br>无优化机制</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- 第三板块：内容资产盘点 -->
+            <div class="section">
+                <h2 class="section-title">三、内容资产盘点</h2>
+                
+                <div class="subsection">
+                    <h3>3.1 一起学（乐享版）内容资产</h3>
+                    <div class="platform-grid">
+                        <div class="platform-card">
+                            <div class="platform-name">课程总览</div>
+                            <div class="platform-desc">
+                                <strong>13门专业课程</strong>，总计<strong>5576.5分钟</strong>内容<br>
+                                涵盖互联网筹款、捐赠人服务、组织管理等7大领域<br>
+                                课程结构完整，从基础到高级递进式设计
+                            </div>
+                        </div>
+                        
+                        <div class="platform-card">
+                            <div class="platform-name">核心课程类别</div>
+                            <div class="platform-desc">
+                                • 互联网筹款能力（4门课程，83-245分钟）<br>
+                                • 组织管理能力（3门课程，150-1669分钟）<br>
+                                • 传播能力（2门课程，258-358分钟）<br>
+                                • 公众沟通力、组织公信力等（各1门）
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <h3>3.2 耕耘者学习平台内容资产</h3>
+                    <div class="platform-grid">
+                        <div class="platform-card">
+                            <div class="platform-name">课程总览</div>
+                            <div class="platform-desc">
+                                <strong>1568门课程</strong>，持续更新2年<br>
+                                涵盖乡村治理、农业技术、数字化工具等全领域<br>
+                                内容形式多样：视频、图文、富文本等
+                            </div>
+                        </div>
+                        
+                        <div class="platform-card">
+                            <div class="platform-name">核心内容领域</div>
+                            <div class="platform-desc">
+                                • 乡村治理类：基层治理、党建引领<br>
+                                • 农业技术类：种植技术、病虫害防治<br>
+                                • 数字化工具类：腾讯文档、会议、企业微信<br>
+                                • 产业发展类：合作社管理、产业振兴
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <h3>3.3 一起学（自研版）内容管理能力</h3>
+                    <div class="platform-grid">
+                        <div class="platform-card">
+                            <div class="platform-name">内容管理功能</div>
+                            <div class="platform-desc">
+                                • 机构管理：机构审核、专家管理、权限分配<br>
+                                • 活动管理：线下培训活动组织管理<br>
+                                • 问卷系统：培训效果评估、数据收集<br>
+                                • 多端展示：官网、小程序同步展示
+                            </div>
+                        </div>
+                        
+                        <div class="platform-card">
+                            <div class="platform-name">运营支持能力</div>
+                            <div class="platform-desc">
+                                • 用户身份管理：机构、专家、成员身份<br>
+                                • 活动全流程：报名、签到、核销、总结<br>
+                                • 内容发布：海报、邀请函、议程管理<br>
+                                • 数据统计：参与度、完成度统计
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <h3>3.4 内容资产复用价值分析</h3>
+                    <div class="requirement-box">
+                        <div class="requirement-title">高价值可复用内容</div>
+                        <ul>
+                            <li><strong>一起学（乐享版）</strong>：专业培训课程体系，可直接用于深根者计划的通用能力培训模块</li>
+                            <li><strong>耕耘者学习平台</strong>：丰富的基层治理内容，与深根者计划目标高度契合</li>
+                            <li><strong>数字化工具培训</strong>：腾讯文档、会议、企业微信等工具使用培训，可直接复用</li>
+                            <li><strong>管理经验积累</strong>：一起学（自研版）的活动组织经验，可指导深根者线下培训</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 第四板块：深根者可复用分析 -->
+            <div class="section">
+                <h2 class="section-title">四、深根者可复用分析</h2>
+                
+                <div class="subsection">
+                    <h3>4.1 深根者项目整体介绍</h3>
+                    <p>深根者计划是面向基层治理人员的数字化能力提升项目，采用三级段位制（初级、中级、高级），通过系统性培训帮助基层工作者提升数字化治理能力。</p>
+                </div>
+                
+                <div class="subsection">
+                    <h3>4.2 深根者需求与平台能力对应关系</h3>
+                    
+                    <div class="requirement-box">
+                        <div class="requirement-title">深根者核心需求对应分析</div>
+                        <ul>
+                            <li><strong>用户管理需求</strong>：三级组织架构管理（官方团队→合作机构→培训班级）→ 共富学堂完全支持</li>
+                            <li><strong>内容体系需求</strong>：基层治理数字化课程体系，分段位递进式学习路径 → 共富学堂支持，需补充专业内容</li>
+                            <li><strong>学习过程需求</strong>：在线学习为主，支持直播互动，学习进度跟踪 → 共富学堂完全支持</li>
+                            <li><strong>考试评估需求</strong>：段位认证考试，自动评分，证书颁发，防作弊机制 → 共富学堂完全支持</li>
+                            <li><strong>数据分析需求</strong>：学习效果分析，培训质量评估，个性化学习推荐 → 共富学堂完全支持</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <h3>4.3 基于共富学堂的复用方案</h3>
+                    <p>根据共富学堂产品经理访谈（2026-02-04），深根者计划已在共富学堂创建专属管理后台，具备完整的培训支撑能力。</p>
+                    
+                    <ul>
+                        <li><strong>完全覆盖的需求</strong>：用户管理、学习过程、考试评估、数据分析等核心功能</li>
+                        <li><strong>需要补充的内容</strong>：基层治理专业课程内容，可从其他平台迁移相关资源</li>
+                        <li><strong>实施优势</strong>：3月份即可正式启动，无需额外开发工作</li>
+                    </ul>
+                </div>
+                
+                <div class="subsection">
+                    <h3>4.4 组织整合建议</h3>
+                    <p>从组织角度考虑，建议以共富学堂为核心平台，整合其他平台的优质资源：</p>
+                    
+                    <ul>
+                        <li><strong>核心平台</strong>：共富学堂承载主要培训功能</li>
+                        <li><strong>内容补充</strong>：一起学（乐享版）提供专家课程资源</li>
+                        <li><strong>垂直领域</strong>：耕耘者学习平台提供农村治理专业内容</li>
+                        <li><strong>定制开发</strong>：一起学（自研版）用于特殊场景的功能定制</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- 结论 -->
+            <div class="conclusion">
+                <h3>核心结论与建议</h3>
+                <p>
+                    基于五大核心模块的全面分析，<strong>共富学堂完全满足深根者项目需求</strong>，建议直接基于共富学堂进行深根者项目实施。
+                    同时，建立平台资源整合机制，支持未来更多培训项目的快速启动。
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

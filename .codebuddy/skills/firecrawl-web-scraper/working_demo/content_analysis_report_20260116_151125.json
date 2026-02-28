@@ -1,0 +1,93 @@
+{
+  "analysis_summary": {
+    "total_content": 4,
+    "average_hotness": 5.0,
+    "content_types": {
+      "article": 4
+    },
+    "sentiment_distribution": {
+      "neutral": 4
+    }
+  },
+  "trending_analysis": {
+    "trending_keywords": [],
+    "trending_topics": [],
+    "high_engagement_content": [],
+    "content_type_distribution": {
+      "article": 4
+    },
+    "sentiment_distribution": {
+      "neutral": 4
+    },
+    "platform_analysis": {
+      "其他": 4
+    }
+  },
+  "content_ideas": [],
+  "detailed_analyses": [
+    {
+      "url": "https://httpbin.org/html",
+      "title": "",
+      "content_type": "article",
+      "keywords": [],
+      "topics": [],
+      "sentiment": "neutral",
+      "hotness_score": 5.0,
+      "engagement": {
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "views": 0
+      },
+      "summary": "# Herman Melville - Moby-Dick\n\nAvailing himself of the mild, summer-cool weather that now reigned in these latitudes, and in preparation for the peculiarly active pursuits shortly to be anticipated, P..."
+    },
+    {
+      "url": "https://example.com",
+      "title": "Example Domain",
+      "content_type": "article",
+      "keywords": [],
+      "topics": [],
+      "sentiment": "neutral",
+      "hotness_score": 5.0,
+      "engagement": {
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "views": 0
+      },
+      "summary": "# Example Domain\n\nThis domain is for use in documentation examples without needing permission. Avoid use in operations.\n\n[Learn more](https://iana.org/domains/example)"
+    },
+    {
+      "url": "https://httpbin.org/json",
+      "title": "",
+      "content_type": "article",
+      "keywords": [],
+      "topics": [],
+      "sentiment": "neutral",
+      "hotness_score": 5.0,
+      "engagement": {
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "views": 0
+      },
+      "summary": "```json\n{\n  \"slideshow\": {\n    \"author\": \"Yours Truly\", \n    \"date\": \"date of publication\", \n    \"slides\": [\n      {\n        \"title\": \"Wake up to WonderWidgets!\", \n        \"type\": \"all\"\n      },..."
+    },
+    {
+      "url": "https://jsonplaceholder.typicode.com/posts/1",
+      "title": "",
+      "content_type": "article",
+      "keywords": [],
+      "topics": [],
+      "sentiment": "neutral",
+      "hotness_score": 5.0,
+      "engagement": {
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "views": 0
+      },
+      "summary": "```json\n{\n  \"userId\": 1,\n  \"id\": 1,\n  \"title\": \"sunt aut facere repellat provident occaecati excepturi optio reprehenderit\",\n  \"body\": \"quia et suscipit\\nsuscipit recusandae consequuntur expedita et c..."
+    }
+  ]
+}

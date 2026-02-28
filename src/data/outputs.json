@@ -1,0 +1,142 @@
+{
+  "outputs": [
+    {
+      "id": "output_20260109_dashboard_upgrade",
+      "title": "Dashboard 页面改造",
+      "type": "life",
+      "category": "code",
+      "description": "完成 Dashboard 页面改造，新增每日产出时间轴、社区慈善报告入口，优化双引擎面板交互",
+      "link": "/",
+      "createdAt": "2026-01-09T15:00:00+08:00",
+      "updatedAt": "2026-01-09T18:00:00+08:00"
+    },
+    {
+      "id": "output_20260109_ai_efficiency",
+      "title": "线下门店AI降本提效四件套",
+      "type": "life",
+      "category": "document",
+      "description": "完成线下门店 AI 降本提效方案，涵盖小程序开发、员工培训、营销内容、私域运营四个方向",
+      "link": null,
+      "createdAt": "2026-01-09T11:00:00+08:00",
+      "updatedAt": "2026-01-09T11:00:00+08:00"
+    },
+    {
+      "id": "output_20260109_charity_report",
+      "title": "社区慈善调研报告",
+      "type": "work",
+      "category": "report",
+      "description": "系统了解社区慈善的定义、内涵和发展趋势，分析腾讯在社区慈善领域的布局，深入了解深根者培训等核心项目",
+      "link": "/reports/community-charity",
+      "createdAt": "2026-01-09T10:00:00+08:00",
+      "updatedAt": "2026-01-09T10:00:00+08:00"
+    },
+    {
+      "id": "output_20260107_ai_animation",
+      "title": "AI 动画制作技术调研报告",
+      "type": "life",
+      "category": "report",
+      "description": "完成 AI 动画制作领域的全面调研，涵盖技术现状、工具对比、工作流程和未来趋势分析",
+      "link": "/deliverables/ai-animation-research-report",
+      "createdAt": "2026-01-07T10:00:00+08:00",
+      "updatedAt": "2026-01-07T10:00:00+08:00"
+    },
+    {
+      "id": "output_20260107_memory_system",
+      "title": "五层记忆架构设计与实现",
+      "type": "life",
+      "category": "code",
+      "description": "完成数字分身五层记忆架构的设计和代码实现，包括核心身份层、长期目标层、中期计划层、短期任务层和即时上下文层",
+      "link": null,
+      "createdAt": "2026-01-07T14:00:00+08:00",
+      "updatedAt": "2026-01-07T14:00:00+08:00"
+    },
+    {
+      "id": "output_20260107_email_system",
+      "title": "邮件日报系统配置",
+      "type": "life",
+      "category": "code",
+      "description": "完成 SMTP 邮件发送功能，实现邮件内容累积功能（同一主题邮件链），配置每日 18:00 自动发送",
+      "link": null,
+      "createdAt": "2026-01-07T16:00:00+08:00",
+      "updatedAt": "2026-01-07T16:00:00+08:00"
+    },
+    {
+      "id": "output_20260106_dashboard_mvp",
+      "title": "数字分身工作台 MVP",
+      "type": "life",
+      "category": "code",
+      "description": "完成个人数字分身工作台的 MVP 版本，包括仪表盘、交付物管理、记忆可视化等核心功能",
+      "link": "/",
+      "createdAt": "2026-01-06T10:00:00+08:00",
+      "updatedAt": "2026-01-06T10:00:00+08:00"
+    }
+  ],
+  "charityReports": [
+    {
+      "id": "charity_01",
+      "title": "执行摘要",
+      "filename": "01-executive-summary.md",
+      "order": 1,
+      "status": "completed",
+      "updatedAt": "2026-01-09T10:00:00+08:00"
+    },
+    {
+      "id": "charity_02",
+      "title": "政策背景",
+      "filename": "02-policy-background.md",
+      "order": 2,
+      "status": "completed",
+      "updatedAt": "2026-01-09T10:00:00+08:00"
+    },
+    {
+      "id": "charity_03",
+      "title": "腾讯布局",
+      "filename": "03-tencent-layout.md",
+      "order": 3,
+      "status": "completed",
+      "updatedAt": "2026-01-09T10:00:00+08:00"
+    },
+    {
+      "id": "charity_04",
+      "title": "深根者培训",
+      "filename": "04-shengenren-training.md",
+      "order": 4,
+      "status": "completed",
+      "updatedAt": "2026-01-09T10:00:00+08:00"
+    },
+    {
+      "id": "charity_05",
+      "title": "相关项目",
+      "filename": "05-related-projects.md",
+      "order": 5,
+      "status": "completed",
+      "updatedAt": "2026-01-09T10:00:00+08:00"
+    },
+    {
+      "id": "charity_06",
+      "title": "机会分析",
+      "filename": "06-opportunity-analysis.md",
+      "order": 6,
+      "status": "completed",
+      "updatedAt": "2026-01-09T10:00:00+08:00"
+    },
+    {
+      "id": "charity_07",
+      "title": "建议方案",
+      "filename": "07-recommendations.md",
+      "order": 7,
+      "status": "completed",
+      "updatedAt": "2026-01-09T10:00:00+08:00"
+    }
+  ],
+  "dailyReports": [
+    {
+      "date": "2026-01-09",
+      "filename": "2026-01-09.md"
+    },
+    {
+      "date": "2026-01-07",
+      "filename": "2026-01-07.md"
+    }
+  ]
+}

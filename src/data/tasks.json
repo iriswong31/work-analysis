@@ -1,0 +1,68 @@
+{
+  "tasks": [
+    {
+      "id": "task_work_001",
+      "title": "梳理公益平台机构后台工具清单",
+      "type": "work",
+      "status": "in_progress",
+      "priority": "high",
+      "createdAt": "2026-01-09T09:00:00+08:00"
+    },
+    {
+      "id": "task_work_002",
+      "title": "分析关爱平台与机构3.0打通方案",
+      "type": "work",
+      "status": "in_progress",
+      "priority": "high",
+      "createdAt": "2026-01-09T10:00:00+08:00"
+    },
+    {
+      "id": "task_work_003",
+      "title": "整理爱心商家关爱号需求",
+      "type": "work",
+      "status": "pending",
+      "priority": "medium",
+      "createdAt": "2026-01-08T14:00:00+08:00"
+    },
+    {
+      "id": "task_work_004",
+      "title": "评估城市社区受助人触达方案",
+      "type": "work",
+      "status": "pending",
+      "priority": "medium",
+      "createdAt": "2026-01-08T15:00:00+08:00"
+    },
+    {
+      "id": "task_work_005",
+      "title": "调研深根者培训项目细节",
+      "type": "work",
+      "status": "pending",
+      "priority": "low",
+      "createdAt": "2026-01-07T10:00:00+08:00"
+    },
+    {
+      "id": "task_life_001",
+      "title": "完善数字分身记忆系统",
+      "type": "life",
+      "status": "in_progress",
+      "priority": "high",
+      "createdAt": "2026-01-09T08:00:00+08:00"
+    },
+    {
+      "id": "task_life_002",
+      "title": "探索AI动画制片工作流",
+      "type": "life",
+      "status": "pending",
+      "priority": "medium",
+      "createdAt": "2026-01-08T10:00:00+08:00"
+    },
+    {
+      "id": "task_life_003",
+      "title": "研究内容工厂产品化方案",
+      "type": "life",
+      "status": "pending",
+      "priority": "medium",
+      "createdAt": "2026-01-07T16:00:00+08:00"
+    }
+  ]
+}

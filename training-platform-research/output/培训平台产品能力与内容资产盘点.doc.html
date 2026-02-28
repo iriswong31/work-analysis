@@ -1,0 +1,1628 @@
+<!DOCTYPE html>
+<html xmlns:o='urn:schemas-microsoft-com:office:office' 
+      xmlns:w='urn:schemas-microsoft-com:office:word'>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<!--[if gte mso 9]>
+<xml>
+<w:WordDocument>
+<w:View>Print</w:View>
+<w:Zoom>100</w:Zoom>
+<w:DoNotOptimizeForBrowser/>
+</w:WordDocument>
+</xml>
+<![endif]-->
+<title>培训平台产品能力与内容资产盘点</title>
+<style>
+body {
+    font-family: '微软雅黑', 'Microsoft YaHei', Arial, sans-serif;
+    font-size: 12pt;
+    line-height: 1.8;
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+}
+h1 {
+    font-size: 22pt;
+    color: #1a1a1a;
+    text-align: center;
+    border-bottom: 2px solid #4a90d9;
+    padding-bottom: 15px;
+    margin-bottom: 30px;
+}
+h2 {
+    font-size: 16pt;
+    color: #2c5282;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    border-left: 4px solid #4a90d9;
+    padding-left: 12px;
+}
+h3 {
+    font-size: 14pt;
+    color: #2d3748;
+    margin-top: 25px;
+    margin-bottom: 15px;
+}
+h4 {
+    font-size: 12pt;
+    color: #4a5568;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+blockquote {
+    background: #f7fafc;
+    border-left: 4px solid #cbd5e0;
+    margin: 15px 0;
+    padding: 10px 15px;
+    color: #4a5568;
+    font-style: italic;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 15px 0;
+    font-size: 10pt;
+}
+th {
+    background: #4a90d9;
+    color: white;
+    padding: 10px 8px;
+    text-align: left;
+    font-weight: bold;
+}
+td {
+    padding: 8px;
+    border: 1px solid #e2e8f0;
+}
+tr:nth-child(even) {
+    background: #f7fafc;
+}
+tr:hover {
+    background: #edf2f7;
+}
+ul, ol {
+    margin: 10px 0;
+    padding-left: 25px;
+}
+li {
+    margin: 5px 0;
+}
+strong {
+    color: #2c5282;
+}
+.header-info {
+    text-align: center;
+    color: #718096;
+    font-size: 10pt;
+    margin-bottom: 30px;
+}
+.section-divider {
+    border: none;
+    border-top: 1px solid #e2e8f0;
+    margin: 30px 0;
+}
+.highlight-box {
+    background: #ebf8ff;
+    border: 1px solid #90cdf4;
+    border-radius: 4px;
+    padding: 15px;
+    margin: 15px 0;
+}
+.warning-box {
+    background: #fffaf0;
+    border: 1px solid #fbd38d;
+    border-radius: 4px;
+    padding: 15px;
+    margin: 15px 0;
+}
+.new-tag {
+    background: #48bb78;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 9pt;
+    margin-right: 5px;
+}
+.change-tag {
+    background: #ed8936;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 9pt;
+    margin-right: 5px;
+}
+code {
+    background: #edf2f7;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-family: Consolas, monospace;
+    font-size: 10pt;
+}
+.decision-box {
+    background: #fef3c7;
+    border: 2px solid #f59e0b;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+}
+.architecture-diagram {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    padding: 15px;
+    font-family: Consolas, monospace;
+    font-size: 10pt;
+    white-space: pre;
+    line-height: 1.4;
+}
+</style>
+</head>
+<body>
+
+<h1>培训平台产品能力与内容资产盘点</h1>
+
+<div class="header-info">
+    <p><strong>报告定位</strong>：盘点腾讯SSV体系下四个培训平台的产品能力与内容资产，为深根者项目选型和长线平台统管提供决策依据。</p>
+    <p>盘点时间：2026-02-06 | 报告版本：v4.0（补强版）</p>
+</div>
+
+<hr class="section-divider">
+
+<h2><span class="new-tag">新增</span>决策摘要（Executive Summary）</h2>
+
+<div class="decision-box">
+<h3>一句话结论</h3>
+<p><strong>采用"组件中台+差异化前端"策略</strong>：将课程管理、学员管理、学习追踪等通用能力沉淀为组件中台，保持各业务独立前端以适配不同用户场景和品牌需求。</p>
+</div>
+
+<h3>关键判断</h3>
+
+<table>
+    <tr>
+        <th>判断项</th>
+        <th>结论</th>
+        <th>依据</th>
+    </tr>
+    <tr>
+        <td><strong>必须统一沉淀为组件</strong></td>
+        <td>①课程/内容管理 ②学员/用户管理 ③学习进度追踪 ④数据看板</td>
+        <td>四平台重复建设，维护成本高</td>
+    </tr>
+    <tr>
+        <td><strong>必须保持差异化产品形态</strong></td>
+        <td>①审批流程（耕耘者独有，与政府预算挂钩） ②多租户架构（共富学堂核心能力） ③办会工具（自研版独有定位） ④导师配对/研学基地（乡村CEO业务特有）</td>
+        <td>业务逻辑本质不同，强行统一会损失业务价值</td>
+    </tr>
+    <tr>
+        <td><strong>深根者选型</strong></td>
+        <td>共富学堂为基座，复用乐享版课程内容</td>
+        <td>多租户架构+班务管理+证书发放匹配深根者核心需求</td>
+    </tr>
+    <tr>
+        <td><strong>内容复用策略</strong></td>
+        <td>乐享版93小时课程可复用；耕耘者1568门课程因版权只能跳链</td>
+        <td>版权合同限制</td>
+    </tr>
+</table>
+
+<h3>决策点（Go/No-Go）</h3>
+
+<table>
+    <tr>
+        <th>决策</th>
+        <th>Go条件</th>
+        <th>No-Go风险</th>
+    </tr>
+    <tr>
+        <td>深根者上线共富学堂</td>
+        <td>独立品牌方案确认、乐享课程复用授权确认</td>
+        <td>共富学堂共用入口无法满足品牌独立需求</td>
+    </tr>
+    <tr>
+        <td>启动组件中台建设</td>
+        <td>明确投资回报（至少3个以上新业务复用）、技术团队资源到位</td>
+        <td>短期投入大、回报周期长</td>
+    </tr>
+    <tr>
+        <td>用户ID打通</td>
+        <td>数据合规评估完成、技术架构方案确认</td>
+        <td>跨平台数据打通涉及个人信息合规风险</td>
+    </tr>
+</table>
+
+<hr class="section-divider">
+
+<h2>第一章｜四大平台业务概述</h2>
+
+<h3>1.1 一张图看懂四个平台</h3>
+
+<blockquote>
+    <strong>阅读指引</strong>：从左到右看——因为什么业务需求 → 做了什么平台 → 形成了什么产品特点 → 沉淀了什么内容资产<br>
+    <strong>附图位置</strong>：详见 <code>附图1-四平台业务概述.md</code>（Mermaid格式，可自行修改）
+</blockquote>
+
+<h4>四平台业务背景与特点对比</h4>
+
+<table>
+    <tr>
+        <th>维度</th>
+        <th>耕耘者学习平台</th>
+        <th>共富学堂</th>
+        <th>一起学·自研版</th>
+        <th>一起学·乐享版</th>
+    </tr>
+    <tr>
+        <td><strong>诞生时间</strong></td>
+        <td>2021签约/2022启动</td>
+        <td>2021年</td>
+        <td>-</td>
+        <td>基于2017年乐享</td>
+    </tr>
+    <tr>
+        <td><strong>服务业务</strong></td>
+        <td>耕耘者振兴计划</td>
+        <td>乡村CEO培养</td>
+        <td>公益行业服务</td>
+        <td>公益标准化课程</td>
+    </tr>
+    <tr>
+        <td><strong><span class="change-tag">改</span>业务背景</strong></td>
+        <td>农业农村部+腾讯合作，5亿资金，3年培养目标（线上100万+线下10万人次）。<strong>国家战略下的规模化治理与农业人才培训项目，强调跨部门协同，按计划落地，确保实效交付。</strong></td>
+        <td>SSV为村实验室探索共富乡村方案，17省309县，累计6.6万乡村CEO。<strong>定制化的赋能计划，通过陪跑村集体经济的乡村企业负责人成长，来撬动集体经济发展，强调可衡量的经济影响。</strong></td>
+        <td>基金会服务公益机构，最初以行业报告为主，后做会议功能是为了沉淀会议内容资产。<strong>服务腾讯基金会行业影响力，沉淀全球视野的行业报告、行业课程及会议成果，提升公益机构专业化影响力。</strong></td>
+        <td>公益行业缺标准化培训内容，联合专家开发通用课程</td>
+    </tr>
+    <tr>
+        <td><strong>核心诉求</strong></td>
+        <td>有预算管控的正式培训流程，学习数据支撑验收审批</td>
+        <td>多地政府、多机构独立运营的深度培养，轻量不增负担</td>
+        <td>办会议活动+资源沉淀，不是办培训班</td>
+        <td>课程托管，专注内容生产</td>
+    </tr>
+    <tr>
+        <td><strong>一句话定位</strong></td>
+        <td><strong>办班（有审批）</strong></td>
+        <td><strong>办班（多租户）</strong></td>
+        <td><strong>办会</strong></td>
+        <td><strong>课程托管</strong></td>
+    </tr>
+    <tr>
+        <td><strong>产品特点</strong></td>
+        <td>双后台架构、强班务管理、审批流程、UGC社区（活跃度低）</td>
+        <td>多租户SaaS、轻量化、PUGC为主、无UGC、导师配对（乡村CEO特有）</td>
+        <td>办会工具、知识沉淀形态、无学习效果跟踪</td>
+        <td>基于乐享、学习地图、非独立入口</td>
+    </tr>
+    <tr>
+        <td><strong>内容资产</strong></td>
+        <td>1568门课程（乡村治理/农业经营）</td>
+        <td>乡村经营/CEO课程</td>
+        <td>行业报告/工具包/案例/会议成果（非课程形态）</td>
+        <td>13门/148节/93h公益课程</td>
+    </tr>
+    <tr>
+        <td><strong>版权情况</strong></td>
+        <td>买断，但只能本小程序用，复用只能跳链</td>
+        <td>待确认</td>
+        <td>-</td>
+        <td>原创+联合创作，公益性质可免费用</td>
+    </tr>
+</table>
+
+<h4>四个业务的核心差异点</h4>
+
+<table>
+    <tr>
+        <th>平台</th>
+        <th>核心差异点</th>
+    </tr>
+    <tr>
+        <td>耕耘者学习平台</td>
+        <td>学习数据与预算审批挂钩，UGC社区设计但活跃度低</td>
+    </tr>
+    <tr>
+        <td>共富学堂</td>
+        <td>多机构独立运营，追求轻量不增负担，PUGC为主</td>
+    </tr>
+    <tr>
+        <td>一起学·自研版</td>
+        <td><strong>不是学习平台，是行业知识沉淀平台</strong>，核心是办会</td>
+    </tr>
+    <tr>
+        <td>一起学·乐享版</td>
+        <td>纯课程平台，无班务，非独立入口（跳转乐享）</td>
+    </tr>
+</table>
+
+<blockquote>
+    <strong>附图</strong>：四个业务的详细流程图见 <code>附图2-四业务流程泳道图.md</code>（Mermaid格式，可自行修改）
+</blockquote>
+
+<hr class="section-divider">
+
+<h3><span class="new-tag">新增</span>1.2 用户角色与核心任务（JTBD）</h3>
+
+<blockquote>产品总监决策需要：谁在用？他们要完成什么任务？</blockquote>
+
+<table>
+    <tr>
+        <th>角色</th>
+        <th>耕耘者学习平台</th>
+        <th>共富学堂</th>
+        <th>一起学·自研版</th>
+        <th>一起学·乐享版</th>
+        <th>深根者（目标）</th>
+    </tr>
+    <tr>
+        <td><strong>运营/管理员</strong></td>
+        <td>省级运营方+培训机构，负责开班申请、班务管理、数据汇报</td>
+        <td>各地政府/机构独立运营，负责培训项目配置</td>
+        <td>基金会运营，负责活动管理、资源沉淀</td>
+        <td>基金会运营，负责课程上架</td>
+        <td>联合机构+各地基金会，分级管理</td>
+    </tr>
+    <tr>
+        <td><strong>讲师/导师</strong></td>
+        <td>外聘讲师，与培训机构合作</td>
+        <td>导师1对1配对，双向打分</td>
+        <td>嘉宾库，参与活动/会议</td>
+        <td>联合专家，内容开发</td>
+        <td>外聘讲师+内部培训师</td>
+    </tr>
+    <tr>
+        <td><strong>班主任</strong></td>
+        <td>有，负责学员进度追踪</td>
+        <td>有，负责学习任务管理</td>
+        <td>无</td>
+        <td>无</td>
+        <td>需要，负责培训项目过程管理</td>
+    </tr>
+    <tr>
+        <td><strong>学员</strong></td>
+        <td>村干部、农业经营主体</td>
+        <td>乡村经营人才（乡村CEO）</td>
+        <td>公益机构从业者</td>
+        <td>公益从业者</td>
+        <td>社区书记、社工、志愿者</td>
+    </tr>
+    <tr>
+        <td><strong>机构/组织</strong></td>
+        <td>农业农村部、省级运营方</td>
+        <td>17省309县各地政府/机构</td>
+        <td>公益机构</td>
+        <td>无</td>
+        <td>联合机构→各地基金会→培训班</td>
+    </tr>
+    <tr>
+        <td><strong>政府/监管方</strong></td>
+        <td>农业农村部（审批方）</td>
+        <td>各地政府（租户方）</td>
+        <td>无</td>
+        <td>无</td>
+        <td>民政部门（指导方）</td>
+    </tr>
+</table>
+
+<h4>各角色核心任务（JTBD）</h4>
+
+<table>
+    <tr>
+        <th>角色</th>
+        <th>核心任务</th>
+    </tr>
+    <tr>
+        <td><strong>运营/管理员</strong></td>
+        <td>高效组织培训、保证完课率、产出数据报表向上汇报</td>
+    </tr>
+    <tr>
+        <td><strong>讲师/导师</strong></td>
+        <td>高质量交付教学内容、获得学员认可</td>
+    </tr>
+    <tr>
+        <td><strong>班主任</strong></td>
+        <td>监控学员进度、干预掉队学员、保证培训效果</td>
+    </tr>
+    <tr>
+        <td><strong>学员</strong></td>
+        <td>用最少时间完成学习任务、获得证书/能力提升</td>
+    </tr>
+    <tr>
+        <td><strong>机构/组织</strong></td>
+        <td>完成培训指标、产出可量化的培训效果</td>
+    </tr>
+    <tr>
+        <td><strong>政府/监管方</strong></td>
+        <td>确保资金使用合规、培训成果可验收</td>
+    </tr>
+</table>
+
+<hr class="section-divider">
+
+<h3><span class="new-tag">新增</span>1.3 业务战略定位：为什么是四套系统？</h3>
+
+<blockquote>回答：如果合并/统一，会损失什么？</blockquote>
+
+<table>
+    <tr>
+        <th>平台</th>
+        <th>业务独特性</th>
+        <th>合并会损失什么</th>
+    </tr>
+    <tr>
+        <td><strong>耕耘者</strong></td>
+        <td>政府预算审批流程、跨部门协同机制</td>
+        <td>审批流程是与农业农村部合作的核心价值，不可剥离</td>
+    </tr>
+    <tr>
+        <td><strong>共富学堂</strong></td>
+        <td>多租户架构、各地机构独立运营自主性</td>
+        <td>各地政府要求数据隔离、独立品牌露出，统一入口会损失地方积极性</td>
+    </tr>
+    <tr>
+        <td><strong>自研版</strong></td>
+        <td>办会工具、知识沉淀形态</td>
+        <td>本质不是培训平台，强行合并会造成产品定位混乱</td>
+    </tr>
+    <tr>
+        <td><strong>乐享版</strong></td>
+        <td>基于成熟企培平台、低运维成本</td>
+        <td>乐享是现成平台，重新开发得不偿失</td>
+    </tr>
+</table>
+
+<h4>策略建议：组件中台 + 差异化前端</h4>
+
+<div class="architecture-diagram">
+┌─────────────────────────────────────────────────────┐
+│                    前端层（差异化）                    │
+│  耕耘者    共富学堂    一起学自研    深根者    ...     │
+│  小程序    小程序      小程序       小程序            │
+└─────────────────────────────────────────────────────┘
+                          ↓
+┌─────────────────────────────────────────────────────┐
+│                   能力组件层（统一）                   │
+│  课程管理  学员管理  学习追踪  数据看板  消息触达     │
+└─────────────────────────────────────────────────────┘
+                          ↓
+┌─────────────────────────────────────────────────────┐
+│                   业务定制层（按需）                   │
+│  审批流程  多租户  导师配对  办会工具  证书发放       │
+└─────────────────────────────────────────────────────┘
+</div>
+
+<hr class="section-divider">
+
+<h2>第二章｜产品能力盘点</h2>
+
+<h3>2.1 各平台产品能力概览</h3>
+
+<blockquote>详细盘点见各平台独立文档，此处提取核心能力特征</blockquote>
+
+<h4>耕耘者学习平台</h4>
+<ul>
+    <li><strong>双后台架构</strong>：运营后台（内容编排，像出版社）+ 培训管理后台（班务执行，像学校）</li>
+    <li><strong>班务管理强</strong>：班级模板、学习任务编排、近场签到、数据看板</li>
+    <li><strong>审批流程</strong>：开班审批→执行→验收审批，数据支撑预算核算</li>
+    <li><strong>内容管理</strong>：耘课堂（课程/专题/考试）、政策库、日记/百问</li>
+    <li><strong>社区运营</strong>：耕耘者社区（UGC板块，但活跃度低）</li>
+    <li><strong>外部打通</strong>：善治美数据对接</li>
+</ul>
+
+<h4>共富学堂</h4>
+<ul>
+    <li><strong>多租户架构</strong>：支持多地政府、多机构独立运营</li>
+    <li><strong>轻量化设计</strong>：后台结构简单，不增加使用负担</li>
+    <li><strong>深度培养</strong>：导师1对1配对、双向打分、研学基地绑定</li>
+    <li><strong>学习任务</strong>：多阶段任务配置丰富</li>
+    <li><strong>PUGC内容</strong>：平台生产内容为主，互动形式少，无UGC管理</li>
+</ul>
+
+<h4>一起学·自研版</h4>
+<ul>
+    <li><strong>办会工具</strong>：活动创建全流程（议程/嘉宾/报名/核销/成果归档）</li>
+    <li><strong>资源中心</strong>：专家库、机构库、案例库、工具包、公益报告</li>
+    <li><strong>知识沉淀</strong>：定位是沉淀行业知识，非学习效果跟踪</li>
+    <li><strong>无班务能力</strong>：不支持培训班管理</li>
+</ul>
+
+<h4>一起学·乐享版</h4>
+<ul>
+    <li><strong>课程托管</strong>：基于腾讯乐享实现课程上架</li>
+    <li><strong>乐享能力</strong>：学习地图、考试、学员管理（乐享原生）</li>
+    <li><strong>非独立入口</strong>：跳转乐享平台</li>
+    <li><strong>纯内容平台</strong>：不做班务管理</li>
+</ul>
+
+<h3>2.2 能力全景对比图</h3>
+
+<blockquote><strong>图例</strong>：✅ 有此能力 | ⚠️ 部分支持 | ❌ 无此能力 | 🔗 需跳转</blockquote>
+
+<table>
+    <tr>
+        <th>能力域</th>
+        <th>能力项</th>
+        <th>耕耘者</th>
+        <th>共富学堂</th>
+        <th>自研版</th>
+        <th>乐享版</th>
+        <th>说明</th>
+    </tr>
+    <tr>
+        <td rowspan="3"><strong>平台架构</strong></td>
+        <td>独立小程序</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">🔗</td>
+        <td>乐享版跳转乐享</td>
+    </tr>
+    <tr>
+        <td>多租户/机构隔离</td>
+        <td style="text-align:center;">❌</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">❌</td>
+        <td style="text-align:center;">❌</td>
+        <td>共富学堂核心能力</td>
+    </tr>
+    <tr>
+        <td>双后台（内容/班务分离）</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">❌</td>
+        <td style="text-align:center;">-</td>
+        <td style="text-align:center;">-</td>
+        <td>耕耘者特色</td>
+    </tr>
+    <tr>
+        <td rowspan="9"><strong>班务管理</strong></td>
+        <td>培训项目/计划管理</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">❌</td>
+        <td style="text-align:center;">❌</td>
+        <td>办班必备</td>
+    </tr>
+    <tr>
+        <td>学习任务编排</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">❌</td>
+        <td style="text-align:center;">⚠️</td>
+        <td>乐享有学习地图</td>
+    </tr>
+    <tr>
+        <td>学员管理</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">❌</td>
+        <td style="text-align:center;">✅</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>学习进度追踪</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">❌</td>
+        <td style="text-align:center;">✅</td>
+        <td>自研版无此需求</td>
+    </tr>
+    <tr>
+        <td>线下签到</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">❌</td>
+        <td style="text-align:center;">❌</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>审批流程</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">❌</td>
+        <td style="text-align:center;">❌</td>
+        <td style="text-align:center;">❌</td>
+        <td>耕耘者独有</td>
+    </tr>
+    <tr>
+        <td>证书发放</td>
+        <td style="text-align:center;">❌</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">❌</td>
+        <td style="text-align:center;">❌</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>导师配对</td>
+        <td style="text-align:center;">❌</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">❌</td>
+        <td style="text-align:center;">❌</td>
+        <td>乡村CEO业务特有</td>
+    </tr>
+    <tr>
+        <td>研学基地绑定</td>
+        <td style="text-align:center;">❌</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">❌</td>
+        <td style="text-align:center;">❌</td>
+        <td>乡村CEO业务特有</td>
+    </tr>
+    <tr>
+        <td rowspan="5"><strong>内容管理</strong></td>
+        <td>点播课程</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">🔗</td>
+        <td style="text-align:center;">✅</td>
+        <td>自研版跳乐享</td>
+    </tr>
+    <tr>
+        <td>直播课程</td>
+        <td style="text-align:center;">❌</td>
+        <td style="text-align:center;">⚠️</td>
+        <td style="text-align:center;">❌</td>
+        <td style="text-align:center;">⚠️</td>
+        <td>腾讯会议跳转</td>
+    </tr>
+    <tr>
+        <td>系列课/专题</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">❌</td>
+        <td style="text-align:center;">✅</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>考试测验</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">❌</td>
+        <td style="text-align:center;">⚠️</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>日记/心得</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">❌</td>
+        <td style="text-align:center;">❌</td>
+        <td style="text-align:center;">❌</td>
+        <td>耕耘者UGC</td>
+    </tr>
+    <tr>
+        <td rowspan="3"><strong>活动/会议</strong></td>
+        <td>活动管理全流程</td>
+        <td style="text-align:center;">❌</td>
+        <td style="text-align:center;">⚠️</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">❌</td>
+        <td>自研版核心能力</td>
+    </tr>
+    <tr>
+        <td>议程/嘉宾管理</td>
+        <td style="text-align:center;">❌</td>
+        <td style="text-align:center;">❌</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">❌</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>成果归档</td>
+        <td style="text-align:center;">❌</td>
+        <td style="text-align:center;">❌</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">❌</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td rowspan="2"><strong>资源沉淀</strong></td>
+        <td>专家/机构库</td>
+        <td style="text-align:center;">⚠️</td>
+        <td style="text-align:center;">❌</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">❌</td>
+        <td>自研版核心能力</td>
+    </tr>
+    <tr>
+        <td>案例/报告/工具包</td>
+        <td style="text-align:center;">❌</td>
+        <td style="text-align:center;">❌</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">❌</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td rowspan="2"><strong>社区运营</strong></td>
+        <td>UGC社区</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">❌</td>
+        <td style="text-align:center;">❌</td>
+        <td style="text-align:center;">❌</td>
+        <td>耕耘者有但活跃度低</td>
+    </tr>
+    <tr>
+        <td>问卷调研</td>
+        <td style="text-align:center;">❌</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">❌</td>
+        <td>耕耘者用腾讯问卷</td>
+    </tr>
+</table>
+
+<hr class="section-divider">
+
+<h3><span class="new-tag">新增</span>2.2.1 能力模块化视图</h3>
+
+<blockquote>将功能从"业务说法"抽象为可复用模块，便于组件化规划</blockquote>
+
+<table>
+    <tr>
+        <th>模块</th>
+        <th>能力描述</th>
+        <th>耕耘者</th>
+        <th>共富学堂</th>
+        <th>自研版</th>
+        <th>乐享版</th>
+        <th>统一/差异化判断</th>
+    </tr>
+    <tr>
+        <td><strong>身份与组织关系</strong></td>
+        <td>用户身份管理、组织架构（村/社区/班级/机构）</td>
+        <td style="text-align:center;">✅村/班级</td>
+        <td style="text-align:center;">✅机构/班级/多租户</td>
+        <td style="text-align:center;">✅机构</td>
+        <td style="text-align:center;">✅乐享用户</td>
+        <td><strong>统一</strong>：用户ID应打通</td>
+    </tr>
+    <tr>
+        <td><strong>内容与课程</strong></td>
+        <td>课节-专题-学习计划的内容管理</td>
+        <td style="text-align:center;">✅1568门</td>
+        <td style="text-align:center;">✅待统计</td>
+        <td style="text-align:center;">⚠️非课程形态</td>
+        <td style="text-align:center;">✅148节</td>
+        <td><strong>统一</strong>：建立内容中台</td>
+    </tr>
+    <tr>
+        <td><strong>训练评测</strong></td>
+        <td>考试/作业/证书/学分</td>
+        <td style="text-align:center;">✅考试</td>
+        <td style="text-align:center;">✅考试+证书</td>
+        <td style="text-align:center;">❌</td>
+        <td style="text-align:center;">⚠️乐享考试</td>
+        <td><strong>统一</strong>：抽象为评测组件</td>
+    </tr>
+    <tr>
+        <td><strong>运营触达</strong></td>
+        <td>通知/群/任务提醒</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">⚠️活动通知</td>
+        <td style="text-align:center;">⚠️乐享消息</td>
+        <td><strong>统一</strong>：消息中心</td>
+    </tr>
+    <tr>
+        <td><strong>数据台账</strong></td>
+        <td>学习留痕/可追溯/导出</td>
+        <td style="text-align:center;">✅强</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">❌</td>
+        <td style="text-align:center;">✅乐享报表</td>
+        <td><strong>统一</strong>：数据看板组件</td>
+    </tr>
+    <tr>
+        <td><strong>生态接入</strong></td>
+        <td>机构入驻/讲师/线下结合</td>
+        <td style="text-align:center;">✅善治美对接</td>
+        <td style="text-align:center;">✅导师/研学基地</td>
+        <td style="text-align:center;">✅专家库/机构库</td>
+        <td style="text-align:center;">❌</td>
+        <td><strong>差异化</strong>：各业务需求不同</td>
+    </tr>
+</table>
+
+<h4>模块化建议</h4>
+
+<table>
+    <tr>
+        <th>类型</th>
+        <th>模块</th>
+        <th>建议</th>
+    </tr>
+    <tr>
+        <td><strong>统一沉淀</strong></td>
+        <td>用户ID、课程管理、评测组件、消息中心、数据看板</td>
+        <td>优先级P0，投入产出比高</td>
+    </tr>
+    <tr>
+        <td><strong>按需差异化</strong></td>
+        <td>审批流程、多租户、导师配对、办会工具</td>
+        <td>保持独立，按业务需求灵活配置</td>
+    </tr>
+</table>
+
+<hr class="section-divider">
+
+<h3>2.3 深根者需求映射</h3>
+
+<blockquote>把深根者的业务需求，放到四平台能力框架中，看哪个更贴近诉求</blockquote>
+
+<h4><span class="new-tag">新增</span>深根者业务定位</h4>
+
+<p><strong>一句话定位</strong>：社区慈善的能力孵化器，通过培训激活基层力量，聚焦社区共建与公益生态。</p>
+
+<p><strong>与其他业务的关系</strong>：</p>
+<ul>
+    <li>与耕耘者：都是"办班"，但深根者无预算审批需求，更接近共富学堂</li>
+    <li>与共富学堂：都需要多机构协作，但深根者面向社区而非乡村</li>
+    <li>与一起学：深根者需要课程内容，乐享版课程可复用</li>
+</ul>
+
+<h4>深根者计划是什么</h4>
+
+<p><strong>发起方</strong>：腾讯基金会 + 中国社会保障学会 + 民政职业大学公益慈善研究院 + 清华大学公益慈善研究院 + 北京师范大学中国公益研究院 + 深圳国际公益学院</p>
+
+<p><strong>业务目标</strong>：面向社区慈善领域，对社区工作人员、社工、志愿者进行公益培训，将培训班管理、课程体系标准化，由线下培训逐步转为线上培训，扩大影响力</p>
+
+<p><strong>培训对象</strong>：</p>
+<table>
+    <tr>
+        <th>用户类型</th>
+        <th>说明</th>
+    </tr>
+    <tr>
+        <td>系统管理用户</td>
+        <td>联合机构的数字化管理员</td>
+    </tr>
+    <tr>
+        <td>培训项目管理用户</td>
+        <td>各地基金会的培训管理员</td>
+    </tr>
+    <tr>
+        <td>学员用户</td>
+        <td>社区书记、社工、志愿者等</td>
+    </tr>
+</table>
+
+<p><strong>学员特点</strong>：</p>
+<ul>
+    <li>来源：各地政府推荐为主，志愿者主动报名为辅</li>
+    <li>培训结果预期：非强制性学习，以任务引导及证书发放作为激励手段</li>
+</ul>
+
+<p><strong>当前状态</strong>：全部培训以线下为主，还未引入数字化工具，课程内容较为零散，培训管理过程还未标准化</p>
+
+<h4>深根者实际提出的需求</h4>
+
+<table>
+    <tr>
+        <th>需求项</th>
+        <th>详细说明</th>
+        <th>能力要求</th>
+    </tr>
+    <tr>
+        <td>有层级的机构管理</td>
+        <td>联合机构→各地基金会→培训班，需要分权管理</td>
+        <td>多租户架构</td>
+    </tr>
+    <tr>
+        <td>培训项目过程管理</td>
+        <td>学员签到、课程纲要发放、听课、作业/测验</td>
+        <td>班务管理</td>
+    </tr>
+    <tr>
+        <td>三阶段培训流程</td>
+        <td>①基础课程学习 ②线下走访/研学 ③考核颁发资质</td>
+        <td>任务编排+签到+证书</td>
+    </tr>
+    <tr>
+        <td>线上视频课程</td>
+        <td>清晰的课程介绍、学习计划、目标（参考Coursera）</td>
+        <td>点播课程</td>
+    </tr>
+    <tr>
+        <td>防溜号设计</td>
+        <td>不定时课堂测验</td>
+        <td>考试测验</td>
+    </tr>
+    <tr>
+        <td>结业证书</td>
+        <td>作为激励手段</td>
+        <td>证书发放</td>
+    </tr>
+    <tr>
+        <td>独立品牌</td>
+        <td>深根者计划需要独立品牌露出</td>
+        <td>独立小程序入口</td>
+    </tr>
+</table>
+
+<h4>需求与四平台能力映射</h4>
+
+<table>
+    <tr>
+        <th>深根者需求</th>
+        <th>能力要求</th>
+        <th>耕耘者</th>
+        <th>共富学堂</th>
+        <th>自研版</th>
+        <th>乐享版</th>
+    </tr>
+    <tr>
+        <td>有层级的机构管理</td>
+        <td>多租户架构</td>
+        <td style="text-align:center;">❌</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">❌</td>
+        <td style="text-align:center;">❌</td>
+    </tr>
+    <tr>
+        <td>培训项目过程管理</td>
+        <td>班务管理</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">❌</td>
+        <td style="text-align:center;">❌</td>
+    </tr>
+    <tr>
+        <td>线上视频课程</td>
+        <td>点播课程</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">🔗跳转</td>
+        <td style="text-align:center;">✅</td>
+    </tr>
+    <tr>
+        <td>三阶段任务编排</td>
+        <td>学习任务管理</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">❌</td>
+        <td style="text-align:center;">⚠️学习地图</td>
+    </tr>
+    <tr>
+        <td>线下签到</td>
+        <td>签到能力</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">❌</td>
+        <td style="text-align:center;">❌</td>
+    </tr>
+    <tr>
+        <td>防溜号测验</td>
+        <td>考试测验</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">❌</td>
+        <td style="text-align:center;">⚠️</td>
+    </tr>
+    <tr>
+        <td>结业证书</td>
+        <td>证书发放</td>
+        <td style="text-align:center;">❌</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">❌</td>
+        <td style="text-align:center;">❌</td>
+    </tr>
+    <tr>
+        <td>独立品牌露出</td>
+        <td>独立小程序</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">⚠️共用入口</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">❌跳转乐享</td>
+    </tr>
+</table>
+
+<h4>选型结论</h4>
+
+<div class="highlight-box">
+    <p><strong>推荐平台：共富学堂</strong></p>
+    <table>
+        <tr>
+            <th>维度</th>
+            <th>结论</th>
+        </tr>
+        <tr>
+            <td><strong>核心匹配点</strong></td>
+            <td>多租户架构（支持联合机构→各地基金会→培训班的分级管理）+ 班务管理 + 证书发放</td>
+        </tr>
+        <tr>
+            <td><strong>待解决问题</strong></td>
+            <td>独立品牌需求——共富学堂是共用入口，需评估是否需定制独立小程序</td>
+        </tr>
+        <tr>
+            <td><strong>内容复用</strong></td>
+            <td>乐享版93小时公益课程可复用（公益性质可免费用，联合创作需告知对方）</td>
+        </tr>
+    </table>
+</div>
+
+<h4>深根者可能还需要但当前需求未明确提的能力</h4>
+
+<blockquote>参考四平台盘点，以下能力对培训类业务有价值，建议与深根者确认</blockquote>
+
+<table>
+    <tr>
+        <th>能力</th>
+        <th>参考平台</th>
+        <th>价值说明</th>
+    </tr>
+    <tr>
+        <td>审批流程</td>
+        <td>耕耘者</td>
+        <td>如有预算管控需求，学习数据与审批挂钩可能有用</td>
+    </tr>
+    <tr>
+        <td>数据看板</td>
+        <td>耕耘者</td>
+        <td>培训效果汇报、多机构数据对比</td>
+    </tr>
+    <tr>
+        <td>直播课</td>
+        <td>共富学堂</td>
+        <td>如有实时授课需求（当前只提了视频课）</td>
+    </tr>
+</table>
+
+<hr class="section-divider">
+
+<h3>2.4 长线产品策略与路线图</h3>
+
+<blockquote>深根者只是当前项目。问题是：未来新培训计划来了，怎么更省力支撑？</blockquote>
+
+<h4>现状问题</h4>
+<ul>
+    <li>4个平台能力重复建设（都有课程管理、学员管理）</li>
+    <li>内容孤岛（课程分散，无法互通；耕耘者课程还有版权限制）</li>
+    <li>新项目来了要重新评估用哪个、缺什么</li>
+</ul>
+
+<h4><span class="change-tag">改</span>建议路径与优先级</h4>
+
+<table>
+    <tr>
+        <th>阶段</th>
+        <th>时间</th>
+        <th>优先级</th>
+        <th>任务</th>
+        <th>投入预估</th>
+        <th>产出</th>
+        <th>依赖条件</th>
+    </tr>
+    <tr>
+        <td><strong>P0短期</strong></td>
+        <td>0-3月</td>
+        <td>🔴高</td>
+        <td>深根者上线共富学堂；乐享课程复用授权确认</td>
+        <td>1人月</td>
+        <td>深根者MVP上线</td>
+        <td>共富学堂技术对接、乐享授权确认</td>
+    </tr>
+    <tr>
+        <td><strong>P1中期</strong></td>
+        <td>3-6月</td>
+        <td>🟡中</td>
+        <td>独立品牌方案落地（深根者独立入口）；数据看板组件化</td>
+        <td>2人月</td>
+        <td>深根者品牌独立、数据可视化</td>
+        <td>共富学堂支持品牌定制</td>
+    </tr>
+    <tr>
+        <td><strong>P2长期</strong></td>
+        <td>6-12月</td>
+        <td>🟢低</td>
+        <td>用户ID打通；学习记录跨平台可见；内容中台MVP</td>
+        <td>5人月</td>
+        <td>组件化基础设施</td>
+        <td>数据合规评估、技术架构设计</td>
+    </tr>
+</table>
+
+<h4>新项目决策框架</h4>
+
+<table>
+    <tr>
+        <th>业务特征</th>
+        <th>推荐平台</th>
+        <th>原因</th>
+    </tr>
+    <tr>
+        <td>需要审批流？</td>
+        <td>耕耘者</td>
+        <td>唯一有完整审批流程</td>
+    </tr>
+    <tr>
+        <td>多机构协作？</td>
+        <td>共富学堂</td>
+        <td>唯一有多租户架构</td>
+    </tr>
+    <tr>
+        <td>办会为主？</td>
+        <td>自研版</td>
+        <td>唯一有办会工具</td>
+    </tr>
+    <tr>
+        <td>纯课程托管？</td>
+        <td>乐享版</td>
+        <td>低成本、现成平台</td>
+    </tr>
+    <tr>
+        <td>新业务无明确特殊需求？</td>
+        <td>共富学堂</td>
+        <td>架构最灵活</td>
+    </tr>
+</table>
+
+<hr class="section-divider">
+
+<h2>第三章｜内容资产盘点</h2>
+
+<h3>3.1 各平台内容资产概览</h3>
+
+<table>
+    <tr>
+        <th>平台</th>
+        <th>内容类型</th>
+        <th>数量规模</th>
+        <th>版权情况</th>
+        <th>复用性</th>
+    </tr>
+    <tr>
+        <td><strong>耕耘者</strong></td>
+        <td>乡村治理/农业经营课程</td>
+        <td>1568门课程</td>
+        <td>买断，但合同限定只能在本小程序用</td>
+        <td>⚠️ 只能跳链，不能迁移</td>
+    </tr>
+    <tr>
+        <td><strong>共富学堂</strong></td>
+        <td>乡村经营/CEO培养课程</td>
+        <td>待统计</td>
+        <td>待确认</td>
+        <td>待评估</td>
+    </tr>
+    <tr>
+        <td><strong>自研版</strong></td>
+        <td>行业报告/工具包/案例/会议成果</td>
+        <td>待统计</td>
+        <td>-</td>
+        <td>非课程形态</td>
+    </tr>
+    <tr>
+        <td><strong>乐享版</strong></td>
+        <td>公益标准化课程</td>
+        <td>13门/148节/93h</td>
+        <td>原创+乐享+联合创作，公益性质可免费用</td>
+        <td>✅ 联合创作需告知对方</td>
+    </tr>
+</table>
+
+<h3>3.2 乐享版课程明细</h3>
+
+<blockquote>13门课程覆盖公益核心能力，详见附录</blockquote>
+
+<table>
+    <tr>
+        <th>课程名称</th>
+        <th>节数</th>
+        <th>时长</th>
+        <th>能力方向</th>
+    </tr>
+    <tr>
+        <td>公益慈善筹款通识</td>
+        <td>6节</td>
+        <td>84分钟</td>
+        <td>筹款</td>
+    </tr>
+    <tr>
+        <td>互联网筹款伦理</td>
+        <td>6节</td>
+        <td>79分钟</td>
+        <td>筹款</td>
+    </tr>
+    <tr>
+        <td>互联网筹款案例详解</td>
+        <td>5节</td>
+        <td>83分钟</td>
+        <td>筹款</td>
+    </tr>
+    <tr>
+        <td>合规募捐系列课程</td>
+        <td>19节</td>
+        <td>245分钟</td>
+        <td>合规</td>
+    </tr>
+    <tr>
+        <td>捐赠人管理与发展专题课</td>
+        <td>8节</td>
+        <td>128分钟</td>
+        <td>筹款</td>
+    </tr>
+    <tr>
+        <td>公信力线上马拉松</td>
+        <td>20节</td>
+        <td>133分钟</td>
+        <td>公信力</td>
+    </tr>
+    <tr>
+        <td>公益探长说：构建议题公共叙事</td>
+        <td>12节</td>
+        <td>921分钟</td>
+        <td>传播</td>
+    </tr>
+    <tr>
+        <td>如何做好公益短视频账号</td>
+        <td>9节</td>
+        <td>358分钟</td>
+        <td>传播</td>
+    </tr>
+    <tr>
+        <td>中科大数字化+传播预修课程</td>
+        <td>5节</td>
+        <td>258分钟</td>
+        <td>数字化</td>
+    </tr>
+    <tr>
+        <td>基金会实务二十讲</td>
+        <td>20节</td>
+        <td>1669分钟</td>
+        <td>综合</td>
+    </tr>
+    <tr>
+        <td>数字人才开放计划</td>
+        <td>23节</td>
+        <td>1243分钟</td>
+        <td>数字化</td>
+    </tr>
+    <tr>
+        <td>从理念到行动：基金会公平发展实践</td>
+        <td>3节</td>
+        <td>150分钟</td>
+        <td>综合</td>
+    </tr>
+    <tr>
+        <td>"益企向善"实战营</td>
+        <td>12节</td>
+        <td>225分钟</td>
+        <td>综合</td>
+    </tr>
+</table>
+
+<h3>3.3 内容策略建议</h3>
+
+<p><strong>For 深根者</strong>：</p>
+<ul>
+    <li>乐享版93小时公益课程可直接复用，联合创作课程需告知合作方</li>
+    <li>耕耘者课程因版权限制，只能通过跳链方式引用</li>
+</ul>
+
+<p><strong>For 统管</strong>：</p>
+<ul>
+    <li>建立统一内容资产目录，明确各课程版权状态</li>
+    <li>新采购/开发课程时，合同中明确多平台使用权</li>
+    <li>长期考虑建立内容中台，打通各平台课程资源</li>
+</ul>
+
+<hr class="section-divider">
+
+<h2><span class="new-tag">新增</span>第四章｜指标体系与数据能力</h2>
+
+<blockquote>产品总监决策需要：如何衡量培训效果？数据能力现状如何？</blockquote>
+
+<h3>4.1 培训类业务北极星指标建议</h3>
+
+<table>
+    <tr>
+        <th>业务</th>
+        <th>北极星指标</th>
+        <th>衡量标准</th>
+    </tr>
+    <tr>
+        <td><strong>耕耘者</strong></td>
+        <td>培训验收通过率</td>
+        <td>学习数据达标的培训项目占比</td>
+    </tr>
+    <tr>
+        <td><strong>共富学堂</strong></td>
+        <td>乡村CEO经济影响力</td>
+        <td>学员所在村集体经济增长（需待访谈确认）</td>
+    </tr>
+    <tr>
+        <td><strong>一起学</strong></td>
+        <td>行业覆盖率</td>
+        <td>公益机构从业者中使用平台的比例</td>
+    </tr>
+    <tr>
+        <td><strong>深根者</strong></td>
+        <td>培训完课率 × 证书获取率</td>
+        <td>完成全部学习任务并获得证书的学员占比</td>
+    </tr>
+</table>
+
+<h3>4.2 培训漏斗指标</h3>
+
+<div class="architecture-diagram">
+覆盖（触达/报名）
+    ↓
+参与（学习时长/完课）
+    ↓
+转化（考试通过/作业提交）
+    ↓
+留存（复训/二次学习）
+    ↓
+业务结果（能力提升/组织目标）
+</div>
+
+<table>
+    <tr>
+        <th>漏斗阶段</th>
+        <th>指标</th>
+        <th>耕耘者</th>
+        <th>共富学堂</th>
+        <th>自研版</th>
+        <th>乐享版</th>
+    </tr>
+    <tr>
+        <td><strong>覆盖</strong></td>
+        <td>注册用户数、报名人数</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">✅</td>
+    </tr>
+    <tr>
+        <td><strong>参与</strong></td>
+        <td>学习时长、课程完成率</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">❌</td>
+        <td style="text-align:center;">✅</td>
+    </tr>
+    <tr>
+        <td><strong>转化</strong></td>
+        <td>考试通过率、作业提交率</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">✅</td>
+        <td style="text-align:center;">❌</td>
+        <td style="text-align:center;">⚠️</td>
+    </tr>
+    <tr>
+        <td><strong>留存</strong></td>
+        <td>复训率、二次学习率</td>
+        <td style="text-align:center;">⚠️</td>
+        <td style="text-align:center;">⚠️</td>
+        <td style="text-align:center;">❌</td>
+        <td style="text-align:center;">⚠️</td>
+    </tr>
+    <tr>
+        <td><strong>结果</strong></td>
+        <td>能力提升评估、业务目标达成</td>
+        <td style="text-align:center;">⚠️预算验收</td>
+        <td style="text-align:center;">⚠️经济影响待量化</td>
+        <td style="text-align:center;">❌</td>
+        <td style="text-align:center;">❌</td>
+    </tr>
+</table>
+
+<h3>4.3 数据能力现状与缺口</h3>
+
+<table>
+    <tr>
+        <th>数据类型</th>
+        <th>现状</th>
+        <th>缺口</th>
+    </tr>
+    <tr>
+        <td><strong>用户数据</strong></td>
+        <td>各平台独立，ID不打通</td>
+        <td>无法跨平台追踪学员学习轨迹</td>
+    </tr>
+    <tr>
+        <td><strong>学习数据</strong></td>
+        <td>耕耘者/共富学堂/乐享版有</td>
+        <td>自研版无学习效果数据</td>
+    </tr>
+    <tr>
+        <td><strong>效果数据</strong></td>
+        <td>仅有学习完成率，缺业务结果</td>
+        <td>培训对实际工作的影响难量化</td>
+    </tr>
+    <tr>
+        <td><strong>导出能力</strong></td>
+        <td>耕耘者有导出</td>
+        <td>共富学堂/乐享版待确认</td>
+    </tr>
+</table>
+
+<h3>4.4 深根者数据需求建议</h3>
+
+<table>
+    <tr>
+        <th>指标</th>
+        <th>说明</th>
+        <th>优先级</th>
+    </tr>
+    <tr>
+        <td>报名率</td>
+        <td>各机构报名人数/目标人数</td>
+        <td>P0</td>
+    </tr>
+    <tr>
+        <td>完课率</td>
+        <td>完成全部学习任务的学员占比</td>
+        <td>P0</td>
+    </tr>
+    <tr>
+        <td>考试通过率</td>
+        <td>通过结业考试的学员占比</td>
+        <td>P0</td>
+    </tr>
+    <tr>
+        <td>证书获取率</td>
+        <td>获得证书的学员占比</td>
+        <td>P1</td>
+    </tr>
+    <tr>
+        <td>机构对比看板</td>
+        <td>各地基金会培训效果对比</td>
+        <td>P1</td>
+    </tr>
+    <tr>
+        <td>学员能力评估</td>
+        <td>培训前后能力变化（需设计评估方式）</td>
+        <td>P2</td>
+    </tr>
+</table>
+
+<hr class="section-divider">
+
+<h2><span class="new-tag">新增</span>第五章｜风险与合规</h2>
+
+<blockquote>产品总监决策需要：有哪些风险需要提前规避？</blockquote>
+
+<h3>5.1 风险清单</h3>
+
+<table>
+    <tr>
+        <th>风险类型</th>
+        <th>风险描述</th>
+        <th>涉及平台</th>
+        <th>建议措施</th>
+    </tr>
+    <tr>
+        <td><strong>数据合规</strong></td>
+        <td>学员个人信息（姓名、手机、单位）跨平台流转需合规评估</td>
+        <td>全部</td>
+        <td>用户ID打通前需完成数据合规评估</td>
+    </tr>
+    <tr>
+        <td><strong>内容版权</strong></td>
+        <td>耕耘者1568门课程合同限定只能本小程序用</td>
+        <td>耕耘者</td>
+        <td>新采购课程时合同明确多平台使用权</td>
+    </tr>
+    <tr>
+        <td><strong>考试作弊</strong></td>
+        <td>在线考试无法完全防止作弊（代考、搜索答案）</td>
+        <td>耕耘者/共富学堂/乐享版</td>
+        <td>设计防溜号机制、人脸验证（成本较高）、线下考试结合</td>
+    </tr>
+    <tr>
+        <td><strong>证书公信力</strong></td>
+        <td>证书是否被政府/行业认可</td>
+        <td>共富学堂/深根者</td>
+        <td>联合民政部门/行业协会背书</td>
+    </tr>
+    <tr>
+        <td><strong>线下真实性</strong></td>
+        <td>线下签到、研学是否真实完成</td>
+        <td>耕耘者/共富学堂</td>
+        <td>近场签到+照片上传+抽查机制</td>
+    </tr>
+    <tr>
+        <td><strong>机构管理风险</strong></td>
+        <td>多租户架构下各机构数据泄露风险</td>
+        <td>共富学堂</td>
+        <td>数据隔离、权限管控、审计日志</td>
+    </tr>
+</table>
+
+<h3>5.2 深根者合规checklist</h3>
+
+<table>
+    <tr>
+        <th>检查项</th>
+        <th>状态</th>
+        <th>负责方</th>
+    </tr>
+    <tr>
+        <td>学员个人信息收集范围确认</td>
+        <td>待确认</td>
+        <td>深根者项目组</td>
+    </tr>
+    <tr>
+        <td>数据存储与跨平台共享合规评估</td>
+        <td>待确认</td>
+        <td>法务</td>
+    </tr>
+    <tr>
+        <td>证书发放主体与公信力来源确认</td>
+        <td>待确认</td>
+        <td>联合机构</td>
+    </tr>
+    <tr>
+        <td>线下培训签到真实性保障机制</td>
+        <td>待设计</td>
+        <td>产品</td>
+    </tr>
+    <tr>
+        <td>考试防作弊方案</td>
+        <td>待设计</td>
+        <td>产品</td>
+    </tr>
+</table>
+
+<hr class="section-divider">
+
+<h2>附录｜数据来源说明</h2>
+
+<table>
+    <tr>
+        <th>平台</th>
+        <th>数据来源</th>
+        <th>完整度</th>
+    </tr>
+    <tr>
+        <td>耕耘者学习平台</td>
+        <td>后台截图 + 用户多次确认</td>
+        <td>✅ 完整</td>
+    </tr>
+    <tr>
+        <td>共富学堂</td>
+        <td>产品介绍PDF + 小程序截图</td>
+        <td>⚠️ 缺后台截图</td>
+    </tr>
+    <tr>
+        <td>一起学·自研版</td>
+        <td>后台截图</td>
+        <td>✅ 完整</td>
+    </tr>
+    <tr>
+        <td>一起学·乐享版</td>
+        <td>课程列表</td>
+        <td>⚠️ 无后台权限，能力为推测</td>
+    </tr>
+</table>
+
+<hr class="section-divider">
+
+<h2><span class="new-tag">新增</span>附录｜变更记录</h2>
+
+<table>
+    <tr>
+        <th>版本</th>
+        <th>日期</th>
+        <th>变更内容</th>
+    </tr>
+    <tr>
+        <td>v3.0</td>
+        <td>2026-02-05</td>
+        <td>初版报告</td>
+    </tr>
+    <tr>
+        <td>v4.0</td>
+        <td>2026-02-06</td>
+        <td>【新增】决策摘要、用户角色与JTBD、业务战略定位、能力模块化视图、指标体系、风险与合规；【改】业务背景补充战略定位说明、路线图增加优先级与投入产出</td>
+    </tr>
+</table>
+
+<hr class="section-divider">
+
+<div class="header-info" style="margin-top: 40px;">
+    <p><strong>盘点状态</strong>：✅ 完成</p>
+    <p><strong>盘点时间</strong>：2026-02-06</p>
+    <p><strong>报告版本</strong>：v4.0（补强版）</p>
+</div>
+
+</body>
+</html>

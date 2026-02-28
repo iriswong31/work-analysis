@@ -1,0 +1,57 @@
+# 内容工厂 URL 收集模板
+# 用于批量分析热门内容和生成创意
+# 每行一个URL，以#开头的行为注释
+
+# === 短视频平台 ===
+# 抖音热门
+# https://www.douyin.com/discover
+# https://www.douyin.com/hot
+
+# 小红书热门
+# https://www.xiaohongshu.com/explore
+# https://www.xiaohongshu.com/search_result
+
+# B站热门
+# https://www.bilibili.com/ranking
+# https://www.bilibili.com/v/popular
+
+# 微信视频号
+# https://channels.weixin.qq.com/
+
+# === 资讯媒体 ===
+# 36氪
+# https://36kr.com/hot-list/catalog
+
+# 虎嗅
+# https://www.huxiu.com/
+
+# 钛媒体
+# https://www.tmtpost.com/
+
+# === 知识平台 ===
+# 知乎热榜
+# https://www.zhihu.com/hot
+
+# 微信公众号文章
+# https://mp.weixin.qq.com/
+
+# === 电商平台 ===
+# 淘宝直播
+# https://live.taobao.com/
+
+# 京东
+# https://www.jd.com/
+
+# === 社交媒体 ===
+# 微博热搜
+# https://weibo.com/hot/search
+
+# === 行业垂直 ===
+# 人人都是产品经理
+# http://www.woshipm.com/
+
+# 梅花网
+# https://www.meihua.info/
+
+# === 添加你要分析的URL ===
+# 在下面添加你想要分析的具体URL

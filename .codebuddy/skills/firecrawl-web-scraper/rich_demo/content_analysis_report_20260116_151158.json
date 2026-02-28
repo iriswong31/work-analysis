@@ -1,0 +1,138 @@
+{
+  "analysis_summary": {
+    "total_content": 4,
+    "average_hotness": 4.475,
+    "content_types": {
+      "article": 3,
+      "unknown": 1
+    },
+    "sentiment_distribution": {
+      "neutral": 4
+    }
+  },
+  "trending_analysis": {
+    "trending_keywords": [
+      [
+        "AI",
+        3
+      ],
+      [
+        "ChatGPT",
+        1
+      ]
+    ],
+    "trending_topics": [
+      [
+        "科技",
+        3
+      ]
+    ],
+    "high_engagement_content": [],
+    "content_type_distribution": {
+      "article": 3,
+      "unknown": 1
+    },
+    "sentiment_distribution": {
+      "neutral": 4
+    },
+    "platform_analysis": {
+      "其他": 4
+    }
+  },
+  "content_ideas": [
+    {
+      "title": "如何用AI实现科技",
+      "type": "教程类",
+      "keywords": [
+        "AI",
+        "科技"
+      ],
+      "estimated_popularity": 8.5,
+      "content_angle": "结合AI的最新趋势，深度解析科技的实操方法"
+    },
+    {
+      "title": "如何用ChatGPT实现科技",
+      "type": "教程类",
+      "keywords": [
+        "ChatGPT",
+        "科技"
+      ],
+      "estimated_popularity": 8.2,
+      "content_angle": "结合ChatGPT的最新趋势，深度解析科技的实操方法"
+    }
+  ],
+  "detailed_analyses": [
+    {
+      "url": "https://news.ycombinator.com/",
+      "title": "Hacker News",
+      "content_type": "article",
+      "keywords": [
+        "AI"
+      ],
+      "topics": [
+        "科技"
+      ],
+      "sentiment": "neutral",
+      "hotness_score": 5.8,
+      "engagement": {
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "views": 0
+      },
+      "summary": "|     |     |     |\n| --- | --- | --- |\n| |     |     |     |\n| --- | --- | --- |\n| [![](https://news.ycombinator.com/y18.svg)](https://news.ycombinator.com/) | **[Hacker News](https://news.ycombinato..."
+    },
+    {
+      "url": "https://github.com/trending",
+      "title": "Trending  repositories on GitHub today · GitHub",
+      "content_type": "article",
+      "keywords": [
+        "AI"
+      ],
+      "topics": [
+        "科技"
+      ],
+      "sentiment": "neutral",
+      "hotness_score": 5.8,
+      "engagement": {
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "views": 0
+      },
+      "summary": "[Skip to content](https://github.com/trending#start-of-content)\n\n## Navigation Menu\n\nToggle navigation\n\n[Homepage](https://github.com/)\n\n[Sign in](https://github.com/login?return_to=https%3A%2F%2Fgith..."
+    },
+    {
+      "url": "https://www.reddit.com/r/technology/",
+      "title": "",
+      "content_type": "unknown",
+      "keywords": [],
+      "topics": [],
+      "sentiment": "neutral",
+      "hotness_score": 0.0,
+      "engagement": {},
+      "summary": ""
+    },
+    {
+      "url": "https://stackoverflow.com/questions/tagged/python",
+      "title": "Newest 'python' Questions - Stack Overflow",
+      "content_type": "article",
+      "keywords": [
+        "AI",
+        "ChatGPT"
+      ],
+      "topics": [
+        "科技"
+      ],
+      "sentiment": "neutral",
+      "hotness_score": 6.3,
+      "engagement": {
+        "likes": 0,
+        "comments": 0,
+        "shares": 0,
+        "views": 0
+      },
+      "summary": "# ![site logo](https://stackoverflow.com/Content/Sites/stackoverflow/Img/icon-48.png?v=b7e36f88ff92)\n\nBy clicking “Sign up”, you agree to our [terms of service](https://stackoverflow.com/legal/terms-o..."
+    }
+  ]
+}

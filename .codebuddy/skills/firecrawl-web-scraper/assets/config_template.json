@@ -1,0 +1,33 @@
+{
+  "firecrawl": {
+    "api_key": "fc-your-api-key-here",
+    "base_url": "https://api.firecrawl.dev",
+    "default_settings": {
+      "formats": ["markdown"],
+      "onlyMainContent": true,
+      "excludeTags": ["nav", "footer", "aside", "header"],
+      "includeTags": [],
+      "waitFor": 0,
+      "timeout": 30000
+    }
+  },
+  "scraping": {
+    "max_concurrent": 3,
+    "delay_between_requests": 0.5,
+    "retry_attempts": 3,
+    "retry_delay": 1.0
+  },
+  "output": {
+    "default_format": "json",
+    "max_content_length": 10000,
+    "include_metadata": true,
+    "include_links": false,
+    "include_images": false
+  },
+  "filters": {
+    "min_content_length": 100,
+    "exclude_domains": [],
+    "include_domains": [],
+    "exclude_patterns": ["admin", "login", "register"]
+  }
+}

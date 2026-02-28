@@ -1,0 +1,96 @@
+{
+  "methodology": {
+    "title": "价值投资选股方法论",
+    "description": "基于持仓机会提炼的量化选股框架，结合行业龙头地位、估值安全边际和分红能力三大维度",
+    "extractedFrom": "16只关注标的深度分析",
+    "lastUpdated": "2026-01-20",
+    "dimensions": [
+      {
+        "id": "valuation",
+        "name": "估值维度",
+        "weight": 40,
+        "metrics": [
+          { "name": "PE", "description": "市盈率", "threshold": "≤20倍（行业龙头可放宽至25倍）", "weight": 15 },
+          { "name": "PB", "description": "市净率", "threshold": "≤3倍", "weight": 10 },
+          { "name": "PEG", "description": "市盈增长比", "threshold": "<1为优秀", "weight": 15 }
+        ]
+      },
+      {
+        "id": "dividend",
+        "name": "分红维度",
+        "weight": 25,
+        "metrics": [
+          { "name": "股息率", "description": "年度股息/股价", "threshold": "≥3%", "weight": 15 },
+          { "name": "派息率", "description": "分红/净利润", "threshold": "30%-70%为健康", "weight": 10 }
+        ]
+      },
+      {
+        "id": "moat",
+        "name": "护城河维度",
+        "weight": 35,
+        "metrics": [
+          { "name": "市占率", "description": "行业市场份额", "threshold": "行业前3或细分龙头", "weight": 15 },
+          { "name": "毛利率", "description": "定价能力体现", "threshold": "≥40%", "weight": 10 },
+          { "name": "ROE", "description": "净资产收益率", "threshold": "≥15%", "weight": 10 }
+        ]
+      }
+    ],
+    "screeningCriteria": {
+      "must": [
+        "行业龙头或细分赛道第一",
+        "PE ≤ 20 或 股息率 ≥ 4%",
+        "近3年盈利无亏损"
+      ],
+      "prefer": [
+        "股价较高点回撤30%以上",
+        "毛利率 ≥ 50%",
+        "ROE ≥ 20%"
+      ],
+      "avoid": [
+        "高负债率（资产负债率>70%）",
+        "商誉占净资产比例过高",
+        "业绩持续下滑"
+      ]
+    },
+    "marketPreference": {
+      "A股": { "focus": ["消费龙头", "医疗器械", "公用事业"], "peRange": "8-20" },
+      "港股": { "focus": ["互联网", "餐饮消费", "出行"], "peRange": "10-25" },
+      "美股": { "focus": ["医疗健康", "生物科技", "科技龙头"], "peRange": "15-30" }
+    },
+    "positionStrategy": {
+      "starRatingGuide": {
+        "6星": "仓位上限30%，极度低估",
+        "5星": "仓位上限20%，明显低估",
+        "4星": "仓位上限15%，合理偏低",
+        "3星": "仓位上限10%，合理估值"
+      },
+      "buildingMethod": "分三档建仓，每档下跌10-15%加仓",
+      "exitSignal": "达到目标价或基本面恶化"
+    }
+  },
+  "currentInsights": {
+    "portfolioStats": {
+      "totalStocks": 16,
+      "activeStocks": 14,
+      "exitedStocks": 2,
+      "avgPE": 16.5,
+      "avgDividendYield": 3.8,
+      "marketDistribution": { "A股": 9, "港股": 4, "美股": 3 }
+    },
+    "sectorDistribution": [
+      { "sector": "白酒/消费", "count": 4, "percentage": 25 },
+      { "sector": "医疗健康", "count": 4, "percentage": 25 },
+      { "sector": "互联网/科技", "count": 2, "percentage": 12.5 },
+      { "sector": "家电/制造", "count": 2, "percentage": 12.5 },
+      { "sector": "物流/服务", "count": 2, "percentage": 12.5 },
+      { "sector": "其他", "count": 2, "percentage": 12.5 }
+    ],
+    "keyPatterns": [
+      "偏好行业绝对龙头，14只中12只为行业前3",
+      "高股息特征明显，平均股息率3.8%",
+      "估值安全边际足够，平均PE仅16.5倍",
+      "分散配置三大市场，降低单一市场风险"
+    ]
+  },
+  "recommendations": []
+}

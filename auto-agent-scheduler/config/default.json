@@ -1,0 +1,29 @@
+{
+  "scheduler": {
+    "enabled": true,
+    "timezone": "Asia/Shanghai",
+    "dailyExecutionTime": "09:00",
+    "maxTasksPerDay": 5,
+    "retryAttempts": 3,
+    "retryDelayMs": 5000
+  },
+  "ai": {
+    "provider": "anthropic",
+    "model": "claude-sonnet-4-20250514",
+    "maxTokens": 8192,
+    "temperature": 0.7
+  },
+  "memory": {
+    "syncIntervalMs": 60000,
+    "maxHistoryDays": 30
+  },
+  "delivery": {
+    "outputDir": "./data/deliveries",
+    "reportFormat": "markdown"
+  },
+  "logging": {
+    "level": "info",
+    "maxFiles": 7,
+    "maxSize": "10m"
+  }
+}

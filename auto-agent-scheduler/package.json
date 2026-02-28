@@ -1,0 +1,46 @@
+{
+  "name": "auto-agent-scheduler",
+  "version": "1.0.0",
+  "description": "Iris 数字分身自动任务执行调度服务",
+  "main": "dist/index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "test": "vitest",
+    "auto": "tsx src/cli/autonomous-cmd.ts",
+    "auto:run": "tsx src/cli/autonomous-cmd.ts run",
+    "auto:preview": "tsx src/cli/autonomous-cmd.ts preview",
+    "auto:export": "tsx src/cli/autonomous-cmd.ts export",
+    "auto:task": "tsx src/cli/autonomous-cmd.ts task",
+    "auto:start": "tsx src/cli/autonomous-cmd.ts start",
+    "auto:status": "tsx src/cli/autonomous-cmd.ts status",
+    "email:test": "tsx src/cli/test-email.ts",
+    "email:send": "tsx src/cli/send-daily-report.ts",
+    "email:final": "tsx send-final-report.ts",
+    "agents": "tsx src/cli/run-agents.ts",
+    "agents:check": "tsx src/cli/check-consistency.ts"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.30.0",
+    "better-sqlite3": "^11.6.0",
+    "dotenv": "^16.4.7",
+    "marked": "^17.0.1",
+    "node-cron": "^3.0.3",
+    "nodemailer": "^7.0.12",
+    "uuid": "^11.0.5",
+    "winston": "^3.17.0",
+    "yaml": "^2.8.2"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.12",
+    "@types/node": "^22.10.5",
+    "@types/node-cron": "^3.0.11",
+    "@types/nodemailer": "^7.0.4",
+    "@types/uuid": "^10.0.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  }
+}

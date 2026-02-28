@@ -1,0 +1,1748 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>刘大夫中医问诊</title>
+    <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --tcm-green: #5B7B5E;
+            --tcm-green-light: #7A9A7D;
+            --tcm-green-dark: #3D5A40;
+            --tcm-green-pale: #D4DFD5;
+            --tcm-gold: #C4A265;
+            --tcm-gold-light: #D4BC8A;
+            --tcm-gold-dark: #A68942;
+            --tcm-cream: #F5F0E8;
+            --tcm-cream-dark: #EDE5D8;
+            --tcm-paper: #FAF7F0;
+            --tcm-brown: #8B7355;
+            --tcm-brown-light: #A89070;
+            --text-primary: #3A3028;
+            --text-secondary: #6B5E50;
+            --text-muted: #A09080;
+            --border-color: #D5CBBB;
+            --border-light: #E8E0D0;
+            --shadow: 0 2px 12px rgba(60, 50, 30, 0.08);
+            --shadow-card: 0 3px 16px rgba(60, 50, 30, 0.1);
+        }
+
+        body {
+            font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'STSong', serif;
+            background-color: var(--tcm-cream);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* ═══════════ 中式装饰元素 ═══════════ */
+        .tcm-corner-decoration {
+            position: relative;
+        }
+        .tcm-corner-decoration::before,
+        .tcm-corner-decoration::after {
+            content: '';
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            border-color: var(--tcm-gold-light);
+            border-style: solid;
+            opacity: 0.6;
+        }
+        .tcm-corner-decoration::before {
+            top: 8px; left: 8px;
+            border-width: 2px 0 0 2px;
+        }
+        .tcm-corner-decoration::after {
+            bottom: 8px; right: 8px;
+            border-width: 0 2px 2px 0;
+        }
+
+        /* ═══════════ 欢迎页 ═══════════ */
+        .welcome-page {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 24px;
+            text-align: center;
+            background: linear-gradient(180deg, var(--tcm-green-pale) 0%, var(--tcm-cream) 50%, var(--tcm-paper) 100%);
+        }
+
+        .doctor-avatar {
+            width: 96px;
+            height: 96px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--tcm-green) 0%, var(--tcm-green-light) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(91, 123, 94, 0.3);
+            border: 3px solid var(--tcm-gold-light);
+        }
+
+        .doctor-avatar svg {
+            width: 48px;
+            height: 48px;
+            fill: var(--tcm-cream);
+        }
+
+        .welcome-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--tcm-green-dark);
+            margin-bottom: 6px;
+            letter-spacing: 4px;
+        }
+
+        .welcome-subtitle {
+            font-size: 13px;
+            color: var(--tcm-brown-light);
+            margin-bottom: 32px;
+            letter-spacing: 2px;
+        }
+
+        .welcome-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            max-width: 300px;
+            line-height: 1.8;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            width: 100%;
+            max-width: 280px;
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 15px 28px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            width: 100%;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--tcm-green) 0%, var(--tcm-green-light) 100%);
+            color: var(--tcm-cream);
+            box-shadow: 0 4px 15px rgba(91, 123, 94, 0.3);
+        }
+
+        .btn-primary:hover, .btn-primary:active {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(91, 123, 94, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--tcm-paper);
+            color: var(--tcm-green);
+            border: 1.5px solid var(--tcm-green-light);
+        }
+
+        .btn-secondary:hover, .btn-secondary:active {
+            background: var(--tcm-green);
+            color: var(--tcm-cream);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+        }
+
+        /* ═══════════ 表单容器 ═══════════ */
+        .form-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: var(--tcm-cream);
+        }
+
+        /* 进度条 */
+        .progress-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--tcm-paper);
+            padding: 14px 20px;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(60, 50, 30, 0.08);
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .progress-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--tcm-green-dark);
+        }
+
+        .progress-step {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .progress-bar {
+            height: 3px;
+            background: var(--border-light);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--tcm-green) 0%, var(--tcm-gold) 100%);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+
+        /* 步骤内容 */
+        .step-content {
+            flex: 1;
+            padding: 90px 16px 110px;
+        }
+
+        .step-card {
+            background: var(--tcm-paper);
+            border-radius: 12px;
+            padding: 24px 20px;
+            box-shadow: var(--shadow-card);
+            border: 1px solid var(--border-light);
+        }
+
+        .step-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--tcm-green-dark);
+            margin-bottom: 6px;
+        }
+
+        .step-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+
+        /* 上次记录提示 */
+        .last-record {
+            background: var(--tcm-green-pale);
+            border-radius: 8px;
+            padding: 10px 14px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            border-left: 3px solid var(--tcm-green-light);
+        }
+
+        .last-record-icon {
+            color: var(--tcm-green);
+            font-size: 14px;
+            margin-top: 2px;
+        }
+
+        .last-record-content { flex: 1; }
+
+        .last-record-label {
+            font-size: 11px;
+            color: var(--tcm-green);
+            margin-bottom: 2px;
+        }
+
+        .last-record-value {
+            font-size: 13px;
+            color: var(--text-primary);
+        }
+
+        /* 表单元素 */
+        .form-group { margin-bottom: 20px; }
+
+        .form-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-primary);
+            margin-bottom: 10px;
+        }
+
+        .form-label .required {
+            color: #C05050;
+            margin-left: 4px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 15px;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+            background: white;
+            font-family: inherit;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--tcm-green);
+            box-shadow: 0 0 0 3px rgba(91, 123, 94, 0.1);
+        }
+
+        .form-input::placeholder { color: var(--text-muted); }
+        .form-input.prefilled { color: #999; }
+        .form-input.prefilled:focus, .form-input.prefilled.user-edited { color: var(--text-primary); }
+
+        textarea.form-input {
+            min-height: 110px;
+            resize: vertical;
+            line-height: 1.6;
+        }
+
+        /* 性别选择 */
+        .gender-group { display: flex; gap: 12px; }
+
+        .gender-btn {
+            flex: 1;
+            padding: 14px;
+            border: 1.5px solid var(--border-color);
+            border-radius: 10px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .gender-btn.active {
+            border-color: var(--tcm-green);
+            background: var(--tcm-green-pale);
+        }
+
+        .gender-btn-icon { font-size: 26px; margin-bottom: 6px; }
+        .gender-btn-label { font-size: 13px; color: var(--text-primary); }
+
+        /* 多选标签 */
+        .options-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .option-tag {
+            padding: 10px 18px;
+            border: 1.5px solid var(--border-color);
+            border-radius: 20px;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 13px;
+            color: var(--text-primary);
+            user-select: none;
+        }
+
+        .option-tag:active { transform: scale(0.95); }
+
+        .option-tag.selected {
+            border-color: var(--tcm-green);
+            background: var(--tcm-green);
+            color: var(--tcm-cream);
+        }
+
+        .option-tag.normal-option.selected {
+            border-color: var(--tcm-gold);
+            background: var(--tcm-gold);
+            color: white;
+        }
+
+        /* 照片上传 */
+        .photo-upload-area {
+            border: 2px dashed var(--border-color);
+            border-radius: 10px;
+            padding: 28px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .photo-upload-area:hover {
+            border-color: var(--tcm-green);
+            background: var(--tcm-green-pale);
+        }
+
+        .photo-upload-area.has-image { padding: 0; border-style: solid; }
+
+        .upload-icon { font-size: 42px; color: var(--tcm-green); margin-bottom: 10px; }
+        .upload-text { font-size: 14px; color: var(--text-primary); margin-bottom: 6px; }
+        .upload-hint { font-size: 12px; color: var(--text-muted); }
+
+        .uploaded-image {
+            width: 100%;
+            max-height: 280px;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .photo-tips {
+            margin-top: 14px;
+            padding: 14px;
+            background: #FDF8EE;
+            border-radius: 8px;
+            border-left: 3px solid var(--tcm-gold);
+        }
+
+        .photo-tips-title {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--tcm-gold-dark);
+            margin-bottom: 6px;
+        }
+
+        .photo-tips-list {
+            list-style: none;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .photo-tips-list li {
+            padding: 3px 0 3px 14px;
+            position: relative;
+        }
+
+        .photo-tips-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--tcm-gold);
+        }
+
+        /* 底部导航 */
+        .nav-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--tcm-paper);
+            padding: 14px 20px;
+            padding-bottom: calc(14px + env(safe-area-inset-bottom));
+            box-shadow: 0 -2px 10px rgba(60, 50, 30, 0.08);
+            display: flex;
+            gap: 12px;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .nav-btn {
+            flex: 1;
+            padding: 13px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-family: inherit;
+        }
+
+        .nav-btn-prev {
+            background: var(--tcm-cream-dark);
+            color: var(--text-secondary);
+        }
+
+        .nav-btn-next {
+            background: linear-gradient(135deg, var(--tcm-green) 0%, var(--tcm-green-light) 100%);
+            color: var(--tcm-cream);
+        }
+
+        .nav-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        /* ═══════════ 预览页面 ═══════════ */
+        .preview-page {
+            padding: 20px 16px;
+            padding-bottom: 100px;
+            background: var(--tcm-cream);
+            min-height: 100vh;
+        }
+
+        .preview-header {
+            text-align: center;
+            padding: 16px 0 20px;
+        }
+
+        .preview-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--tcm-green-dark);
+            margin-bottom: 4px;
+        }
+
+        .preview-subtitle {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .preview-card {
+            background: var(--tcm-paper);
+            border-radius: 10px;
+            margin-bottom: 14px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border-light);
+        }
+
+        .preview-card-header {
+            background: linear-gradient(135deg, var(--tcm-green) 0%, var(--tcm-green-light) 100%);
+            color: var(--tcm-cream);
+            padding: 10px 14px;
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .preview-edit-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: var(--tcm-cream);
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            cursor: pointer;
+        }
+
+        .preview-card-content { padding: 14px; }
+
+        .preview-item {
+            display: flex;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .preview-item:last-child { border-bottom: none; }
+
+        .preview-item-label {
+            width: 70px;
+            flex-shrink: 0;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .preview-item-value {
+            flex: 1;
+            font-size: 13px;
+            color: var(--text-primary);
+        }
+
+        .preview-image {
+            width: 100%;
+            max-height: 200px;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        /* ═══════════ 结果页 ═══════════ */
+        .result-page {
+            min-height: 100vh;
+            padding: 36px 20px;
+            text-align: center;
+            background: linear-gradient(180deg, var(--tcm-green-pale) 0%, var(--tcm-cream) 100%);
+        }
+
+        .result-icon {
+            width: 72px;
+            height: 72px;
+            background: linear-gradient(135deg, var(--tcm-green) 0%, var(--tcm-green-light) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            border: 3px solid var(--tcm-gold-light);
+        }
+
+        .result-icon svg {
+            width: 36px;
+            height: 36px;
+            fill: var(--tcm-cream);
+        }
+
+        .result-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: var(--tcm-green-dark);
+            margin-bottom: 8px;
+        }
+
+        .result-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        .result-send-guide {
+            background: linear-gradient(135deg, #f0f7f0, #e8f0e8);
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin: 16px auto 20px;
+            max-width: 320px;
+            border: 1px solid var(--tcm-green-pale);
+        }
+
+        .send-guide-step {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .send-guide-num {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--tcm-green);
+            color: white;
+            font-size: 13px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .send-guide-text {
+            font-size: 14px;
+            color: var(--text-primary);
+        }
+
+        .send-guide-tip {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 8px;
+            padding-top: 10px;
+            border-top: 1px dashed var(--border-light);
+        }
+
+        .storage-status {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-align: center;
+            margin-top: 12px;
+            padding: 0 20px;
+        }
+
+        .result-image-container {
+            margin: 16px 0;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow-card);
+            border: 1px solid var(--border-light);
+        }
+
+        .result-image { width: 100%; display: block; }
+
+        .result-tips {
+            background: #FDF8EE;
+            border-radius: 8px;
+            padding: 14px;
+            margin: 16px 0;
+            text-align: left;
+            border-left: 3px solid var(--tcm-gold);
+        }
+
+        .result-tips-title {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--tcm-gold-dark);
+            margin-bottom: 6px;
+        }
+
+        .result-tips-content {
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        /* ═══════════ 问诊单图片模板（古风） ═══════════ */
+        .consultation-template {
+            position: absolute;
+            left: -9999px;
+            top: 0;
+            width: 375px;
+            background: #F5F3EB url('content-bg.png') repeat;
+            background-size: 100% auto;
+            z-index: -1;
+            font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'STSong', serif;
+        }
+
+        /* 模板头部 */
+        .tpl-header {
+            background: #8FA893;
+            padding: 28px 20px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .tpl-header-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+        .tpl-title, .tpl-subtitle {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 金色装饰条已移除 */
+
+        .tpl-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--tcm-cream);
+            letter-spacing: 6px;
+            margin-bottom: 4px;
+        }
+
+        .tpl-subtitle {
+            font-size: 12px;
+            color: #FFFFFF;
+            letter-spacing: 2px;
+        }
+
+        /* 模板信息栏 */
+        .tpl-info-bar {
+            background: #FFFFFF;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: #666666;
+            border-bottom: 1px solid #E0E0E0;
+            border-radius: 50px;
+            margin: 10px 14px;
+            border: 1px solid #E0E0E0;
+        }
+
+        /* 模板区块 */
+        .tpl-section {
+            margin: 12px 14px;
+            background: #FFFFFF;
+            border-radius: 12px;
+            border: 1px solid #E0E0E0;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .tpl-section-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            background: #FFFFFF;
+            border-bottom: 1px solid #E0E0E0;
+        }
+
+        .tpl-section-icon {
+            font-size: 16px;
+        }
+
+        .tpl-section-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #7A927E;
+            letter-spacing: 1px;
+        }
+
+        .tpl-section-body {
+            padding: 12px 16px;
+        }
+
+        /* 模板详情行 */
+        .tpl-detail-row {
+            display: flex;
+            padding: 7px 0;
+            border-bottom: 1px solid #E0E0E0;
+            font-size: 13px;
+        }
+
+        .tpl-detail-row:last-child { border-bottom: none; }
+
+        .tpl-detail-label {
+            width: 50px;
+            flex-shrink: 0;
+            color: #7A927E;
+            font-weight: 700;
+        }
+
+        .tpl-detail-value {
+            flex: 1;
+            color: #333333;
+        }
+
+        /* 模板对比表 */
+        .tpl-compare-head {
+            display: flex;
+            background: #7A927E;
+            font-size: 12px;
+            color: #FFFFFF;
+            font-weight: 700;
+            border-bottom: 1px solid #7A927E;
+        }
+
+        .tpl-compare-head > div {
+            padding: 8px;
+            text-align: center;
+        }
+
+        .tpl-compare-head .col-label { width: 50px; flex-shrink: 0; }
+        .tpl-compare-head .col-val { flex: 1; border-left: 1px solid rgba(255,255,255,0.3); }
+
+        .tpl-compare-row {
+            display: flex;
+            border-bottom: 1px solid #E0E0E0;
+            font-size: 12px;
+        }
+
+        .tpl-compare-row:last-child { border-bottom: none; }
+
+        .tpl-compare-row:nth-child(odd) {
+            background-color: #EBEFE0;
+        }
+
+        .tpl-compare-row:nth-child(even) {
+            background-color: #DCE3D0;
+        }
+
+        .tpl-compare-row .col-label {
+            width: 50px;
+            flex-shrink: 0;
+            padding: 8px;
+            background: rgba(255, 255, 255, 0.3);
+            color: #7A927E;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+
+        .tpl-compare-row .col-val {
+            flex: 1;
+            padding: 8px;
+            border-left: 1px solid #E0E0E0;
+            color: #333333;
+        }
+
+        .tpl-compare-row .col-val.changed {
+            color: #B8432E;
+            font-weight: 600;
+        }
+
+        /* 模板舌苔对比（上下排列） */
+        .tpl-tongue-stack {
+            padding: 12px 16px;
+        }
+
+        .tpl-tongue-item {
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .tpl-tongue-item:last-child { margin-bottom: 0; }
+
+        .tpl-tongue-item img {
+            width: 100%;
+            object-fit: contain;
+            border-radius: 8px;
+            border: 2px solid #E0E0E0;
+        }
+
+        .tpl-tongue-date {
+            font-size: 13px;
+            color: #7A927E;
+            margin-top: 8px;
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        /* 模板底部 */
+        .tpl-footer {
+            padding: 14px 20px;
+            text-align: center;
+            font-size: 11px;
+            color: #666666;
+            border-top: 1px solid #E0E0E0;
+        }
+
+        /* ═══════════ 弹窗 ═══════════ */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.45);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: var(--tcm-paper);
+            border-radius: 14px;
+            padding: 24px;
+            max-width: 300px;
+            width: 100%;
+            text-align: center;
+            border: 1px solid var(--border-color);
+        }
+
+        .modal-title {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--tcm-green-dark);
+            margin-bottom: 10px;
+        }
+
+        .modal-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        .modal-btns {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .hidden { display: none !important; }
+
+        /* 加载 */
+        .loading-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(250, 247, 240, 0.92);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+
+        .loading-spinner {
+            width: 44px;
+            height: 44px;
+            border: 3px solid var(--border-color);
+            border-top-color: var(--tcm-green);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .loading-text {
+            margin-top: 14px;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+    <!-- 欢迎页 -->
+    <div id="welcomePage" class="welcome-page">
+        <div class="doctor-avatar">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+            </svg>
+        </div>
+        <h1 class="welcome-title">刘大夫</h1>
+        <p class="welcome-desc">请如实填写以下问诊信息，帮助刘大夫更好地了解您的身体状况。填写完成后可转发问诊单给刘大夫微信。</p>
+        <div class="btn-group" id="welcomeBtns"></div>
+    </div>
+
+    <!-- 表单容器 -->
+    <div id="formContainer" class="form-container hidden">
+        <div class="progress-header">
+            <div class="progress-info">
+                <span class="progress-title" id="progressTitle">基本信息</span>
+                <span class="progress-step" id="progressStep">1/8</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 12.5%"></div>
+            </div>
+        </div>
+        <div class="step-content" id="stepContent"></div>
+        <div class="nav-footer">
+            <button class="nav-btn nav-btn-prev" id="prevBtn" onclick="prevStep()">上一步</button>
+            <button class="nav-btn nav-btn-next" id="nextBtn" onclick="nextStep()">下一步</button>
+        </div>
+    </div>
+
+    <!-- 预览页面 -->
+    <div id="previewPage" class="preview-page hidden">
+        <div class="preview-header">
+            <h2 class="preview-title">确认问诊信息</h2>
+            <p class="preview-subtitle">请检查以下信息是否正确</p>
+        </div>
+        <div id="previewContent"></div>
+        <div class="nav-footer">
+            <button class="nav-btn nav-btn-prev" onclick="backToForm()">返回修改</button>
+            <button class="nav-btn nav-btn-next" onclick="generateImage()">发送问诊单</button>
+        </div>
+    </div>
+
+    <!-- 结果页面 -->
+    <div id="resultPage" class="result-page hidden">
+        <div class="result-icon">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+            </svg>
+        </div>
+        <h2 class="result-title">问诊单已生成</h2>
+        <div class="result-send-guide">
+            <div class="send-guide-step">
+                <div class="send-guide-num">1</div>
+                <div class="send-guide-text">长按下方图片 → 转发给刘大夫</div>
+            </div>
+            <div class="send-guide-step">
+                <div class="send-guide-num">2</div>
+                <div class="send-guide-text">点击「复制问诊文本」→ 粘贴发送</div>
+            </div>
+            <div class="send-guide-tip">💡 图片+文字一起发，方便刘大夫查阅</div>
+        </div>
+        <div class="result-image-container">
+            <img id="resultImage" class="result-image" alt="问诊单">
+        </div>
+        <div style="margin: 16px auto; max-width: 320px;">
+            <button class="btn btn-primary" style="width: 100%; padding: 14px 0; font-size: 15px;" onclick="copyConsultationText()">
+                📋 复制问诊文本
+            </button>
+        </div>
+        <div id="copySuccess" style="display:none; text-align:center; color:var(--tcm-green); font-size:13px; margin-top:-8px; margin-bottom:12px;">✅ 已复制，请粘贴发送给刘大夫</div>
+        <div style="margin: 8px auto 20px; max-width: 320px;">
+            <button class="btn btn-outline" style="width: 100%; padding: 14px 0; font-size: 15px;" onclick="startNew()">
+                🔄 填写新的问诊单
+            </button>
+        </div>
+        <div id="storageStatus" class="storage-status"></div>
+    </div>
+
+    <!-- 问诊单图片模板（隐藏，用于生成图片） -->
+    <div id="consultationTemplate" class="consultation-template"></div>
+
+    <!-- 加载遮罩 -->
+    <div id="loadingOverlay" class="loading-overlay hidden">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">正在生成问诊单...</div>
+    </div>
+
+    <!-- 复诊提示弹窗 -->
+    <div id="followUpModal" class="modal-overlay hidden">
+        <div class="modal-content">
+            <h3 class="modal-title">选择复诊方式</h3>
+            <p class="modal-desc" id="followUpModalDesc">检测到您的本地问诊记录</p>
+            <div class="modal-btns">
+                <button class="btn btn-primary" onclick="closeModal(); startConsultation('followup-local')">
+                    使用上次记录对比
+                </button>
+                <button class="btn btn-outline" onclick="closeModal(); startConsultation('new')">
+                    作为新初诊填写
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const questionnaire = {
+            steps: [
+                { id: 'basic', title: '基本信息', icon: '👤', fields: ['name', 'age', 'gender'] },
+                { id: 'symptom', title: '主要症状', icon: '📋', fields: ['symptom'] },
+                { id: 'mouth', title: '口感与饮水', icon: '💧', fields: ['mouth', 'drink'] },
+                { id: 'pain', title: '疼痛情况', icon: '⚡', fields: ['pain'] },
+                { id: 'stool', title: '二便情况', icon: '🚽', fields: ['stool', 'urine', 'urineFeeling'] },
+                { id: 'heat', title: '寒热与汗', icon: '🌡️', fields: ['heatCold', 'preference'] },
+                { id: 'appetite', title: '食欲与睡眠', icon: '🍚', fields: ['appetite', 'sleep'] },
+                { id: 'tongue', title: '舌苔照片', icon: '📸', fields: ['tongue'] }
+            ],
+            options: {
+                mouth: { label: '口干口苦口粘情况', multiple: true, items: ['口干', '口苦', '口粘', '正常'] },
+                drink: { label: '喜欢喝什么水', multiple: false, items: ['热水', '冷水', '都可以'] },
+                pain: { label: '疼痛性质', multiple: true, items: ['劳累后加重', '早起加重', '活动后减轻', '夜间加重', '久坐不能站起', '抽筋', '无疼痛'] },
+                stool: { label: '大便情况', multiple: true, items: ['便溏', '便秘', '前干后溏', '容易拉肚子', '大便粘腻', '正常'] },
+                urine: { label: '尿量/颜色', multiple: true, items: ['正常', '尿量不正常', '颜色不正常'] },
+                urineFeeling: { label: '小便感受', multiple: true, items: ['正常', '有刺痛', '有淋漓不尽感'] },
+                heatCold: { label: '忽冷忽热与出汗', multiple: true, items: ['全无', '有忽冷感', '有忽热感', '有忽冷忽热感', '有出汗', '无出汗'] },
+                preference: { label: '冷热感受', multiple: true, items: ['怕风', '怕冷', '怕热', '全无'] },
+                appetite: { label: '食欲胃口', multiple: true, items: ['胃口很好', '食欲好', '食欲差', '饥不择食'] },
+                sleep: { label: '睡眠情况', multiple: true, items: ['正常', '入睡困难', '前半夜失眠', '后半夜失眠', '多梦', '打呼噜', '说梦话', '磨牙'] }
+            }
+        };
+
+        let currentStep = 0;
+        let isFollowUp = false;
+        let lastData = null;
+        let formData = {
+            name: '', age: '', gender: '', symptom: '',
+            mouth: [], drink: [], pain: [], stool: [], urine: [], urineFeeling: [],
+            heatCold: [], preference: [], appetite: [], sleep: [],
+            tongue: null, tongueBase64: ''
+        };
+
+        function init() {
+            const saved = localStorage.getItem('tcm_consultation_data');
+            if (saved) {
+                try {
+                    lastData = JSON.parse(saved);
+                    console.log('检测到历史记录:', lastData.name, lastData.date);
+                } catch (e) {
+                    lastData = null;
+                    console.warn('历史记录解析失败:', e);
+                }
+            } else {
+                console.log('未检测到历史记录');
+            }
+            renderWelcomeBtns();
+        }
+
+        function renderWelcomeBtns() {
+            const container = document.getElementById('welcomeBtns');
+            if (lastData) {
+                container.innerHTML = `
+                    <button class="btn btn-primary" onclick="startConsultation('new')">
+                        <span>🏥</span> 初诊（首次就诊）
+                    </button>
+                    <button class="btn btn-secondary" onclick="checkFollowUp()">
+                        <span>🔄</span> 复诊（曾就诊过）
+                    </button>`;
+            } else {
+                container.innerHTML = `
+                    <button class="btn btn-primary" onclick="startConsultation('new')">
+                        <span>📝</span> 填写问诊单
+                    </button>`;
+            }
+        }
+
+        function startConsultation(type) {
+            if (type === 'new') {
+                isFollowUp = false;
+                formData = { name: '', age: '', gender: '', symptom: '', mouth: [], drink: [], pain: [], stool: [], urine: [], urineFeeling: [], heatCold: [], preference: [], appetite: [], sleep: [], tongue: null, tongueBase64: '' };
+            } else if (type === 'followup-local') {
+                isFollowUp = true;
+                if (lastData) {
+                    formData.name = lastData.name || '';
+                    formData.age = lastData.age || '';
+                    formData.gender = lastData.gender || '';
+                    formData.symptom = lastData.symptom || '';
+                    formData.mouth = lastData.mouth ? [...lastData.mouth] : [];
+                    formData.drink = lastData.drink ? [...lastData.drink] : [];
+                    formData.pain = lastData.pain ? [...lastData.pain] : [];
+                    formData.stool = lastData.stool ? [...lastData.stool] : [];
+                    formData.urine = lastData.urine ? [...lastData.urine] : [];
+                    formData.urineFeeling = lastData.urineFeeling ? [...lastData.urineFeeling] : [];
+                    formData.heatCold = lastData.heatCold ? [...lastData.heatCold] : [];
+                    formData.preference = lastData.preference ? [...lastData.preference] : [];
+                    formData.appetite = lastData.appetite ? [...lastData.appetite] : [];
+                    formData.sleep = lastData.sleep ? [...lastData.sleep] : [];
+                    formData.tongueBase64 = '';
+                    formData.tongue = null;
+                }
+            }
+            currentStep = 0;
+            document.getElementById('welcomePage').classList.add('hidden');
+            document.getElementById('formContainer').classList.remove('hidden');
+            renderStep();
+        }
+
+        function checkFollowUp() {
+            if (lastData) {
+                document.getElementById('followUpModalDesc').textContent = `检测到您 ${lastData.date || '之前'} 的问诊记录`;
+            } else {
+                document.getElementById('followUpModalDesc').textContent = '未检测到本地记录，您可以扫码导入上次的问诊单';
+            }
+            document.getElementById('followUpModal').classList.remove('hidden');
+        }
+
+        function closeModal() { document.getElementById('followUpModal').classList.add('hidden'); }
+
+        function renderStep() {
+            const step = questionnaire.steps[currentStep];
+            const container = document.getElementById('stepContent');
+            document.getElementById('progressTitle').textContent = step.title;
+            document.getElementById('progressStep').textContent = `${currentStep + 1}/${questionnaire.steps.length}`;
+            document.getElementById('progressFill').style.width = `${((currentStep + 1) / questionnaire.steps.length) * 100}%`;
+            document.getElementById('prevBtn').disabled = false;
+            document.getElementById('prevBtn').textContent = currentStep === 0 ? '返回' : '上一步';
+            document.getElementById('nextBtn').textContent = currentStep === questionnaire.steps.length - 1 ? '预览问诊单' : '下一步';
+
+            let html = `<div class="step-card"><h2 class="step-title">${step.icon} ${step.title}</h2>`;
+            switch(step.id) {
+                case 'basic': html += renderBasicInfo(); break;
+                case 'symptom': html += renderSymptom(); break;
+                case 'mouth': html += renderOptions('mouth') + renderOptions('drink'); break;
+                case 'pain': html += renderOptions('pain'); break;
+                case 'stool': html += renderOptions('stool') + renderOptions('urine') + renderOptions('urineFeeling'); break;
+                case 'heat': html += renderOptions('heatCold') + renderOptions('preference'); break;
+                case 'appetite': html += renderOptions('appetite') + renderOptions('sleep'); break;
+                case 'tongue': html += renderTongueUpload(); break;
+            }
+            html += `</div>`;
+            container.innerHTML = html;
+            bindEvents();
+        }
+
+        function renderBasicInfo() {
+            let html = `<p class="step-desc">请填写您的基本信息</p>`;
+            if (isFollowUp && lastData) {
+                html += `<div class="last-record"><span class="last-record-icon">📋</span><div class="last-record-content"><div class="last-record-label">上次记录 (${lastData.date || ''})</div><div class="last-record-value">${lastData.name || ''} / ${lastData.gender || ''} / ${lastData.age || ''}岁</div></div></div>`;
+            }
+            const pc = isFollowUp && lastData ? ' prefilled' : '';
+            html += `<div class="form-group"><label class="form-label">姓名<span class="required">*</span></label><input type="text" class="form-input${formData.name && isFollowUp ? pc : ''}" id="inputName" placeholder="请输入您的姓名" value="${formData.name}"></div>`;
+            html += `<div class="form-group"><label class="form-label">年龄<span class="required">*</span></label><input type="number" class="form-input${formData.age && isFollowUp ? pc : ''}" id="inputAge" placeholder="请输入您的年龄" value="${formData.age}"></div>`;
+            html += `<div class="form-group"><label class="form-label">性别<span class="required">*</span></label><div class="gender-group"><div class="gender-btn ${formData.gender === '男' ? 'active' : ''}" data-value="男" onclick="selectGender(this)"><div class="gender-btn-icon">👨</div><div class="gender-btn-label">男</div></div><div class="gender-btn ${formData.gender === '女' ? 'active' : ''}" data-value="女" onclick="selectGender(this)"><div class="gender-btn-icon">👩</div><div class="gender-btn-label">女</div></div></div></div>`;
+            return html;
+        }
+
+        function renderSymptom() {
+            let html = `<p class="step-desc">请详细描述您的主要不适症状</p>`;
+            if (isFollowUp && lastData && lastData.symptom) {
+                html += `<div class="last-record"><span class="last-record-icon">📋</span><div class="last-record-content"><div class="last-record-label">上次主诉</div><div class="last-record-value">${lastData.symptom}</div></div></div>`;
+            }
+            const sc = (isFollowUp && lastData && formData.symptom) ? ' prefilled' : '';
+            html += `<div class="form-group"><label class="form-label">主要不适症状<span class="required">*</span></label><textarea class="form-input${sc}" id="inputSymptom" placeholder="请描述您的主要不适，包括：&#10;• 具体部位（如：头部、腰部、胃部等）&#10;• 持续时间&#10;• 自身感受（如：胀痛、刺痛、酸痛等）">${formData.symptom}</textarea></div>`;
+            return html;
+        }
+
+        function renderOptions(field) {
+            const option = questionnaire.options[field];
+            const selected = formData[field] || [];
+            let html = `<div class="form-group"><label class="form-label">${option.label}<span class="required">*</span></label>`;
+            if (isFollowUp && lastData && lastData[field] && lastData[field].length > 0) {
+                html += `<div class="last-record"><span class="last-record-icon">📋</span><div class="last-record-content"><div class="last-record-label">上次选择</div><div class="last-record-value">${lastData[field].join('、')}</div></div></div>`;
+            }
+            html += `<div class="options-group">`;
+            option.items.forEach(item => {
+                const isNormal = item === '正常' || item === '全无' || item === '无疼痛' || item === '无出汗';
+                const isSelected = selected.includes(item);
+                html += `<div class="option-tag ${isSelected ? 'selected' : ''} ${isNormal ? 'normal-option' : ''}" data-field="${field}" data-value="${item}" data-multiple="${option.multiple}" onclick="toggleOption(this)">${item}</div>`;
+            });
+            html += `</div></div>`;
+            return html;
+        }
+
+        function renderTongueUpload() {
+            let html = `<p class="step-desc">请上传早起午饭前的舌苔照片</p>`;
+            if (isFollowUp && lastData && lastData.tongueBase64) {
+                html += `<div class="last-record"><span class="last-record-icon">📋</span><div class="last-record-content"><div class="last-record-label">上次舌苔照片</div><div class="last-record-value">已有记录，将用于对比</div></div></div>`;
+            }
+            html += `<div class="form-group"><label class="form-label">舌苔照片<span class="required">*</span></label>`;
+            if (formData.tongueBase64) {
+                html += `<div class="photo-upload-area has-image" id="uploadArea"><img src="${formData.tongueBase64}" class="uploaded-image" alt="舌苔照片"></div>`;
+                html += `<div style="display:flex;gap:12px;margin-top:12px;"><button type="button" class="btn btn-secondary" style="flex:1;padding:12px;" onclick="triggerCamera()">📷 重新拍照</button><button type="button" class="btn btn-secondary" style="flex:1;padding:12px;" onclick="triggerGallery()">🖼️ 重新选图</button></div>`;
+            } else {
+                html += `<div style="display:flex;gap:12px;"><button type="button" class="btn btn-primary" style="flex:1;padding:16px;font-size:15px;" onclick="triggerCamera()">📷 拍照</button><button type="button" class="btn btn-secondary" style="flex:1;padding:16px;font-size:15px;" onclick="triggerGallery()">🖼️ 选图</button></div>`;
+            }
+            html += `<input type="file" id="tongueCameraInput" accept="image/*" capture="environment" style="display:none" onchange="handleImageUpload(event)">`;
+            html += `<input type="file" id="tongueGalleryInput" accept="image/*" style="display:none" onchange="handleImageUpload(event)">`;
+            html += `</div>`;
+            html += `<div class="photo-tips"><div class="photo-tips-title">📝 拍照指南</div><ul class="photo-tips-list"><li>请在早起、午饭前拍摄</li><li>自然光线下拍摄</li><li>不要使用美颜滤镜</li><li>舌头自然伸出，不要过于用力</li></ul></div>`;
+            return html;
+        }
+
+        function bindEvents() {
+            const nameInput = document.getElementById('inputName');
+            if (nameInput) {
+                nameInput.addEventListener('input', (e) => { formData.name = e.target.value; e.target.classList.remove('prefilled'); e.target.classList.add('user-edited'); });
+                nameInput.addEventListener('focus', (e) => { e.target.classList.remove('prefilled'); });
+            }
+            const ageInput = document.getElementById('inputAge');
+            if (ageInput) {
+                ageInput.addEventListener('input', (e) => { formData.age = e.target.value; e.target.classList.remove('prefilled'); e.target.classList.add('user-edited'); });
+                ageInput.addEventListener('focus', (e) => { e.target.classList.remove('prefilled'); });
+            }
+            const symptomInput = document.getElementById('inputSymptom');
+            if (symptomInput) {
+                symptomInput.addEventListener('input', (e) => { formData.symptom = e.target.value; e.target.classList.remove('prefilled'); e.target.classList.add('user-edited'); });
+                symptomInput.addEventListener('focus', (e) => { e.target.classList.remove('prefilled'); });
+            }
+        }
+
+        function selectGender(el) {
+            document.querySelectorAll('.gender-btn').forEach(btn => btn.classList.remove('active'));
+            el.classList.add('active');
+            formData.gender = el.dataset.value;
+        }
+
+        function toggleOption(el) {
+            const field = el.dataset.field;
+            const value = el.dataset.value;
+            const isMultiple = el.dataset.multiple === 'true';
+            const normalValues = ['正常', '全无', '无疼痛', '无出汗', '不抽筋'];
+            const isNormalOption = normalValues.includes(value);
+            if (isMultiple) {
+                if (isNormalOption) {
+                    if (!el.classList.contains('selected')) {
+                        document.querySelectorAll(`.option-tag[data-field="${field}"]`).forEach(tag => tag.classList.remove('selected'));
+                        formData[field] = [value]; el.classList.add('selected');
+                    } else { formData[field] = []; el.classList.remove('selected'); }
+                } else {
+                    document.querySelectorAll(`.option-tag[data-field="${field}"]`).forEach(tag => {
+                        if (normalValues.includes(tag.dataset.value)) { tag.classList.remove('selected'); const idx = formData[field].indexOf(tag.dataset.value); if (idx > -1) formData[field].splice(idx, 1); }
+                    });
+                    if (el.classList.contains('selected')) { el.classList.remove('selected'); const idx = formData[field].indexOf(value); if (idx > -1) formData[field].splice(idx, 1); }
+                    else { el.classList.add('selected'); formData[field].push(value); }
+                }
+            } else {
+                document.querySelectorAll(`.option-tag[data-field="${field}"]`).forEach(tag => tag.classList.remove('selected'));
+                el.classList.add('selected'); formData[field] = [value];
+            }
+        }
+
+        function triggerCamera() { document.getElementById('tongueCameraInput').click(); }
+        function triggerGallery() { document.getElementById('tongueGalleryInput').click(); }
+
+        function handleImageUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    formData.tongueBase64 = e.target.result; formData.tongue = file;
+                    const uploadArea = document.getElementById('uploadArea');
+                    uploadArea.classList.add('has-image');
+                    uploadArea.innerHTML = `<img src="${e.target.result}" class="uploaded-image" alt="舌苔照片">`;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function prevStep() {
+            if (currentStep === 0) { document.getElementById('formContainer').classList.add('hidden'); document.getElementById('welcomePage').classList.remove('hidden'); }
+            else { currentStep--; renderStep(); }
+        }
+
+        function nextStep() {
+            if (!validateCurrentStep()) return;
+            if (currentStep < questionnaire.steps.length - 1) { currentStep++; renderStep(); }
+            else { showPreview(); }
+        }
+
+        function validateCurrentStep() {
+            const step = questionnaire.steps[currentStep];
+            switch(step.id) {
+                case 'basic':
+                    if (!formData.name.trim()) { alert('请输入姓名'); return false; }
+                    if (!formData.age) { alert('请输入年龄'); return false; }
+                    if (!formData.gender) { alert('请选择性别'); return false; }
+                    break;
+                case 'symptom': if (!formData.symptom.trim()) { alert('请描述您的主要症状'); return false; } break;
+                case 'mouth':
+                    if (formData.mouth.length === 0) { alert('请选择口感情况'); return false; }
+                    if (formData.drink.length === 0) { alert('请选择饮水偏好'); return false; }
+                    break;
+                case 'pain': if (formData.pain.length === 0) { alert('请选择疼痛情况'); return false; } break;
+                case 'stool':
+                    if (formData.stool.length === 0) { alert('请选择大便情况'); return false; }
+                    if (formData.urine.length === 0) { alert('请选择尿量/颜色情况'); return false; }
+                    if (formData.urineFeeling.length === 0) { alert('请选择小便感受'); return false; }
+                    break;
+                case 'heat':
+                    if (formData.heatCold.length === 0) { alert('请选择忽冷忽热情况'); return false; }
+                    if (formData.preference.length === 0) { alert('请选择冷热感受'); return false; }
+                    break;
+                case 'appetite':
+                    if (formData.appetite.length === 0) { alert('请选择食欲情况'); return false; }
+                    if (formData.sleep.length === 0) { alert('请选择睡眠情况'); return false; }
+                    break;
+                case 'tongue': if (!formData.tongueBase64) { alert('请上传舌苔照片'); return false; } break;
+            }
+            return true;
+        }
+
+        function showPreview() {
+            document.getElementById('formContainer').classList.add('hidden');
+            document.getElementById('previewPage').classList.remove('hidden');
+            if (isFollowUp && lastData) {
+                document.querySelector('.preview-title').textContent = '确认复诊对比信息';
+                document.querySelector('.preview-subtitle').textContent = '请检查上次与本次的对比是否正确';
+            } else {
+                document.querySelector('.preview-title').textContent = '确认问诊信息';
+                document.querySelector('.preview-subtitle').textContent = '请检查以下信息是否正确';
+            }
+            renderPreview();
+        }
+
+        function renderPreview() {
+            const container = document.getElementById('previewContent');
+            let html = '';
+            html += `<div class="preview-card"><div class="preview-card-header">👤 基本信息<button class="preview-edit-btn" onclick="goToStep(0)">修改</button></div><div class="preview-card-content"><div class="preview-item"><span class="preview-item-label">姓名</span><span class="preview-item-value">${formData.name}</span></div><div class="preview-item"><span class="preview-item-label">性别</span><span class="preview-item-value">${formData.gender}</span></div><div class="preview-item"><span class="preview-item-label">年龄</span><span class="preview-item-value">${formData.age}岁</span></div></div></div>`;
+
+            if (isFollowUp && lastData) {
+                const lastDate = lastData.date || '未知日期';
+                const nowP = new Date();
+                const todayStr = `${nowP.getFullYear()}-${String(nowP.getMonth() + 1).padStart(2, '0')}-${String(nowP.getDate()).padStart(2, '0')}`;
+
+                html += `<div class="preview-card"><div class="preview-card-header">📋 主诉对比<button class="preview-edit-btn" onclick="goToStep(1)">修改</button></div><div class="preview-card-content" style="padding: 0;"><div style="display: flex; font-size: 12px; color: var(--text-muted); background: var(--tcm-cream-dark); border-bottom: 1px solid var(--border-light);"><div style="flex: 1; padding: 8px; text-align: center;">${lastDate}</div><div style="flex: 1; padding: 8px; text-align: center; border-left: 1px solid var(--border-light);">${todayStr}</div></div><div style="display: flex; font-size: 13px; line-height: 1.6;"><div style="flex: 1; padding: 10px; border-right: 1px solid var(--border-light); color: var(--text-muted);">${lastData.symptom || '无记录'}</div><div style="flex: 1; padding: 10px; ${(lastData.symptom || '') !== formData.symptom ? 'color: #B8432E; font-weight: 600;' : ''}">${formData.symptom}</div></div></div></div>`;
+
+                html += `<div class="preview-card"><div class="preview-card-header">🔍 问诊详情对比<button class="preview-edit-btn" onclick="goToStep(2)">修改</button></div><div class="preview-card-content" style="padding: 0;"><div style="display: flex; font-size: 11px; color: var(--text-muted); background: var(--tcm-cream-dark); border-bottom: 1px solid var(--border-light);"><div style="width: 50px; flex-shrink: 0; padding: 8px;"></div><div style="flex: 1; display: flex;"><div style="flex: 1; padding: 8px; text-align: center; border-left: 1px solid var(--border-light);">${lastDate}</div><div style="flex: 1; padding: 8px; text-align: center; border-left: 1px solid var(--border-light);">${todayStr}</div></div></div>`;
+                html += renderPreviewCompareRow('口感', lastData.mouth, formData.mouth);
+                html += renderPreviewCompareRow('饮水', lastData.drink, formData.drink);
+                html += renderPreviewCompareRow('疼痛', lastData.pain, formData.pain);
+                html += renderPreviewCompareRow('大便', lastData.stool, formData.stool);
+                html += renderPreviewCompareRow('小便', [...(lastData.urine || []), ...(lastData.urineFeeling || [])], [...formData.urine, ...formData.urineFeeling]);
+                html += renderPreviewCompareRow('寒热', lastData.heatCold, formData.heatCold);
+                html += renderPreviewCompareRow('冷热', lastData.preference, formData.preference);
+                html += renderPreviewCompareRow('食欲', lastData.appetite, formData.appetite);
+                html += renderPreviewCompareRow('睡眠', lastData.sleep, formData.sleep);
+                html += `</div></div>`;
+
+                html += `<div class="preview-card"><div class="preview-card-header">👅 舌苔对比<button class="preview-edit-btn" onclick="goToStep(7)">修改</button></div><div class="preview-card-content"><div style="display: flex; gap: 12px;"><div style="flex: 1; text-align: center;">${lastData.tongueBase64 ? `<img src="${lastData.tongueBase64}" style="width:100%;max-height:140px;object-fit:contain;border-radius:8px;border:1px solid var(--border-color);" alt="上次舌苔">` : `<div style="width:100%;height:100px;background:var(--tcm-cream-dark);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:12px;">无记录</div>`}<div style="font-size: 12px; color: var(--text-muted); margin-top: 6px;">${lastDate}</div></div><div style="flex: 1; text-align: center;">${formData.tongueBase64 ? `<img src="${formData.tongueBase64}" style="width:100%;max-height:140px;object-fit:contain;border-radius:8px;border:1px solid var(--border-color);" alt="本次舌苔">` : `<div style="width:100%;height:100px;background:var(--tcm-cream-dark);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:12px;">待上传</div>`}<div style="font-size: 12px; color: var(--text-muted); margin-top: 6px;">${todayStr}</div></div></div></div></div>`;
+            } else {
+                html += `<div class="preview-card"><div class="preview-card-header">📋 主要症状<button class="preview-edit-btn" onclick="goToStep(1)">修改</button></div><div class="preview-card-content"><div class="preview-item"><span class="preview-item-value">${formData.symptom}</span></div></div></div>`;
+                html += `<div class="preview-card"><div class="preview-card-header">🔍 问诊详情<button class="preview-edit-btn" onclick="goToStep(2)">修改</button></div><div class="preview-card-content">`;
+                const fields = [['口感','mouth'],['饮水','drink'],['疼痛','pain'],['大便','stool'],['小便','urine'],['寒热','heatCold'],['冷热','preference'],['食欲','appetite'],['睡眠','sleep']];
+                fields.forEach(([label, key]) => {
+                    let val = formData[key].join('、');
+                    if (key === 'urine') val = [...formData.urine, ...formData.urineFeeling].join('、');
+                    html += `<div class="preview-item"><span class="preview-item-label">${label}</span><span class="preview-item-value">${val}</span></div>`;
+                });
+                html += `</div></div>`;
+                html += `<div class="preview-card"><div class="preview-card-header">👅 舌苔照片<button class="preview-edit-btn" onclick="goToStep(7)">修改</button></div><div class="preview-card-content"><img src="${formData.tongueBase64}" class="preview-image" alt="舌苔照片"></div></div>`;
+            }
+            container.innerHTML = html;
+        }
+
+        function renderPreviewCompareRow(label, lastValues, currentValues) {
+            const lastStr = (lastValues && lastValues.length > 0) ? lastValues.join('、') : '无记录';
+            const currentStr = (currentValues && currentValues.length > 0) ? currentValues.join('、') : '无记录';
+            const isSame = lastStr === currentStr;
+            return `<div style="display: flex; border-bottom: 1px solid var(--border-light);"><div style="width: 50px; flex-shrink: 0; padding: 8px; background: var(--tcm-cream-dark); font-size: 12px; color: var(--text-muted); display: flex; align-items: center;">${label}</div><div style="flex: 1; display: flex;"><div style="flex: 1; padding: 8px; font-size: 12px; color: var(--text-muted); border-left: 1px solid var(--border-light);">${lastStr}</div><div style="flex: 1; padding: 8px; font-size: 12px; border-left: 1px solid var(--border-light); ${!isSame ? 'color: #B8432E; font-weight: 600;' : ''}">${currentStr}</div></div></div>`;
+        }
+
+        function backToForm() { document.getElementById('previewPage').classList.add('hidden'); document.getElementById('formContainer').classList.remove('hidden'); }
+
+        function goToStep(step) {
+            currentStep = step;
+            document.getElementById('previewPage').classList.add('hidden');
+            document.getElementById('formContainer').classList.remove('hidden');
+            renderStep();
+        }
+
+        async function generateImage() {
+            document.getElementById('loadingOverlay').classList.remove('hidden');
+            try {
+                // 先存储数据（不依赖图片生成成功）
+                const storageResult = await saveToLocalStorage();
+                await renderTemplate();
+                const template = document.getElementById('consultationTemplate');
+                template.style.left = '0'; template.style.position = 'fixed'; template.style.top = '0'; template.style.zIndex = '-1';
+                await new Promise(resolve => setTimeout(resolve, 1200));
+                const canvas = await html2canvas(template, { scale: 2, useCORS: true, allowTaint: true, backgroundColor: null, width: 375, windowWidth: 375 });
+                template.style.left = '-9999px';
+                const imageData = canvas.toDataURL('image/png');
+                document.getElementById('resultImage').src = imageData;
+                document.getElementById('loadingOverlay').classList.add('hidden');
+                document.getElementById('previewPage').classList.add('hidden');
+                document.getElementById('resultPage').classList.remove('hidden');
+                // 显示存储状态
+                const statusEl = document.getElementById('storageStatus');
+                if (statusEl) {
+                    statusEl.textContent = storageResult
+                        ? '✅ 问诊记录已保存，下次复诊可自动回填'
+                        : '⚠️ 记录保存失败，复诊时需重新填写';
+                    statusEl.style.color = storageResult ? 'var(--tcm-green)' : '#B8432E';
+                }
+                window.scrollTo(0, 0);
+            } catch (error) {
+                console.error('生成图片失败:', error);
+                alert('生成图片失败: ' + error.message);
+                document.getElementById('loadingOverlay').classList.add('hidden');
+            }
+        }
+
+        async function renderTemplate() {
+            const template = document.getElementById('consultationTemplate');
+            const now = new Date();
+            const dateStr = `${now.getFullYear()}年${String(now.getMonth() + 1).padStart(2, '0')}月${String(now.getDate()).padStart(2, '0')}日`;
+            const timeStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+            let html = '';
+            if (isFollowUp && lastData) { html = renderCompareTemplate(dateStr, timeStr); }
+            else { html = renderSingleTemplate(dateStr, timeStr); }
+            template.innerHTML = html;
+            // 等待所有图片加载完成
+            const allImages = template.querySelectorAll('img');
+            const loadPromises = Array.from(allImages).map(img => {
+                if (img.complete) return Promise.resolve();
+                return new Promise(resolve => { img.onload = resolve; img.onerror = resolve; });
+            });
+            await Promise.all(loadPromises);
+        }
+
+        function renderSingleTemplate(dateStr, timeStr) {
+            return `
+                <div class="tpl-header">
+                    <img class="tpl-header-bg" src="header-bg.png" alt="">
+                    <div class="tpl-title">${formData.name}问诊单</div>
+                    <div class="tpl-subtitle">${dateStr}初诊</div>
+                </div>
+                <div class="tpl-info-bar">
+                    <span>患者：${formData.name} / ${formData.gender} / ${formData.age}岁</span>
+                    <span>${dateStr}</span>
+                </div>
+                <div class="tpl-section">
+                    <div class="tpl-section-header">
+                        <span class="tpl-section-icon">📋</span>
+                        <span class="tpl-section-title">主诉</span>
+                    </div>
+                    <div class="tpl-section-body" style="font-size: 13px; line-height: 1.8; color: var(--text-primary);">
+                        ${formData.symptom}
+                    </div>
+                </div>
+                <div class="tpl-section">
+                    <div class="tpl-section-header">
+                        <span class="tpl-section-icon">🔍</span>
+                        <span class="tpl-section-title">问诊详情</span>
+                    </div>
+                    <div class="tpl-section-body">
+                        ${[['口感','mouth'],['饮水','drink'],['疼痛','pain'],['大便','stool'],['小便','urine'],['寒热','heatCold'],['冷热','preference'],['食欲','appetite'],['睡眠','sleep']].map(([l,k]) => {
+                            let v = formData[k].join('、');
+                            if (k === 'urine') v = [...formData.urine, ...formData.urineFeeling].join('、');
+                            return `<div class="tpl-detail-row"><span class="tpl-detail-label">${l}</span><span class="tpl-detail-value">${v}</span></div>`;
+                        }).join('')}
+                    </div>
+                </div>
+                <div class="tpl-section">
+                    <div class="tpl-section-header">
+                        <span class="tpl-section-icon">👅</span>
+                        <span class="tpl-section-title">舌苔照片</span>
+                    </div>
+                    <div class="tpl-tongue-stack">
+                        <div class="tpl-tongue-item">
+                            <img src="${formData.tongueBase64}" alt="舌苔照片">
+                            <div class="tpl-tongue-date">${dateStr}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tpl-footer">此问诊单由刘大夫看诊系统生成</div>
+            `;
+        }
+
+        function renderCompareTemplate(dateStr, timeStr) {
+            const lastDate = lastData.date ? lastData.date.replace(/(\d{4})-(\d{2})-(\d{2})/, '$1年$2月$3日') : '未知日期';
+
+            function cmpRow(label, lastVals, curVals) {
+                const ls = (lastVals && lastVals.length > 0) ? lastVals.join('、') : '无记录';
+                const cs = (curVals && curVals.length > 0) ? curVals.join('、') : '无记录';
+                const changed = ls !== cs;
+                return `<div class="tpl-compare-row"><div class="col-label">${label}</div><div class="col-val" style="color: var(--text-muted);">${ls}</div><div class="col-val${changed ? ' changed' : ''}">${cs}</div></div>`;
+            }
+
+            return `
+                <div class="tpl-header">
+                    <img class="tpl-header-bg" src="header-bg.png" alt="">
+                    <div class="tpl-title">${formData.name}问诊单</div>
+                    <div class="tpl-subtitle">${dateStr}复诊</div>
+                </div>
+                <div class="tpl-info-bar">
+                    <span>患者：${formData.name} / ${formData.gender} / ${formData.age}岁</span>
+                </div>
+
+                <div class="tpl-section">
+                    <div class="tpl-section-header">
+                        <span class="tpl-section-icon">📋</span>
+                        <span class="tpl-section-title">主诉对比</span>
+                    </div>
+                    <div class="tpl-section-body" style="font-size: 13px; line-height: 1.8; color: var(--text-primary);">
+                        ${formData.symptom}
+                    </div>
+                </div>
+                <div class="tpl-section">
+                    <div class="tpl-section-header">
+                        <span class="tpl-section-icon">🔍</span>
+                        <span class="tpl-section-title">问诊详情对比</span>
+                    </div>
+                    <div class="tpl-compare-head">
+                        <div class="col-label"></div>
+                        <div class="col-val">${lastDate}</div>
+                        <div class="col-val">${dateStr}</div>
+                    </div>
+                    ${cmpRow('口感', lastData.mouth, formData.mouth)}
+                    ${cmpRow('饮水', lastData.drink, formData.drink)}
+                    ${cmpRow('疼痛', lastData.pain, formData.pain)}
+                    ${cmpRow('大便', lastData.stool, formData.stool)}
+                    ${cmpRow('小便', [...(lastData.urine || []), ...(lastData.urineFeeling || [])], [...formData.urine, ...formData.urineFeeling])}
+                    ${cmpRow('寒热', lastData.heatCold, formData.heatCold)}
+                    ${cmpRow('冷热', lastData.preference, formData.preference)}
+                    ${cmpRow('食欲', lastData.appetite, formData.appetite)}
+                    ${cmpRow('睡眠', lastData.sleep, formData.sleep)}
+                </div>
+                <div class="tpl-section">
+                    <div class="tpl-section-header">
+                        <span class="tpl-section-icon">👅</span>
+                        <span class="tpl-section-title">舌苔对比</span>
+                    </div>
+                    <div class="tpl-tongue-stack">
+                        <div class="tpl-tongue-item">
+                            ${lastData.tongueBase64 ?
+                                `<img src="${lastData.tongueBase64}" alt="上次舌苔">` :
+                                `<div style="width:100%;height:120px;background:var(--tcm-cream-dark);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:12px;">无记录</div>`
+                            }
+                            <div class="tpl-tongue-date">${lastDate}</div>
+                        </div>
+                        <div class="tpl-tongue-item">
+                            <img src="${formData.tongueBase64}" alt="本次舌苔">
+                            <div class="tpl-tongue-date">${dateStr}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tpl-footer">此问诊单由刘大夫看诊系统生成</div>
+            `;
+        }
+
+        function compressImageForStorage(base64, maxWidth, quality) {
+            return new Promise((resolve) => {
+                if (!base64) { resolve(''); return; }
+                const img = new Image();
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    let w = img.width, h = img.height;
+                    if (w > maxWidth) { h = Math.round(h * maxWidth / w); w = maxWidth; }
+                    canvas.width = w; canvas.height = h;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, w, h);
+                    resolve(canvas.toDataURL('image/jpeg', quality));
+                };
+                img.onerror = () => resolve('');
+                img.src = base64;
+            });
+        }
+
+        async function saveToLocalStorage() {
+            const compressedTongue = await compressImageForStorage(formData.tongueBase64, 400, 0.6);
+            const dataToSave = {
+                date: new Date().toISOString().split('T')[0],
+                name: formData.name, age: formData.age, gender: formData.gender, symptom: formData.symptom,
+                mouth: formData.mouth, drink: formData.drink, pain: formData.pain, stool: formData.stool,
+                urine: formData.urine, urineFeeling: formData.urineFeeling, heatCold: formData.heatCold,
+                preference: formData.preference, appetite: formData.appetite, sleep: formData.sleep,
+                tongueBase64: compressedTongue
+            };
+            try {
+                localStorage.setItem('tcm_consultation_data', JSON.stringify(dataToSave));
+                // 验证写入是否成功
+                const verify = localStorage.getItem('tcm_consultation_data');
+                if (verify) { console.log('localStorage存储成功，数据大小:', verify.length); return true; }
+                return false;
+            } catch (e) {
+                console.warn('localStorage存储失败，尝试不保存舌苔图片:', e);
+                dataToSave.tongueBase64 = '';
+                try {
+                    localStorage.setItem('tcm_consultation_data', JSON.stringify(dataToSave));
+                    return true;
+                } catch (e2) {
+                    console.error('localStorage存储彻底失败:', e2);
+                    return false;
+                }
+            }
+        }
+
+
+        function generateConsultationText() {
+            const now = new Date();
+            const dateStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+            let text = '';
+            text += `【${formData.name}问诊单】\n`;
+            text += `日期：${dateStr}（${isFollowUp ? '复诊' : '初诊'}）\n`;
+            text += `患者：${formData.name} / ${formData.gender} / ${formData.age}岁\n`;
+            text += `\n`;
+            text += `【主诉】\n${formData.symptom}\n`;
+            text += `\n【问诊详情】\n`;
+            const fields = [['口感','mouth'],['饮水','drink'],['疼痛','pain'],['大便','stool'],['小便','urine'],['寒热','heatCold'],['冷热','preference'],['食欲','appetite'],['睡眠','sleep']];
+            fields.forEach(([label, key]) => {
+                let val = formData[key].join('、');
+                if (key === 'urine') val = [...formData.urine, ...formData.urineFeeling].join('、');
+                text += `${label}：${val}\n`;
+            });
+            if (isFollowUp && lastData) {
+                const lastDate = lastData.date || '未知';
+                text += `\n【上次记录（${lastDate}）】\n`;
+                text += `主诉：${lastData.symptom || '无记录'}\n`;
+                fields.forEach(([label, key]) => {
+                    let lastVal = (lastData[key] && lastData[key].length > 0) ? lastData[key].join('、') : '无记录';
+                    if (key === 'urine') lastVal = [...(lastData.urine || []), ...(lastData.urineFeeling || [])].join('、') || '无记录';
+                    let curVal = formData[key].join('、');
+                    if (key === 'urine') curVal = [...formData.urine, ...formData.urineFeeling].join('、');
+                    if (lastVal !== curVal) {
+                        text += `${label}：${lastVal} → ${curVal}（有变化）\n`;
+                    }
+                });
+            }
+            text += `\n舌苔照片见图片。`;
+            return text;
+        }
+
+        async function copyConsultationText() {
+            const text = generateConsultationText();
+            try {
+                await navigator.clipboard.writeText(text);
+                const tip = document.getElementById('copySuccess');
+                tip.style.display = 'block';
+                setTimeout(() => { tip.style.display = 'none'; }, 3000);
+            } catch (e) {
+                // 降级方案
+                const ta = document.createElement('textarea');
+                ta.value = text;
+                ta.style.position = 'fixed';
+                ta.style.left = '-9999px';
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+                const tip = document.getElementById('copySuccess');
+                tip.style.display = 'block';
+                setTimeout(() => { tip.style.display = 'none'; }, 3000);
+            }
+        }
+
+        function startNew() {
+            document.getElementById('resultPage').classList.add('hidden');
+            document.getElementById('welcomePage').classList.remove('hidden');
+            formData = { name: '', age: '', gender: '', symptom: '', mouth: [], drink: [], pain: [], stool: [], urine: [], urineFeeling: [], heatCold: [], preference: [], appetite: [], sleep: [], tongue: null, tongueBase64: '' };
+            currentStep = 0; isFollowUp = false;
+            // 重新读取localStorage并刷新按钮（刚存完数据，现在应该能检测到了）
+            const saved = localStorage.getItem('tcm_consultation_data');
+            if (saved) { try { lastData = JSON.parse(saved); } catch (e) { lastData = null; } }
+            renderWelcomeBtns();
+        }
+
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

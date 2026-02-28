@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.env
+*.log
+logs/
+data/deliveries/
+data/scheduler.db
+data/memory/
+*.db-journal

@@ -1,0 +1,18 @@
+# URL列表模板
+# 每行一个URL，以#开头的行为注释
+
+# 示例网站
+https://example.com
+https://httpbin.org/html
+
+# 新闻网站示例
+# https://news.example.com/article1
+# https://news.example.com/article2
+
+# 技术文档示例  
+# https://docs.example.com/guide
+# https://docs.example.com/api
+
+# 电商网站示例
+# https://shop.example.com/product1
+# https://shop.example.com/product2

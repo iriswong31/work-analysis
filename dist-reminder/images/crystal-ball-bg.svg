@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" width="300" height="300">
+  <defs>
+    <!-- 主球体渐变 - 深蓝色系 -->
+    <radialGradient id="ballGradient" cx="35%" cy="30%" r="65%" fx="30%" fy="25%">
+      <stop offset="0%" stop-color="#A8C4E8" stop-opacity="0.95"/>
+      <stop offset="15%" stop-color="#7BA3D4" stop-opacity="0.9"/>
+      <stop offset="35%" stop-color="#5A87BE" stop-opacity="0.92"/>
+      <stop offset="55%" stop-color="#3D6A9E" stop-opacity="0.95"/>
+      <stop offset="75%" stop-color="#2A527D" stop-opacity="0.97"/>
+      <stop offset="100%" stop-color="#1E3A5C" stop-opacity="1"/>
+    </radialGradient>
+    
+    <!-- 顶部高光 -->
+    <radialGradient id="topHighlight" cx="35%" cy="25%" r="40%" fx="30%" fy="20%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.85"/>
+      <stop offset="30%" stop-color="#FFFFFF" stop-opacity="0.4"/>
+      <stop offset="60%" stop-color="#FFFFFF" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+    
+    <!-- 边缘光晕 -->
+    <radialGradient id="edgeGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="80%" stop-color="#4A6B8A" stop-opacity="0"/>
+      <stop offset="92%" stop-color="#6B8FB5" stop-opacity="0.3"/>
+      <stop offset="100%" stop-color="#8AACCF" stop-opacity="0.15"/>
+    </radialGradient>
+    
+    <!-- 内部光泽 -->
+    <radialGradient id="innerGlow" cx="50%" cy="60%" r="45%">
+      <stop offset="0%" stop-color="#5A87BE" stop-opacity="0.2"/>
+      <stop offset="50%" stop-color="#3D6A9E" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#2A527D" stop-opacity="0"/>
+    </radialGradient>
+    
+    <!-- 底部阴影 -->
+    <radialGradient id="bottomShadow" cx="50%" cy="85%" r="40%">
+      <stop offset="0%" stop-color="#1A2F45" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#1A2F45" stop-opacity="0"/>
+    </radialGradient>
+    
+    <!-- 外部投影 -->
+    <filter id="dropShadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="15" stdDeviation="20" flood-color="#1E3A5C" flood-opacity="0.35"/>
+    </filter>
+    
+    <!-- 小高光点 -->
+    <radialGradient id="sparkle" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="1"/>
+      <stop offset="50%" stop-color="#FFFFFF" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  
+  <!-- 外部投影层 -->
+  <ellipse cx="150" cy="260" rx="80" ry="15" fill="#2A527D" opacity="0.25"/>
+  
+  <!-- 主球体 -->
+  <circle cx="150" cy="150" r="120" fill="url(#ballGradient)" filter="url(#dropShadow)"/>
+  
+  <!-- 边缘光晕 -->
+  <circle cx="150" cy="150" r="120" fill="url(#edgeGlow)"/>
+  
+  <!-- 内部光泽 -->
+  <circle cx="150" cy="150" r="115" fill="url(#innerGlow)"/>
+  
+  <!-- 底部阴影 -->
+  <circle cx="150" cy="150" r="115" fill="url(#bottomShadow)"/>
+  
+  <!-- 顶部主高光 -->
+  <ellipse cx="120" cy="100" rx="70" ry="55" fill="url(#topHighlight)"/>
+  
+  <!-- 小高光点1 -->
+  <circle cx="95" cy="80" r="12" fill="url(#sparkle)" opacity="0.9"/>
+  
+  <!-- 小高光点2 -->
+  <circle cx="115" cy="95" r="6" fill="url(#sparkle)" opacity="0.7"/>
+  
+  <!-- 边缘反光弧线 -->
+  <path d="M 60 180 Q 50 150, 70 110" stroke="rgba(255,255,255,0.15)" stroke-width="3" fill="none" stroke-linecap="round"/>
+  
+  <!-- 右下边缘微光 -->
+  <path d="M 230 180 Q 245 150, 220 120" stroke="rgba(255,255,255,0.08)" stroke-width="2" fill="none" stroke-linecap="round"/>
+</svg>
