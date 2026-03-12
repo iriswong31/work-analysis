@@ -1,0 +1,83 @@
+<!-- 审核状态页 -->
+<view class="page">
+  <!-- 待审核状态 -->
+  <view class="status-container" wx:if="{{status === 'pending'}}">
+    <view class="status-icon pending">
+      <text class="icon">⏳</text>
+    </view>
+    <text class="status-title">审核中</text>
+    <text class="status-desc">您的入驻申请已提交，正在审核中</text>
+    <text class="status-time">预计3-5个工作日完成审核</text>
+
+    <view class="status-timeline">
+      <view class="timeline-item done">
+        <view class="timeline-dot"></view>
+        <view class="timeline-content">
+          <text class="timeline-title">提交申请</text>
+          <text class="timeline-time">{{submitTime}}</text>
+        </view>
+      </view>
+      <view class="timeline-item active">
+        <view class="timeline-dot"></view>
+        <view class="timeline-content">
+          <text class="timeline-title">公益机构初审</text>
+          <text class="timeline-time">审核中...</text>
+        </view>
+      </view>
+      <view class="timeline-item">
+        <view class="timeline-dot"></view>
+        <view class="timeline-content">
+          <text class="timeline-title">平台终审</text>
+          <text class="timeline-time">待处理</text>
+        </view>
+      </view>
+      <view class="timeline-item">
+        <view class="timeline-dot"></view>
+        <view class="timeline-content">
+          <text class="timeline-title">审核通过</text>
+          <text class="timeline-time">待处理</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 审核通过 -->
+  <view class="status-container" wx:if="{{status === 'approved'}}">
+    <view class="status-icon approved">
+      <text class="icon">🎉</text>
+    </view>
+    <text class="status-title success-text">审核通过</text>
+    <text class="status-desc">恭喜！您已成功成为爱心商户</text>
+
+    <view class="success-actions">
+      <button class="btn-primary" bindtap="goToSuccess">查看入驻详情</button>
+    </view>
+  </view>
+
+  <!-- 审核驳回 -->
+  <view class="status-container" wx:if="{{status === 'rejected'}}">
+    <view class="status-icon rejected">
+      <text class="icon">😔</text>
+    </view>
+    <text class="status-title rejected-text">审核未通过</text>
+    <text class="status-desc">很遗憾，您的申请未通过审核</text>
+
+    <view class="reject-reason">
+      <view class="reason-header">
+        <text class="reason-icon">📝</text>
+        <text class="reason-title">驳回原因</text>
+      </view>
+      <text class="reason-content">{{rejectReason}}</text>
+    </view>
+
+    <view class="reject-actions">
+      <button class="btn-primary" bindtap="reApply">重新申请</button>
+      <button class="btn-outline" style="margin-top: 20rpx;" bindtap="goBack">返回首页</button>
+    </view>
+  </view>
+
+  <!-- 底部提示 -->
+  <view class="footer-tip" wx:if="{{status === 'pending'}}">
+    <text>如有疑问，请联系公益机构或平台客服</text>
+  </view>
+</view>

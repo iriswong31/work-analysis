@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "审核状态",
+  "navigationBarBackgroundColor": "#E74C3C",
+  "navigationBarTextStyle": "white",
+  "enablePullDownRefresh": true
+}

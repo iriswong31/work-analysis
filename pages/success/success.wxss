@@ -1,0 +1,218 @@
+/* 入驻成功页样式 */
+.page {
+  min-height: 100vh;
+  background: #f8f4f4;
+  padding-bottom: 160rpx;
+}
+
+/* 成功头部 */
+.success-header {
+  width: 100%;
+}
+
+.success-bg {
+  width: 100%;
+  min-height: 400rpx;
+  background: linear-gradient(180deg, #E74C3C, #FF8A80, #f8f4f4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60rpx 0 40rpx;
+  position: relative;
+}
+
+.confetti {
+  font-size: 48rpx;
+  position: absolute;
+  top: 30rpx;
+  right: 60rpx;
+  animation: bounce 2s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-20rpx) rotate(15deg); }
+}
+
+.success-badge {
+  width: 140rpx;
+  height: 140rpx;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24rpx;
+  border: 4rpx solid rgba(255, 255, 255, 0.3);
+}
+
+.badge-icon {
+  font-size: 64rpx;
+}
+
+.success-title {
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 8rpx;
+  letter-spacing: 4rpx;
+}
+
+.success-subtitle {
+  font-size: 28rpx;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* 商户信息卡片 */
+.merchant-card {
+  background: #fff;
+  border-radius: 20rpx;
+  margin: -40rpx 24rpx 20rpx;
+  padding: 32rpx;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 4rpx 24rpx rgba(0, 0, 0, 0.08);
+}
+
+.merchant-header {
+  display: flex;
+  align-items: center;
+  padding-bottom: 24rpx;
+  border-bottom: 2rpx solid #f5f5f5;
+}
+
+.merchant-avatar {
+  width: 88rpx;
+  height: 88rpx;
+  background: linear-gradient(135deg, #FFF3E0, #FFE0B2);
+  border-radius: 16rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48rpx;
+  margin-right: 20rpx;
+}
+
+.merchant-info {
+  flex: 1;
+}
+
+.merchant-name {
+  font-size: 34rpx;
+  font-weight: bold;
+  color: #333;
+  display: block;
+}
+
+.merchant-tag {
+  margin-top: 6rpx;
+}
+
+.tag {
+  font-size: 22rpx;
+  color: #4CAF50;
+  background: #E8F5E9;
+  padding: 4rpx 12rpx;
+  border-radius: 6rpx;
+}
+
+.merchant-details {
+  padding-top: 20rpx;
+}
+
+.detail-item {
+  display: flex;
+  align-items: flex-start;
+  padding: 10rpx 0;
+  font-size: 26rpx;
+}
+
+.detail-icon {
+  margin-right: 8rpx;
+  flex-shrink: 0;
+}
+
+.detail-label {
+  color: #999;
+  flex-shrink: 0;
+}
+
+.detail-value {
+  color: #333;
+  flex: 1;
+}
+
+/* 入驻须知 */
+.notice-card {
+  background: #fff;
+  border-radius: 20rpx;
+  margin: 0 24rpx;
+  padding: 32rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.04);
+}
+
+.notice-list {
+  margin-top: 8rpx;
+}
+
+.notice-item {
+  display: flex;
+  padding: 20rpx 0;
+  border-bottom: 2rpx solid #f8f8f8;
+}
+
+.notice-item:last-child {
+  border-bottom: none;
+}
+
+.notice-icon {
+  font-size: 40rpx;
+  margin-right: 16rpx;
+  flex-shrink: 0;
+  width: 52rpx;
+  text-align: center;
+}
+
+.notice-content {
+  flex: 1;
+}
+
+.notice-title {
+  font-size: 28rpx;
+  font-weight: 500;
+  color: #333;
+  display: block;
+  margin-bottom: 6rpx;
+}
+
+.notice-desc {
+  font-size: 24rpx;
+  color: #999;
+  line-height: 1.5;
+}
+
+/* 底部 */
+.bottom-space {
+  height: 40rpx;
+}
+
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20rpx 40rpx;
+  padding-bottom: calc(20rpx + env(safe-area-inset-bottom));
+  background: #fff;
+  box-shadow: 0 -4rpx 20rpx rgba(0, 0, 0, 0.06);
+  z-index: 100;
+  display: flex;
+  gap: 20rpx;
+}
+
+.bottom-bar .btn-outline,
+.bottom-bar .btn-primary {
+  height: 88rpx;
+  font-size: 30rpx;
+}

@@ -1,0 +1,329 @@
+<!-- 入驻申请页 -->
+<view class="page">
+  <!-- 进度条 -->
+  <view class="progress-bar">
+    <view class="progress-steps">
+      <view class="progress-step {{currentStep >= 1 ? 'active' : ''}}">
+        <view class="step-dot">1</view>
+        <text class="step-label">基础信息</text>
+      </view>
+      <view class="progress-line {{currentStep >= 2 ? 'active' : ''}}"></view>
+      <view class="progress-step {{currentStep >= 2 ? 'active' : ''}}">
+        <view class="step-dot">2</view>
+        <text class="step-label">资质上传</text>
+      </view>
+      <view class="progress-line {{currentStep >= 3 ? 'active' : ''}}"></view>
+      <view class="progress-step {{currentStep >= 3 ? 'active' : ''}}">
+        <view class="step-dot">3</view>
+        <text class="step-label">确认提交</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 步骤1：基础信息 -->
+  <view class="form-section" wx:if="{{currentStep === 1}}">
+    <view class="section-header">
+      <view class="section-title">
+        <view class="bar"></view>
+        <text class="text">基础经营信息</text>
+      </view>
+      <text class="section-tip">请如实填写</text>
+    </view>
+
+    <view class="form-card">
+      <view class="form-group">
+        <view class="form-label required">商户名称</view>
+        <input
+          class="form-input"
+          placeholder="请输入商户/店铺名称"
+          value="{{form.merchantName}}"
+          bindinput="onInput"
+          data-field="merchantName"
+        />
+      </view>
+
+      <view class="form-group">
+        <view class="form-label required">经营类别</view>
+        <picker mode="selector" range="{{categoryList}}" bindchange="onCategoryChange">
+          <view class="form-picker {{form.category ? '' : 'placeholder'}}">
+            <text>{{form.category || '请选择经营类别'}}</text>
+            <text class="arrow">▸</text>
+          </view>
+        </picker>
+      </view>
+
+      <view class="form-group">
+        <view class="form-label required">门店地址</view>
+        <view class="form-input address-input" bindtap="chooseLocation">
+          <text class="{{form.address ? '' : 'placeholder-text'}}">{{form.address || '点击选择门店地址'}}</text>
+          <text class="location-icon">📍</text>
+        </view>
+      </view>
+
+      <view class="form-group">
+        <view class="form-label">详细地址</view>
+        <input
+          class="form-input"
+          placeholder="请输入门牌号等详细信息"
+          value="{{form.addressDetail}}"
+          bindinput="onInput"
+          data-field="addressDetail"
+        />
+      </view>
+
+      <view class="form-group">
+        <view class="form-label required">联系电话</view>
+        <input
+          class="form-input"
+          type="number"
+          placeholder="请输入联系电话"
+          value="{{form.contactPhone}}"
+          bindinput="onInput"
+          data-field="contactPhone"
+          maxlength="11"
+        />
+      </view>
+
+      <view class="form-divider"></view>
+
+      <view class="section-header inner-header">
+        <view class="section-title">
+          <view class="bar"></view>
+          <text class="text">法人信息</text>
+        </view>
+      </view>
+
+      <view class="form-group">
+        <view class="form-label required">法人姓名</view>
+        <input
+          class="form-input"
+          placeholder="请输入法人姓名"
+          value="{{form.legalName}}"
+          bindinput="onInput"
+          data-field="legalName"
+        />
+      </view>
+
+      <view class="form-group">
+        <view class="form-label required">法人身份证号</view>
+        <input
+          class="form-input"
+          placeholder="请输入身份证号码"
+          value="{{form.legalIdCard}}"
+          bindinput="onInput"
+          data-field="legalIdCard"
+          maxlength="18"
+        />
+      </view>
+
+      <view class="form-group">
+        <view class="form-label required">法人手机号</view>
+        <input
+          class="form-input"
+          type="number"
+          placeholder="请输入法人手机号"
+          value="{{form.legalPhone}}"
+          bindinput="onInput"
+          data-field="legalPhone"
+          maxlength="11"
+        />
+      </view>
+    </view>
+  </view>
+
+  <!-- 步骤2：资质上传 -->
+  <view class="form-section" wx:if="{{currentStep === 2}}">
+    <view class="section-header">
+      <view class="section-title">
+        <view class="bar"></view>
+        <text class="text">资质文件上传</text>
+      </view>
+      <text class="section-tip">请上传清晰照片</text>
+    </view>
+
+    <view class="form-card">
+      <!-- 营业执照 -->
+      <view class="upload-group">
+        <view class="form-label required">营业执照</view>
+        <view class="upload-area" bindtap="chooseImage" data-field="businessLicense">
+          <block wx:if="{{form.businessLicense}}">
+            <image class="upload-preview" src="{{form.businessLicense}}" mode="aspectFill" />
+            <view class="upload-mask">
+              <text>重新上传</text>
+            </view>
+          </block>
+          <block wx:else>
+            <view class="upload-placeholder">
+              <text class="upload-icon">📷</text>
+              <text class="upload-text">上传营业执照</text>
+              <text class="upload-hint">支持 JPG/PNG 格式</text>
+            </view>
+          </block>
+        </view>
+      </view>
+
+      <!-- 法人身份证正面 -->
+      <view class="upload-group">
+        <view class="form-label required">法人身份证（正面）</view>
+        <view class="upload-row">
+          <view class="upload-area small" bindtap="chooseImage" data-field="idCardFront">
+            <block wx:if="{{form.idCardFront}}">
+              <image class="upload-preview" src="{{form.idCardFront}}" mode="aspectFill" />
+              <view class="upload-mask">
+                <text>重新上传</text>
+              </view>
+            </block>
+            <block wx:else>
+              <view class="upload-placeholder">
+                <text class="upload-icon">📷</text>
+                <text class="upload-text">人像面</text>
+              </view>
+            </block>
+          </view>
+          <view class="upload-area small" bindtap="chooseImage" data-field="idCardBack">
+            <block wx:if="{{form.idCardBack}}">
+              <image class="upload-preview" src="{{form.idCardBack}}" mode="aspectFill" />
+              <view class="upload-mask">
+                <text>重新上传</text>
+              </view>
+            </block>
+            <block wx:else>
+              <view class="upload-placeholder">
+                <text class="upload-icon">📷</text>
+                <text class="upload-text">国徽面</text>
+              </view>
+            </block>
+          </view>
+        </view>
+      </view>
+
+      <!-- 门店照片 -->
+      <view class="upload-group">
+        <view class="form-label required">门店照片</view>
+        <view class="upload-area" bindtap="chooseImage" data-field="storePhoto">
+          <block wx:if="{{form.storePhoto}}">
+            <image class="upload-preview" src="{{form.storePhoto}}" mode="aspectFill" />
+            <view class="upload-mask">
+              <text>重新上传</text>
+            </view>
+          </block>
+          <block wx:else>
+            <view class="upload-placeholder">
+              <text class="upload-icon">📷</text>
+              <text class="upload-text">上传门店照片</text>
+              <text class="upload-hint">门头/内部环境照</text>
+            </view>
+          </block>
+        </view>
+      </view>
+
+      <!-- 承诺书 -->
+      <view class="upload-group">
+        <view class="form-label required">承诺书签署</view>
+        <view class="promise-card">
+          <view class="promise-header">
+            <text class="promise-icon">📋</text>
+            <text class="promise-title">爱心商户承诺书</text>
+          </view>
+          <view class="promise-content">
+            <text>本商户承诺：\n1. 自愿加入关爱平台，为受助群体提供优质服务；\n2. 严格遵守平台规则，保障受助人权益；\n3. 诚信经营，不以公益名义进行虚假宣传；\n4. 配合平台进行监督检查。</text>
+          </view>
+          <view class="promise-sign" bindtap="togglePromise">
+            <view class="checkbox {{form.promiseSigned ? 'checked' : ''}}">
+              <text wx:if="{{form.promiseSigned}}">✓</text>
+            </view>
+            <text>我已阅读并同意以上承诺</text>
+          </view>
+        </view>
+      </view>
+
+      <!-- 背书文件 -->
+      <view class="upload-group">
+        <view class="form-label">背书文件（可选）</view>
+        <view class="upload-area" bindtap="chooseImage" data-field="endorseFile">
+          <block wx:if="{{form.endorseFile}}">
+            <image class="upload-preview" src="{{form.endorseFile}}" mode="aspectFill" />
+            <view class="upload-mask">
+              <text>重新上传</text>
+            </view>
+          </block>
+          <block wx:else>
+            <view class="upload-placeholder">
+              <text class="upload-icon">📎</text>
+              <text class="upload-text">上传背书文件</text>
+              <text class="upload-hint">公益机构推荐函等</text>
+            </view>
+          </block>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 步骤3：确认提交 -->
+  <view class="form-section" wx:if="{{currentStep === 3}}">
+    <view class="section-header">
+      <view class="section-title">
+        <view class="bar"></view>
+        <text class="text">确认申请信息</text>
+      </view>
+    </view>
+
+    <view class="form-card confirm-card">
+      <view class="confirm-group">
+        <text class="confirm-label">商户名称</text>
+        <text class="confirm-value">{{form.merchantName}}</text>
+      </view>
+      <view class="confirm-group">
+        <text class="confirm-label">经营类别</text>
+        <text class="confirm-value">{{form.category}}</text>
+      </view>
+      <view class="confirm-group">
+        <text class="confirm-label">门店地址</text>
+        <text class="confirm-value">{{form.address}} {{form.addressDetail}}</text>
+      </view>
+      <view class="confirm-group">
+        <text class="confirm-label">联系电话</text>
+        <text class="confirm-value">{{form.contactPhone}}</text>
+      </view>
+      <view class="confirm-divider"></view>
+      <view class="confirm-group">
+        <text class="confirm-label">法人姓名</text>
+        <text class="confirm-value">{{form.legalName}}</text>
+      </view>
+      <view class="confirm-group">
+        <text class="confirm-label">身份证号</text>
+        <text class="confirm-value">{{maskIdCard}}</text>
+      </view>
+      <view class="confirm-group">
+        <text class="confirm-label">法人手机</text>
+        <text class="confirm-value">{{maskPhone}}</text>
+      </view>
+      <view class="confirm-divider"></view>
+      <view class="confirm-files">
+        <text class="confirm-label">上传文件</text>
+        <view class="confirm-file-list">
+          <view class="file-tag">✅ 营业执照</view>
+          <view class="file-tag">✅ 身份证正反面</view>
+          <view class="file-tag">✅ 门店照片</view>
+          <view class="file-tag">✅ 承诺书</view>
+          <view class="file-tag" wx:if="{{form.endorseFile}}">✅ 背书文件</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="submit-tip">
+      <text class="tip-icon">⏳</text>
+      <text>提交后将由公益机构初审 + 平台终审，通常需3-5个工作日</text>
+    </view>
+  </view>
+
+  <!-- 底部间距 -->
+  <view class="bottom-space"></view>
+
+  <!-- 底部按钮栏 -->
+  <view class="bottom-bar">
+    <button class="btn-outline" wx:if="{{currentStep > 1}}" bindtap="prevStep">上一步</button>
+    <button class="btn-primary" wx:if="{{currentStep < 3}}" bindtap="nextStep">下一步</button>
+    <button class="btn-primary" wx:if="{{currentStep === 3}}" bindtap="submitApply" loading="{{submitting}}">提交申请</button>
+  </view>
+</view>

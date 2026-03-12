@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>爱心商户 - 预览</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="phone-frame">
+    <div class="phone-header">
+      <span class="back-btn hide">‹</span>
+      <span class="title">爱心商户</span>
+      <span class="menu-btn">⋮</span>
+    </div>
+
+    <!-- 页面1: 首页 -->
+    <div class="page active" id="page-index">
+      <div class="banner">
+        <div class="banner-bg">
+          <div class="banner-title">暖冬关爱行动</div>
+          <div class="banner-deco">
+            <span class="deco-heart">❤</span>
+            <span class="deco-flower">🌸</span>
+            <span class="deco-house">🏠</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card intro-card">
+        <div class="card-icon">
+          <span class="house-icon">🏠<span class="icon-flower">🌺</span></span>
+        </div>
+        <div class="section-title">
+          <span class="bar"></span>
+          <span class="text">什么是爱心商户？</span>
+        </div>
+        <div class="intro-content">
+          <span class="highlight-tag">爱心商户</span>
+          <span class="intro-text">是指自愿入驻关爱平台、为特定受助群体（如困境儿童、老人、灾民等）提供物资或服务支持、专属商品折扣、服务优惠、捐赠等，同时协助受助人身份核验及慈善资源兑换，保障慈善资源精准触达受助人。</span>
+        </div>
+      </div>
+
+      <div class="card steps-card">
+        <div class="section-title">
+          <span class="bar"></span>
+          <span class="text">如何成为爱心商户？</span>
+        </div>
+        <div class="steps-list">
+          <div class="step-item">
+            <div class="step-header">
+              <span class="step-number"><span class="num">1</span></span>
+              <span class="step-title">公益机构邀请</span>
+            </div>
+            <div class="step-desc">商家需通过合作公益组织的推荐邀请入驻；</div>
+          </div>
+          <div class="step-item">
+            <div class="step-header">
+              <span class="step-number"><span class="num">2</span></span>
+              <span class="step-title">填写入驻资料</span>
+            </div>
+            <div class="step-desc">商家需填写基础经营资质、法人信息、承诺书、背书文件等；</div>
+          </div>
+          <div class="step-item">
+            <div class="step-header">
+              <span class="step-number"><span class="num">3</span></span>
+              <span class="step-title">平台审核</span>
+            </div>
+            <div class="step-desc">公益机构初审，平台终审，通常需3-5个工作日；</div>
+          </div>
+          <div class="step-item step-item-last">
+            <div class="step-header">
+              <span class="step-number"><span class="num">4</span></span>
+              <span class="step-title">成功入驻与倡导</span>
+            </div>
+            <div class="step-desc">商家需在门店显著位置张贴「关爱公约」，向公众公示其公益属性，增强受助人信任感。</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bottom-space"></div>
+
+      <div class="bottom-bar">
+        <button class="btn-primary" onclick="goToPage('page-login')">爱心商户登录</button>
+      </div>
+    </div>
+
+    <!-- 页面2: 登录页 -->
+    <div class="page" id="page-login">
+      <div class="header">
+        <div class="header-bg">
+          <span class="header-icon">❤️</span>
+          <span class="header-title">爱心商户登录</span>
+          <span class="header-subtitle">欢迎加入关爱平台</span>
+        </div>
+      </div>
+
+      <div class="form-card">
+        <div class="tab-bar">
+          <span class="tab-item active" onclick="switchTab(this, 'invite')">邀请码登录</span>
+          <span class="tab-item" onclick="switchTab(this, 'phone')">手机号登录</span>
+        </div>
+
+        <div class="form-body" id="invite-form">
+          <div class="form-group">
+            <div class="form-label">邀请码</div>
+            <input class="form-input" type="text" placeholder="请输入公益机构提供的邀请码">
+          </div>
+          <div class="form-group">
+            <div class="form-label">手机号</div>
+            <input class="form-input" type="tel" placeholder="请输入手机号">
+          </div>
+          <div class="form-group">
+            <div class="form-label">验证码</div>
+            <div class="code-input-wrapper">
+              <input class="form-input code-input" type="text" placeholder="请输入验证码">
+              <span class="code-btn" onclick="sendCode()">获取验证码</span>
+            </div>
+          </div>
+          <div class="form-tip">
+            <span class="tip-icon">💡</span>
+            <span>邀请码由合作公益机构提供，请联系对应机构获取</span>
+          </div>
+        </div>
+
+        <div class="agreement">
+          <span class="checkbox-wrapper" onclick="toggleCheck(this)">
+            <span class="checkbox checked">✓</span>
+          </span>
+          <span class="agreement-text">
+            我已阅读并同意<a href="#">《服务协议》</a>和<a href="#">《隐私政策》</a>
+          </span>
+        </div>
+
+        <button class="btn-primary" onclick="goToPage('page-apply')">验证并登录</button>
+      </div>
+    </div>
+
+    <!-- 页面3: 申请页 -->
+    <div class="page" id="page-apply">
+      <div class="progress-bar">
+        <div class="progress-steps">
+          <div class="progress-step active">
+            <span class="step-dot">1</span>
+            <span class="step-label">基础信息</span>
+          </div>
+          <span class="progress-line active"></span>
+          <div class="progress-step">
+            <span class="step-dot">2</span>
+            <span class="step-label">资质上传</span>
+          </div>
+          <span class="progress-line"></span>
+          <div class="progress-step">
+            <span class="step-dot">3</span>
+            <span class="step-label">确认提交</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="section-header">
+          <div class="section-title">
+            <span class="bar"></span>
+            <span class="text">基础经营信息</span>
+          </div>
+        </div>
+
+        <div class="form-card">
+          <div class="form-group">
+            <div class="form-label required">商户名称</div>
+            <input class="form-input" type="text" placeholder="请输入商户/店铺名称">
+          </div>
+
+          <div class="form-group">
+            <div class="form-label required">经营类别</div>
+            <div class="form-picker">
+              <span class="placeholder">请选择经营类别</span>
+              <span class="arrow">▸</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="form-label required">门店地址</div>
+            <div class="form-input address-input">
+              <span class="placeholder-text">点击选择门店地址</span>
+              <span class="location-icon">📍</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="form-label">详细地址</div>
+            <input class="form-input" type="text" placeholder="请输入门牌号等详细信息">
+          </div>
+
+          <div class="form-group">
+            <div class="form-label required">联系电话</div>
+            <input class="form-input" type="tel" placeholder="请输入联系电话">
+          </div>
+
+          <div class="form-divider"></div>
+
+          <div class="section-header inner-header">
+            <div class="section-title">
+              <span class="bar"></span>
+              <span class="text">法人信息</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="form-label required">法人姓名</div>
+            <input class="form-input" type="text" placeholder="请输入法人姓名">
+          </div>
+
+          <div class="form-group">
+            <div class="form-label required">法人身份证号</div>
+            <input class="form-input" type="text" placeholder="请输入身份证号码">
+          </div>
+
+          <div class="form-group">
+            <div class="form-label required">法人手机号</div>
+            <input class="form-input" type="tel" placeholder="请输入法人手机号">
+          </div>
+        </div>
+      </div>
+
+      <div class="bottom-space"></div>
+
+      <div class="bottom-bar">
+        <button class="btn-primary" style="flex:1" onclick="goToPage('page-status')">下一步</button>
+      </div>
+    </div>
+
+    <!-- 页面4: 审核状态 -->
+    <div class="page" id="page-status">
+      <div class="status-container">
+        <div class="status-icon pending">
+          <span class="icon">⏳</span>
+        </div>
+        <span class="status-title">审核中</span>
+        <span class="status-desc">您的入驻申请已提交，正在审核中</span>
+        <span class="status-time">预计3-5个工作日完成审核</span>
+
+        <div class="status-timeline">
+          <div class="timeline-item done">
+            <span class="timeline-dot"></span>
+            <div class="timeline-content">
+              <span class="timeline-title">提交申请</span>
+              <span class="timeline-time">2026-03-10 14:30</span>
+            </div>
+          </div>
+          <div class="timeline-item active">
+            <span class="timeline-dot"></span>
+            <div class="timeline-content">
+              <span class="timeline-title">公益机构初审</span>
+              <span class="timeline-time">审核中...</span>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <span class="timeline-dot"></span>
+            <div class="timeline-content">
+              <span class="timeline-title">平台终审</span>
+              <span class="timeline-time">待处理</span>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <span class="timeline-dot"></span>
+            <div class="timeline-content">
+              <span class="timeline-title">审核通过</span>
+              <span class="timeline-time">待处理</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 页面5: 成功页 -->
+    <div class="page" id="page-success">
+      <div class="success-header">
+        <div class="success-bg">
+          <span class="confetti">🎊</span>
+          <div class="success-badge">
+            <span class="badge-icon">❤️</span>
+          </div>
+          <span class="success-title">恭喜成为爱心商户！</span>
+          <span class="success-subtitle">您已成功入驻关爱平台</span>
+        </div>
+      </div>
+
+      <div class="merchant-card">
+        <div class="merchant-header">
+          <div class="merchant-avatar">🏪</div>
+          <div class="merchant-info">
+            <span class="merchant-name">爱心小店</span>
+            <div class="merchant-tag">
+              <span class="tag">✅ 已认证</span>
+            </div>
+          </div>
+        </div>
+        <div class="merchant-details">
+          <div class="detail-item">
+            <span class="detail-icon">📋</span>
+            <span class="detail-label">经营类别：</span>
+            <span class="detail-value">餐饮美食</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-icon">📍</span>
+            <span class="detail-label">门店地址：</span>
+            <span class="detail-value">广州市天河区体育西路XX号</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-icon">📞</span>
+            <span class="detail-label">联系电话：</span>
+            <span class="detail-value">138****8888</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="notice-card">
+        <div class="section-title">
+          <span class="bar"></span>
+          <span class="text">入驻须知</span>
+        </div>
+        <div class="notice-list">
+          <div class="notice-item">
+            <span class="notice-icon">📌</span>
+            <div class="notice-content">
+              <span class="notice-title">张贴「关爱公约」</span>
+              <span class="notice-desc">请在门店显著位置张贴关爱公约，向公众公示公益属性</span>
+            </div>
+          </div>
+          <div class="notice-item">
+            <span class="notice-icon">🤝</span>
+            <div class="notice-content">
+              <span class="notice-title">服务受助群体</span>
+              <span class="notice-desc">为持有关爱卡的受助人提供约定的优惠与服务</span>
+            </div>
+          </div>
+          <div class="notice-item">
+            <span class="notice-icon">📊</span>
+            <div class="notice-content">
+              <span class="notice-title">配合平台管理</span>
+              <span class="notice-desc">定期提交服务记录，配合平台进行监督检查</span>
+            </div>
+          </div>
+          <div class="notice-item">
+            <span class="notice-icon">⭐</span>
+            <div class="notice-content">
+              <span class="notice-title">诚信经营</span>
+              <span class="notice-desc">遵守平台规则，保障受助人权益，维护公益形象</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bottom-space"></div>
+
+      <div class="bottom-bar">
+        <button class="btn-outline" onclick="goToPage('page-index')" style="flex:1">返回首页</button>
+        <button class="btn-primary" style="flex:2">进入商户中心</button>
+      </div>
+    </div>
+
+    <!-- 底部导航 -->
+    <div class="nav-bar">
+      <span class="nav-item active" onclick="goToPage('page-index')">首页</span>
+      <span class="nav-item" onclick="goToPage('page-status')">状态</span>
+      <span class="nav-item">我的</span>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
