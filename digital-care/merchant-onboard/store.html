@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商户主页 - 关爱平台</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            background: #f5f5f5;
+            min-height: 100vh;
+        }
+
+        /* 顶部横幅 */
+        .header-banner {
+            background: linear-gradient(135deg, #ff6b35, #ff8c42);
+            color: white;
+            padding: 20px 16px 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-banner::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 0;
+            right: 0;
+            height: 30px;
+            background: #f5f5f5;
+            border-radius: 20px 20px 0 0;
+        }
+
+        .badge-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        
+        .badge {
+            background: rgba(255,255,255,0.25);
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+        }
+        
+        .badge.verified {
+            background: rgba(255,255,255,0.35);
+        }
+
+        .store-name {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .store-id {
+            font-size: 13px;
+            opacity: 0.85;
+        }
+
+        /* 信息卡片 */
+        .card {
+            background: white;
+            margin: 0 12px 12px;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+        }
+
+        .card:first-of-type {
+            margin-top: -10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .info-row {
+            display: flex;
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 14px;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            color: #888;
+            width: 110px;
+            flex-shrink: 0;
+        }
+
+        .info-value {
+            color: #333;
+            flex: 1;
+            word-break: break-all;
+        }
+
+        .info-value.masked {
+            letter-spacing: 1px;
+        }
+
+        /* 状态标签 */
+        .status-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 3px 10px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .status-dot {
+            width: 6px;
+            height: 6px;
+            background: #4caf50;
+            border-radius: 50%;
+        }
+
+        /* 底部 */
+        .footer {
+            text-align: center;
+            padding: 24px 16px 40px;
+            color: #aaa;
+            font-size: 12px;
+            line-height: 1.8;
+        }
+
+        .footer .logo-text {
+            font-size: 14px;
+            color: #ff6b35;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        /* 模拟提示 */
+        .demo-notice {
+            background: #fff3e0;
+            border: 1px dashed #ff9800;
+            border-radius: 8px;
+            padding: 10px 14px;
+            margin: 12px;
+            font-size: 12px;
+            color: #e65100;
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        /* 照片缩略图 */
+        .photo-placeholder {
+            width: 60px;
+            height: 60px;
+            background: #f0f0f0;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .photo-row {
+            display: flex;
+            gap: 8px;
+            padding: 10px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="demo-notice">
+        ⚠️ 此页面为模拟演示，非真实商户信息
+    </div>
+
+    <div class="header-banner">
+        <div class="badge-row">
+            <span class="badge verified">✅ 已认证</span>
+            <span class="badge" id="industryBadge">餐饮</span>
+        </div>
+        <div class="store-name" id="storeName">加载中...</div>
+        <div class="store-id" id="storeId">商家ID：--</div>
+    </div>
+
+    <!-- 入驻状态 -->
+    <div class="card">
+        <div class="card-title">📋 入驻状态</div>
+        <div class="info-row">
+            <div class="info-label">审批状态</div>
+            <div class="info-value">
+                <span class="status-tag"><span class="status-dot"></span> 已通过</span>
+            </div>
+        </div>
+        <div class="info-row">
+            <div class="info-label">申请单号</div>
+            <div class="info-value" id="orderNo">--</div>
+        </div>
+        <div class="info-row">
+            <div class="info-label">入驻时间</div>
+            <div class="info-value" id="approveTime">--</div>
+        </div>
+        <div class="info-row">
+            <div class="info-label">审批人</div>
+            <div class="info-value">关爱平台管理员</div>
+        </div>
+    </div>
+
+    <!-- 商家信息 -->
+    <div class="card">
+        <div class="card-title">🏪 商家信息</div>
+        <div class="info-row">
+            <div class="info-label">商家名称</div>
+            <div class="info-value" id="merchantName">--</div>
+        </div>
+        <div class="info-row">
+            <div class="info-label">商家类型</div>
+            <div class="info-value" id="merchantType">--</div>
+        </div>
+        <div class="info-row">
+            <div class="info-label">所属行业</div>
+            <div class="info-value" id="industry">--</div>
+        </div>
+        <div class="info-row">
+            <div class="info-label">商家地址</div>
+            <div class="info-value" id="address">--</div>
+        </div>
+        <div class="info-row">
+            <div class="info-label">经营范围</div>
+            <div class="info-value" id="scope">--</div>
+        </div>
+        <div class="info-row">
+            <div class="info-label">统一社会信用代码</div>
+            <div class="info-value" id="creditCode">--</div>
+        </div>
+        <div class="info-row">
+            <div class="info-label">营业执照有效期</div>
+            <div class="info-value" id="licenseValidity">--</div>
+        </div>
+    </div>
+
+    <!-- 法人信息 -->
+    <div class="card">
+        <div class="card-title">👤 法人信息</div>
+        <div class="info-row">
+            <div class="info-label">法人姓名</div>
+            <div class="info-value" id="legalPerson">--</div>
+        </div>
+        <div class="info-row">
+            <div class="info-label">身份证号</div>
+            <div class="info-value masked" id="idCard">--</div>
+        </div>
+        <div class="info-row">
+            <div class="info-label">联系方式</div>
+            <div class="info-value" id="phone">--</div>
+        </div>
+    </div>
+
+    <!-- 证照材料 -->
+    <div class="card">
+        <div class="card-title">📄 证照材料</div>
+        <div class="photo-row">
+            <div class="photo-placeholder">📄</div>
+            <div class="photo-placeholder">🪪</div>
+            <div class="photo-placeholder">📸</div>
+        </div>
+        <div style="font-size: 12px; color: #aaa; margin-top: 4px;">营业执照 · 身份证 · 经营环境照</div>
+    </div>
+
+    <div class="footer">
+        <div class="logo-text">❤️ 关爱平台</div>
+        携手共建爱心社区<br>
+        此页面数据仅供模拟演示
+    </div>
+
+    <script>
+        // 从 URL 参数和默认数据渲染页面
+        const params = new URLSearchParams(window.location.search);
+        const merchantId = params.get('id') || 'MC20260320001';
+        
+        // 模拟数据（实际使用时由 URL 参数或后端接口提供）
+        const mockData = {
+            'MC20260317042': {
+                name: '老王面馆',
+                type: '个体工商户',
+                industry: '餐饮',
+                address: '宝安区新安街道创业一路88号',
+                scope: '中餐服务；面食制售',
+                creditCode: '92440306MA5FKJ2N3B',
+                licenseValidity: '长期有效',
+                legalPerson: '王大强',
+                idCard: '5103****2345',
+                phone: '135-1234-5678',
+                orderNo: 'GA-2026031700042',
+                approveTime: '2026/3/17 14:32'
+            }
+        };
+
+        // 获取数据，如果 URL 中的 ID 没有对应模拟数据，使用通用默认
+        const data = mockData[merchantId] || {
+            name: '爱心商户',
+            type: '个体工商户',
+            industry: '餐饮',
+            address: '深圳市某区某街道',
+            scope: '餐饮服务',
+            creditCode: '91440300XXXXXXXXXX',
+            licenseValidity: '长期有效',
+            legalPerson: '商户法人',
+            idCard: '4403****1234',
+            phone: '138-0000-8888',
+            orderNo: 'GA-' + merchantId.replace('MC', ''),
+            approveTime: new Date().toLocaleString('zh-CN')
+        };
+
+        // 渲染数据到页面
+        document.getElementById('storeName').textContent = data.name;
+        document.getElementById('storeId').textContent = '商家ID：' + merchantId;
+        document.getElementById('industryBadge').textContent = data.industry;
+        document.getElementById('merchantName').textContent = data.name;
+        document.getElementById('merchantType').textContent = data.type;
+        document.getElementById('industry').textContent = data.industry;
+        document.getElementById('address').textContent = data.address;
+        document.getElementById('scope').textContent = data.scope;
+        document.getElementById('creditCode').textContent = data.creditCode;
+        document.getElementById('licenseValidity').textContent = data.licenseValidity;
+        document.getElementById('legalPerson').textContent = data.legalPerson;
+        document.getElementById('idCard').textContent = data.idCard;
+        document.getElementById('phone').textContent = data.phone;
+        document.getElementById('orderNo').textContent = data.orderNo;
+        document.getElementById('approveTime').textContent = data.approveTime;
+
+        document.title = data.name + ' - 关爱平台商户主页';
+    </script>
+</body>
+</html>
