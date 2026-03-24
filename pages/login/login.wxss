@@ -1,0 +1,206 @@
+/* 登录页样式 */
+.page {
+  min-height: 100vh;
+  background: #f8f4f4;
+}
+
+/* 头部 */
+.header {
+  width: 100%;
+  height: 360rpx;
+}
+
+.header-bg {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, #E74C3C, #FF8A80);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 40rpx;
+}
+
+.header-icon {
+  font-size: 80rpx;
+  margin-bottom: 16rpx;
+}
+
+.header-title {
+  font-size: 44rpx;
+  font-weight: bold;
+  color: #fff;
+  letter-spacing: 4rpx;
+}
+
+.header-subtitle {
+  font-size: 26rpx;
+  color: rgba(255, 255, 255, 0.8);
+  margin-top: 8rpx;
+}
+
+/* 表单卡片 */
+.form-card {
+  margin: -60rpx 24rpx 0;
+  background: #fff;
+  border-radius: 24rpx;
+  padding: 0 32rpx 40rpx;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 4rpx 24rpx rgba(0, 0, 0, 0.08);
+}
+
+/* Tab栏 */
+.tab-bar {
+  display: flex;
+  border-bottom: 2rpx solid #f0f0f0;
+}
+
+.tab-item {
+  flex: 1;
+  text-align: center;
+  padding: 32rpx 0;
+  font-size: 30rpx;
+  color: #999;
+  position: relative;
+  transition: all 0.3s;
+}
+
+.tab-item.active {
+  color: #E74C3C;
+  font-weight: bold;
+}
+
+.tab-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60rpx;
+  height: 6rpx;
+  background: #E74C3C;
+  border-radius: 3rpx;
+}
+
+/* 表单 */
+.form-body {
+  padding-top: 32rpx;
+}
+
+.form-group {
+  margin-bottom: 28rpx;
+}
+
+.form-label {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 500;
+  margin-bottom: 12rpx;
+}
+
+.form-input {
+  width: 100%;
+  height: 88rpx;
+  background: #f8f8f8;
+  border-radius: 12rpx;
+  padding: 0 24rpx;
+  font-size: 28rpx;
+  color: #333;
+  border: 2rpx solid transparent;
+  box-sizing: border-box;
+  transition: border-color 0.3s;
+}
+
+.form-input:focus {
+  border-color: #E74C3C;
+  background: #fff;
+}
+
+.code-input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.code-input {
+  flex: 1;
+}
+
+.code-btn {
+  flex-shrink: 0;
+  height: 88rpx;
+  padding: 0 24rpx;
+  background: linear-gradient(135deg, #FF8A80, #E74C3C);
+  border-radius: 12rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26rpx;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.code-btn.disabled {
+  background: #ccc;
+}
+
+/* 提示 */
+.form-tip {
+  display: flex;
+  align-items: flex-start;
+  padding: 20rpx;
+  background: #FFF9E6;
+  border-radius: 12rpx;
+  margin-bottom: 28rpx;
+  font-size: 24rpx;
+  color: #999;
+  line-height: 1.5;
+}
+
+.tip-icon {
+  margin-right: 8rpx;
+  flex-shrink: 0;
+}
+
+/* 协议 */
+.agreement {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 32rpx;
+  padding: 0 4rpx;
+}
+
+.checkbox-wrapper {
+  padding-top: 4rpx;
+  margin-right: 12rpx;
+  flex-shrink: 0;
+}
+
+.checkbox {
+  width: 36rpx;
+  height: 36rpx;
+  border: 2rpx solid #ddd;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22rpx;
+  color: #fff;
+  transition: all 0.2s;
+}
+
+.checkbox.checked {
+  background: #E74C3C;
+  border-color: #E74C3C;
+}
+
+.agreement-text {
+  font-size: 24rpx;
+  color: #999;
+  line-height: 1.6;
+}
+
+.link {
+  color: #E74C3C;
+}

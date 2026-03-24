@@ -1,0 +1,397 @@
+/* 申请页样式 */
+.page {
+  min-height: 100vh;
+  background: #f8f4f4;
+  padding-bottom: 160rpx;
+}
+
+/* 进度条 */
+.progress-bar {
+  background: #fff;
+  padding: 32rpx 40rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.04);
+}
+
+.progress-steps {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.progress-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.step-dot {
+  width: 52rpx;
+  height: 52rpx;
+  border-radius: 50%;
+  background: #e0e0e0;
+  color: #999;
+  font-size: 26rpx;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+}
+
+.progress-step.active .step-dot {
+  background: linear-gradient(135deg, #FF6B6B, #E74C3C);
+  color: #fff;
+}
+
+.step-label {
+  font-size: 22rpx;
+  color: #999;
+  margin-top: 8rpx;
+}
+
+.progress-step.active .step-label {
+  color: #E74C3C;
+  font-weight: 500;
+}
+
+.progress-line {
+  width: 80rpx;
+  height: 4rpx;
+  background: #e0e0e0;
+  margin: 0 16rpx;
+  margin-bottom: 28rpx;
+  transition: all 0.3s;
+}
+
+.progress-line.active {
+  background: #E74C3C;
+}
+
+/* 表单区域 */
+.form-section {
+  padding: 20rpx 0;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32rpx;
+  margin-bottom: 8rpx;
+}
+
+.inner-header {
+  padding: 0;
+  margin-top: 16rpx;
+  margin-bottom: 20rpx;
+}
+
+.section-tip {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.form-card {
+  background: #fff;
+  border-radius: 20rpx;
+  padding: 32rpx;
+  margin: 12rpx 24rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.04);
+}
+
+.form-group {
+  margin-bottom: 28rpx;
+}
+
+.form-label {
+  font-size: 28rpx;
+  color: #333;
+  font-weight: 500;
+  margin-bottom: 12rpx;
+}
+
+.form-label.required::before {
+  content: '*';
+  color: #E74C3C;
+  margin-right: 4rpx;
+}
+
+.form-input {
+  width: 100%;
+  height: 88rpx;
+  background: #f8f8f8;
+  border-radius: 12rpx;
+  padding: 0 24rpx;
+  font-size: 28rpx;
+  color: #333;
+  border: 2rpx solid transparent;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+}
+
+.form-picker {
+  width: 100%;
+  height: 88rpx;
+  background: #f8f8f8;
+  border-radius: 12rpx;
+  padding: 0 24rpx;
+  font-size: 28rpx;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.form-picker.placeholder {
+  color: #bbb;
+}
+
+.arrow {
+  color: #ccc;
+  font-size: 24rpx;
+}
+
+.address-input {
+  justify-content: space-between;
+}
+
+.placeholder-text {
+  color: #bbb;
+}
+
+.location-icon {
+  font-size: 32rpx;
+}
+
+.form-divider {
+  height: 2rpx;
+  background: #f0f0f0;
+  margin: 32rpx 0;
+}
+
+/* 上传区域 */
+.upload-group {
+  margin-bottom: 32rpx;
+}
+
+.upload-area {
+  width: 100%;
+  height: 300rpx;
+  background: #fafafa;
+  border: 2rpx dashed #ddd;
+  border-radius: 16rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.upload-area.small {
+  width: 48%;
+  height: 240rpx;
+}
+
+.upload-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.upload-preview {
+  width: 100%;
+  height: 100%;
+}
+
+.upload-mask {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60rpx;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 24rpx;
+}
+
+.upload-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.upload-icon {
+  font-size: 56rpx;
+  margin-bottom: 12rpx;
+}
+
+.upload-text {
+  font-size: 26rpx;
+  color: #999;
+}
+
+.upload-hint {
+  font-size: 22rpx;
+  color: #ccc;
+  margin-top: 6rpx;
+}
+
+/* 承诺书 */
+.promise-card {
+  background: #FFF9F8;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  border: 2rpx solid #FFE0D9;
+}
+
+.promise-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16rpx;
+}
+
+.promise-icon {
+  font-size: 36rpx;
+  margin-right: 12rpx;
+}
+
+.promise-title {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #E74C3C;
+}
+
+.promise-content {
+  font-size: 24rpx;
+  color: #666;
+  line-height: 1.8;
+  padding: 16rpx;
+  background: #fff;
+  border-radius: 12rpx;
+  margin-bottom: 16rpx;
+  white-space: pre-wrap;
+}
+
+.promise-sign {
+  display: flex;
+  align-items: center;
+  font-size: 26rpx;
+  color: #333;
+}
+
+.promise-sign .checkbox {
+  width: 36rpx;
+  height: 36rpx;
+  border: 2rpx solid #ddd;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 12rpx;
+  font-size: 22rpx;
+  color: #fff;
+  transition: all 0.2s;
+}
+
+.promise-sign .checkbox.checked {
+  background: #E74C3C;
+  border-color: #E74C3C;
+}
+
+/* 确认页 */
+.confirm-card {
+  padding: 24rpx 32rpx;
+}
+
+.confirm-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 16rpx 0;
+}
+
+.confirm-label {
+  font-size: 26rpx;
+  color: #999;
+  flex-shrink: 0;
+  width: 160rpx;
+}
+
+.confirm-value {
+  font-size: 26rpx;
+  color: #333;
+  text-align: right;
+  flex: 1;
+}
+
+.confirm-divider {
+  height: 2rpx;
+  background: #f5f5f5;
+  margin: 8rpx 0;
+}
+
+.confirm-files {
+  padding: 16rpx 0;
+}
+
+.confirm-file-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+  margin-top: 12rpx;
+}
+
+.file-tag {
+  font-size: 24rpx;
+  color: #4CAF50;
+  background: #F1F8E9;
+  padding: 6rpx 16rpx;
+  border-radius: 8rpx;
+}
+
+.submit-tip {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 40rpx;
+  font-size: 24rpx;
+  color: #FF9800;
+}
+
+.tip-icon {
+  margin-right: 8rpx;
+}
+
+/* 底部 */
+.bottom-space {
+  height: 40rpx;
+}
+
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20rpx 40rpx;
+  padding-bottom: calc(20rpx + env(safe-area-inset-bottom));
+  background: #fff;
+  box-shadow: 0 -4rpx 20rpx rgba(0, 0, 0, 0.06);
+  z-index: 100;
+  display: flex;
+  gap: 20rpx;
+}
+
+.bottom-bar .btn-outline {
+  flex: 1;
+  height: 88rpx;
+  font-size: 30rpx;
+}
+
+.bottom-bar .btn-primary {
+  flex: 2;
+  height: 88rpx;
+  font-size: 30rpx;
+}

@@ -1,0 +1,110 @@
+<!-- 爱心商户介绍页 -->
+<view class="page">
+  <!-- 顶部 Banner -->
+  <view class="banner">
+    <view class="banner-bg">
+      <view class="banner-title">暖冬关爱行动</view>
+      <view class="banner-deco">
+        <view class="deco-heart">❤</view>
+        <view class="deco-flower">🌸</view>
+        <view class="deco-house">🏠</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 关闭按钮（模拟弹窗效果） -->
+  <view class="close-btn" wx:if="{{showIntro}}" bindtap="closeIntro">
+    <text>×</text>
+  </view>
+
+  <!-- 什么是爱心商户 -->
+  <view class="card intro-card">
+    <view class="card-icon">
+      <view class="house-icon">
+        <text class="icon-text">🏠</text>
+        <view class="icon-flower">🌺</view>
+      </view>
+    </view>
+
+    <view class="section-title">
+      <view class="bar"></view>
+      <text class="text">什么是爱心商户？</text>
+    </view>
+
+    <view class="intro-content">
+      <text class="highlight-tag">爱心商户</text>
+      <text class="intro-text"> 是指自愿入驻关爱平台、为特定受助群体（如困境儿童、老人、灾民等）提供物资或服务支持、专属商品折扣、服务优惠、捐赠等，同时协助受助人身份核验及慈善资源兑换，保障慈善资源精准触达受助人。</text>
+    </view>
+  </view>
+
+  <!-- 如何成为爱心商户 -->
+  <view class="card steps-card">
+    <view class="section-title">
+      <view class="bar"></view>
+      <text class="text">如何成为爱心商户？</text>
+    </view>
+
+    <!-- 步骤列表 -->
+    <view class="steps-list">
+      <!-- 步骤1 -->
+      <view class="step-item">
+        <view class="step-header">
+          <view class="step-number">
+            <text class="num">1</text>
+          </view>
+          <text class="step-title">公益机构邀请</text>
+        </view>
+        <view class="step-desc">
+          <text>商家需通过合作公益组织的推荐邀请入驻；</text>
+        </view>
+      </view>
+
+      <!-- 步骤2 -->
+      <view class="step-item">
+        <view class="step-header">
+          <view class="step-number">
+            <text class="num">2</text>
+          </view>
+          <text class="step-title">填写入驻资料</text>
+        </view>
+        <view class="step-desc">
+          <text>商家需填写基础经营资质、法人信息、承诺书、背书文件等；</text>
+        </view>
+      </view>
+
+      <!-- 步骤3 -->
+      <view class="step-item">
+        <view class="step-header">
+          <view class="step-number">
+            <text class="num">3</text>
+          </view>
+          <text class="step-title">平台审核</text>
+        </view>
+        <view class="step-desc">
+          <text>公益机构初审，平台终审，通常需3-5个工作日；</text>
+        </view>
+      </view>
+
+      <!-- 步骤4 -->
+      <view class="step-item step-item-last">
+        <view class="step-header">
+          <view class="step-number">
+            <text class="num">4</text>
+          </view>
+          <text class="step-title">成功入驻与倡导</text>
+        </view>
+        <view class="step-desc">
+          <text>商家需在门店显著位置张贴「关爱公约」，向公众公示其公益属性，增强受助人信任感。</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部间距 -->
+  <view class="bottom-space"></view>
+
+  <!-- 底部固定按钮 -->
+  <view class="bottom-bar">
+    <button class="btn-primary login-btn" bindtap="goToLogin">爱心商户登录</button>
+  </view>
+</view>

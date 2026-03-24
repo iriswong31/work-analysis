@@ -1,0 +1,98 @@
+<!-- 入驻成功页 -->
+<view class="page">
+  <!-- 成功头部 -->
+  <view class="success-header">
+    <view class="success-bg">
+      <view class="confetti">🎊</view>
+      <view class="success-badge">
+        <text class="badge-icon">❤️</text>
+      </view>
+      <text class="success-title">恭喜成为爱心商户！</text>
+      <text class="success-subtitle">您已成功入驻关爱平台</text>
+    </view>
+  </view>
+
+  <!-- 商户信息卡片 -->
+  <view class="merchant-card">
+    <view class="merchant-header">
+      <view class="merchant-avatar">
+        <text>🏪</text>
+      </view>
+      <view class="merchant-info">
+        <text class="merchant-name">{{merchantInfo.merchantName || '爱心商户'}}</text>
+        <view class="merchant-tag">
+          <text class="tag">✅ 已认证</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="merchant-details">
+      <view class="detail-item">
+        <text class="detail-icon">📋</text>
+        <text class="detail-label">经营类别：</text>
+        <text class="detail-value">{{merchantInfo.category || '餐饮美食'}}</text>
+      </view>
+      <view class="detail-item">
+        <text class="detail-icon">📍</text>
+        <text class="detail-label">门店地址：</text>
+        <text class="detail-value">{{merchantInfo.address || '待完善'}} {{merchantInfo.addressDetail}}</text>
+      </view>
+      <view class="detail-item">
+        <text class="detail-icon">📞</text>
+        <text class="detail-label">联系电话：</text>
+        <text class="detail-value">{{merchantInfo.contactPhone || '待完善'}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 入驻须知 -->
+  <view class="notice-card">
+    <view class="section-title">
+      <view class="bar"></view>
+      <text class="text">入驻须知</text>
+    </view>
+
+    <view class="notice-list">
+      <view class="notice-item">
+        <view class="notice-icon">📌</view>
+        <view class="notice-content">
+          <text class="notice-title">张贴「关爱公约」</text>
+          <text class="notice-desc">请在门店显著位置张贴关爱公约，向公众公示公益属性</text>
+        </view>
+      </view>
+
+      <view class="notice-item">
+        <view class="notice-icon">🤝</view>
+        <view class="notice-content">
+          <text class="notice-title">服务受助群体</text>
+          <text class="notice-desc">为持有关爱卡的受助人提供约定的优惠与服务</text>
+        </view>
+      </view>
+
+      <view class="notice-item">
+        <view class="notice-icon">📊</view>
+        <view class="notice-content">
+          <text class="notice-title">配合平台管理</text>
+          <text class="notice-desc">定期提交服务记录，配合平台进行监督检查</text>
+        </view>
+      </view>
+
+      <view class="notice-item">
+        <view class="notice-icon">⭐</view>
+        <view class="notice-content">
+          <text class="notice-title">诚信经营</text>
+          <text class="notice-desc">遵守平台规则，保障受助人权益，维护公益形象</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部间距 -->
+  <view class="bottom-space"></view>
+
+  <!-- 底部按钮 -->
+  <view class="bottom-bar">
+    <button class="btn-outline" bindtap="goToHome" style="flex:1;">返回首页</button>
+    <button class="btn-primary" bindtap="goToStore" style="flex:2;">进入商户中心</button>
+  </view>
+</view>
