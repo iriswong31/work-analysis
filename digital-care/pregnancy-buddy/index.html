@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>孕期搭子 - AI孕期陪伴助手</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap');
+        
+        :root {
+            --primary: #E8A0BF;
+            --primary-dark: #C88EA7;
+            --primary-deep: #A084CA;
+            --bg-pink: #FFF5F7;
+            --bg-rose: #FDF2F8;
+            --bg-white: #FFFFFF;
+            --bg-lavender: #F8F4FF;
+            --text-dark: #4A3548;
+            --text-mid: #6B5B6E;
+            --text-light: #9B8E9E;
+            --green: #7BC67E;
+            --orange: #F5A623;
+            --red: #E85D75;
+            --blue: #8B9FD4;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Noto Sans SC', 'PingFang SC', -apple-system, sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f0ff 0%, #fdf2f8 50%, #fff5f7 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        /* Phone Frame */
+        .phone-frame {
+            width: 390px;
+            height: 844px;
+            background: var(--bg-white);
+            border-radius: 40px;
+            box-shadow: 
+                0 25px 80px rgba(168, 132, 202, 0.15),
+                0 10px 30px rgba(232, 160, 191, 0.1),
+                inset 0 0 0 1px rgba(255,255,255,0.8);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        /* Status Bar */
+        .status-bar {
+            height: 50px;
+            background: linear-gradient(135deg, var(--bg-lavender), var(--bg-rose));
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            padding-top: 10px;
+        }
+        .status-bar .time { font-size: 14px; font-weight: 600; color: var(--text-dark); }
+        .status-bar .icons { display: flex; gap: 6px; align-items: center; }
+        .status-bar .icons span { font-size: 12px; color: var(--text-dark); }
+        
+        /* Nav Header */
+        .nav-header {
+            height: 48px;
+            background: linear-gradient(135deg, var(--bg-lavender), var(--bg-rose));
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            gap: 12px;
+        }
+        .nav-header .back-btn {
+            width: 32px; height: 32px;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.5);
+            cursor: pointer;
+            transition: all 0.2s;
+            border: none;
+            font-size: 16px;
+            color: var(--text-dark);
+        }
+        .nav-header .back-btn:hover { background: rgba(255,255,255,0.8); }
+        .nav-header .title { font-size: 17px; font-weight: 600; color: var(--text-dark); }
+        .nav-header .avatar {
+            width: 32px; height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--primary-deep));
+            display: flex; align-items: center; justify-content: center;
+            font-size: 16px;
+        }
+        
+        /* Main Content Area */
+        .content-area {
+            height: calc(844px - 50px - 60px);
+            overflow-y: auto;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+        .content-area::-webkit-scrollbar { width: 0; }
+        
+        /* Bottom Nav */
+        .bottom-nav {
+            height: 60px;
+            background: var(--bg-white);
+            border-top: 1px solid rgba(168, 132, 202, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            padding: 0 10px;
+            padding-bottom: 6px;
+        }
+        .nav-item {
+            display: flex; flex-direction: column; align-items: center;
+            gap: 2px; cursor: pointer; transition: all 0.2s;
+            border: none; background: none; padding: 4px 12px;
+        }
+        .nav-item .icon { font-size: 22px; transition: transform 0.2s; }
+        .nav-item .label { font-size: 10px; color: var(--text-light); transition: color 0.2s; }
+        .nav-item.active .label { color: var(--primary-dark); font-weight: 600; }
+        .nav-item.active .icon { transform: scale(1.1); }
+        .nav-item:hover .icon { transform: scale(1.05); }
+        
+        /* Scenes - all hidden by default */
+        .scene { display: none; }
+        .scene.active { display: block; animation: fadeIn 0.35s ease; }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+        @keyframes twinkle { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+        @keyframes heartbeat { 0%, 100% { transform: scale(1); } 15% { transform: scale(1.15); } 30% { transform: scale(1); } 45% { transform: scale(1.1); } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes openEnvelope { 0% { transform: rotateX(0deg); } 100% { transform: rotateX(180deg); } }
+        @keyframes unfoldLetter { 0% { max-height: 0; opacity: 0; } 100% { max-height: 1000px; opacity: 1; } }
+        @keyframes progressGlow { 0%, 100% { box-shadow: 0 0 5px rgba(232,160,191,0.3); } 50% { box-shadow: 0 0 15px rgba(232,160,191,0.6); } }
+        @keyframes sparkle { 0% { transform: scale(0) rotate(0deg); opacity: 0; } 50% { transform: scale(1) rotate(180deg); opacity: 1; } 100% { transform: scale(0) rotate(360deg); opacity: 0; } }
+        
+        /* ============= SCENE 1: HOME ============= */
+        .home-header {
+            background: linear-gradient(135deg, var(--bg-lavender), var(--bg-rose), var(--bg-pink));
+            padding: 16px 20px;
+            padding-top: 0;
+        }
+        .home-greeting { font-size: 15px; color: var(--text-mid); margin-bottom: 4px; }
+        .home-greeting strong { color: var(--text-dark); font-weight: 600; }
+        
+        /* Progress Ring */
+        .progress-card {
+            background: var(--bg-white);
+            border-radius: 24px;
+            padding: 24px;
+            margin: 0 20px;
+            margin-top: -8px;
+            box-shadow: 0 8px 30px rgba(168,132,202,0.08);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        .progress-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -30%;
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(232,160,191,0.08), transparent);
+            border-radius: 50%;
+        }
+        
+        .ring-container {
+            width: 110px; height: 110px;
+            position: relative; flex-shrink: 0;
+        }
+        .ring-svg { width: 110px; height: 110px; transform: rotate(-90deg); }
+        .ring-bg { fill: none; stroke: #f0e4f7; stroke-width: 8; }
+        .ring-progress { 
+            fill: none; stroke: url(#ringGradient); stroke-width: 8;
+            stroke-linecap: round;
+            stroke-dasharray: 283;
+            stroke-dashoffset: 113;
+            animation: progressGlow 3s ease-in-out infinite;
+        }
+        .ring-center {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+        .ring-week { font-size: 28px; font-weight: 700; color: var(--text-dark); line-height: 1; }
+        .ring-label { font-size: 11px; color: var(--text-light); }
+        
+        .progress-info h3 { font-size: 17px; font-weight: 600; color: var(--text-dark); margin-bottom: 4px; }
+        .progress-info .countdown {
+            font-size: 13px; color: var(--primary-dark);
+            background: rgba(232,160,191,0.1);
+            padding: 4px 10px;
+            border-radius: 12px;
+            display: inline-block;
+            margin-bottom: 8px;
+        }
+        .progress-info .trimester {
+            font-size: 12px; color: var(--text-light);
+            padding: 2px 8px;
+            background: var(--bg-lavender);
+            border-radius: 8px;
+            display: inline-block;
+        }
+        
+        /* Baby Status Card */
+        .baby-card {
+            background: linear-gradient(135deg, #fdf2f8, #f8f4ff);
+            border-radius: 24px;
+            margin: 16px 20px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        .baby-card::after {
+            content: '✨';
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            font-size: 20px;
+            animation: twinkle 2s ease-in-out infinite;
+        }
+        .baby-illustration {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 12px;
+            background: linear-gradient(135deg, rgba(232,160,191,0.2), rgba(160,132,202,0.2));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 56px;
+            animation: float 4s ease-in-out infinite;
+            position: relative;
+        }
+        .baby-illustration::before, .baby-illustration::after {
+            content: '⭐';
+            position: absolute;
+            font-size: 12px;
+            animation: twinkle 3s ease-in-out infinite;
+        }
+        .baby-illustration::before { top: 5px; right: 10px; animation-delay: 0.5s; }
+        .baby-illustration::after { bottom: 10px; left: 5px; animation-delay: 1.5s; }
+        
+        .baby-size-tag {
+            text-align: center;
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 6px 16px;
+            display: inline-block;
+            font-size: 14px;
+            color: var(--text-dark);
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+        .baby-desc {
+            font-size: 14px;
+            color: var(--text-mid);
+            line-height: 1.7;
+            text-align: center;
+        }
+        
+        /* Quick Entry Grid */
+        .quick-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            padding: 0 20px;
+            margin-bottom: 20px;
+        }
+        .quick-card {
+            background: var(--bg-white);
+            border-radius: 20px;
+            padding: 20px 16px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.25s;
+            border: 1px solid rgba(232,160,191,0.08);
+            box-shadow: 0 2px 12px rgba(168,132,202,0.04);
+        }
+        .quick-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(168,132,202,0.1);
+            border-color: rgba(232,160,191,0.2);
+        }
+        .quick-card:active { transform: scale(0.97); }
+        .quick-card .card-icon {
+            width: 50px; height: 50px;
+            margin: 0 auto 10px;
+            border-radius: 16px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 24px;
+        }
+        .quick-card .card-label { font-size: 14px; font-weight: 500; color: var(--text-dark); }
+        .quick-card .card-desc { font-size: 11px; color: var(--text-light); margin-top: 2px; }
+        
+        .icon-bg-1 { background: linear-gradient(135deg, #fce4ec, #f8bbd0); }
+        .icon-bg-2 { background: linear-gradient(135deg, #e8eaf6, #c5cae9); }
+        .icon-bg-3 { background: linear-gradient(135deg, #e0f2f1, #b2dfdb); }
+        .icon-bg-4 { background: linear-gradient(135deg, #fff3e0, #ffe0b2); }
+        
+        /* ============= SCENE 2: CHECKUP ============= */
+        .checkup-scene { padding: 20px; }
+        
+        .upload-area {
+            border: 2px dashed rgba(232,160,191,0.4);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            background: rgba(253,242,248,0.5);
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .upload-area:hover {
+            border-color: var(--primary);
+            background: rgba(253,242,248,0.8);
+        }
+        .upload-area .upload-icon { font-size: 40px; margin-bottom: 8px; }
+        .upload-area .upload-text { font-size: 14px; color: var(--text-mid); }
+        .upload-area .upload-hint { font-size: 12px; color: var(--text-light); margin-top: 4px; }
+        
+        .report-result {
+            background: var(--bg-white);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(168,132,202,0.06);
+        }
+        .report-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid rgba(232,160,191,0.15);
+        }
+        .report-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.03);
+            animation: slideUp 0.5s ease;
+        }
+        .report-item:last-child { border-bottom: none; }
+        .report-item .status-icon {
+            width: 24px; height: 24px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 12px;
+            margin-right: 12px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .status-ok { background: rgba(123,198,126,0.15); color: var(--green); }
+        .status-warn { background: rgba(245,166,35,0.15); color: var(--orange); }
+        .report-item .item-name { font-size: 14px; font-weight: 500; color: var(--text-dark); }
+        .report-item .item-value { font-size: 13px; color: var(--text-mid); margin-top: 2px; }
+        .report-item .item-explain { font-size: 12px; color: var(--text-light); margin-top: 4px; line-height: 1.5; }
+        
+        .reassure-block {
+            background: linear-gradient(135deg, rgba(123,198,126,0.08), rgba(123,198,126,0.04));
+            border-radius: 16px;
+            padding: 16px;
+            margin-top: 16px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        .reassure-block .heart { font-size: 20px; animation: heartbeat 2s ease-in-out infinite; }
+        .reassure-block .text { font-size: 14px; color: #4a7c4e; line-height: 1.6; }
+        
+        .disclaimer {
+            font-size: 11px;
+            color: var(--text-light);
+            text-align: center;
+            margin-top: 16px;
+            padding: 8px;
+        }
+        
+        /* ============= SCENE 3: BABY VISUAL ============= */
+        .visual-scene { padding: 20px; }
+        
+        .baby-visual-card {
+            background: linear-gradient(135deg, #fdf2f8, #f3e5f5, #f8f4ff);
+            border-radius: 28px;
+            padding: 24px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 16px;
+        }
+        
+        .sparkle-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+        .sparkle {
+            position: absolute;
+            font-size: 10px;
+            animation: twinkle 2s ease-in-out infinite;
+        }
+        .sparkle:nth-child(1) { top: 10%; left: 15%; animation-delay: 0s; }
+        .sparkle:nth-child(2) { top: 20%; right: 10%; animation-delay: 0.7s; }
+        .sparkle:nth-child(3) { bottom: 25%; left: 10%; animation-delay: 1.4s; }
+        .sparkle:nth-child(4) { top: 40%; right: 20%; animation-delay: 0.3s; }
+        .sparkle:nth-child(5) { bottom: 15%; right: 15%; animation-delay: 1.0s; }
+        .sparkle:nth-child(6) { top: 60%; left: 25%; animation-delay: 1.8s; }
+        
+        .baby-visual-img {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 16px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.6), rgba(232,160,191,0.15));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            animation: float 5s ease-in-out infinite;
+            box-shadow: 0 10px 40px rgba(232,160,191,0.15);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .data-panel {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        .data-item {
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 12px 16px;
+            text-align: center;
+            min-width: 90px;
+        }
+        .data-item .data-icon { font-size: 18px; margin-bottom: 4px; }
+        .data-item .data-value { font-size: 18px; font-weight: 700; color: var(--text-dark); }
+        .data-item .data-label { font-size: 11px; color: var(--text-light); }
+        
+        .size-comparison {
+            background: rgba(255,255,255,0.6);
+            border-radius: 20px;
+            padding: 10px 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: var(--text-dark);
+            font-weight: 500;
+            margin-bottom: 16px;
+        }
+        .size-comparison .comp-emoji { font-size: 24px; }
+        
+        .baby-desc-block {
+            background: var(--bg-white);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(168,132,202,0.06);
+            text-align: left;
+        }
+        .baby-desc-block .desc-title { font-size: 15px; font-weight: 600; color: var(--text-dark); margin-bottom: 8px; }
+        .baby-desc-block .desc-text { font-size: 14px; color: var(--text-mid); line-height: 1.8; }
+        .baby-desc-block .milestone-tag {
+            display: inline-block;
+            background: linear-gradient(135deg, rgba(232,160,191,0.12), rgba(160,132,202,0.12));
+            border-radius: 10px;
+            padding: 4px 12px;
+            font-size: 12px;
+            color: var(--primary-dark);
+            margin-top: 10px;
+            font-weight: 500;
+        }
+        
+        /* ============= SCENE 4: TIMELINE ============= */
+        .timeline-scene { padding: 20px; }
+        
+        .current-position {
+            background: linear-gradient(135deg, var(--bg-rose), var(--bg-lavender));
+            border-radius: 16px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+        .current-position .pin { font-size: 18px; }
+        
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 12px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--primary), var(--primary-deep), #ddd);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 16px;
+            animation: slideUp 0.5s ease;
+        }
+        .timeline-item .dot {
+            position: absolute;
+            left: -24px;
+            top: 16px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            border: 3px solid var(--primary);
+            background: var(--bg-white);
+            z-index: 1;
+        }
+        .timeline-item.current .dot {
+            background: var(--primary);
+            box-shadow: 0 0 0 4px rgba(232,160,191,0.2);
+            animation: pulse 2s ease-in-out infinite;
+        }
+        .timeline-item.past .dot {
+            background: #ccc;
+            border-color: #ccc;
+        }
+        .timeline-item.future .dot {
+            background: var(--bg-white);
+            border-color: #ddd;
+        }
+        
+        .timeline-card {
+            background: var(--bg-white);
+            border-radius: 16px;
+            padding: 16px;
+            box-shadow: 0 2px 12px rgba(168,132,202,0.04);
+            border: 1px solid rgba(232,160,191,0.08);
+        }
+        .timeline-item.current .timeline-card {
+            border-color: var(--primary);
+            box-shadow: 0 4px 20px rgba(232,160,191,0.12);
+        }
+        .timeline-card .week-range { font-size: 13px; font-weight: 600; color: var(--primary-dark); margin-bottom: 6px; }
+        .timeline-card .event-list { list-style: none; padding: 0; }
+        .timeline-card .event-list li {
+            font-size: 13px;
+            color: var(--text-mid);
+            padding: 3px 0;
+            padding-left: 18px;
+            position: relative;
+        }
+        .timeline-card .event-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+        }
+        .timeline-card .event-list li.check::before { background: var(--blue); }
+        .timeline-card .event-list li.prep::before { background: var(--orange); }
+        .timeline-card .event-list li.note::before { background: var(--green); }
+        
+        .bag-entry {
+            background: linear-gradient(135deg, var(--bg-rose), var(--bg-lavender));
+            border-radius: 20px;
+            padding: 18px;
+            margin-top: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .bag-entry:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(168,132,202,0.1); }
+        .bag-entry .bag-icon { font-size: 32px; }
+        .bag-entry .bag-text h4 { font-size: 15px; font-weight: 600; color: var(--text-dark); }
+        .bag-entry .bag-text p { font-size: 12px; color: var(--text-light); margin-top: 2px; }
+        
+        /* ============= SCENE 5: LETTER ============= */
+        .letter-scene { padding: 20px; }
+        
+        .envelope {
+            width: 120px;
+            height: 80px;
+            margin: 0 auto 20px;
+            position: relative;
+            perspective: 400px;
+        }
+        .envelope-body {
+            width: 120px;
+            height: 80px;
+            background: linear-gradient(135deg, #f8bbd0, #e1bee7);
+            border-radius: 8px;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(232,160,191,0.2);
+        }
+        .envelope-flap {
+            width: 0;
+            height: 0;
+            border-left: 60px solid transparent;
+            border-right: 60px solid transparent;
+            border-top: 45px solid #ce93d8;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform-origin: top;
+            animation: openEnvelope 1.5s ease forwards;
+        }
+        .envelope-heart {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            animation: heartbeat 2s ease-in-out infinite;
+            z-index: 2;
+        }
+        
+        .letter-paper {
+            background: linear-gradient(to bottom, #fffdf7, #fef9ef);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 20px rgba(168,132,202,0.08);
+            position: relative;
+            animation: unfoldLetter 1.5s ease 0.8s both;
+            border: 1px solid rgba(232,160,191,0.15);
+        }
+        .letter-paper::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 24px; right: 24px; bottom: 0;
+            background: repeating-linear-gradient(
+                transparent,
+                transparent 27px,
+                rgba(200,180,180,0.15) 28px
+            );
+            pointer-events: none;
+        }
+        .letter-date {
+            font-size: 12px;
+            color: var(--text-light);
+            text-align: right;
+            margin-bottom: 12px;
+            font-style: italic;
+        }
+        .letter-content {
+            font-size: 14px;
+            color: var(--text-dark);
+            line-height: 2;
+            position: relative;
+            z-index: 1;
+        }
+        .letter-content p { margin-bottom: 12px; text-indent: 2em; }
+        .letter-sign {
+            text-align: right;
+            font-size: 14px;
+            color: var(--primary-dark);
+            font-weight: 500;
+            margin-top: 16px;
+            position: relative;
+            z-index: 1;
+        }
+        .letter-sign .heart-sign { font-size: 16px; animation: heartbeat 2.5s ease-in-out infinite; }
+        
+        .month-selector {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding: 16px 0;
+            -webkit-overflow-scrolling: touch;
+        }
+        .month-selector::-webkit-scrollbar { display: none; }
+        .month-btn {
+            min-width: 44px; height: 44px;
+            border-radius: 14px;
+            border: 1.5px solid rgba(232,160,191,0.2);
+            background: var(--bg-white);
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+        .month-btn.active {
+            background: linear-gradient(135deg, var(--primary), var(--primary-deep));
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 4px 12px rgba(232,160,191,0.3);
+        }
+        .month-btn:hover:not(.active) { border-color: var(--primary); color: var(--primary-dark); }
+        
+        /* Tip Card */
+        .tip-card {
+            background: linear-gradient(135deg, rgba(139,159,212,0.08), rgba(139,159,212,0.04));
+            border-radius: 16px;
+            padding: 14px 16px;
+            margin-top: 12px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        .tip-card .tip-icon { font-size: 18px; flex-shrink: 0; }
+        .tip-card .tip-text { font-size: 13px; color: var(--blue); line-height: 1.5; }
+        
+        /* Decorative elements */
+        .deco-float {
+            position: absolute;
+            pointer-events: none;
+            opacity: 0.15;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="phone-frame">
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <span class="time">23:27</span>
+            <div class="icons">
+                <span>📶</span>
+                <span>🔋</span>
+            </div>
+        </div>
+        
+        <!-- Content Area -->
+        <div class="content-area" id="contentArea">
+            
+            <!-- ===== SCENE 1: HOME ===== -->
+            <div class="scene active" id="scene-home">
+                <div class="home-header">
+                    <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+                        <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#E8A0BF,#A084CA);display:flex;align-items:center;justify-content:center;font-size:20px;">🌸</div>
+                        <div>
+                            <div class="home-greeting">Hi <strong>准妈妈</strong>，今天感觉怎么样？</div>
+                            <div style="font-size:12px;color:var(--text-light);">孕期搭子一直在你身边 💕</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Progress Card -->
+                <div class="progress-card">
+                    <div class="ring-container">
+                        <svg class="ring-svg" viewBox="0 0 100 100">
+                            <defs>
+                                <linearGradient id="ringGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#E8A0BF"/>
+                                    <stop offset="100%" stop-color="#A084CA"/>
+                                </linearGradient>
+                            </defs>
+                            <circle class="ring-bg" cx="50" cy="50" r="45"/>
+                            <circle class="ring-progress" cx="50" cy="50" r="45"/>
+                        </svg>
+                        <div class="ring-center">
+                            <div class="ring-week">24</div>
+                            <div class="ring-label">周</div>
+                        </div>
+                    </div>
+                    <div class="progress-info">
+                        <h3>孕中期</h3>
+                        <div class="countdown">🗓️ 距预产期还有 112 天</div>
+                        <div class="trimester">第6个月 · 60%</div>
+                    </div>
+                </div>
+                
+                <!-- Baby Status Card -->
+                <div class="baby-card">
+                    <div class="baby-illustration">👶</div>
+                    <div style="text-align:center;">
+                        <div class="baby-size-tag">🌽 和一根玉米棒差不多大</div>
+                    </div>
+                    <p class="baby-desc">小家伙现在约30cm、665g，已经能听到你的声音了！TA有自己的作息规律——白天打盹，晚上踢妈妈肚子玩~ 试试跟TA说说话吧！</p>
+                </div>
+                
+                <!-- Quick Entry Grid -->
+                <div class="quick-grid">
+                    <div class="quick-card" onclick="switchScene('checkup')">
+                        <div class="card-icon icon-bg-1">📋</div>
+                        <div class="card-label">产检解读</div>
+                        <div class="card-desc">上传报告秒懂</div>
+                    </div>
+                    <div class="quick-card" onclick="switchScene('visual')">
+                        <div class="card-icon icon-bg-2">👀</div>
+                        <div class="card-label">宝宝模样</div>
+                        <div class="card-desc">看看TA的样子</div>
+                    </div>
+                    <div class="quick-card" onclick="switchScene('timeline')">
+                        <div class="card-icon icon-bg-3">📅</div>
+                        <div class="card-label">时间线</div>
+                        <div class="card-desc">该做什么一目了然</div>
+                    </div>
+                    <div class="quick-card" onclick="switchScene('letter')">
+                        <div class="card-icon icon-bg-4">💌</div>
+                        <div class="card-label">给宝宝写信</div>
+                        <div class="card-desc">记录爱的瞬间</div>
+                    </div>
+                </div>
+                
+                <!-- Tip Card -->
+                <div style="padding:0 20px 20px;">
+                    <div class="tip-card">
+                        <span class="tip-icon">💡</span>
+                        <span class="tip-text">本周提醒：24-28周需要做<strong>糖耐量检查(OGTT)</strong>，记得提前预约并空腹哦~ 检查前3天正常饮食就好，不用特意控糖</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- ===== SCENE 2: CHECKUP ===== -->
+            <div class="scene" id="scene-checkup">
+                <div class="nav-header">
+                    <button class="back-btn" onclick="switchScene('home')">←</button>
+                    <span class="title">产检报告解读</span>
+                </div>
+                <div class="checkup-scene">
+                    <div class="upload-area" onclick="showReportResult()">
+                        <div class="upload-icon">📷</div>
+                        <div class="upload-text">拍照或选择报告图片</div>
+                        <div class="upload-hint">支持血常规、B超、唐筛、糖耐等报告</div>
+                    </div>
+                    
+                    <div class="report-result" id="reportResult" style="display:none;">
+                        <div class="report-title">📋 血常规报告解读</div>
+                        
+                        <div class="report-item" style="animation-delay:0.1s">
+                            <div class="status-icon status-ok">✓</div>
+                            <div>
+                                <div class="item-name">白细胞 (WBC)</div>
+                                <div class="item-value">10.8×10⁹/L</div>
+                                <div class="item-explain">正常！孕期白细胞偏高是正常的，你身体的"小卫兵"在加倍巡逻保护你和宝宝呢</div>
+                            </div>
+                        </div>
+                        
+                        <div class="report-item" style="animation-delay:0.2s">
+                            <div class="status-icon status-ok">✓</div>
+                            <div>
+                                <div class="item-name">红细胞 (RBC)</div>
+                                <div class="item-value">3.8×10¹²/L</div>
+                                <div class="item-explain">正常范围内，不用担心~</div>
+                            </div>
+                        </div>
+                        
+                        <div class="report-item" style="animation-delay:0.3s">
+                            <div class="status-icon status-warn">!</div>
+                            <div>
+                                <div class="item-name">血红蛋白 (Hb)</div>
+                                <div class="item-value">105 g/L</div>
+                                <div class="item-explain">略偏低（孕期标准≥110g/L），属于轻度贫血。不用太担心，孕中期很常见！多吃红肉、猪肝、鸭血补铁，配合维C效果更好</div>
+                            </div>
+                        </div>
+                        
+                        <div class="report-item" style="animation-delay:0.4s">
+                            <div class="status-icon status-ok">✓</div>
+                            <div>
+                                <div class="item-name">血小板 (PLT)</div>
+                                <div class="item-value">230×10⁹/L</div>
+                                <div class="item-explain">很好！完全在正常范围内</div>
+                            </div>
+                        </div>
+                        
+                        <div class="report-item" style="animation-delay:0.5s">
+                            <div class="status-icon status-ok">✓</div>
+                            <div>
+                                <div class="item-name">中性粒细胞比率</div>
+                                <div class="item-value">72.5%</div>
+                                <div class="item-explain">正常，孕期偏高一点是正常现象</div>
+                            </div>
+                        </div>
+                        
+                        <div class="reassure-block">
+                            <span class="heart">❤️</span>
+                            <span class="text">整体来看，各项指标基本正常，只有血红蛋白稍低一点点。通过饮食调整就能改善，宝宝在你肚子里好着呢~ 建议下次产检时告诉医生，看看需不需要开铁剂补充。</span>
+                        </div>
+                        
+                        <div class="disclaimer">⚕️ 以上解读仅供参考，具体请以您的主治医生意见为准</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- ===== SCENE 3: BABY VISUAL ===== -->
+            <div class="scene" id="scene-visual">
+                <div class="nav-header">
+                    <button class="back-btn" onclick="switchScene('home')">←</button>
+                    <span class="title">宝宝现在的样子</span>
+                </div>
+                <div class="visual-scene">
+                    <div class="baby-visual-card">
+                        <div class="sparkle-container">
+                            <span class="sparkle">✨</span>
+                            <span class="sparkle">⭐</span>
+                            <span class="sparkle">💫</span>
+                            <span class="sparkle">✨</span>
+                            <span class="sparkle">⭐</span>
+                            <span class="sparkle">💕</span>
+                        </div>
+                        <div class="baby-visual-img">👶🏻</div>
+                        
+                        <div class="data-panel">
+                            <div class="data-item">
+                                <div class="data-icon">📏</div>
+                                <div class="data-value">30cm</div>
+                                <div class="data-label">身长</div>
+                            </div>
+                            <div class="data-item">
+                                <div class="data-icon">⚖️</div>
+                                <div class="data-value">665g</div>
+                                <div class="data-label">体重</div>
+                            </div>
+                            <div class="data-item">
+                                <div class="data-icon">🧠</div>
+                                <div class="data-value">6.0cm</div>
+                                <div class="data-label">双顶径</div>
+                            </div>
+                        </div>
+                        
+                        <div class="size-comparison">
+                            <span class="comp-emoji">🌽</span>
+                            <span>和一根玉米棒差不多大</span>
+                        </div>
+                    </div>
+                    
+                    <div class="baby-desc-block">
+                        <div class="desc-title">✨ 第24周的小家伙</div>
+                        <p class="desc-text">
+                            你的宝宝小耳朵已经能听到外面的世界了！妈妈的心跳声是TA最熟悉的背景音乐——"咚咚、咚咚"。这也是为什么刚出生的宝宝会被妈妈的心跳声安抚。
+                            <br><br>
+                            小肺正在认真准备"出厂设备"——开始产生一种叫表面活性物质的东西，这是出生后第一口呼吸的关键装备。TA还有了自己的作息规律，白天打盹，晚上可能比较活跃~
+                        </p>
+                        <span class="milestone-tag">🎯 里程碑：肺部开始产生表面活性物质 · 听觉系统上线</span>
+                    </div>
+                    
+                    <div class="tip-card">
+                        <span class="tip-icon">🎵</span>
+                        <span class="tip-text">试试对着肚子放一首柔和的音乐或者跟TA说说话吧~ 有研究发现宝宝出生后会对孕期常听的声音有"记忆"哦！</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- ===== SCENE 4: TIMELINE ===== -->
+            <div class="scene" id="scene-timeline">
+                <div class="nav-header">
+                    <button class="back-btn" onclick="switchScene('home')">←</button>
+                    <span class="title">孕期时间线</span>
+                </div>
+                <div class="timeline-scene">
+                    <div class="current-position">
+                        <span class="pin">📍</span>
+                        <span>你在这里：<strong>第24周</strong> · 孕中期</span>
+                    </div>
+                    
+                    <div class="timeline">
+                        <div class="timeline-item past">
+                            <div class="dot"></div>
+                            <div class="timeline-card">
+                                <div class="week-range">✅ 第20-24周</div>
+                                <ul class="event-list">
+                                    <li class="check">大排畸/四维彩超 ✓ 已完成</li>
+                                    <li class="note">开始数胎动 ✓</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item current">
+                            <div class="dot"></div>
+                            <div class="timeline-card">
+                                <div class="week-range">🔵 第24-28周（当前）</div>
+                                <ul class="event-list">
+                                    <li class="check">⚡ 糖耐量检查(OGTT) — 别忘了预约！</li>
+                                    <li class="check">常规产检：血压、体重、胎心</li>
+                                    <li class="note">每天数胎动，感受宝宝的作息规律</li>
+                                    <li class="prep">开始了解分娩方式和分娩课程</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item future">
+                            <div class="dot"></div>
+                            <div class="timeline-card">
+                                <div class="week-range">🟡 第28-32周</div>
+                                <ul class="event-list">
+                                    <li class="check">产检升级为每2周一次</li>
+                                    <li class="check">孕晚期B超（评估胎位、羊水）</li>
+                                    <li class="prep">开始准备待产包</li>
+                                    <li class="prep">预约月嫂（好的要提前抢！）</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item future">
+                            <div class="dot"></div>
+                            <div class="timeline-card">
+                                <div class="week-range">🟠 第32-36周</div>
+                                <ul class="event-list">
+                                    <li class="check">GBS筛查（B族链球菌）</li>
+                                    <li class="check">产检升级为每周一次</li>
+                                    <li class="prep">完成待产包打包</li>
+                                    <li class="prep">确认去医院的路线</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-item future">
+                            <div class="dot"></div>
+                            <div class="timeline-card">
+                                <div class="week-range">🔴 第37-40周 · 随时待命</div>
+                                <ul class="event-list">
+                                    <li class="check">每周产检 + 胎心监护</li>
+                                    <li class="note">关注分娩三大信号</li>
+                                    <li class="note">🎉 足月啦！宝宝随时来报到~</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bag-entry" onclick="alert('待产包清单功能将在Skill中提供完整版本~\n\n简洁版：只买必备不踩坑\n豪华版：全面舒适升级')">
+                        <span class="bag-icon">🎒</span>
+                        <div class="bag-text">
+                            <h4>查看待产包清单</h4>
+                            <p>简洁版（必备） | 豪华版（全面）</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- ===== SCENE 5: LETTER ===== -->
+            <div class="scene" id="scene-letter">
+                <div class="nav-header">
+                    <button class="back-btn" onclick="switchScene('home')">←</button>
+                    <span class="title">给宝宝的信</span>
+                </div>
+                <div class="letter-scene">
+                    <div class="envelope">
+                        <div class="envelope-body">
+                            <div class="envelope-flap"></div>
+                            <div class="envelope-heart">💌</div>
+                        </div>
+                    </div>
+                    
+                    <div class="letter-paper">
+                        <div class="letter-date">2026年3月24日 · 第24周</div>
+                        <div class="letter-content">
+                            <p>亲爱的小宝贝：</p>
+                            <p>今天是春天里温暖的一天，你已经24周了，和一根玉米棒差不多大。这周我们一起完成了一件大事——你的小耳朵终于能听到外面的声音了！</p>
+                            <p>这个月最神奇的事情，是我感觉你开始有了自己的"小作息"。每天晚上我准备睡觉的时候，你就开始在肚子里"开party"——踢踢这边、顶顶那边。你爸说这说明你以后肯定是个夜猫子，我说不是，你只是太兴奋了。</p>
+                            <p>你爸每天晚上都趴在我肚子上跟你说话，虽然科学说你现在还听不太清楚具体的词，但我相信你能感受到那份爱。他最近还偷偷给你买了一个小恐龙玩偶，说是要做你的"第一个朋友"。</p>
+                            <p>下个月我们要去做糖耐检查，妈妈会乖乖喝那杯超甜的糖水（据说很难喝），一切都是为了确保你平安健康地来到这个世界。</p>
+                            <p>小家伙，继续在里面安心长大，不要着急。外面有一个美丽的世界在等你，还有两个已经超级超级期待你的人。</p>
+                        </div>
+                        <div class="letter-sign">
+                            爱你的妈妈 <span class="heart-sign">❤️</span>
+                            <br>
+                            <span style="font-size:12px;color:var(--text-light);">2026.03</span>
+                        </div>
+                    </div>
+                    
+                    <div class="month-selector">
+                        <button class="month-btn">1月</button>
+                        <button class="month-btn">2月</button>
+                        <button class="month-btn">3月</button>
+                        <button class="month-btn">4月</button>
+                        <button class="month-btn">5月</button>
+                        <button class="month-btn active">6月</button>
+                        <button class="month-btn" style="opacity:0.4">7月</button>
+                        <button class="month-btn" style="opacity:0.3">8月</button>
+                        <button class="month-btn" style="opacity:0.2">9月</button>
+                        <button class="month-btn" style="opacity:0.15">10月</button>
+                    </div>
+                    
+                    <div class="tip-card">
+                        <span class="tip-icon">📝</span>
+                        <span class="tip-text">Skill 会在每月末自动收集你的留言和检查记录，为你生成一封独一无二的信件。你也可以随时跟搭子分享心情和故事~</span>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <button class="nav-item active" onclick="switchScene('home')" data-scene="home">
+                <span class="icon">🏠</span>
+                <span class="label">首页</span>
+            </button>
+            <button class="nav-item" onclick="switchScene('timeline')" data-scene="timeline">
+                <span class="icon">📅</span>
+                <span class="label">时间线</span>
+            </button>
+            <button class="nav-item" onclick="switchScene('visual')" data-scene="visual">
+                <span class="icon">💬</span>
+                <span class="label">搭子</span>
+            </button>
+            <button class="nav-item" onclick="switchScene('letter')" data-scene="letter">
+                <span class="icon">👤</span>
+                <span class="label">我的</span>
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function switchScene(sceneName) {
+            // Hide all scenes
+            document.querySelectorAll('.scene').forEach(s => s.classList.remove('active'));
+            // Show target scene
+            const target = document.getElementById('scene-' + sceneName);
+            if (target) {
+                target.classList.add('active');
+                // Scroll to top
+                document.getElementById('contentArea').scrollTop = 0;
+            }
+            // Update nav
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            const navBtn = document.querySelector(`.nav-item[data-scene="${sceneName}"]`);
+            if (navBtn) navBtn.classList.add('active');
+        }
+        
+        function showReportResult() {
+            const result = document.getElementById('reportResult');
+            if (result.style.display === 'none') {
+                result.style.display = 'block';
+                // Animate items
+                result.querySelectorAll('.report-item').forEach((item, i) => {
+                    item.style.animationDelay = (i * 0.15) + 's';
+                });
+            }
+        }
+        
+        // Month selector interaction
+        document.querySelectorAll('.month-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.month-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
