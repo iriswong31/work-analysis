@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>孕期搭子 - AI孕期陪伴助手</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap');
         
@@ -12,1153 +11,721 @@
             --primary: #E8A0BF;
             --primary-dark: #C88EA7;
             --primary-deep: #A084CA;
-            --bg-pink: #FFF5F7;
-            --bg-rose: #FDF2F8;
+            --bg-warm: #FFFAF5;
+            --bg-chat: #FFF8F0;
             --bg-white: #FFFFFF;
-            --bg-lavender: #F8F4FF;
+            --bg-input: #F7F3EE;
             --text-dark: #4A3548;
             --text-mid: #6B5B6E;
             --text-light: #9B8E9E;
+            --bubble-ai: #FFFFFF;
+            --bubble-user: linear-gradient(135deg, #E8A0BF, #C4A0D4);
             --green: #7BC67E;
             --orange: #F5A623;
-            --red: #E85D75;
-            --blue: #8B9FD4;
         }
         
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Noto Sans SC', 'PingFang SC', -apple-system, sans-serif;
-            -webkit-font-smoothing: antialiased;
-        }
+        * { margin:0; padding:0; box-sizing:border-box; font-family:'Noto Sans SC','PingFang SC',-apple-system,sans-serif; -webkit-font-smoothing:antialiased; }
         
         body {
             background: linear-gradient(135deg, #f5f0ff 0%, #fdf2f8 50%, #fff5f7 100%);
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            display: flex; justify-content: center; align-items: center;
             padding: 20px;
         }
         
-        /* Phone Frame */
         .phone-frame {
-            width: 390px;
-            height: 844px;
-            background: var(--bg-white);
+            width: 390px; height: 844px;
+            background: var(--bg-warm);
             border-radius: 40px;
-            box-shadow: 
-                0 25px 80px rgba(168, 132, 202, 0.15),
-                0 10px 30px rgba(232, 160, 191, 0.1),
-                inset 0 0 0 1px rgba(255,255,255,0.8);
-            overflow: hidden;
-            position: relative;
+            box-shadow: 0 25px 80px rgba(168,132,202,0.15), 0 10px 30px rgba(232,160,191,0.1), inset 0 0 0 1px rgba(255,255,255,0.8);
+            overflow: hidden; position: relative;
+            display: flex; flex-direction: column;
         }
         
         /* Status Bar */
         .status-bar {
-            height: 50px;
-            background: linear-gradient(135deg, var(--bg-lavender), var(--bg-rose));
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 24px;
-            padding-top: 10px;
+            height: 50px; padding: 10px 24px 0;
+            display: flex; align-items: center; justify-content: space-between;
+            background: var(--bg-white);
+            flex-shrink: 0;
         }
-        .status-bar .time { font-size: 14px; font-weight: 600; color: var(--text-dark); }
-        .status-bar .icons { display: flex; gap: 6px; align-items: center; }
-        .status-bar .icons span { font-size: 12px; color: var(--text-dark); }
+        .status-bar .time { font-size:14px; font-weight:600; color:var(--text-dark); }
+        .status-bar .icons { display:flex; gap:6px; }
+        .status-bar .icons span { font-size:12px; }
         
-        /* Nav Header */
-        .nav-header {
-            height: 48px;
-            background: linear-gradient(135deg, var(--bg-lavender), var(--bg-rose));
-            display: flex;
-            align-items: center;
-            padding: 0 16px;
-            gap: 12px;
+        /* Top Header */
+        .top-header {
+            background: var(--bg-white);
+            padding: 8px 20px 12px;
+            border-bottom: 1px solid rgba(232,160,191,0.1);
+            flex-shrink: 0;
         }
-        .nav-header .back-btn {
-            width: 32px; height: 32px;
+        .header-row {
+            display: flex; align-items: center; gap: 12px;
+        }
+        .avatar-circle {
+            width: 42px; height: 42px; border-radius: 50%;
+            background: linear-gradient(135deg, #fce4ec, #f3e5f5);
             display: flex; align-items: center; justify-content: center;
-            border-radius: 10px;
-            background: rgba(255,255,255,0.5);
-            cursor: pointer;
-            transition: all 0.2s;
-            border: none;
-            font-size: 16px;
-            color: var(--text-dark);
+            font-size: 22px; flex-shrink: 0;
         }
-        .nav-header .back-btn:hover { background: rgba(255,255,255,0.8); }
-        .nav-header .title { font-size: 17px; font-weight: 600; color: var(--text-dark); }
-        .nav-header .avatar {
-            width: 32px; height: 32px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary), var(--primary-deep));
-            display: flex; align-items: center; justify-content: center;
-            font-size: 16px;
+        .header-info { flex: 1; }
+        .header-title { font-size: 17px; font-weight: 600; color: var(--text-dark); }
+        .header-sub { font-size: 12px; color: var(--text-light); margin-top: 1px; }
+
+        /* Week badge */
+        .week-badge {
+            background: linear-gradient(135deg, rgba(232,160,191,0.12), rgba(160,132,202,0.12));
+            border-radius: 20px; padding: 6px 14px;
+            display: flex; align-items: center; gap: 6px;
+            margin-top: 10px; cursor: pointer; transition: all 0.2s;
         }
-        
-        /* Main Content Area */
-        .content-area {
-            height: calc(844px - 50px - 60px);
-            overflow-y: auto;
-            overflow-x: hidden;
+        .week-badge:hover { background: linear-gradient(135deg, rgba(232,160,191,0.2), rgba(160,132,202,0.2)); }
+        .week-badge .week-text { font-size: 13px; font-weight: 500; color: var(--text-dark); }
+        .week-badge .week-edit { font-size: 11px; color: var(--primary-dark); margin-left: auto; }
+
+        /* Chat area */
+        .chat-area {
+            flex: 1; overflow-y: auto; padding: 16px 16px 8px;
             scroll-behavior: smooth;
         }
-        .content-area::-webkit-scrollbar { width: 0; }
+        .chat-area::-webkit-scrollbar { width: 0; }
         
-        /* Bottom Nav */
-        .bottom-nav {
-            height: 60px;
-            background: var(--bg-white);
-            border-top: 1px solid rgba(168, 132, 202, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: space-around;
-            padding: 0 10px;
-            padding-bottom: 6px;
-        }
-        .nav-item {
-            display: flex; flex-direction: column; align-items: center;
-            gap: 2px; cursor: pointer; transition: all 0.2s;
-            border: none; background: none; padding: 4px 12px;
-        }
-        .nav-item .icon { font-size: 22px; transition: transform 0.2s; }
-        .nav-item .label { font-size: 10px; color: var(--text-light); transition: color 0.2s; }
-        .nav-item.active .label { color: var(--primary-dark); font-weight: 600; }
-        .nav-item.active .icon { transform: scale(1.1); }
-        .nav-item:hover .icon { transform: scale(1.05); }
+        /* Messages */
+        .msg { display: flex; gap: 8px; margin-bottom: 16px; animation: msgIn 0.4s ease; }
+        .msg.ai { align-items: flex-start; }
+        .msg.user { flex-direction: row-reverse; }
         
-        /* Scenes - all hidden by default */
-        .scene { display: none; }
-        .scene.active { display: block; animation: fadeIn 0.35s ease; }
-        
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
-        @keyframes twinkle { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
-        @keyframes heartbeat { 0%, 100% { transform: scale(1); } 15% { transform: scale(1.15); } 30% { transform: scale(1); } 45% { transform: scale(1.1); } }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes openEnvelope { 0% { transform: rotateX(0deg); } 100% { transform: rotateX(180deg); } }
-        @keyframes unfoldLetter { 0% { max-height: 0; opacity: 0; } 100% { max-height: 1000px; opacity: 1; } }
-        @keyframes progressGlow { 0%, 100% { box-shadow: 0 0 5px rgba(232,160,191,0.3); } 50% { box-shadow: 0 0 15px rgba(232,160,191,0.6); } }
-        @keyframes sparkle { 0% { transform: scale(0) rotate(0deg); opacity: 0; } 50% { transform: scale(1) rotate(180deg); opacity: 1; } 100% { transform: scale(0) rotate(360deg); opacity: 0; } }
-        
-        /* ============= SCENE 1: HOME ============= */
-        .home-header {
-            background: linear-gradient(135deg, var(--bg-lavender), var(--bg-rose), var(--bg-pink));
-            padding: 16px 20px;
-            padding-top: 0;
-        }
-        .home-greeting { font-size: 15px; color: var(--text-mid); margin-bottom: 4px; }
-        .home-greeting strong { color: var(--text-dark); font-weight: 600; }
-        
-        /* Progress Ring */
-        .progress-card {
-            background: var(--bg-white);
-            border-radius: 24px;
-            padding: 24px;
-            margin: 0 20px;
-            margin-top: -8px;
-            box-shadow: 0 8px 30px rgba(168,132,202,0.08);
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            position: relative;
-            overflow: hidden;
-        }
-        .progress-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -30%;
-            width: 200px;
-            height: 200px;
-            background: radial-gradient(circle, rgba(232,160,191,0.08), transparent);
-            border-radius: 50%;
-        }
-        
-        .ring-container {
-            width: 110px; height: 110px;
-            position: relative; flex-shrink: 0;
-        }
-        .ring-svg { width: 110px; height: 110px; transform: rotate(-90deg); }
-        .ring-bg { fill: none; stroke: #f0e4f7; stroke-width: 8; }
-        .ring-progress { 
-            fill: none; stroke: url(#ringGradient); stroke-width: 8;
-            stroke-linecap: round;
-            stroke-dasharray: 283;
-            stroke-dashoffset: 113;
-            animation: progressGlow 3s ease-in-out infinite;
-        }
-        .ring-center {
-            position: absolute; top: 50%; left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-        }
-        .ring-week { font-size: 28px; font-weight: 700; color: var(--text-dark); line-height: 1; }
-        .ring-label { font-size: 11px; color: var(--text-light); }
-        
-        .progress-info h3 { font-size: 17px; font-weight: 600; color: var(--text-dark); margin-bottom: 4px; }
-        .progress-info .countdown {
-            font-size: 13px; color: var(--primary-dark);
-            background: rgba(232,160,191,0.1);
-            padding: 4px 10px;
-            border-radius: 12px;
-            display: inline-block;
-            margin-bottom: 8px;
-        }
-        .progress-info .trimester {
-            font-size: 12px; color: var(--text-light);
-            padding: 2px 8px;
-            background: var(--bg-lavender);
-            border-radius: 8px;
-            display: inline-block;
-        }
-        
-        /* Baby Status Card */
-        .baby-card {
-            background: linear-gradient(135deg, #fdf2f8, #f8f4ff);
-            border-radius: 24px;
-            margin: 16px 20px;
-            padding: 20px;
-            position: relative;
-            overflow: hidden;
-        }
-        .baby-card::after {
-            content: '✨';
-            position: absolute;
-            top: 12px;
-            right: 16px;
-            font-size: 20px;
-            animation: twinkle 2s ease-in-out infinite;
-        }
-        .baby-illustration {
-            width: 120px;
-            height: 120px;
-            margin: 0 auto 12px;
-            background: linear-gradient(135deg, rgba(232,160,191,0.2), rgba(160,132,202,0.2));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 56px;
-            animation: float 4s ease-in-out infinite;
-            position: relative;
-        }
-        .baby-illustration::before, .baby-illustration::after {
-            content: '⭐';
-            position: absolute;
-            font-size: 12px;
-            animation: twinkle 3s ease-in-out infinite;
-        }
-        .baby-illustration::before { top: 5px; right: 10px; animation-delay: 0.5s; }
-        .baby-illustration::after { bottom: 10px; left: 5px; animation-delay: 1.5s; }
-        
-        .baby-size-tag {
-            text-align: center;
-            background: rgba(255,255,255,0.7);
-            backdrop-filter: blur(10px);
-            border-radius: 16px;
-            padding: 6px 16px;
-            display: inline-block;
-            font-size: 14px;
-            color: var(--text-dark);
-            font-weight: 500;
-            margin-bottom: 10px;
-        }
-        .baby-desc {
-            font-size: 14px;
-            color: var(--text-mid);
-            line-height: 1.7;
-            text-align: center;
-        }
-        
-        /* Quick Entry Grid */
-        .quick-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            padding: 0 20px;
-            margin-bottom: 20px;
-        }
-        .quick-card {
-            background: var(--bg-white);
-            border-radius: 20px;
-            padding: 20px 16px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.25s;
-            border: 1px solid rgba(232,160,191,0.08);
-            box-shadow: 0 2px 12px rgba(168,132,202,0.04);
-        }
-        .quick-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(168,132,202,0.1);
-            border-color: rgba(232,160,191,0.2);
-        }
-        .quick-card:active { transform: scale(0.97); }
-        .quick-card .card-icon {
-            width: 50px; height: 50px;
-            margin: 0 auto 10px;
-            border-radius: 16px;
+        .msg-avatar {
+            width: 34px; height: 34px; border-radius: 50%;
+            background: linear-gradient(135deg, #fce4ec, #f3e5f5);
             display: flex; align-items: center; justify-content: center;
-            font-size: 24px;
+            font-size: 18px; flex-shrink: 0;
         }
-        .quick-card .card-label { font-size: 14px; font-weight: 500; color: var(--text-dark); }
-        .quick-card .card-desc { font-size: 11px; color: var(--text-light); margin-top: 2px; }
+        .msg.user .msg-avatar { background: linear-gradient(135deg, #e8eaf6, #d1c4e9); }
         
-        .icon-bg-1 { background: linear-gradient(135deg, #fce4ec, #f8bbd0); }
-        .icon-bg-2 { background: linear-gradient(135deg, #e8eaf6, #c5cae9); }
-        .icon-bg-3 { background: linear-gradient(135deg, #e0f2f1, #b2dfdb); }
-        .icon-bg-4 { background: linear-gradient(135deg, #fff3e0, #ffe0b2); }
-        
-        /* ============= SCENE 2: CHECKUP ============= */
-        .checkup-scene { padding: 20px; }
-        
-        .upload-area {
-            border: 2px dashed rgba(232,160,191,0.4);
-            border-radius: 20px;
-            padding: 30px;
-            text-align: center;
-            background: rgba(253,242,248,0.5);
-            margin-bottom: 20px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .upload-area:hover {
-            border-color: var(--primary);
-            background: rgba(253,242,248,0.8);
-        }
-        .upload-area .upload-icon { font-size: 40px; margin-bottom: 8px; }
-        .upload-area .upload-text { font-size: 14px; color: var(--text-mid); }
-        .upload-area .upload-hint { font-size: 12px; color: var(--text-light); margin-top: 4px; }
-        
-        .report-result {
-            background: var(--bg-white);
-            border-radius: 20px;
-            padding: 20px;
-            box-shadow: 0 4px 20px rgba(168,132,202,0.06);
-        }
-        .report-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--text-dark);
-            margin-bottom: 16px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid rgba(232,160,191,0.15);
-        }
-        .report-item {
-            display: flex;
-            align-items: flex-start;
-            padding: 10px 0;
-            border-bottom: 1px solid rgba(0,0,0,0.03);
-            animation: slideUp 0.5s ease;
-        }
-        .report-item:last-child { border-bottom: none; }
-        .report-item .status-icon {
-            width: 24px; height: 24px;
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 12px;
-            margin-right: 12px;
-            flex-shrink: 0;
-            margin-top: 2px;
-        }
-        .status-ok { background: rgba(123,198,126,0.15); color: var(--green); }
-        .status-warn { background: rgba(245,166,35,0.15); color: var(--orange); }
-        .report-item .item-name { font-size: 14px; font-weight: 500; color: var(--text-dark); }
-        .report-item .item-value { font-size: 13px; color: var(--text-mid); margin-top: 2px; }
-        .report-item .item-explain { font-size: 12px; color: var(--text-light); margin-top: 4px; line-height: 1.5; }
-        
-        .reassure-block {
-            background: linear-gradient(135deg, rgba(123,198,126,0.08), rgba(123,198,126,0.04));
-            border-radius: 16px;
-            padding: 16px;
-            margin-top: 16px;
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-        }
-        .reassure-block .heart { font-size: 20px; animation: heartbeat 2s ease-in-out infinite; }
-        .reassure-block .text { font-size: 14px; color: #4a7c4e; line-height: 1.6; }
-        
-        .disclaimer {
-            font-size: 11px;
-            color: var(--text-light);
-            text-align: center;
-            margin-top: 16px;
-            padding: 8px;
-        }
-        
-        /* ============= SCENE 3: BABY VISUAL ============= */
-        .visual-scene { padding: 20px; }
-        
-        .baby-visual-card {
-            background: linear-gradient(135deg, #fdf2f8, #f3e5f5, #f8f4ff);
-            border-radius: 28px;
-            padding: 24px;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-            margin-bottom: 16px;
-        }
-        
-        .sparkle-container {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-        }
-        .sparkle {
-            position: absolute;
-            font-size: 10px;
-            animation: twinkle 2s ease-in-out infinite;
-        }
-        .sparkle:nth-child(1) { top: 10%; left: 15%; animation-delay: 0s; }
-        .sparkle:nth-child(2) { top: 20%; right: 10%; animation-delay: 0.7s; }
-        .sparkle:nth-child(3) { bottom: 25%; left: 10%; animation-delay: 1.4s; }
-        .sparkle:nth-child(4) { top: 40%; right: 20%; animation-delay: 0.3s; }
-        .sparkle:nth-child(5) { bottom: 15%; right: 15%; animation-delay: 1.0s; }
-        .sparkle:nth-child(6) { top: 60%; left: 25%; animation-delay: 1.8s; }
-        
-        .baby-visual-img {
-            width: 180px;
-            height: 180px;
-            margin: 0 auto 16px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, rgba(255,255,255,0.6), rgba(232,160,191,0.15));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 80px;
-            animation: float 5s ease-in-out infinite;
-            box-shadow: 0 10px 40px rgba(232,160,191,0.15);
-            position: relative;
-            z-index: 1;
-        }
-        
-        .data-panel {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-bottom: 16px;
-        }
-        .data-item {
-            background: rgba(255,255,255,0.7);
-            backdrop-filter: blur(10px);
-            border-radius: 16px;
-            padding: 12px 16px;
-            text-align: center;
-            min-width: 90px;
-        }
-        .data-item .data-icon { font-size: 18px; margin-bottom: 4px; }
-        .data-item .data-value { font-size: 18px; font-weight: 700; color: var(--text-dark); }
-        .data-item .data-label { font-size: 11px; color: var(--text-light); }
-        
-        .size-comparison {
-            background: rgba(255,255,255,0.6);
-            border-radius: 20px;
-            padding: 10px 20px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 14px;
-            color: var(--text-dark);
-            font-weight: 500;
-            margin-bottom: 16px;
-        }
-        .size-comparison .comp-emoji { font-size: 24px; }
-        
-        .baby-desc-block {
-            background: var(--bg-white);
-            border-radius: 20px;
-            padding: 20px;
-            box-shadow: 0 4px 20px rgba(168,132,202,0.06);
-            text-align: left;
-        }
-        .baby-desc-block .desc-title { font-size: 15px; font-weight: 600; color: var(--text-dark); margin-bottom: 8px; }
-        .baby-desc-block .desc-text { font-size: 14px; color: var(--text-mid); line-height: 1.8; }
-        .baby-desc-block .milestone-tag {
-            display: inline-block;
-            background: linear-gradient(135deg, rgba(232,160,191,0.12), rgba(160,132,202,0.12));
-            border-radius: 10px;
-            padding: 4px 12px;
-            font-size: 12px;
-            color: var(--primary-dark);
-            margin-top: 10px;
-            font-weight: 500;
-        }
-        
-        /* ============= SCENE 4: TIMELINE ============= */
-        .timeline-scene { padding: 20px; }
-        
-        .current-position {
-            background: linear-gradient(135deg, var(--bg-rose), var(--bg-lavender));
-            border-radius: 16px;
-            padding: 12px 16px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 20px;
-            font-size: 14px;
-            color: var(--text-dark);
-            font-weight: 500;
-        }
-        .current-position .pin { font-size: 18px; }
-        
-        .timeline {
-            position: relative;
-            padding-left: 30px;
-        }
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 12px;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: linear-gradient(to bottom, var(--primary), var(--primary-deep), #ddd);
-        }
-        
-        .timeline-item {
-            position: relative;
-            margin-bottom: 16px;
-            animation: slideUp 0.5s ease;
-        }
-        .timeline-item .dot {
-            position: absolute;
-            left: -24px;
-            top: 16px;
-            width: 14px;
-            height: 14px;
-            border-radius: 50%;
-            border: 3px solid var(--primary);
-            background: var(--bg-white);
-            z-index: 1;
-        }
-        .timeline-item.current .dot {
-            background: var(--primary);
-            box-shadow: 0 0 0 4px rgba(232,160,191,0.2);
-            animation: pulse 2s ease-in-out infinite;
-        }
-        .timeline-item.past .dot {
-            background: #ccc;
-            border-color: #ccc;
-        }
-        .timeline-item.future .dot {
-            background: var(--bg-white);
-            border-color: #ddd;
-        }
-        
-        .timeline-card {
-            background: var(--bg-white);
-            border-radius: 16px;
-            padding: 16px;
-            box-shadow: 0 2px 12px rgba(168,132,202,0.04);
-            border: 1px solid rgba(232,160,191,0.08);
-        }
-        .timeline-item.current .timeline-card {
-            border-color: var(--primary);
-            box-shadow: 0 4px 20px rgba(232,160,191,0.12);
-        }
-        .timeline-card .week-range { font-size: 13px; font-weight: 600; color: var(--primary-dark); margin-bottom: 6px; }
-        .timeline-card .event-list { list-style: none; padding: 0; }
-        .timeline-card .event-list li {
-            font-size: 13px;
-            color: var(--text-mid);
-            padding: 3px 0;
-            padding-left: 18px;
+        .msg-bubble {
+            max-width: 75%; border-radius: 18px; padding: 12px 16px;
+            font-size: 14px; line-height: 1.7; color: var(--text-dark);
             position: relative;
         }
-        .timeline-card .event-list li::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 10px;
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
+        .msg.ai .msg-bubble {
+            background: var(--bubble-ai);
+            border-top-left-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
         }
-        .timeline-card .event-list li.check::before { background: var(--blue); }
-        .timeline-card .event-list li.prep::before { background: var(--orange); }
-        .timeline-card .event-list li.note::before { background: var(--green); }
-        
-        .bag-entry {
-            background: linear-gradient(135deg, var(--bg-rose), var(--bg-lavender));
-            border-radius: 20px;
-            padding: 18px;
-            margin-top: 12px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        .bag-entry:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(168,132,202,0.1); }
-        .bag-entry .bag-icon { font-size: 32px; }
-        .bag-entry .bag-text h4 { font-size: 15px; font-weight: 600; color: var(--text-dark); }
-        .bag-entry .bag-text p { font-size: 12px; color: var(--text-light); margin-top: 2px; }
-        
-        /* ============= SCENE 5: LETTER ============= */
-        .letter-scene { padding: 20px; }
-        
-        .envelope {
-            width: 120px;
-            height: 80px;
-            margin: 0 auto 20px;
-            position: relative;
-            perspective: 400px;
-        }
-        .envelope-body {
-            width: 120px;
-            height: 80px;
-            background: linear-gradient(135deg, #f8bbd0, #e1bee7);
-            border-radius: 8px;
-            position: relative;
-            box-shadow: 0 4px 15px rgba(232,160,191,0.2);
-        }
-        .envelope-flap {
-            width: 0;
-            height: 0;
-            border-left: 60px solid transparent;
-            border-right: 60px solid transparent;
-            border-top: 45px solid #ce93d8;
-            position: absolute;
-            top: 0;
-            left: 0;
-            transform-origin: top;
-            animation: openEnvelope 1.5s ease forwards;
-        }
-        .envelope-heart {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 24px;
-            animation: heartbeat 2s ease-in-out infinite;
-            z-index: 2;
-        }
-        
-        .letter-paper {
-            background: linear-gradient(to bottom, #fffdf7, #fef9ef);
-            border-radius: 16px;
-            padding: 24px;
-            box-shadow: 0 4px 20px rgba(168,132,202,0.08);
-            position: relative;
-            animation: unfoldLetter 1.5s ease 0.8s both;
-            border: 1px solid rgba(232,160,191,0.15);
-        }
-        .letter-paper::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 24px; right: 24px; bottom: 0;
-            background: repeating-linear-gradient(
-                transparent,
-                transparent 27px,
-                rgba(200,180,180,0.15) 28px
-            );
-            pointer-events: none;
-        }
-        .letter-date {
-            font-size: 12px;
-            color: var(--text-light);
-            text-align: right;
-            margin-bottom: 12px;
-            font-style: italic;
-        }
-        .letter-content {
-            font-size: 14px;
-            color: var(--text-dark);
-            line-height: 2;
-            position: relative;
-            z-index: 1;
-        }
-        .letter-content p { margin-bottom: 12px; text-indent: 2em; }
-        .letter-sign {
-            text-align: right;
-            font-size: 14px;
-            color: var(--primary-dark);
-            font-weight: 500;
-            margin-top: 16px;
-            position: relative;
-            z-index: 1;
-        }
-        .letter-sign .heart-sign { font-size: 16px; animation: heartbeat 2.5s ease-in-out infinite; }
-        
-        .month-selector {
-            display: flex;
-            gap: 8px;
-            overflow-x: auto;
-            padding: 16px 0;
-            -webkit-overflow-scrolling: touch;
-        }
-        .month-selector::-webkit-scrollbar { display: none; }
-        .month-btn {
-            min-width: 44px; height: 44px;
-            border-radius: 14px;
-            border: 1.5px solid rgba(232,160,191,0.2);
-            background: var(--bg-white);
-            font-size: 13px;
-            font-weight: 500;
-            color: var(--text-light);
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex; align-items: center; justify-content: center;
-            flex-shrink: 0;
-        }
-        .month-btn.active {
-            background: linear-gradient(135deg, var(--primary), var(--primary-deep));
+        .msg.user .msg-bubble {
+            background: var(--bubble-user);
+            border-top-right-radius: 4px;
             color: white;
-            border-color: transparent;
-            box-shadow: 0 4px 12px rgba(232,160,191,0.3);
         }
-        .month-btn:hover:not(.active) { border-color: var(--primary); color: var(--primary-dark); }
         
-        /* Tip Card */
-        .tip-card {
-            background: linear-gradient(135deg, rgba(139,159,212,0.08), rgba(139,159,212,0.04));
+        /* Card in chat */
+        .chat-card {
+            background: var(--bg-white);
             border-radius: 16px;
-            padding: 14px 16px;
-            margin-top: 12px;
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
+            padding: 16px;
+            box-shadow: 0 2px 12px rgba(168,132,202,0.06);
+            border: 1px solid rgba(232,160,191,0.1);
+            max-width: 85%;
+            margin-left: 42px;
+            margin-bottom: 16px;
+            animation: msgIn 0.4s ease;
         }
-        .tip-card .tip-icon { font-size: 18px; flex-shrink: 0; }
-        .tip-card .tip-text { font-size: 13px; color: var(--blue); line-height: 1.5; }
+        .card-title { font-size: 14px; font-weight: 600; color: var(--text-dark); margin-bottom: 8px; }
+        .card-body { font-size: 13px; color: var(--text-mid); line-height: 1.7; }
         
-        /* Decorative elements */
-        .deco-float {
-            position: absolute;
-            pointer-events: none;
-            opacity: 0.15;
-            font-size: 20px;
+        /* Baby dev card */
+        .baby-dev-card {
+            background: linear-gradient(135deg, #fdf2f8, #f8f4ff);
+            border-radius: 16px; padding: 16px;
+            text-align: center;
+            max-width: 85%; margin-left: 42px; margin-bottom: 16px;
+            animation: msgIn 0.4s ease;
         }
+        .baby-emoji { font-size: 52px; margin-bottom: 8px; animation: float 4s ease-in-out infinite; display: inline-block; }
+        .baby-size { font-size: 13px; color: var(--text-dark); font-weight: 500; margin-bottom: 4px; }
+        .baby-stats { display: flex; justify-content: center; gap: 16px; margin-top: 8px; }
+        .baby-stat { text-align: center; }
+        .baby-stat .val { font-size: 15px; font-weight: 600; color: var(--text-dark); }
+        .baby-stat .lbl { font-size: 11px; color: var(--text-light); }
+
+        /* Quick actions */
+        .quick-actions {
+            display: flex; flex-wrap: wrap; gap: 8px;
+            padding: 4px 16px 12px; margin-left: 42px;
+            animation: msgIn 0.4s ease;
+        }
+        .quick-btn {
+            border: 1.5px solid rgba(232,160,191,0.25);
+            background: var(--bg-white);
+            border-radius: 20px;
+            padding: 8px 14px;
+            font-size: 13px; font-weight: 500;
+            color: var(--primary-dark);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .quick-btn:hover { background: rgba(232,160,191,0.08); border-color: var(--primary); }
+        .quick-btn:active { transform: scale(0.96); }
+        
+        /* Input bar */
+        .input-bar {
+            padding: 8px 16px 24px;
+            background: var(--bg-white);
+            border-top: 1px solid rgba(232,160,191,0.08);
+            display: flex; align-items: center; gap: 8px;
+            flex-shrink: 0;
+        }
+        .input-box {
+            flex: 1; border: 1.5px solid rgba(232,160,191,0.2);
+            border-radius: 22px; padding: 10px 16px;
+            font-size: 14px; color: var(--text-dark);
+            background: var(--bg-input);
+            outline: none; transition: border-color 0.2s;
+        }
+        .input-box::placeholder { color: var(--text-light); }
+        .input-box:focus { border-color: var(--primary); }
+        .send-btn {
+            width: 40px; height: 40px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--primary-deep));
+            border: none; color: white; font-size: 18px;
+            cursor: pointer; transition: all 0.2s;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+        .send-btn:hover { transform: scale(1.05); }
+        .send-btn:active { transform: scale(0.95); }
+        
+        /* Date input modal */
+        .modal-overlay {
+            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(74,53,72,0.4);
+            backdrop-filter: blur(4px);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 100; animation: fadeIn 0.3s ease;
+        }
+        .modal-overlay.hidden { display: none; }
+        .modal-box {
+            background: var(--bg-white);
+            border-radius: 24px; padding: 28px 24px;
+            width: 320px;
+            box-shadow: 0 20px 60px rgba(168,132,202,0.2);
+            animation: scaleIn 0.3s ease;
+        }
+        .modal-title { font-size: 18px; font-weight: 600; color: var(--text-dark); text-align: center; margin-bottom: 4px; }
+        .modal-desc { font-size: 13px; color: var(--text-light); text-align: center; margin-bottom: 20px; }
+        
+        .date-option {
+            border: 1.5px solid rgba(232,160,191,0.2);
+            border-radius: 14px; padding: 14px 16px;
+            margin-bottom: 10px; cursor: pointer;
+            transition: all 0.2s;
+        }
+        .date-option:hover { border-color: var(--primary); background: rgba(253,242,248,0.3); }
+        .date-option.active { border-color: var(--primary); background: rgba(253,242,248,0.5); }
+        .date-option .opt-label { font-size: 14px; font-weight: 500; color: var(--text-dark); margin-bottom: 6px; }
+        .date-input {
+            width: 100%; border: 1px solid rgba(232,160,191,0.2);
+            border-radius: 10px; padding: 8px 12px;
+            font-size: 14px; color: var(--text-dark);
+            background: var(--bg-input); outline: none;
+        }
+        .date-input:focus { border-color: var(--primary); }
+        
+        .modal-btn {
+            width: 100%; padding: 12px;
+            border-radius: 14px; border: none;
+            background: linear-gradient(135deg, var(--primary), var(--primary-deep));
+            color: white; font-size: 15px; font-weight: 600;
+            cursor: pointer; transition: all 0.2s;
+            margin-top: 16px;
+        }
+        .modal-btn:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(232,160,191,0.3); }
+        .modal-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
+        
+        /* Typing indicator */
+        .typing { display: flex; gap: 4px; padding: 4px 0; }
+        .typing span {
+            width: 6px; height: 6px; border-radius: 50%;
+            background: var(--text-light);
+            animation: bounce 1.4s ease-in-out infinite;
+        }
+        .typing span:nth-child(2) { animation-delay: 0.2s; }
+        .typing span:nth-child(3) { animation-delay: 0.4s; }
+        
+        /* Report items in chat */
+        .report-item-chat {
+            display: flex; align-items: flex-start; gap: 8px;
+            padding: 6px 0; border-bottom: 1px solid rgba(0,0,0,0.04);
+        }
+        .report-item-chat:last-child { border-bottom: none; }
+        .report-icon { font-size: 14px; margin-top: 2px; }
+        .report-name { font-size: 13px; font-weight: 500; color: var(--text-dark); }
+        .report-detail { font-size: 12px; color: var(--text-mid); line-height: 1.5; margin-top: 2px; }
+
+        /* Animations */
+        @keyframes msgIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+        @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+        @keyframes scaleIn { from { opacity:0; transform:scale(0.9); } to { opacity:1; transform:scale(1); } }
+        @keyframes float { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-6px); } }
+        @keyframes bounce { 0%,60%,100% { transform:translateY(0); } 30% { transform:translateY(-6px); } }
+        @keyframes pulse { 0%,100% { transform:scale(1); } 50% { transform:scale(1.05); } }
     </style>
 </head>
 <body>
-    <div class="phone-frame">
-        <!-- Status Bar -->
-        <div class="status-bar">
-            <span class="time">23:27</span>
-            <div class="icons">
-                <span>📶</span>
-                <span>🔋</span>
+<div class="phone-frame">
+    <!-- Status Bar -->
+    <div class="status-bar">
+        <span class="time" id="currentTime">00:48</span>
+        <div class="icons"><span>📶</span><span>🔋</span></div>
+    </div>
+    
+    <!-- Top Header -->
+    <div class="top-header">
+        <div class="header-row">
+            <div class="avatar-circle">🌸</div>
+            <div class="header-info">
+                <div class="header-title">孕期搭子</div>
+                <div class="header-sub">在线 · 随时陪你聊</div>
             </div>
         </div>
-        
-        <!-- Content Area -->
-        <div class="content-area" id="contentArea">
-            
-            <!-- ===== SCENE 1: HOME ===== -->
-            <div class="scene active" id="scene-home">
-                <div class="home-header">
-                    <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
-                        <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#E8A0BF,#A084CA);display:flex;align-items:center;justify-content:center;font-size:20px;">🌸</div>
-                        <div>
-                            <div class="home-greeting">Hi <strong>准妈妈</strong>，今天感觉怎么样？</div>
-                            <div style="font-size:12px;color:var(--text-light);">孕期搭子一直在你身边 💕</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Progress Card -->
-                <div class="progress-card">
-                    <div class="ring-container">
-                        <svg class="ring-svg" viewBox="0 0 100 100">
-                            <defs>
-                                <linearGradient id="ringGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" stop-color="#E8A0BF"/>
-                                    <stop offset="100%" stop-color="#A084CA"/>
-                                </linearGradient>
-                            </defs>
-                            <circle class="ring-bg" cx="50" cy="50" r="45"/>
-                            <circle class="ring-progress" cx="50" cy="50" r="45"/>
-                        </svg>
-                        <div class="ring-center">
-                            <div class="ring-week">24</div>
-                            <div class="ring-label">周</div>
-                        </div>
-                    </div>
-                    <div class="progress-info">
-                        <h3>孕中期</h3>
-                        <div class="countdown">🗓️ 距预产期还有 112 天</div>
-                        <div class="trimester">第6个月 · 60%</div>
-                    </div>
-                </div>
-                
-                <!-- Baby Status Card -->
-                <div class="baby-card">
-                    <div class="baby-illustration">👶</div>
-                    <div style="text-align:center;">
-                        <div class="baby-size-tag">🌽 和一根玉米棒差不多大</div>
-                    </div>
-                    <p class="baby-desc">小家伙现在约30cm、665g，已经能听到你的声音了！TA有自己的作息规律——白天打盹，晚上踢妈妈肚子玩~ 试试跟TA说说话吧！</p>
-                </div>
-                
-                <!-- Quick Entry Grid -->
-                <div class="quick-grid">
-                    <div class="quick-card" onclick="switchScene('checkup')">
-                        <div class="card-icon icon-bg-1">📋</div>
-                        <div class="card-label">产检解读</div>
-                        <div class="card-desc">上传报告秒懂</div>
-                    </div>
-                    <div class="quick-card" onclick="switchScene('visual')">
-                        <div class="card-icon icon-bg-2">👀</div>
-                        <div class="card-label">宝宝模样</div>
-                        <div class="card-desc">看看TA的样子</div>
-                    </div>
-                    <div class="quick-card" onclick="switchScene('timeline')">
-                        <div class="card-icon icon-bg-3">📅</div>
-                        <div class="card-label">时间线</div>
-                        <div class="card-desc">该做什么一目了然</div>
-                    </div>
-                    <div class="quick-card" onclick="switchScene('letter')">
-                        <div class="card-icon icon-bg-4">💌</div>
-                        <div class="card-label">给宝宝写信</div>
-                        <div class="card-desc">记录爱的瞬间</div>
-                    </div>
-                </div>
-                
-                <!-- Tip Card -->
-                <div style="padding:0 20px 20px;">
-                    <div class="tip-card">
-                        <span class="tip-icon">💡</span>
-                        <span class="tip-text">本周提醒：24-28周需要做<strong>糖耐量检查(OGTT)</strong>，记得提前预约并空腹哦~ 检查前3天正常饮食就好，不用特意控糖</span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- ===== SCENE 2: CHECKUP ===== -->
-            <div class="scene" id="scene-checkup">
-                <div class="nav-header">
-                    <button class="back-btn" onclick="switchScene('home')">←</button>
-                    <span class="title">产检报告解读</span>
-                </div>
-                <div class="checkup-scene">
-                    <div class="upload-area" onclick="showReportResult()">
-                        <div class="upload-icon">📷</div>
-                        <div class="upload-text">拍照或选择报告图片</div>
-                        <div class="upload-hint">支持血常规、B超、唐筛、糖耐等报告</div>
-                    </div>
-                    
-                    <div class="report-result" id="reportResult" style="display:none;">
-                        <div class="report-title">📋 血常规报告解读</div>
-                        
-                        <div class="report-item" style="animation-delay:0.1s">
-                            <div class="status-icon status-ok">✓</div>
-                            <div>
-                                <div class="item-name">白细胞 (WBC)</div>
-                                <div class="item-value">10.8×10⁹/L</div>
-                                <div class="item-explain">正常！孕期白细胞偏高是正常的，你身体的"小卫兵"在加倍巡逻保护你和宝宝呢</div>
-                            </div>
-                        </div>
-                        
-                        <div class="report-item" style="animation-delay:0.2s">
-                            <div class="status-icon status-ok">✓</div>
-                            <div>
-                                <div class="item-name">红细胞 (RBC)</div>
-                                <div class="item-value">3.8×10¹²/L</div>
-                                <div class="item-explain">正常范围内，不用担心~</div>
-                            </div>
-                        </div>
-                        
-                        <div class="report-item" style="animation-delay:0.3s">
-                            <div class="status-icon status-warn">!</div>
-                            <div>
-                                <div class="item-name">血红蛋白 (Hb)</div>
-                                <div class="item-value">105 g/L</div>
-                                <div class="item-explain">略偏低（孕期标准≥110g/L），属于轻度贫血。不用太担心，孕中期很常见！多吃红肉、猪肝、鸭血补铁，配合维C效果更好</div>
-                            </div>
-                        </div>
-                        
-                        <div class="report-item" style="animation-delay:0.4s">
-                            <div class="status-icon status-ok">✓</div>
-                            <div>
-                                <div class="item-name">血小板 (PLT)</div>
-                                <div class="item-value">230×10⁹/L</div>
-                                <div class="item-explain">很好！完全在正常范围内</div>
-                            </div>
-                        </div>
-                        
-                        <div class="report-item" style="animation-delay:0.5s">
-                            <div class="status-icon status-ok">✓</div>
-                            <div>
-                                <div class="item-name">中性粒细胞比率</div>
-                                <div class="item-value">72.5%</div>
-                                <div class="item-explain">正常，孕期偏高一点是正常现象</div>
-                            </div>
-                        </div>
-                        
-                        <div class="reassure-block">
-                            <span class="heart">❤️</span>
-                            <span class="text">整体来看，各项指标基本正常，只有血红蛋白稍低一点点。通过饮食调整就能改善，宝宝在你肚子里好着呢~ 建议下次产检时告诉医生，看看需不需要开铁剂补充。</span>
-                        </div>
-                        
-                        <div class="disclaimer">⚕️ 以上解读仅供参考，具体请以您的主治医生意见为准</div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- ===== SCENE 3: BABY VISUAL ===== -->
-            <div class="scene" id="scene-visual">
-                <div class="nav-header">
-                    <button class="back-btn" onclick="switchScene('home')">←</button>
-                    <span class="title">宝宝现在的样子</span>
-                </div>
-                <div class="visual-scene">
-                    <div class="baby-visual-card">
-                        <div class="sparkle-container">
-                            <span class="sparkle">✨</span>
-                            <span class="sparkle">⭐</span>
-                            <span class="sparkle">💫</span>
-                            <span class="sparkle">✨</span>
-                            <span class="sparkle">⭐</span>
-                            <span class="sparkle">💕</span>
-                        </div>
-                        <div class="baby-visual-img">👶🏻</div>
-                        
-                        <div class="data-panel">
-                            <div class="data-item">
-                                <div class="data-icon">📏</div>
-                                <div class="data-value">30cm</div>
-                                <div class="data-label">身长</div>
-                            </div>
-                            <div class="data-item">
-                                <div class="data-icon">⚖️</div>
-                                <div class="data-value">665g</div>
-                                <div class="data-label">体重</div>
-                            </div>
-                            <div class="data-item">
-                                <div class="data-icon">🧠</div>
-                                <div class="data-value">6.0cm</div>
-                                <div class="data-label">双顶径</div>
-                            </div>
-                        </div>
-                        
-                        <div class="size-comparison">
-                            <span class="comp-emoji">🌽</span>
-                            <span>和一根玉米棒差不多大</span>
-                        </div>
-                    </div>
-                    
-                    <div class="baby-desc-block">
-                        <div class="desc-title">✨ 第24周的小家伙</div>
-                        <p class="desc-text">
-                            你的宝宝小耳朵已经能听到外面的世界了！妈妈的心跳声是TA最熟悉的背景音乐——"咚咚、咚咚"。这也是为什么刚出生的宝宝会被妈妈的心跳声安抚。
-                            <br><br>
-                            小肺正在认真准备"出厂设备"——开始产生一种叫表面活性物质的东西，这是出生后第一口呼吸的关键装备。TA还有了自己的作息规律，白天打盹，晚上可能比较活跃~
-                        </p>
-                        <span class="milestone-tag">🎯 里程碑：肺部开始产生表面活性物质 · 听觉系统上线</span>
-                    </div>
-                    
-                    <div class="tip-card">
-                        <span class="tip-icon">🎵</span>
-                        <span class="tip-text">试试对着肚子放一首柔和的音乐或者跟TA说说话吧~ 有研究发现宝宝出生后会对孕期常听的声音有"记忆"哦！</span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- ===== SCENE 4: TIMELINE ===== -->
-            <div class="scene" id="scene-timeline">
-                <div class="nav-header">
-                    <button class="back-btn" onclick="switchScene('home')">←</button>
-                    <span class="title">孕期时间线</span>
-                </div>
-                <div class="timeline-scene">
-                    <div class="current-position">
-                        <span class="pin">📍</span>
-                        <span>你在这里：<strong>第24周</strong> · 孕中期</span>
-                    </div>
-                    
-                    <div class="timeline">
-                        <div class="timeline-item past">
-                            <div class="dot"></div>
-                            <div class="timeline-card">
-                                <div class="week-range">✅ 第20-24周</div>
-                                <ul class="event-list">
-                                    <li class="check">大排畸/四维彩超 ✓ 已完成</li>
-                                    <li class="note">开始数胎动 ✓</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="timeline-item current">
-                            <div class="dot"></div>
-                            <div class="timeline-card">
-                                <div class="week-range">🔵 第24-28周（当前）</div>
-                                <ul class="event-list">
-                                    <li class="check">⚡ 糖耐量检查(OGTT) — 别忘了预约！</li>
-                                    <li class="check">常规产检：血压、体重、胎心</li>
-                                    <li class="note">每天数胎动，感受宝宝的作息规律</li>
-                                    <li class="prep">开始了解分娩方式和分娩课程</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="timeline-item future">
-                            <div class="dot"></div>
-                            <div class="timeline-card">
-                                <div class="week-range">🟡 第28-32周</div>
-                                <ul class="event-list">
-                                    <li class="check">产检升级为每2周一次</li>
-                                    <li class="check">孕晚期B超（评估胎位、羊水）</li>
-                                    <li class="prep">开始准备待产包</li>
-                                    <li class="prep">预约月嫂（好的要提前抢！）</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="timeline-item future">
-                            <div class="dot"></div>
-                            <div class="timeline-card">
-                                <div class="week-range">🟠 第32-36周</div>
-                                <ul class="event-list">
-                                    <li class="check">GBS筛查（B族链球菌）</li>
-                                    <li class="check">产检升级为每周一次</li>
-                                    <li class="prep">完成待产包打包</li>
-                                    <li class="prep">确认去医院的路线</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="timeline-item future">
-                            <div class="dot"></div>
-                            <div class="timeline-card">
-                                <div class="week-range">🔴 第37-40周 · 随时待命</div>
-                                <ul class="event-list">
-                                    <li class="check">每周产检 + 胎心监护</li>
-                                    <li class="note">关注分娩三大信号</li>
-                                    <li class="note">🎉 足月啦！宝宝随时来报到~</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="bag-entry" onclick="alert('待产包清单功能将在Skill中提供完整版本~\n\n简洁版：只买必备不踩坑\n豪华版：全面舒适升级')">
-                        <span class="bag-icon">🎒</span>
-                        <div class="bag-text">
-                            <h4>查看待产包清单</h4>
-                            <p>简洁版（必备） | 豪华版（全面）</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- ===== SCENE 5: LETTER ===== -->
-            <div class="scene" id="scene-letter">
-                <div class="nav-header">
-                    <button class="back-btn" onclick="switchScene('home')">←</button>
-                    <span class="title">给宝宝的信</span>
-                </div>
-                <div class="letter-scene">
-                    <div class="envelope">
-                        <div class="envelope-body">
-                            <div class="envelope-flap"></div>
-                            <div class="envelope-heart">💌</div>
-                        </div>
-                    </div>
-                    
-                    <div class="letter-paper">
-                        <div class="letter-date">2026年3月24日 · 第24周</div>
-                        <div class="letter-content">
-                            <p>亲爱的小宝贝：</p>
-                            <p>今天是春天里温暖的一天，你已经24周了，和一根玉米棒差不多大。这周我们一起完成了一件大事——你的小耳朵终于能听到外面的声音了！</p>
-                            <p>这个月最神奇的事情，是我感觉你开始有了自己的"小作息"。每天晚上我准备睡觉的时候，你就开始在肚子里"开party"——踢踢这边、顶顶那边。你爸说这说明你以后肯定是个夜猫子，我说不是，你只是太兴奋了。</p>
-                            <p>你爸每天晚上都趴在我肚子上跟你说话，虽然科学说你现在还听不太清楚具体的词，但我相信你能感受到那份爱。他最近还偷偷给你买了一个小恐龙玩偶，说是要做你的"第一个朋友"。</p>
-                            <p>下个月我们要去做糖耐检查，妈妈会乖乖喝那杯超甜的糖水（据说很难喝），一切都是为了确保你平安健康地来到这个世界。</p>
-                            <p>小家伙，继续在里面安心长大，不要着急。外面有一个美丽的世界在等你，还有两个已经超级超级期待你的人。</p>
-                        </div>
-                        <div class="letter-sign">
-                            爱你的妈妈 <span class="heart-sign">❤️</span>
-                            <br>
-                            <span style="font-size:12px;color:var(--text-light);">2026.03</span>
-                        </div>
-                    </div>
-                    
-                    <div class="month-selector">
-                        <button class="month-btn">1月</button>
-                        <button class="month-btn">2月</button>
-                        <button class="month-btn">3月</button>
-                        <button class="month-btn">4月</button>
-                        <button class="month-btn">5月</button>
-                        <button class="month-btn active">6月</button>
-                        <button class="month-btn" style="opacity:0.4">7月</button>
-                        <button class="month-btn" style="opacity:0.3">8月</button>
-                        <button class="month-btn" style="opacity:0.2">9月</button>
-                        <button class="month-btn" style="opacity:0.15">10月</button>
-                    </div>
-                    
-                    <div class="tip-card">
-                        <span class="tip-icon">📝</span>
-                        <span class="tip-text">Skill 会在每月末自动收集你的留言和检查记录，为你生成一封独一无二的信件。你也可以随时跟搭子分享心情和故事~</span>
-                    </div>
-                </div>
-            </div>
-            
-        </div>
-        
-        <!-- Bottom Navigation -->
-        <div class="bottom-nav">
-            <button class="nav-item active" onclick="switchScene('home')" data-scene="home">
-                <span class="icon">🏠</span>
-                <span class="label">首页</span>
-            </button>
-            <button class="nav-item" onclick="switchScene('timeline')" data-scene="timeline">
-                <span class="icon">📅</span>
-                <span class="label">时间线</span>
-            </button>
-            <button class="nav-item" onclick="switchScene('visual')" data-scene="visual">
-                <span class="icon">💬</span>
-                <span class="label">搭子</span>
-            </button>
-            <button class="nav-item" onclick="switchScene('letter')" data-scene="letter">
-                <span class="icon">👤</span>
-                <span class="label">我的</span>
-            </button>
+        <div class="week-badge" id="weekBadge" onclick="showDateModal()">
+            <span class="week-text" id="weekText">点击输入预产期 →</span>
+            <span class="week-edit" id="weekEdit"></span>
         </div>
     </div>
+    
+    <!-- Chat Area -->
+    <div class="chat-area" id="chatArea"></div>
+    
+    <!-- Input Bar -->
+    <div class="input-bar">
+        <input class="input-box" id="userInput" placeholder="跟搭子说说话..." onkeydown="if(event.key==='Enter')sendUserMsg()">
+        <button class="send-btn" onclick="sendUserMsg()">▶</button>
+    </div>
+    
+    <!-- Date Modal -->
+    <div class="modal-overlay" id="dateModal">
+        <div class="modal-box">
+            <div class="modal-title">👋 欢迎，准妈妈</div>
+            <div class="modal-desc">告诉我你的预产期，我来陪你整个孕期</div>
+            
+            <div class="date-option active" id="optEdd" onclick="selectDateMode('edd')">
+                <div class="opt-label">📅 我知道预产期</div>
+                <input type="date" class="date-input" id="inputEdd" value="2026-10-09">
+            </div>
+            
+            <div class="date-option" id="optLmp" onclick="selectDateMode('lmp')">
+                <div class="opt-label">🩺 我知道末次月经日期</div>
+                <input type="date" class="date-input" id="inputLmp" style="display:none">
+            </div>
+            
+            <button class="modal-btn" id="confirmBtn" onclick="confirmDate()">开始陪伴 💕</button>
+        </div>
+    </div>
+</div>
 
-    <script>
-        function switchScene(sceneName) {
-            // Hide all scenes
-            document.querySelectorAll('.scene').forEach(s => s.classList.remove('active'));
-            // Show target scene
-            const target = document.getElementById('scene-' + sceneName);
-            if (target) {
-                target.classList.add('active');
-                // Scroll to top
-                document.getElementById('contentArea').scrollTop = 0;
-            }
-            // Update nav
-            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-            const navBtn = document.querySelector(`.nav-item[data-scene="${sceneName}"]`);
-            if (navBtn) navBtn.classList.add('active');
-        }
-        
-        function showReportResult() {
-            const result = document.getElementById('reportResult');
-            if (result.style.display === 'none') {
-                result.style.display = 'block';
-                // Animate items
-                result.querySelectorAll('.report-item').forEach((item, i) => {
-                    item.style.animationDelay = (i * 0.15) + 's';
-                });
-            }
-        }
-        
-        // Month selector interaction
-        document.querySelectorAll('.month-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('.month-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-            });
-        });
-    </script>
+<script>
+// ===== Pregnancy Data =====
+const BABY_DATA = {
+    4: { emoji:'🫧', size:'罂粟籽', fruit:'🫧', len:'0.1cm', wt:'<1g', desc:'受精卵刚着床，小小的生命开始了最初的旅程。', milestone:'着床完成，开始分裂发育', tip:'注意补充叶酸，每天400μg' },
+    5: { emoji:'🌾', size:'芝麻粒', fruit:'🌾', len:'0.2cm', wt:'<1g', desc:'心脏已经开始形成，虽然还很小但已经在努力跳动了。', milestone:'心脏开始发育', tip:'避免剧烈运动，注意休息' },
+    6: { emoji:'🫐', size:'蓝莓', fruit:'🫐', len:'0.6cm', wt:'<1g', desc:'小家伙有了小小的手臂和腿的萌芽，像一颗蓝莓那么大。', milestone:'四肢萌芽出现', tip:'可能开始有早孕反应，少量多餐' },
+    7: { emoji:'🫐', size:'蓝莓', fruit:'🫐', len:'1.0cm', wt:'<1g', desc:'宝宝的大脑在快速发育，小脸开始有了雏形。', milestone:'大脑快速发育中', tip:'恶心的话可以试试含姜糖' },
+    8: { emoji:'🫒', size:'橄榄', fruit:'🫒', len:'1.6cm', wt:'1g', desc:'所有主要器官都开始形成了！手指和脚趾也在慢慢分化。', milestone:'器官原基全部形成', tip:'第一次产检可以安排了（8-12周）' },
+    9: { emoji:'🍇', size:'葡萄', fruit:'🍇', len:'2.3cm', wt:'2g', desc:'已经从"胚胎"正式升级为"胎儿"啦！小尾巴消失了~', milestone:'正式称为"胎儿"', tip:'继续补叶酸，注意饮食均衡' },
+    10: { emoji:'🍓', size:'草莓', fruit:'🍓', len:'3.1cm', wt:'4g', desc:'宝宝开始在羊水里自由游泳，虽然你还感觉不到。', milestone:'开始在子宫内活动', tip:'可以做NT检查的预约了（11-13周）' },
+    11: { emoji:'🍋', size:'柠檬', fruit:'🍋', len:'4.1cm', wt:'7g', desc:'小手已经能握拳了！骨骼开始硬化。', milestone:'手指可以弯曲', tip:'早孕反应可能快到高峰了，再坚持一下！' },
+    12: { emoji:'🍑', size:'桃子', fruit:'🍑', len:'5.4cm', wt:'14g', desc:'所有器官都已就位，接下来就是长大和完善。度过了最关键的前三个月！', milestone:'🎉 进入安全孕中期', tip:'⚡ 本周需做NT检查（颈项透明层筛查）' },
+    13: { emoji:'🥝', size:'猕猴桃', fruit:'🥝', len:'7.4cm', wt:'23g', desc:'宝宝有了自己的指纹！独一无二的小生命。', milestone:'指纹开始形成', tip:'早孕反应应该开始缓解了~' },
+    14: { emoji:'🍊', size:'橙子', fruit:'🍊', len:'8.7cm', wt:'43g', desc:'小家伙开始学做表情了——皱眉、眯眼，超级可爱。', milestone:'面部表情发育', tip:'可以做唐氏筛查了（15-20周）' },
+    16: { emoji:'🥑', size:'牛油果', fruit:'🥑', len:'11.6cm', wt:'100g', desc:'骨骼在变强壮，你可能很快就能感受到第一次胎动了！', milestone:'即将感受到胎动', tip:'16-20周做唐筛或无创DNA' },
+    20: { emoji:'🥭', size:'芒果', fruit:'🥭', len:'16.5cm', wt:'300g', desc:'宝宝能吞咽羊水了，在练习消化系统。味蕾也开始工作了~', milestone:'味觉系统上线', tip:'⚡ 20-24周需做大排畸/四维彩超' },
+    24: { emoji:'🌽', size:'玉米棒', fruit:'🌽', len:'30cm', wt:'665g', desc:'小耳朵已经能听到外面的世界了！妈妈的心跳声是TA最熟悉的音乐。', milestone:'听觉系统上线 · 肺部开始产生表面活性物质', tip:'⚡ 24-28周需做糖耐量检查(OGTT)' },
+    28: { emoji:'🍆', size:'茄子', fruit:'🍆', len:'37cm', wt:'1000g', desc:'宝宝开始有规律的作息了，能感觉到TA的踢腿越来越有力。', milestone:'进入孕晚期', tip:'产检升级为每2周一次，注意数胎动' },
+    32: { emoji:'🍍', size:'菠萝', fruit:'🍍', len:'42cm', wt:'1800g', desc:'皮下脂肪在增加，宝宝越来越像出生时的样子了。', milestone:'快速增重期', tip:'⚡ 开始准备待产包' },
+    36: { emoji:'🍈', size:'哈密瓜', fruit:'🍈', len:'47cm', wt:'2600g', desc:'宝宝开始入盆，为出生做最后的准备。', milestone:'胎头入盆', tip:'⚡ 产检升级为每周一次，做GBS筛查' },
+    40: { emoji:'🍉', size:'西瓜', fruit:'🍉', len:'50cm', wt:'3300g', desc:'足月啦！宝宝随时准备来到这个世界见你～', milestone:'🎉 足月！随时可能发动', tip:'关注三大信号：见红、破水、规律宫缩' }
+};
+
+// State
+let state = { edd: null, lmp: null, currentWeek: 0, currentDay: 0, dateSet: false };
+
+// ===== Date Calculation =====
+function calcFromEdd(eddStr) {
+    const edd = new Date(eddStr);
+    const lmp = new Date(edd.getTime() - 280 * 86400000);
+    const today = new Date();
+    const days = Math.floor((today - lmp) / 86400000);
+    const weeks = Math.floor(days / 7);
+    const dayOfWeek = days % 7;
+    return { weeks: Math.max(0, Math.min(42, weeks)), days: Math.max(0, dayOfWeek), lmp, edd, totalDays: days };
+}
+
+function calcFromLmp(lmpStr) {
+    const lmp = new Date(lmpStr);
+    const edd = new Date(lmp.getTime() + 280 * 86400000);
+    return calcFromEdd(edd.toISOString().slice(0,10));
+}
+
+function getDaysUntilEdd() {
+    if (!state.edd) return 0;
+    const diff = Math.ceil((new Date(state.edd) - new Date()) / 86400000);
+    return Math.max(0, diff);
+}
+
+function getTrimester(week) {
+    if (week < 13) return '孕早期';
+    if (week < 28) return '孕中期';
+    return '孕晚期';
+}
+
+function getBabyData(week) {
+    const keys = Object.keys(BABY_DATA).map(Number).sort((a,b) => a-b);
+    let best = keys[0];
+    for (const k of keys) {
+        if (k <= week) best = k;
+        else break;
+    }
+    return BABY_DATA[best];
+}
+
+// ===== UI Helpers =====
+function scrollToBottom() {
+    const area = document.getElementById('chatArea');
+    setTimeout(() => { area.scrollTop = area.scrollHeight; }, 50);
+}
+
+function addAiMsg(html) {
+    const chatArea = document.getElementById('chatArea');
+    const div = document.createElement('div');
+    div.className = 'msg ai';
+    div.innerHTML = `<div class="msg-avatar">🌸</div><div class="msg-bubble">${html}</div>`;
+    chatArea.appendChild(div);
+    scrollToBottom();
+}
+
+function addUserMsg(text) {
+    const chatArea = document.getElementById('chatArea');
+    const div = document.createElement('div');
+    div.className = 'msg user';
+    div.innerHTML = `<div class="msg-avatar">👩</div><div class="msg-bubble">${text}</div>`;
+    chatArea.appendChild(div);
+    scrollToBottom();
+}
+
+function addBabyCard(data, week) {
+    const chatArea = document.getElementById('chatArea');
+    const div = document.createElement('div');
+    div.className = 'baby-dev-card';
+    div.innerHTML = `
+        <div class="baby-emoji">${data.emoji}</div>
+        <div class="baby-size">${data.fruit} 和${data.size}差不多大</div>
+        <div class="baby-stats">
+            <div class="baby-stat"><div class="val">${data.len}</div><div class="lbl">身长</div></div>
+            <div class="baby-stat"><div class="val">${data.wt}</div><div class="lbl">体重</div></div>
+            <div class="baby-stat"><div class="val">第${week}周</div><div class="lbl">孕周</div></div>
+        </div>
+    `;
+    chatArea.appendChild(div);
+    scrollToBottom();
+}
+
+function addChatCard(title, body) {
+    const chatArea = document.getElementById('chatArea');
+    const div = document.createElement('div');
+    div.className = 'chat-card';
+    div.innerHTML = `<div class="card-title">${title}</div><div class="card-body">${body}</div>`;
+    chatArea.appendChild(div);
+    scrollToBottom();
+}
+
+function addQuickActions(actions) {
+    const chatArea = document.getElementById('chatArea');
+    const div = document.createElement('div');
+    div.className = 'quick-actions';
+    div.innerHTML = actions.map(a => `<button class="quick-btn" onclick="handleQuickAction('${a.key}')">${a.label}</button>`).join('');
+    chatArea.appendChild(div);
+    scrollToBottom();
+}
+
+function addTyping() {
+    const chatArea = document.getElementById('chatArea');
+    const div = document.createElement('div');
+    div.className = 'msg ai';
+    div.id = 'typingMsg';
+    div.innerHTML = `<div class="msg-avatar">🌸</div><div class="msg-bubble"><div class="typing"><span></span><span></span><span></span></div></div>`;
+    chatArea.appendChild(div);
+    scrollToBottom();
+}
+
+function removeTyping() {
+    const el = document.getElementById('typingMsg');
+    if (el) el.remove();
+}
+
+function delay(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+// ===== Date Modal =====
+function showDateModal() {
+    document.getElementById('dateModal').classList.remove('hidden');
+}
+
+function selectDateMode(mode) {
+    document.getElementById('optEdd').classList.toggle('active', mode === 'edd');
+    document.getElementById('optLmp').classList.toggle('active', mode === 'lmp');
+    document.getElementById('inputEdd').style.display = mode === 'edd' ? 'block' : 'none';
+    document.getElementById('inputLmp').style.display = mode === 'lmp' ? 'block' : 'none';
+}
+
+function confirmDate() {
+    const eddActive = document.getElementById('optEdd').classList.contains('active');
+    let result;
+    if (eddActive) {
+        const v = document.getElementById('inputEdd').value;
+        if (!v) return;
+        result = calcFromEdd(v);
+    } else {
+        const v = document.getElementById('inputLmp').value;
+        if (!v) return;
+        result = calcFromLmp(v);
+    }
+    
+    state.currentWeek = result.weeks;
+    state.currentDay = result.days;
+    state.edd = result.edd;
+    state.lmp = result.lmp;
+    state.dateSet = true;
+    
+    // Update week badge
+    const daysLeft = getDaysUntilEdd();
+    const trimester = getTrimester(state.currentWeek);
+    document.getElementById('weekText').textContent = `${trimester} · 孕${state.currentWeek}周+${state.currentDay}天`;
+    document.getElementById('weekEdit').textContent = `距预产期${daysLeft}天 ✏️`;
+    
+    // Hide modal
+    document.getElementById('dateModal').classList.add('hidden');
+    
+    // Start welcome sequence
+    startWelcome();
+}
+
+// ===== Welcome Sequence =====
+async function startWelcome() {
+    const week = state.currentWeek;
+    const day = state.currentDay;
+    const trimester = getTrimester(week);
+    const daysLeft = getDaysUntilEdd();
+    const baby = getBabyData(week);
+    
+    // Welcome message
+    await delay(400);
+    addAiMsg(`Hi 准妈妈~ 👋<br><br>我是你的<strong>孕期搭子</strong>，从现在开始，整个孕期都有我陪你！`);
+    
+    // Week info
+    await delay(800);
+    addAiMsg(`你现在 <strong>孕${week}周+${day}天</strong>，${trimester}，距预产期还有 <strong>${daysLeft}天</strong>。<br><br>宝宝现在像${baby.size}${baby.fruit}那么大了~`);
+    
+    // Baby card
+    await delay(600);
+    addBabyCard(baby, week);
+    
+    // Baby description
+    await delay(500);
+    addAiMsg(baby.desc + `<br><br>🎯 <strong>里程碑</strong>：${baby.milestone}`);
+    
+    // Tip
+    if (baby.tip) {
+        await delay(500);
+        const isUrgent = baby.tip.startsWith('⚡');
+        addChatCard(isUrgent ? '⚡ 重要提醒' : '💡 本周提醒', baby.tip);
+    }
+    
+    // Quick actions based on week
+    await delay(400);
+    const actions = getQuickActions(week);
+    addQuickActions(actions);
+}
+
+function getQuickActions(week) {
+    const base = [
+        { key: 'baby', label: '宝宝现在多大？ 👶' },
+        { key: 'food', label: '今天吃什么好？ 🍽️' },
+    ];
+    
+    if (week >= 8 && week < 14) base.push({ key: 'nt', label: 'NT检查是什么？ 🩺' });
+    if (week >= 14 && week < 22) base.push({ key: 'anomaly', label: '大排畸什么时候做？ 🩺' });
+    if (week >= 22 && week < 30) base.push({ key: 'ogtt', label: '糖耐怎么准备？ 🩺' });
+    if (week >= 30) base.push({ key: 'bag', label: '待产包清单 🎒' });
+    
+    base.push({ key: 'mood', label: '有点焦虑... 💭' });
+    return base.slice(0, 4);
+}
+
+// ===== Quick Action Handlers =====
+async function handleQuickAction(key) {
+    const week = state.currentWeek;
+    const baby = getBabyData(week);
+    
+    switch(key) {
+        case 'baby':
+            addUserMsg('宝宝现在多大了？');
+            await delay(600);
+            addAiMsg(`第${week}周的小家伙，像${baby.size}${baby.fruit}那么大啦~<br><br>${baby.desc}`);
+            await delay(400);
+            addBabyCard(baby, week);
+            break;
+            
+        case 'food':
+            addUserMsg('今天吃什么好呀？');
+            await delay(700);
+            addAiMsg(getFoodAdvice(week));
+            break;
+            
+        case 'nt':
+            addUserMsg('NT检查是什么？');
+            await delay(700);
+            addAiMsg(`<strong>NT检查（颈项透明层筛查）</strong><br><br>📋 <strong>检查时间</strong>：孕11-13+6周<br>🎯 <strong>目的</strong>：测量胎儿颈后皮下积液的厚度，初步筛查染色体异常风险<br>⏱️ <strong>过程</strong>：B超检查，约15-20分钟<br>📊 <strong>正常值</strong>：NT值 < 2.5mm<br><br>💡 不需要空腹，不需要憋尿。如果宝宝位置不好可能需要走动一下再照~`);
+            break;
+            
+        case 'anomaly':
+            addUserMsg('大排畸什么时候做？');
+            await delay(700);
+            addAiMsg(`<strong>大排畸/四维彩超</strong><br><br>📋 <strong>检查时间</strong>：孕20-24周（最佳22-24周）<br>🎯 <strong>目的</strong>：系统检查胎儿各器官结构是否正常<br>⏱️ <strong>过程</strong>：约30-60分钟，宝宝配合的话更快<br><br>💡 建议提前预约！热门医院可能要提前1个月。检查前可以吃点甜食，宝宝会活跃一些，更容易拍到好角度~`);
+            break;
+            
+        case 'ogtt':
+            addUserMsg('糖耐怎么准备？');
+            await delay(700);
+            addAiMsg(`<strong>糖耐量检查（OGTT）</strong><br><br>📋 <strong>检查时间</strong>：孕24-28周<br>🎯 <strong>目的</strong>：筛查妊娠期糖尿病<br><br>📝 <strong>准备事项</strong>：<br>1. 检查前3天正常饮食，不要刻意控糖<br>2. 检查前一晚10点后禁食<br>3. 检查当天带点面包和水，抽完血就能吃<br>4. 需要喝75g糖水，然后分别在1h和2h抽血<br><br>💡 糖水是真的甜到齁，可以加冰或快速喝完！如果一项超标不用太紧张，饮食控制就行~`);
+            break;
+            
+        case 'bag':
+            addUserMsg('帮我看看待产包要准备什么');
+            await delay(700);
+            addChatCard('🎒 待产包·必备清单', `
+                <div class="report-item-chat"><span class="report-icon">📄</span><div><div class="report-name">证件类</div><div class="report-detail">身份证、医保卡、产检手册、准生证</div></div></div>
+                <div class="report-item-chat"><span class="report-icon">👩</span><div><div class="report-name">妈妈用品</div><div class="report-detail">产褥垫、一次性内裤、哺乳内衣、月子服、产妇卫生巾、吸管杯</div></div></div>
+                <div class="report-item-chat"><span class="report-icon">👶</span><div><div class="report-name">宝宝用品</div><div class="report-detail">新生儿衣服×3、包被、尿不湿NB码、湿巾、奶瓶</div></div></div>
+                <div class="report-item-chat"><span class="report-icon">🧴</span><div><div class="report-name">洗护类</div><div class="report-detail">毛巾、牙刷牙膏、脸盆、拖鞋</div></div></div>
+            `);
+            break;
+            
+        case 'mood':
+            addUserMsg('最近有点焦虑...');
+            await delay(800);
+            addAiMsg(getMoodResponse(week));
+            break;
+            
+        case 'report':
+            addUserMsg('我想看看产检报告');
+            await delay(600);
+            addAiMsg('把产检报告拍照发给我就行~ 支持血常规、B超、唐筛、糖耐等报告。<br><br>📷 <em>（Demo 演示：点击下方按钮查看示例解读）</em>');
+            await delay(400);
+            addQuickActions([{ key: 'reportDemo', label: '查看示例解读 📋' }]);
+            break;
+            
+        case 'reportDemo':
+            addUserMsg('[图片] 血常规报告');
+            await delay(1000);
+            addTyping();
+            await delay(1500);
+            removeTyping();
+            addChatCard('📋 血常规报告解读', `
+                <div class="report-item-chat"><span class="report-icon">✅</span><div><div class="report-name">白细胞 10.8×10⁹/L</div><div class="report-detail">正常！孕期偏高是正常的，免疫系统在加倍保护你和宝宝</div></div></div>
+                <div class="report-item-chat"><span class="report-icon">✅</span><div><div class="report-name">红细胞 3.8×10¹²/L</div><div class="report-detail">正常范围内</div></div></div>
+                <div class="report-item-chat"><span class="report-icon">⚠️</span><div><div class="report-name">血红蛋白 105g/L</div><div class="report-detail">略偏低（孕期标准≥110），轻度贫血，多吃红肉、猪肝、鸭血，配合维C更好吸收</div></div></div>
+                <div class="report-item-chat"><span class="report-icon">✅</span><div><div class="report-name">血小板 230×10⁹/L</div><div class="report-detail">完全正常</div></div></div>
+            `);
+            await delay(500);
+            addAiMsg('整体很好！只有血红蛋白稍低一点，通过饮食就能改善 ❤️ 下次产检可以跟医生提一下~<br><br><small style="color:var(--text-light)">⚕️ 以上仅供参考，请以医生意见为准</small>');
+            break;
+    }
+    
+    // Show new quick actions
+    await delay(600);
+    const newActions = getQuickActions(week);
+    newActions.unshift({ key: 'report', label: '产检报告解读 📋' });
+    addQuickActions(newActions.slice(0, 4));
+}
+
+function getFoodAdvice(week) {
+    if (week < 13) {
+        return `孕早期饮食重点是 <strong>补叶酸 + 缓解孕吐</strong>：<br><br>
+🥬 <strong>推荐</strong>：菠菜、西兰花、鸡蛋、全麦面包<br>
+🍋 <strong>缓解孕吐</strong>：柠檬水、苏打饼干、小番茄<br>
+🥛 <strong>每天</strong>：一杯牛奶 + 一个鸡蛋<br><br>
+💡 少量多餐，别饿着也别撑着。想吃什么就吃什么，能吃进去就好~`;
+    } else if (week < 28) {
+        return `孕中期饮食重点是 <strong>补铁 + 补钙</strong>：<br><br>
+🥩 <strong>补铁</strong>：红肉、猪肝、鸭血、黑木耳<br>
+🥛 <strong>补钙</strong>：牛奶、酸奶、虾皮、豆腐<br>
+🥗 <strong>维C搭配</strong>：猕猴桃、橙子（帮助铁吸收）<br><br>
+💡 食欲应该比孕早期好多了，趁现在好好吃！每天需要额外增加约300卡路里~`;
+    } else {
+        return `孕晚期饮食重点是 <strong>控制体重 + 营养均衡</strong>：<br><br>
+🐟 <strong>DHA</strong>：深海鱼（三文鱼、鳕鱼）每周2-3次<br>
+🥬 <strong>纤维</strong>：蔬菜水果保证每天500g<br>
+🥛 <strong>蛋白质</strong>：鸡蛋、瘦肉、豆制品<br><br>
+⚠️ 注意控制主食量，少吃高糖高油食物<br>
+💡 宝宝在疯狂长体重，但妈妈每周增重不要超过0.5kg哦~`;
+    }
+}
+
+function getMoodResponse(week) {
+    const responses = [
+        `我理解你的感受 ❤️<br><br>孕期焦虑是非常非常正常的，几乎每个准妈妈都会经历。你的身体在发生巨大的变化，担心宝宝是因为你已经在用心爱TA了。<br><br>试试这些：<br>🌿 出去散步15分钟，晒晒太阳<br>🎵 听一首喜欢的音乐<br>💬 跟我聊聊，什么都可以说<br><br>你已经做得很好了，真的 💕`,
+        `焦虑说明你很在乎宝宝，这本身就是爱啊 ❤️<br><br>但焦虑对你和宝宝都不好，深呼吸——<br><br>🫁 吸气4秒...保持4秒...呼气6秒...<br><br>再来一次，慢慢的~<br><br>产检结果正常就不用太担心，每个宝宝都有自己的节奏。你能做的就是好好吃饭、好好睡觉、保持好心情。这就是最好的胎教了 💕`,
+    ];
+    return responses[Math.floor(Math.random() * responses.length)];
+}
+
+// ===== User Input =====
+function sendUserMsg() {
+    const input = document.getElementById('userInput');
+    const text = input.value.trim();
+    if (!text) return;
+    input.value = '';
+    
+    addUserMsg(text);
+    
+    // Simple response
+    setTimeout(() => {
+        addTyping();
+        setTimeout(() => {
+            removeTyping();
+            const response = getSimpleResponse(text);
+            addAiMsg(response);
+            setTimeout(() => {
+                addQuickActions(getQuickActions(state.currentWeek));
+            }, 400);
+        }, 1000);
+    }, 500);
+}
+
+function getSimpleResponse(text) {
+    const lower = text.toLowerCase();
+    if (lower.includes('胎动') || lower.includes('踢')) {
+        return '感受到胎动啦！太棒了 🥰<br><br>一般建议从28周开始每天数胎动：每天找一个固定时间（推荐饭后），数到10次胎动所用的时间。2小时内达到10次就是正常的~<br><br>如果突然胎动明显减少或增多，要及时去医院哦！';
+    }
+    if (lower.includes('睡') || lower.includes('失眠')) {
+        return '孕期睡眠困难太常见了 😴<br><br>试试这些：<br>🛏️ 左侧卧位，膝间夹个枕头<br>🥛 睡前喝杯温牛奶<br>🚽 傍晚后少喝水（减少起夜）<br>📱 睡前1小时放下手机<br><br>如果实在睡不着，就闭眼休息也是好的，不要有压力 💕';
+    }
+    if (lower.includes('谢')) {
+        return '不客气~ 有任何问题随时找我聊 💕<br>我24小时都在！';
+    }
+    return `收到~ 你说的我都记住啦 📝<br><br>孕期有任何问题都可以问我，不管是身体变化、饮食建议还是心情聊聊天，我都在 💕`;
+}
+
+// ===== Init =====
+function updateClock() {
+    const now = new Date();
+    document.getElementById('currentTime').textContent = now.toTimeString().slice(0,5);
+}
+
+updateClock();
+setInterval(updateClock, 60000);
+</script>
 </body>
 </html>
