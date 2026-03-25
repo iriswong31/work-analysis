@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AIGP 物理实验室 — AI 交互式物理仿真学习</title>
+  <meta name="description" content="面向海南初中生的 AI 物理互动学习平台，基于沪科版教材，通过可交互仿真实验让学生直观理解物理底层逻辑。">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* 地图页面额外样式 */
+    .chapter-map-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--sp-md) var(--sp-lg);
+      margin-bottom: var(--sp-md);
+    }
+    .chapter-map-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--sp-md);
+    }
+    .chapter-map-nodes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--sp-lg);
+    }
+    .map-node {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      transition: transform 0.2s ease;
+    }
+    .map-node:hover {
+      transform: scale(1.1);
+    }
+    .map-node-circle {
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+    .map-node-label {
+      font-size: 11px;
+      color: var(--text-secondary);
+      text-align: center;
+      max-width: 80px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .map-node-badge {
+      font-size: 10px;
+      color: var(--accent-orange);
+      background: rgba(255, 140, 0, 0.1);
+      padding: 1px 6px;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <!-- 加载屏 -->
+  <div id="loading" class="loading-screen">
+    <div class="loading-spinner"></div>
+    <div class="loading-text">AIGP 物理实验室加载中...</div>
+  </div>
+
+  <div id="app">
+    <!-- 顶部导航栏 -->
+    <nav class="navbar">
+      <div class="navbar-brand">
+        <div class="logo-icon">⚡</div>
+        <span>AIGP 物理实验室</span>
+      </div>
+      
+      <div class="navbar-nav">
+        <button class="nav-item active" data-page="lab">🔬 实验台</button>
+        <button class="nav-item" data-page="map">🗺️ 学习地图</button>
+        <button class="nav-item" data-page="assess">📊 评估报告</button>
+        <button class="nav-item" data-page="wiki">📚 知识百科</button>
+      </div>
+      
+      <div class="navbar-right">
+        <div class="progress-ring" title="学习进度">
+          <svg width="36" height="36">
+            <circle class="ring-bg" cx="18" cy="18" r="14" fill="none" stroke-width="3"/>
+            <circle class="ring-fg" cx="18" cy="18" r="14" fill="none" stroke-width="3"
+              stroke-dasharray="88" stroke-dashoffset="88"/>
+          </svg>
+          <div class="ring-text">0%</div>
+        </div>
+        <span style="font-size:12px;color:var(--text-muted)">沪科版 · 电学</span>
+      </div>
+    </nav>
+    
+    <!-- 主内容区 -->
+    <div class="main-content">
+      
+      <!-- 页面1：实验台 -->
+      <div id="page-lab" class="page lab-page active">
+        <!-- 左侧元件面板 -->
+        <div class="component-panel">
+          <!-- 由 JS 填充 -->
+        </div>
+        
+        <!-- 中央仿真画布 -->
+        <div class="canvas-area">
+          <canvas id="circuit-canvas"></canvas>
+          <div class="canvas-info">
+            <div class="experiment-title">🔬 选择一个实验开始</div>
+          </div>
+          <!-- 底部状态栏 -->
+          <div class="lab-statusbar">
+            <div class="status-goal">选择一个实验开始你的物理探索之旅 ⚡</div>
+            <div class="status-actions"></div>
+          </div>
+        </div>
+        
+        <!-- 右侧对话面板 -->
+        <div class="dialog-panel">
+          <div class="dialog-header">
+            <div class="teacher-avatar">🧑‍🏫</div>
+            <div>
+              <div class="teacher-name">AI 物理老师</div>
+              <div class="teacher-status">● 在线</div>
+            </div>
+          </div>
+          <div class="dialog-messages">
+            <div class="message teacher">
+              👋 你好！我是你的 AI 物理老师。<br><br>
+              选择一个实验，我会一步步引导你理解物理规律。<br><br>
+              点击左下角的「📋 选择实验」开始吧！
+            </div>
+          </div>
+          <div class="dialog-actions">
+            <button class="dialog-btn primary" onclick="document.querySelector('[data-page=lab]')?.click(); document.getElementById('btn-select-exp')?.click()">开始学习</button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- 页面2：学习地图 -->
+      <div id="page-map" class="page map-page">
+        <div class="map-header">
+          <h2>🗺️ 我的学习地图</h2>
+          <div class="map-stats">
+            <!-- 由 JS 填充 -->
+          </div>
+        </div>
+        <div class="map-body">
+          <div class="knowledge-graph" id="knowledge-map" style="flex:1;overflow-y:auto">
+            <!-- 由 JS 填充 -->
+          </div>
+          <div class="recommend-panel">
+            <!-- 由 JS 填充 -->
+          </div>
+        </div>
+      </div>
+      
+      <!-- 页面3：评估报告 -->
+      <div id="page-assess" class="page">
+        <!-- 由 JS 填充 -->
+      </div>
+      
+      <!-- 页面4：知识百科 -->
+      <div id="page-wiki" class="page wiki-page">
+        <div class="wiki-sidebar">
+          <!-- 由 JS 填充 -->
+        </div>
+        <div class="wiki-content">
+          <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:var(--text-muted)">
+            <div style="font-size:48px;margin-bottom:16px">📚</div>
+            <p>从左侧目录选择知识点</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
