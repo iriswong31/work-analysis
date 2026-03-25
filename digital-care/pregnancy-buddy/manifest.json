@@ -1,0 +1,17 @@
+{
+    "name": "孕期搭子 - AI孕期陪伴助手",
+    "short_name": "孕期搭子",
+    "description": "你的AI孕期陪伴搭子，三餐提醒、产检解读、宝宝发育跟踪",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#FFFAF5",
+    "theme_color": "#E8A0BF",
+    "orientation": "portrait",
+    "icons": [
+        {
+            "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤰</text></svg>",
+            "sizes": "any",
+            "type": "image/svg+xml"
+        }
+    ]
+}
