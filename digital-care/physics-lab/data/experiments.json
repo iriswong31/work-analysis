@@ -1,0 +1,147 @@
+[
+  {
+    "id": "simple-circuit",
+    "name": "简单电路",
+    "description": "搭建一个最简单的电路：电池 + 开关 + 灯泡",
+    "knowledgeIds": ["ch14-s1-what-is-electricity", "ch14-s2-light-the-bulb"],
+    "chapter": 14,
+    "dialogTreeId": "simple-circuit",
+    "goals": ["理解电路的基本组成", "理解通路和断路", "掌握电流方向"],
+    "circuit": {
+      "components": [
+        { "id": "bat", "type": "battery", "voltage": 3, "label": "电源 3V" },
+        { "id": "sw", "type": "switch", "isOn": false, "label": "开关 S" },
+        { "id": "bulb1", "type": "bulb", "resistance": 10, "ratedPower": 0.9, "label": "灯泡 L" }
+      ],
+      "connections": [
+        { "from": "bat", "fromTerminal": "b", "to": "sw", "toTerminal": "a" },
+        { "from": "sw", "fromTerminal": "b", "to": "bulb1", "toTerminal": "a" },
+        { "from": "bulb1", "fromTerminal": "b", "to": "bat", "toTerminal": "a" }
+      ]
+    }
+  },
+  {
+    "id": "series-circuit",
+    "name": "串联电路",
+    "description": "探究串联电路中电流和电压的特点",
+    "knowledgeIds": ["ch14-s3-series-parallel", "ch14-s4-series-parallel-current", "ch14-s5-measure-voltage"],
+    "chapter": 14,
+    "dialogTreeId": "series-circuit",
+    "goals": ["理解串联电路的结构", "验证串联电路电流处处相等", "验证串联电路电压分配规律"],
+    "circuit": {
+      "components": [
+        { "id": "bat", "type": "battery", "voltage": 6, "label": "电源 6V" },
+        { "id": "sw", "type": "switch", "isOn": false, "label": "开关 S" },
+        { "id": "bulb1", "type": "bulb", "resistance": 10, "ratedPower": 1.8, "label": "灯泡 L₁(10Ω)" },
+        { "id": "bulb2", "type": "bulb", "resistance": 15, "ratedPower": 1.2, "label": "灯泡 L₂(15Ω)" },
+        { "id": "am", "type": "ammeter", "label": "电流表 A" }
+      ],
+      "connections": [
+        { "from": "bat", "fromTerminal": "b", "to": "sw", "toTerminal": "a" },
+        { "from": "sw", "fromTerminal": "b", "to": "bulb1", "toTerminal": "a" },
+        { "from": "bulb1", "fromTerminal": "b", "to": "bulb2", "toTerminal": "a" },
+        { "from": "bulb2", "fromTerminal": "b", "to": "am", "toTerminal": "a" },
+        { "from": "am", "fromTerminal": "b", "to": "bat", "toTerminal": "a" }
+      ]
+    }
+  },
+  {
+    "id": "parallel-circuit",
+    "name": "并联电路",
+    "description": "探究并联电路中电流和电压的特点",
+    "knowledgeIds": ["ch14-s3-series-parallel", "ch14-s4-series-parallel-current", "ch14-s5-measure-voltage"],
+    "chapter": 14,
+    "dialogTreeId": "parallel-circuit",
+    "goals": ["理解并联电路的结构", "验证并联电路各支路电压相等", "验证干路电流等于各支路电流之和"],
+    "circuit": {
+      "components": [
+        { "id": "bat", "type": "battery", "voltage": 6, "label": "电源 6V" },
+        { "id": "sw", "type": "switch", "isOn": false, "label": "总开关 S" },
+        { "id": "bulb1", "type": "bulb", "resistance": 10, "ratedPower": 3.6, "label": "灯泡 L₁(10Ω)" },
+        { "id": "bulb2", "type": "bulb", "resistance": 15, "ratedPower": 2.4, "label": "灯泡 L₂(15Ω)" }
+      ],
+      "connections": [
+        { "from": "bat", "fromTerminal": "b", "to": "sw", "toTerminal": "a" },
+        { "from": "sw", "fromTerminal": "b", "to": "bulb1", "toTerminal": "a" },
+        { "from": "sw", "fromTerminal": "b", "to": "bulb2", "toTerminal": "a" },
+        { "from": "bulb1", "fromTerminal": "b", "to": "bat", "toTerminal": "a" },
+        { "from": "bulb2", "fromTerminal": "b", "to": "bat", "toTerminal": "a" }
+      ]
+    }
+  },
+  {
+    "id": "ohm-law",
+    "name": "欧姆定律验证实验",
+    "description": "通过改变电阻和电压验证欧姆定律 I=U/R",
+    "knowledgeIds": ["ch15-s1-resistance-rheostat", "ch15-s2-ohm-law", "ch15-s3-va-method"],
+    "chapter": 15,
+    "dialogTreeId": "ohm-law",
+    "goals": ["理解欧姆定律 I=U/R", "学会使用滑动变阻器", "学会用伏安法测电阻"],
+    "circuit": {
+      "components": [
+        { "id": "bat", "type": "battery", "voltage": 6, "label": "电源 6V" },
+        { "id": "sw", "type": "switch", "isOn": false, "label": "开关 S" },
+        { "id": "R", "type": "resistor", "resistance": 10, "label": "定值电阻 R=10Ω" },
+        { "id": "rh", "type": "rheostat", "resistance": 20, "maxResistance": 50, "label": "变阻器 (0-50Ω)" },
+        { "id": "am", "type": "ammeter", "label": "电流表 A" }
+      ],
+      "connections": [
+        { "from": "bat", "fromTerminal": "b", "to": "sw", "toTerminal": "a" },
+        { "from": "sw", "fromTerminal": "b", "to": "R", "toTerminal": "a" },
+        { "from": "R", "fromTerminal": "b", "to": "rh", "toTerminal": "a" },
+        { "from": "rh", "fromTerminal": "b", "to": "am", "toTerminal": "a" },
+        { "from": "am", "fromTerminal": "b", "to": "bat", "toTerminal": "a" }
+      ]
+    }
+  },
+  {
+    "id": "measure-power",
+    "name": "测量小灯泡电功率",
+    "description": "用伏安法测量小灯泡在不同电压下的电功率",
+    "knowledgeIds": ["ch16-s2-electric-power-rate", "ch16-s3-measure-power"],
+    "chapter": 16,
+    "dialogTreeId": "measure-power",
+    "goals": ["掌握 P=UI 的测量方法", "理解额定功率与实际功率", "观察灯泡亮度与功率的关系"],
+    "circuit": {
+      "components": [
+        { "id": "bat", "type": "battery", "voltage": 4.5, "label": "电源 4.5V" },
+        { "id": "sw", "type": "switch", "isOn": false, "label": "开关 S" },
+        { "id": "bulb1", "type": "bulb", "resistance": 8, "ratedPower": 1, "label": "小灯泡 (额定1W)" },
+        { "id": "rh", "type": "rheostat", "resistance": 10, "maxResistance": 30, "label": "变阻器 (0-30Ω)" },
+        { "id": "am", "type": "ammeter", "label": "电流表 A" }
+      ],
+      "connections": [
+        { "from": "bat", "fromTerminal": "b", "to": "sw", "toTerminal": "a" },
+        { "from": "sw", "fromTerminal": "b", "to": "bulb1", "toTerminal": "a" },
+        { "from": "bulb1", "fromTerminal": "b", "to": "rh", "toTerminal": "a" },
+        { "from": "rh", "fromTerminal": "b", "to": "am", "toTerminal": "a" },
+        { "from": "am", "fromTerminal": "b", "to": "bat", "toTerminal": "a" }
+      ]
+    }
+  },
+  {
+    "id": "joule-law",
+    "name": "焦耳定律实验",
+    "description": "探究电流的热效应，比较不同电阻的发热量",
+    "knowledgeIds": ["ch16-s4-joule-law"],
+    "chapter": 16,
+    "dialogTreeId": "joule-law",
+    "goals": ["验证 Q=I²Rt", "理解串联时电阻大的产热多", "理解电热的利用与防止"],
+    "circuit": {
+      "components": [
+        { "id": "bat", "type": "battery", "voltage": 6, "label": "电源 6V" },
+        { "id": "sw", "type": "switch", "isOn": false, "label": "开关 S" },
+        { "id": "R1", "type": "resistor", "resistance": 5, "label": "R₁=5Ω" },
+        { "id": "R2", "type": "resistor", "resistance": 10, "label": "R₂=10Ω" },
+        { "id": "am", "type": "ammeter", "label": "电流表 A" }
+      ],
+      "connections": [
+        { "from": "bat", "fromTerminal": "b", "to": "sw", "toTerminal": "a" },
+        { "from": "sw", "fromTerminal": "b", "to": "R1", "toTerminal": "a" },
+        { "from": "R1", "fromTerminal": "b", "to": "R2", "toTerminal": "a" },
+        { "from": "R2", "fromTerminal": "b", "to": "am", "toTerminal": "a" },
+        { "from": "am", "fromTerminal": "b", "to": "bat", "toTerminal": "a" }
+      ]
+    }
+  }
+]
