@@ -1,74 +1,362 @@
 [
   {
-    "id": "q1", "knowledgeId": "ch14-s2-light-the-bulb", "difficulty": 1,
+    "id": "q1", "knowledgeId": "ch14-s1-what-is-electricity", "difficulty": 1,
+    "question": "用丝绸摩擦过的玻璃棒带正电，这是因为？",
+    "options": ["A. 玻璃棒得到了正电荷", "B. 丝绸得到了正电荷", "C. 玻璃棒失去了电子", "D. 玻璃棒得到了电子"],
+    "answer": "C", "analysis": "摩擦起电的本质是电子的转移。玻璃棒失去电子后，正电荷多于负电荷，所以带正电。丝绸得到电子后带负电。"
+  },
+  {
+    "id": "q2", "knowledgeId": "ch14-s1-what-is-electricity", "difficulty": 1,
+    "question": "验电器的工作原理是？",
+    "options": ["A. 异种电荷相互吸引", "B. 同种电荷相互排斥", "C. 电流的磁效应", "D. 电磁感应"],
+    "answer": "B", "analysis": "验电器中两片金属箔带上同种电荷后相互排斥而张开，张开角度越大说明带电量越多。"
+  },
+  {
+    "id": "q3", "knowledgeId": "ch14-s1-what-is-electricity", "difficulty": 2,
+    "question": "甲、乙两个轻质小球相互吸引，下列判断正确的是？",
+    "options": ["A. 两球一定带异种电荷", "B. 两球一定带同种电荷", "C. 两球可能一个带电一个不带电", "D. A和C都有可能"],
+    "answer": "D", "analysis": "两球吸引有两种情况：①两球带异种电荷；②一个带电一个不带电（带电体能吸引轻小物体）。"
+  },
+  {
+    "id": "q4", "knowledgeId": "ch14-s2-light-the-bulb", "difficulty": 1,
     "question": "要使灯泡发光，下列哪种连接方式是正确的？",
     "options": ["A. 电池、灯泡、开关依次连接成通路", "B. 只用导线连接灯泡", "C. 电池两极直接用导线连接", "D. 灯泡一端接电池，另一端悬空"],
     "answer": "A", "analysis": "电路必须由电源、导线、开关、用电器连成闭合回路，灯泡才能发光。B缺少电源；C是短路；D是断路。"
   },
   {
-    "id": "q2", "knowledgeId": "ch14-s3-series-parallel", "difficulty": 1,
+    "id": "q5", "knowledgeId": "ch14-s2-light-the-bulb", "difficulty": 1,
+    "question": "下列关于电路三种状态的说法，正确的是？",
+    "options": ["A. 短路时电路中没有电流", "B. 断路时电路中有很大电流", "C. 通路时电路中有持续电流", "D. 短路对电源没有影响"],
+    "answer": "C", "analysis": "通路是正常工作状态，有持续电流。短路时电流很大，会烧坏电源，对电源有极大危害。断路时电流为零。"
+  },
+  {
+    "id": "q6", "knowledgeId": "ch14-s2-light-the-bulb", "difficulty": 2,
+    "question": "某电路中灯泡不亮，用电压表检测发现灯泡两端有电压但无电流，原因可能是？",
+    "options": ["A. 灯泡短路", "B. 灯泡断路", "C. 电源没电", "D. 开关闭合"],
+    "answer": "B", "analysis": "灯泡两端有电压说明电源正常且灯泡没有被短路。无电流说明灯泡处断路（灯丝断了）。电压表并联在断路两端，可以测出电压。"
+  },
+  {
+    "id": "q7", "knowledgeId": "ch14-s3-series-parallel", "difficulty": 1,
     "question": "关于串联和并联电路，下列说法正确的是？",
     "options": ["A. 串联电路中各用电器互不影响", "B. 并联电路只有一条电流路径", "C. 串联电路中一个灯泡坏了，其他灯泡也不亮", "D. 并联电路中总开关只控制一个支路"],
     "answer": "C", "analysis": "串联电路只有一条路径，一处断开全部不工作。并联电路各支路独立，互不影响。"
   },
   {
-    "id": "q3", "knowledgeId": "ch14-s4-series-parallel-current", "difficulty": 2,
+    "id": "q8", "knowledgeId": "ch14-s3-series-parallel", "difficulty": 1,
+    "question": "家庭中的电灯、电视机、电冰箱之间的连接方式是？",
+    "options": ["A. 串联", "B. 并联", "C. 混联", "D. 不确定"],
+    "answer": "B", "analysis": "家用电器之间是并联连接，各电器独立工作互不影响，且各电器两端电压相同（均为220V）。"
+  },
+  {
+    "id": "q9", "knowledgeId": "ch14-s3-series-parallel", "difficulty": 2,
+    "question": "判断串并联的最可靠方法是？",
+    "options": ["A. 看灯泡是否并排放置", "B. 看电路中有几个开关", "C. 从电源正极出发看电流路径是一条还是多条", "D. 看导线的数量"],
+    "answer": "C", "analysis": "判断串并联要看电流路径：从正极出发只有一条路径→串联；有分支形成多条路径→并联。外观排列不能决定连接方式。"
+  },
+  {
+    "id": "q10", "knowledgeId": "ch14-s4-series-parallel-current", "difficulty": 2,
     "question": "两个灯泡串联在电路中，电流表示数为0.3A。则通过每个灯泡的电流分别是？",
     "options": ["A. 各0.15A", "B. 各0.3A", "C. 一个0.3A，一个0A", "D. 无法确定"],
     "answer": "B", "analysis": "串联电路中电流处处相等，I=I₁=I₂=0.3A。电流不会因为经过用电器而减小。"
   },
   {
-    "id": "q4", "knowledgeId": "ch14-s5-measure-voltage", "difficulty": 2,
+    "id": "q11", "knowledgeId": "ch14-s4-series-parallel-current", "difficulty": 2,
+    "question": "并联电路中，干路电流为1.2A，其中一条支路电流为0.5A，另一条支路电流为？",
+    "options": ["A. 0.5A", "B. 0.7A", "C. 1.2A", "D. 1.7A"],
+    "answer": "B", "analysis": "并联电路：I=I₁+I₂，所以I₂=I-I₁=1.2-0.5=0.7A。干路电流等于各支路电流之和。"
+  },
+  {
+    "id": "q12", "knowledgeId": "ch14-s4-series-parallel-current", "difficulty": 2,
+    "question": "使用电流表时，下列操作正确的是？",
+    "options": ["A. 电流表并联在电路中", "B. 让电流从负接线柱流入", "C. 不能超过量程使用", "D. 可以直接连在电源两极上"],
+    "answer": "C", "analysis": "电流表必须串联、电流从正接线柱流入、不能超量程、不能直接连电源两极（会短路烧坏）。"
+  },
+  {
+    "id": "q13", "knowledgeId": "ch14-s5-measure-voltage", "difficulty": 2,
     "question": "串联电路中，电源电压为6V，灯泡L₁两端电压为2.4V，则L₂两端电压为？",
     "options": ["A. 2.4V", "B. 3.6V", "C. 6V", "D. 8.4V"],
     "answer": "B", "analysis": "串联电路中总电压等于各部分电压之和：U=U₁+U₂，所以U₂=6-2.4=3.6V。"
   },
   {
-    "id": "q5", "knowledgeId": "ch15-s2-ohm-law", "difficulty": 2,
+    "id": "q14", "knowledgeId": "ch14-s5-measure-voltage", "difficulty": 1,
+    "question": "电压表应该怎样接入电路？",
+    "options": ["A. 与被测元件串联", "B. 与被测元件并联", "C. 随便接", "D. 接在电源两极之间"],
+    "answer": "B", "analysis": "电压表测的是两点间的电压差，必须并联在被测元件两端。串联会导致电路近似断路。"
+  },
+  {
+    "id": "q15", "knowledgeId": "ch14-s5-measure-voltage", "difficulty": 2,
+    "question": "两个灯泡并联，L₁两端电压为3V，则L₂两端电压为？",
+    "options": ["A. 1.5V", "B. 3V", "C. 6V", "D. 不确定"],
+    "answer": "B", "analysis": "并联电路中各支路两端电压相等：U=U₁=U₂=3V。"
+  },
+  {
+    "id": "q16", "knowledgeId": "ch15-s1-resistance-rheostat", "difficulty": 2,
+    "question": "下列因素中，不影响导体电阻大小的是？",
+    "options": ["A. 导体的材料", "B. 导体的长度", "C. 导体中的电流", "D. 导体的横截面积"],
+    "answer": "C", "analysis": "电阻R=ρL/S，与材料(ρ)、长度(L)、横截面积(S)有关，与温度也有关。电阻不随电流和电压变化。"
+  },
+  {
+    "id": "q17", "knowledgeId": "ch15-s1-resistance-rheostat", "difficulty": 2,
+    "question": "滑动变阻器接入电路时，"一上一下"接法的目的是？",
+    "options": ["A. 美观整齐", "B. 使电阻值固定不变", "C. 通过移动滑片改变电阻丝的有效长度", "D. 增大电路中的电流"],
+    "answer": "C", "analysis": "一上一下接法使得移动滑片时，接入电路的电阻丝长度发生变化，从而改变阻值。如果两个接线柱都接上面或都接下面，阻值不会变。"
+  },
+  {
+    "id": "q18", "knowledgeId": "ch15-s1-resistance-rheostat", "difficulty": 1,
+    "question": "一根铜导线拉长后（体积不变），其电阻将？",
+    "options": ["A. 变大", "B. 变小", "C. 不变", "D. 无法判断"],
+    "answer": "A", "analysis": "R=ρL/S。拉长后L变大，同时体积不变则S变小，所以R变大（L增大和S减小都使R增大）。"
+  },
+  {
+    "id": "q19", "knowledgeId": "ch15-s2-ohm-law", "difficulty": 2,
     "question": "一个10Ω的电阻，两端加4V电压，通过的电流是？",
     "options": ["A. 0.2A", "B. 0.4A", "C. 2.5A", "D. 40A"],
     "answer": "B", "analysis": "根据欧姆定律I=U/R=4V/10Ω=0.4A。"
   },
   {
-    "id": "q6", "knowledgeId": "ch15-s2-ohm-law", "difficulty": 2,
+    "id": "q20", "knowledgeId": "ch15-s2-ohm-law", "difficulty": 2,
     "question": "在探究欧姆定律的实验中，保持电压不变，将电阻由5Ω换成10Ω，电流将？",
     "options": ["A. 增大为原来的2倍", "B. 减小为原来的一半", "C. 不变", "D. 增大为原来的4倍"],
     "answer": "B", "analysis": "电压不变，电阻增大为2倍，由I=U/R可知电流减小为原来的1/2。这体现了欧姆定律中电流与电阻的反比关系。"
   },
   {
-    "id": "q7", "knowledgeId": "ch15-s4-series-parallel-resistance", "difficulty": 2,
+    "id": "q21", "knowledgeId": "ch15-s2-ohm-law", "difficulty": 3,
+    "question": "某同学根据R=U/I得出结论"电阻与电压成正比"，这个说法？",
+    "options": ["A. 正确，公式就是这么表示的", "B. 正确，电压越大电阻越大", "C. 错误，电阻是导体本身的性质，不随U和I改变", "D. 错误，电阻应该与电流成反比"],
+    "answer": "C", "analysis": "R=U/I只是电阻的测量公式，不是因果关系。电阻是导体本身的属性，由材料、长度、截面积和温度决定，不会随电压和电流的变化而变化。"
+  },
+  {
+    "id": "q22", "knowledgeId": "ch15-s3-va-method", "difficulty": 2,
+    "question": "用伏安法测电阻时，为什么要多次测量取平均值？",
+    "options": ["A. 为了增加实验次数", "B. 为了减小偶然误差", "C. 因为电阻值一直在变", "D. 老师要求这样做"],
+    "answer": "B", "analysis": "多次测量取平均值是减小偶然误差的基本方法。定值电阻的阻值不变，多次测量是为了让结果更准确。"
+  },
+  {
+    "id": "q23", "knowledgeId": "ch15-s3-va-method", "difficulty": 2,
+    "question": "伏安法测电阻实验中，变阻器的作用是？",
+    "options": ["A. 只起保护电路的作用", "B. 只用来改变被测电阻两端的电压和电流", "C. 既保护电路又改变电压和电流", "D. 充当被测电阻"],
+    "answer": "C", "analysis": "变阻器在实验中有两个作用：①实验开始时调到最大阻值保护电路；②通过移动滑片改变被测电阻两端的电压和电流，实现多次测量。"
+  },
+  {
+    "id": "q24", "knowledgeId": "ch15-s3-va-method", "difficulty": 3,
+    "question": "实验中只有电流表和已知电阻R₀，没有电压表，能否测量未知电阻Rx？",
+    "options": ["A. 不能，必须有电压表", "B. 能，将Rx与R₀串联，分别测电流计算", "C. 能，将Rx与R₀并联即可", "D. 能，只测Rx的电流就行"],
+    "answer": "B", "analysis": "等效替代法：将Rx与R₀串联，串联电流处处相等。用电流表测总电流I，由U=IR₀得R₀两端电压，再由总电压-R₀电压=Rx电压，最终Rx=Ux/I。或先后接入分别测电流。"
+  },
+  {
+    "id": "q25", "knowledgeId": "ch15-s4-series-parallel-resistance", "difficulty": 2,
     "question": "10Ω和15Ω的两个电阻并联，总电阻是？",
     "options": ["A. 25Ω", "B. 6Ω", "C. 5Ω", "D. 150Ω"],
     "answer": "B", "analysis": "并联总电阻：1/R=1/R₁+1/R₂=1/10+1/15=3/30+2/30=5/30，R=30/5=6Ω。并联总电阻小于最小的分电阻。"
   },
   {
-    "id": "q8", "knowledgeId": "ch16-s1-electric-work", "difficulty": 2,
+    "id": "q26", "knowledgeId": "ch15-s4-series-parallel-resistance", "difficulty": 2,
+    "question": "三个电阻R₁=R₂=R₃=12Ω串联，总电阻是？",
+    "options": ["A. 4Ω", "B. 12Ω", "C. 36Ω", "D. 144Ω"],
+    "answer": "C", "analysis": "串联总电阻R=R₁+R₂+R₃=12+12+12=36Ω。串联越串越大。"
+  },
+  {
+    "id": "q27", "knowledgeId": "ch15-s4-series-parallel-resistance", "difficulty": 3,
+    "question": "一个6Ω和一个12Ω的电阻并联后再和一个4Ω电阻串联，总电阻为？",
+    "options": ["A. 8Ω", "B. 10Ω", "C. 22Ω", "D. 6Ω"],
+    "answer": "A", "analysis": "先算并联：1/R并=1/6+1/12=2/12+1/12=3/12，R并=4Ω。再与4Ω串联：R总=R并+4=4+4=8Ω。"
+  },
+  {
+    "id": "q28", "knowledgeId": "ch15-s5-home-electricity", "difficulty": 1,
+    "question": "家庭电路的电压是？",
+    "options": ["A. 36V", "B. 110V", "C. 220V", "D. 380V"],
+    "answer": "C", "analysis": "我国家庭电路电压是220V。36V是安全电压上限，380V是动力电（工业用电）。"
+  },
+  {
+    "id": "q29", "knowledgeId": "ch15-s5-home-electricity", "difficulty": 1,
+    "question": "下列做法中符合安全用电原则的是？",
+    "options": ["A. 用湿手拔插头", "B. 在高压线附近放风筝", "C. 使用测电笔辨别火线和零线", "D. 在电线上晾衣服"],
+    "answer": "C", "analysis": "测电笔是安全检测工具。湿手触电风险大，高压线附近放风筝和在电线上晾衣服都极度危险。"
+  },
+  {
+    "id": "q30", "knowledgeId": "ch15-s5-home-electricity", "difficulty": 2,
+    "question": "家庭电路中保险丝熔断，最可能的原因是？",
+    "options": ["A. 电路断路", "B. 电路中电流过大", "C. 用电器功率太小", "D. 电压太低"],
+    "answer": "B", "analysis": "保险丝的作用就是在电流过大时熔断切断电路，保护电路安全。电流过大的原因可能是短路或用电器总功率过大。"
+  },
+  {
+    "id": "q31", "knowledgeId": "ch16-s1-electric-work", "difficulty": 2,
     "question": "一个标有「220V 100W」的灯泡，正常工作1小时消耗的电能是？",
     "options": ["A. 100J", "B. 360000J", "C. 100W·h", "D. 0.1kW·h"],
     "answer": "D", "analysis": "W=Pt=100W×1h=100W·h=0.1kW·h。也可以换算为：0.1kW·h=0.1×3.6×10⁶J=3.6×10⁵J。"
   },
   {
-    "id": "q9", "knowledgeId": "ch16-s2-electric-power-rate", "difficulty": 2,
+    "id": "q32", "knowledgeId": "ch16-s1-electric-work", "difficulty": 2,
+    "question": "电能表上标注的"3200imp/kW·h"表示？",
+    "options": ["A. 最大电流为3200A", "B. 每消耗1度电指示灯闪烁3200次", "C. 电能表的额定功率", "D. 电能表的最大测量值"],
+    "answer": "B", "analysis": "3200imp/kW·h表示每消耗1度电（1kW·h），电能表的脉冲指示灯闪烁3200次。可以用来精确计量用电量。"
+  },
+  {
+    "id": "q33", "knowledgeId": "ch16-s1-electric-work", "difficulty": 2,
+    "question": "下列哪种能量转化描述了电流做功的过程？",
+    "options": ["A. 化学能→电能", "B. 电能→其他形式的能", "C. 动能→势能", "D. 光能→化学能"],
+    "answer": "B", "analysis": "电流做功就是将电能转化为其他形式的能。如电灯：电能→光能和内能；电动机：电能→机械能。"
+  },
+  {
+    "id": "q34", "knowledgeId": "ch16-s2-electric-power-rate", "difficulty": 2,
     "question": "电路中电流为2A，电压为6V，该用电器的电功率是？",
     "options": ["A. 3W", "B. 8W", "C. 12W", "D. 0.33W"],
     "answer": "C", "analysis": "P=UI=6V×2A=12W。"
   },
   {
-    "id": "q10", "knowledgeId": "ch16-s3-measure-power", "difficulty": 3,
+    "id": "q35", "knowledgeId": "ch16-s2-electric-power-rate", "difficulty": 2,
+    "question": "一个灯泡标有"3.8V 0.3A"，它的额定功率是？",
+    "options": ["A. 0.3W", "B. 1.14W", "C. 3.8W", "D. 12.67W"],
+    "answer": "B", "analysis": "额定功率=额定电压×额定电流=3.8V×0.3A=1.14W。"
+  },
+  {
+    "id": "q36", "knowledgeId": "ch16-s2-electric-power-rate", "difficulty": 3,
+    "question": "标有"220V 100W"和"220V 40W"的两个灯泡串联接入220V电路，哪个更亮？",
+    "options": ["A. 100W的更亮", "B. 40W的更亮", "C. 一样亮", "D. 都不亮"],
+    "answer": "B", "analysis": "串联时电流相同，P=I²R。40W灯泡的电阻更大（R=U²/P，R₂=220²/40>R₁=220²/100），串联中电阻大的分得电压多、实际功率大，所以40W灯泡更亮。"
+  },
+  {
+    "id": "q37", "knowledgeId": "ch16-s3-measure-power", "difficulty": 3,
     "question": "小灯泡额定电压为3.8V，用4.5V电源和滑动变阻器测量其额定功率。闭合开关前，变阻器应？",
     "options": ["A. 滑片置于阻值最大处", "B. 滑片置于阻值最小处", "C. 滑片置于中间位置", "D. 无所谓"],
     "answer": "A", "analysis": "闭合开关前必须将变阻器调到最大阻值，这样接通电路时电流最小，起到保护电路的作用。然后再慢慢减小变阻器阻值，使灯泡电压逐渐升高到额定值。"
   },
   {
-    "id": "q11", "knowledgeId": "ch16-s4-joule-law", "difficulty": 2,
+    "id": "q38", "knowledgeId": "ch16-s3-measure-power", "difficulty": 3,
+    "question": "在测小灯泡额定功率实验中，当电压表示数为3.0V时灯泡较暗，为了测额定功率应？",
+    "options": ["A. 增大变阻器阻值", "B. 减小变阻器阻值使电压升到3.8V", "C. 更换更大电压的电源", "D. 直接用3.0V时的数据计算"],
+    "answer": "B", "analysis": "灯泡额定电压3.8V，当前只有3.0V所以较暗。应该减小变阻器阻值，增大灯泡分得的电压，直到电压表示数为3.8V时读取电流值，计算P=UI。"
+  },
+  {
+    "id": "q39", "knowledgeId": "ch16-s3-measure-power", "difficulty": 2,
+    "question": "某灯泡标有"6V 3W"，当实际电压为3V时，灯泡的实际功率约为？",
+    "options": ["A. 3W", "B. 1.5W", "C. 0.75W", "D. 6W"],
+    "answer": "C", "analysis": "灯泡电阻R=U²额/P额=36/3=12Ω。实际功率P实=U²实/R=9/12=0.75W。实际电压减半，实际功率变为原来的1/4。"
+  },
+  {
+    "id": "q40", "knowledgeId": "ch16-s4-joule-law", "difficulty": 2,
     "question": "两段电阻丝R₁=5Ω和R₂=10Ω串联，通电相同时间，它们产生的热量之比Q₁:Q₂为？",
     "options": ["A. 1:2", "B. 2:1", "C. 1:4", "D. 4:1"],
     "answer": "A", "analysis": "串联电路中电流相同，由Q=I²Rt可知，Q₁/Q₂=R₁/R₂=5/10=1/2。"
   },
   {
-    "id": "q12", "knowledgeId": "ch17-s1-what-is-magnetism", "difficulty": 1,
+    "id": "q41", "knowledgeId": "ch16-s4-joule-law", "difficulty": 2,
+    "question": "焦耳定律的公式 Q=I²Rt 表明，电流产生的热量与电流的关系是？",
+    "options": ["A. 成正比", "B. 成反比", "C. 与电流的平方成正比", "D. 无关"],
+    "answer": "C", "analysis": "Q=I²Rt，当R和t不变时，Q与I²成正比。电流增大为2倍，产生的热量增大为4倍。"
+  },
+  {
+    "id": "q42", "knowledgeId": "ch16-s4-joule-law", "difficulty": 3,
+    "question": "R₁和R₂并联在电路中（R₁<R₂），相同时间内产热较多的是？",
+    "options": ["A. R₁", "B. R₂", "C. 一样多", "D. 无法确定"],
+    "answer": "A", "analysis": "并联电路中电压相同，用Q=U²t/R分析。R₁<R₂，所以Q₁>Q₂。并联时电阻小的产热多（因为电流大）。"
+  },
+  {
+    "id": "q43", "knowledgeId": "ch17-s1-what-is-magnetism", "difficulty": 1,
     "question": "关于磁力线，下列说法正确的是？",
     "options": ["A. 磁力线是真实存在的线", "B. 磁力线从S极出发到N极", "C. 磁力线从N极出发到S极", "D. 磁力线可以相交"],
     "answer": "C", "analysis": "磁力线是人为假想的线，用来描述磁场。在磁体外部，磁力线从N极出发回到S极。磁力线不相交，因为每一点的磁场方向是唯一的。"
+  },
+  {
+    "id": "q44", "knowledgeId": "ch17-s1-what-is-magnetism", "difficulty": 1,
+    "question": "下列物体不能被磁铁吸引的是？",
+    "options": ["A. 铁钉", "B. 镍币", "C. 铝片", "D. 钢针"],
+    "answer": "C", "analysis": "磁铁只能吸引铁、钴、镍等磁性材料。铝不是磁性材料，不能被磁铁吸引。"
+  },
+  {
+    "id": "q45", "knowledgeId": "ch17-s1-what-is-magnetism", "difficulty": 2,
+    "question": "将一块条形磁铁从中间截断，下列说法正确的是？",
+    "options": ["A. 一半是N极，一半是S极", "B. 两半都没有磁性了", "C. 每一半仍然各有N极和S极", "D. 截断处不产生新的磁极"],
+    "answer": "C", "analysis": "磁极总是成对出现的，无法单独存在。将磁铁从中间截断，每一半仍然是一个完整的磁铁，各有N极和S极。"
+  },
+  {
+    "id": "q46", "knowledgeId": "ch17-s2-magnetic-field-of-current", "difficulty": 2,
+    "question": "奥斯特实验说明了什么？",
+    "options": ["A. 磁铁能产生电流", "B. 通电导体周围存在磁场", "C. 电荷在磁场中受力", "D. 磁极间相互吸引"],
+    "answer": "B", "analysis": "奥斯特实验发现通电导线下方的小磁针发生偏转，说明通电导体周围存在磁场，即电流的磁效应。"
+  },
+  {
+    "id": "q47", "knowledgeId": "ch17-s2-magnetic-field-of-current", "difficulty": 2,
+    "question": "要增强电磁铁的磁性，可以？",
+    "options": ["A. 减小通过的电流", "B. 增加线圈匝数", "C. 换用铜芯代替铁芯", "D. 减少线圈匝数"],
+    "answer": "B", "analysis": "电磁铁的磁性强弱与电流大小和线圈匝数有关。增大电流或增加匝数都能增强磁性。铁芯比铜芯更容易被磁化。"
+  },
+  {
+    "id": "q48", "knowledgeId": "ch17-s2-magnetic-field-of-current", "difficulty": 2,
+    "question": "电磁铁相比永磁体的主要优点是？",
+    "options": ["A. 磁性更强", "B. 可以控制磁性的有无和强弱", "C. 不需要电能", "D. 体积更小"],
+    "answer": "B", "analysis": "电磁铁的优点：①通断电控制磁性有无；②改变电流大小控制磁性强弱；③改变电流方向控制极性。这些都是永磁体做不到的。"
+  },
+  {
+    "id": "q49", "knowledgeId": "ch17-s3-motor", "difficulty": 2,
+    "question": "电动机的工作原理是？",
+    "options": ["A. 电磁感应", "B. 通电导体在磁场中受力", "C. 磁极间的相互作用", "D. 摩擦起电"],
+    "answer": "B", "analysis": "电动机原理：通电线圈在磁场中受安培力作用而转动，将电能转化为机械能。"
+  },
+  {
+    "id": "q50", "knowledgeId": "ch17-s3-motor", "difficulty": 2,
+    "question": "直流电动机中换向器的作用是？",
+    "options": ["A. 产生电流", "B. 改变磁场方向", "C. 使线圈持续沿同一方向转动", "D. 增大电流"],
+    "answer": "C", "analysis": "换向器在线圈转过平衡位置时自动改变电流方向，使线圈始终受到同一方向的力矩作用，从而持续转动。如果没有换向器，线圈只会来回摆动。"
+  },
+  {
+    "id": "q51", "knowledgeId": "ch17-s3-motor", "difficulty": 2,
+    "question": "要改变电动机的转向，可以？",
+    "options": ["A. 只改变电流方向", "B. 只改变磁场方向", "C. 同时改变电流方向和磁场方向", "D. A或B"],
+    "answer": "D", "analysis": "改变电流方向或改变磁场方向（其中之一），受力方向改变，电动机反转。但如果同时改变两者，力的方向不变，电动机转向不变。"
+  },
+  {
+    "id": "q52", "knowledgeId": "ch18-s1-electricity-generation", "difficulty": 1,
+    "question": "下列发电方式中，利用的是不可再生能源的是？",
+    "options": ["A. 风力发电", "B. 太阳能发电", "C. 火力发电", "D. 水力发电"],
+    "answer": "C", "analysis": "火力发电燃烧煤、石油、天然气等化石燃料，这些都是不可再生能源。风能、太阳能、水能都是可再生能源。"
+  },
+  {
+    "id": "q53", "knowledgeId": "ch18-s1-electricity-generation", "difficulty": 1,
+    "question": "火力发电的能量转化过程是？",
+    "options": ["A. 化学能→电能", "B. 化学能→内能→机械能→电能", "C. 机械能→电能", "D. 核能→电能"],
+    "answer": "B", "analysis": "火力发电：燃料燃烧（化学能→内能）→蒸汽推动汽轮机（内能→机械能）→带动发电机（机械能→电能）。"
+  },
+  {
+    "id": "q54", "knowledgeId": "ch18-s1-electricity-generation", "difficulty": 2,
+    "question": "海南适合大力发展的清洁能源发电方式是？",
+    "options": ["A. 火力发电", "B. 核能发电", "C. 太阳能和风力发电", "D. 水力发电"],
+    "answer": "C", "analysis": "海南日照充足、沿海风力资源丰富，非常适合发展太阳能和风力发电。这些都是清洁的可再生能源。"
+  },
+  {
+    "id": "q55", "knowledgeId": "ch18-s2-electromagnetic-induction", "difficulty": 2,
+    "question": "下列哪个实验能产生感应电流？",
+    "options": ["A. 磁铁静止不动放在线圈旁", "B. 导体在磁场中做切割磁力线运动", "C. 通电导体放在磁场中", "D. 电流通过螺线管"],
+    "answer": "B", "analysis": "产生感应电流的条件：闭合电路的一部分导体在磁场中做切割磁力线运动。A没有运动，C和D是电流的磁效应和电动机原理。"
+  },
+  {
+    "id": "q56", "knowledgeId": "ch18-s2-electromagnetic-induction", "difficulty": 3,
+    "question": "发电机和电动机的主要区别是？",
+    "options": ["A. 结构完全不同", "B. 发电机把机械能转化为电能，电动机把电能转化为机械能", "C. 发电机不需要磁场", "D. 电动机不需要线圈"],
+    "answer": "B", "analysis": "发电机原理是电磁感应（机械能→电能），电动机原理是通电导体在磁场中受力（电能→机械能）。两者结构类似但能量转化方向相反。"
+  },
+  {
+    "id": "q57", "knowledgeId": "ch18-s2-electromagnetic-induction", "difficulty": 2,
+    "question": "增大感应电流的方法有？",
+    "options": ["A. 增大导体切割磁力线的速度", "B. 增强磁场强度", "C. 增加线圈匝数", "D. 以上都是"],
+    "answer": "D", "analysis": "感应电流的大小与导体运动速度、磁场强度和线圈匝数都有关。增大其中任何一个因素都能增大感应电流。"
+  },
+  {
+    "id": "q58", "knowledgeId": "ch18-s3-power-transmission", "difficulty": 2,
+    "question": "高压输电的目的是？",
+    "options": ["A. 增大输电功率", "B. 减小输电线路上的电能损耗", "C. 增大输电电流", "D. 使用电器能正常工作"],
+    "answer": "B", "analysis": "输电线有电阻R线，损耗功率P损=I²R线。提高电压U后，由P=UI可知电流I减小，P损就减小了。所以高压输电是为了减小线路损耗。"
+  },
+  {
+    "id": "q59", "knowledgeId": "ch18-s3-power-transmission", "difficulty": 2,
+    "question": "变压器原线圈100匝，副线圈500匝，原线圈接220V电压，副线圈电压为？",
+    "options": ["A. 44V", "B. 220V", "C. 1100V", "D. 110000V"],
+    "answer": "C", "analysis": "变压器公式U₁/U₂=n₁/n₂，所以U₂=U₁×n₂/n₁=220×500/100=1100V。匝数比1:5，电压也升高5倍，这是升压变压器。"
+  },
+  {
+    "id": "q60", "knowledgeId": "ch18-s3-power-transmission", "difficulty": 3,
+    "question": "发电厂发出100kW的电能，输电线电阻10Ω。在1000V和10000V两种输电电压下，线路损耗功率之比为？",
+    "options": ["A. 1:10", "B. 10:1", "C. 100:1", "D. 1:100"],
+    "answer": "C", "analysis": "P损=I²R=(P/U)²R=P²R/U²。U₁=1000V时P损₁=100²×10⁶×10/10⁶=10kW；U₂=10000V时P损₂=100²×10⁶×10/10⁸=0.1kW。比值=10/0.1=100:1。电压升10倍，损耗减小100倍。"
   }
 ]
