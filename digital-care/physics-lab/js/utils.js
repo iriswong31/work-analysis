@@ -1,5 +1,5 @@
 /**
- * AIGP 物理实验室 — 工具函数集
+ * AIGP 物理实验室 — 工具函数集（v2）
  */
 
 // === 物理计算 ===
@@ -60,6 +60,43 @@ export const easing = {
   }
 };
 
+// === 颜色工具（修复版）===
+
+/**
+ * 统一颜色解析：支持 hex (#rgb, #rrggbb)、rgb()、rgba()、hsl() 格式
+ * 返回 { r, g, b } 对象（0-255）
+ */
+export function parseColor(color) {
+  if (!color || typeof color !== 'string') return { r: 74, g: 158, b: 255 }; // 默认蓝色
+  
+  color = color.trim();
+  
+  // hex 格式
+  if (color.startsWith('#')) {
+    let hex = color.slice(1);
+    if (hex.length === 3) hex = hex[0]+hex[0]+hex[1]+hex[1]+hex[2]+hex[2];
+    const n = parseInt(hex, 16);
+    return { r: (n >> 16) & 255, g: (n >> 8) & 255, b: n & 255 };
+  }
+  
+  // rgba/rgb 格式
+  const rgbMatch = color.match(/rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/);
+  if (rgbMatch) {
+    return { r: +rgbMatch[1], g: +rgbMatch[2], b: +rgbMatch[3] };
+  }
+  
+  // 兜底
+  return { r: 74, g: 158, b: 255 };
+}
+
+/**
+ * 生成 rgba 颜色字符串
+ */
+export function rgba(color, alpha = 1) {
+  const c = typeof color === 'string' ? parseColor(color) : color;
+  return `rgba(${c.r},${c.g},${c.b},${alpha})`;
+}
+
 // === Canvas 辅助 ===
 
 export function roundRect(ctx, x, y, w, h, r) {
@@ -76,14 +113,20 @@ export function roundRect(ctx, x, y, w, h, r) {
   ctx.closePath();
 }
 
+/**
+ * 安全的发光绘制（修复颜色解析 Bug）
+ */
 export function drawGlow(ctx, x, y, radius, color, alpha = 0.3) {
+  ctx.save();
+  const c = parseColor(color);
   const gradient = ctx.createRadialGradient(x, y, 0, x, y, radius);
-  gradient.addColorStop(0, color.replace(')', `,${alpha})`).replace('rgb', 'rgba'));
+  gradient.addColorStop(0, `rgba(${c.r},${c.g},${c.b},${alpha})`);
   gradient.addColorStop(1, 'transparent');
   ctx.fillStyle = gradient;
   ctx.beginPath();
   ctx.arc(x, y, radius, 0, Math.PI * 2);
   ctx.fill();
+  ctx.restore();
 }
 
 export function drawArrow(ctx, fromX, fromY, toX, toY, size = 8) {

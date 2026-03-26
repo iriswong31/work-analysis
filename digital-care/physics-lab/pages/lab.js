@@ -1,5 +1,6 @@
 /**
- * AIGP 物理实验室 — 实验台页面
+ * AIGP 物理实验室 — 实验台页面 v2
+ * 新增: 视图切换 / 变阻器拖拽反馈 / 电压源调节反馈 / 考题仿真模式
  */
 
 import { CircuitRenderer } from '../js/circuit-renderer.js';
@@ -7,6 +8,7 @@ import { createCircuitFromConfig } from '../js/circuit-engine.js';
 import { DialogEngine, getDialogTree } from '../js/dialog-engine.js';
 import { AssessEngine } from '../js/assess-engine.js';
 import { completeExperiment } from '../js/storage.js';
+import { formatVoltage, formatCurrent, formatPower, formatResistance } from '../js/utils.js';
 
 export class LabPage {
   constructor(app) {
@@ -17,6 +19,7 @@ export class LabPage {
     this.assessEngine = new AssessEngine();
     this.currentExperiment = null;
     this.quizOverlayVisible = false;
+    this.isExamMode = false; // 考题仿真模式
   }
   
   async init() {
@@ -24,12 +27,15 @@ export class LabPage {
     if (canvas) {
       this.renderer = new CircuitRenderer(canvas);
       this.renderer.onComponentClick = (comp) => this._onComponentClick(comp);
+      this.renderer.onRheostatChange = (comp) => this._onRheostatChange(comp);
+      this.renderer.onVoltageChange = (comp) => this._onVoltageChange(comp);
       this.renderer.startAnimation();
     }
     
     this.assessEngine.init(this.app.data.questions, this.app.data.knowledgeTree);
     this._setupComponentPanel();
     this._setupDialogCallbacks();
+    this._setupViewToggle();
   }
   
   destroy() {
@@ -42,22 +48,39 @@ export class LabPage {
     const panel = document.querySelector('.component-panel');
     if (!panel) return;
     
+    const experiments = this.app.data.experiments || [];
+    // 分离普通实验和考题
+    const regularExps = experiments.filter(e => !e.isExam);
+    const examExps = experiments.filter(e => e.isExam);
+    
     panel.innerHTML = `
       <div class="panel-title">📋 实验列表</div>
       <div class="experiment-list">
-        ${(this.app.data.experiments || []).map(exp => `
+        ${regularExps.map(exp => `
           <button class="exp-btn" data-exp="${exp.id}" title="${exp.description}">
             <span class="exp-icon">${this._getExpIcon(exp.chapter)}</span>
             <span class="exp-name">${exp.name}</span>
           </button>
         `).join('')}
       </div>
+      ${examExps.length > 0 ? `
+        <div class="panel-title" style="margin-top:16px">📝 考题仿真</div>
+        <div class="experiment-list">
+          ${examExps.map(exp => `
+            <button class="exp-btn exam-btn" data-exp="${exp.id}" title="${exp.description}">
+              <span class="exp-icon">📝</span>
+              <span class="exp-name">${exp.name}</span>
+            </button>
+          `).join('')}
+        </div>
+      ` : ''}
       <div style="margin-top:auto;padding-top:12px;border-top:1px solid var(--border)">
         <div class="panel-title" style="font-size:11px;margin-bottom:8px">💡 操作提示</div>
         <div style="font-size:11px;color:var(--text-muted);line-height:1.6">
           • 点击<b>开关</b>闭合/断开电路<br>
-          • 点击<b>变阻器</b>调节阻值<br>
-          • 跟随AI老师的引导实验
+          • 拖拽<b>变阻器滑片</b>调节阻值<br>
+          • 点击<b>电池</b>切换电压<br>
+          • 点击右上角切换<b>实物/电路图</b>
         </div>
       </div>
     `;
@@ -85,12 +108,42 @@ export class LabPage {
     };
   }
   
+  // 视图切换按钮
+  _setupViewToggle() {
+    const canvasArea = document.querySelector('.canvas-area');
+    if (!canvasArea) return;
+    
+    // 检查是否已存在
+    if (canvasArea.querySelector('.view-toggle-group')) return;
+    
+    const toggleGroup = document.createElement('div');
+    toggleGroup.className = 'view-toggle-group';
+    toggleGroup.style.cssText = 'position:absolute;top:12px;right:12px;display:flex;gap:4px;z-index:10;';
+    
+    toggleGroup.innerHTML = `
+      <button class="view-toggle-btn active" data-view="schematic" title="电路原理图">📐 原理图</button>
+      <button class="view-toggle-btn" data-view="realistic" title="实物连接图">📷 实物图</button>
+    `;
+    
+    canvasArea.appendChild(toggleGroup);
+    
+    toggleGroup.querySelectorAll('.view-toggle-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const mode = btn.dataset.view;
+        this.renderer.setViewMode(mode);
+        toggleGroup.querySelectorAll('.view-toggle-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+  }
+  
   // 加载实验
   loadExperiment(expId) {
     const exp = (this.app.data.experiments || []).find(e => e.id === expId);
     if (!exp) return;
     
     this.currentExperiment = exp;
+    this.isExamMode = !!exp.isExam;
     
     // 创建电路
     this.circuit = createCircuitFromConfig(exp.circuit);
@@ -98,7 +151,7 @@ export class LabPage {
     
     // 更新 UI
     const titleEl = document.querySelector('.experiment-title');
-    if (titleEl) titleEl.textContent = `🔬 ${exp.name}`;
+    if (titleEl) titleEl.textContent = this.isExamMode ? `📝 ${exp.name}` : `🔬 ${exp.name}`;
     
     const goalEl = document.querySelector('.status-goal');
     if (goalEl) goalEl.textContent = exp.goals?.[0] || '完成实验';
@@ -108,23 +161,33 @@ export class LabPage {
     if (actionsEl) {
       actionsEl.innerHTML = `
         <button class="btn-sm" onclick="document.dispatchEvent(new CustomEvent('lab-reset'))">🔄 重置</button>
-        <button class="btn-sm primary" onclick="document.dispatchEvent(new CustomEvent('lab-quiz'))">📝 练习题</button>
+        ${!this.isExamMode ? `<button class="btn-sm primary" onclick="document.dispatchEvent(new CustomEvent('lab-quiz'))">📝 练习题</button>` : ''}
       `;
     }
+    
+    // 数据面板（实时显示电路参数）
+    this._updateDataPanel();
     
     // 高亮当前实验按钮
     document.querySelectorAll('.exp-btn').forEach(btn => {
       btn.classList.toggle('active', btn.dataset.exp === expId);
     });
     
-    // 清空对话并启动对话树
+    // 清空对话并启动
     this._clearMessages();
-    const tree = getDialogTree(exp.dialogTreeId);
-    if (tree) {
-      this.dialogEngine.loadTree(tree);
-      this.dialogEngine.start();
+    
+    if (this.isExamMode) {
+      // 考题模式：显示题目
+      this._addMessage(`📝 <b>考题仿真</b>\n\n${exp.description}\n\n<b>任务目标：</b>\n${(exp.goals || []).map((g, i) => `${i + 1}. ${g}`).join('\n')}`, 'teacher');
+      this._addMessage('⚡ 先闭合开关，然后通过调节变阻器滑片和切换电压来完成题目要求。', 'teacher');
     } else {
-      this._addMessage(`🔬 欢迎来到「${exp.name}」实验！\n\n试着闭合开关，观察电路变化。`, 'teacher');
+      const tree = getDialogTree(exp.dialogTreeId);
+      if (tree) {
+        this.dialogEngine.loadTree(tree);
+        this.dialogEngine.start();
+      } else {
+        this._addMessage(`🔬 欢迎来到「${exp.name}」实验！\n\n试着闭合开关，观察电路变化。`, 'teacher');
+      }
     }
     
     // 绑定事件
@@ -144,6 +207,53 @@ export class LabPage {
       } else {
         this._addMessage('🔓 我断开了开关', 'student');
       }
+      this._updateDataPanel();
+    } else if (comp.type === 'battery') {
+      this._addMessage(`🔋 电源调节为 ${comp.voltage}V`, 'student');
+      this._updateDataPanel();
+    }
+  }
+  
+  _onRheostatChange(comp) {
+    this._updateDataPanel();
+  }
+  
+  _onVoltageChange(comp) {
+    this._updateDataPanel();
+  }
+  
+  // 实时数据面板
+  _updateDataPanel() {
+    if (!this.circuit) return;
+    
+    let dataHtml = '';
+    const battery = Array.from(this.circuit.components.values()).find(c => c.type === 'battery');
+    
+    if (battery && this.circuit.solved && !this.circuit.hasError) {
+      dataHtml += `<div class="data-row"><span>电源电压</span><span class="data-val">${formatVoltage(battery.voltage)}</span></div>`;
+      dataHtml += `<div class="data-row"><span>总电流</span><span class="data-val">${formatCurrent(battery.current)}</span></div>`;
+      
+      for (const [, comp] of this.circuit.components) {
+        if (comp.type === 'resistor' || comp.type === 'bulb' || comp.type === 'rheostat') {
+          const label = comp.label || comp.id;
+          dataHtml += `<div class="data-row"><span>${label}</span><span class="data-val">${formatVoltage(comp.voltage)} / ${formatCurrent(comp.current)} / ${formatPower(comp.power)}</span></div>`;
+        }
+      }
+    }
+    
+    // 找或创建数据面板
+    let dataPanel = document.querySelector('.circuit-data-panel');
+    if (!dataPanel) {
+      const canvasInfo = document.querySelector('.canvas-info');
+      if (canvasInfo) {
+        dataPanel = document.createElement('div');
+        dataPanel.className = 'circuit-data-panel';
+        dataPanel.style.cssText = 'margin-top:8px;background:rgba(10,14,39,0.85);padding:8px 12px;border-radius:6px;border:1px solid var(--border);font-size:11px;max-width:260px;';
+        canvasInfo.appendChild(dataPanel);
+      }
+    }
+    if (dataPanel) {
+      dataPanel.innerHTML = dataHtml || '<span style="color:var(--text-muted)">闭合开关后显示数据</span>';
     }
   }
   
@@ -165,10 +275,8 @@ export class LabPage {
     msgDiv.innerHTML = text.replace(/\n/g, '<br>');
     container.appendChild(msgDiv);
     
-    // 滚动到底部
     container.scrollTop = container.scrollHeight;
     
-    // 如果有选项，显示选择按钮
     if (options && options.length > 0) {
       const actionsDiv = document.querySelector('.dialog-actions');
       if (actionsDiv) {
@@ -214,7 +322,6 @@ export class LabPage {
   }
   
   _showQuizOverlay(question) {
-    // 创建遮罩
     let overlay = document.getElementById('quiz-overlay');
     if (!overlay) {
       overlay = document.createElement('div');
@@ -246,7 +353,6 @@ export class LabPage {
         const answer = btn.dataset.answer;
         const result = await this.assessEngine.submitAnswer(question.id, answer);
         
-        // 高亮正确/错误
         overlay.querySelectorAll('.quiz-option').forEach(b => {
           if (b.dataset.answer === result.correctAnswer) {
             b.classList.add('correct');
