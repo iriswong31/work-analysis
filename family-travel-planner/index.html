@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>亲子旅游 · 原型展示</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Noto+Serif+SC:wght@500;700&family=Caveat:wght@500;700&family=Inter:wght@500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Noto Serif SC',serif;background:#fefcf7;color:#1a1a1a;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:40px 20px}
+.wrap{max-width:760px;width:100%;background:#fff;border:1px solid #e0dcd0;padding:60px 50px;text-align:center;position:relative;overflow:hidden}
+.wrap::before{content:"";position:absolute;top:0;left:0;width:100%;height:8px;background:#FFCC00}
+.tag{display:inline-block;background:#000;color:#FFCC00;padding:5px 14px;font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.2em;font-weight:600;margin-bottom:24px}
+h1{font-family:'Playfair Display',serif;font-size:56px;font-weight:900;line-height:1.05;margin-bottom:8px;letter-spacing:-.02em}
+.cn{font-size:24px;font-weight:600;color:#4a4a4a;margin-bottom:16px}
+.ciao{font-family:'Caveat',cursive;font-size:30px;color:#ff7b7b;margin-bottom:40px}
+.live-card{background:#000;color:#fff;padding:32px;text-align:left;margin:32px 0;position:relative}
+.live-card .live{display:inline-block;background:#FFCC00;color:#000;padding:3px 10px;font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.2em;font-weight:700;margin-bottom:12px}
+.live-card h3{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;margin-bottom:6px}
+.live-card .zh{font-size:14px;color:#ccc;margin-bottom:20px}
+.live-card a{display:inline-block;background:#FFCC00;color:#000;padding:14px 32px;text-decoration:none;font-family:'Inter',sans-serif;font-size:13px;font-weight:700;letter-spacing:.1em}
+.coming{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:32px}
+.coming .item{padding:14px 8px;border:1px solid #e0dcd0;font-size:12px;color:#8a8a8a}
+.coming .item .flag{font-size:18px;display:block;margin-bottom:4px}
+.foot{margin-top:40px;padding-top:28px;border-top:1px solid #e0dcd0;font-size:12px;color:#8a8a8a;font-family:'Inter',sans-serif;letter-spacing:.05em}
+.foot strong{color:#000}
+@media(max-width:600px){
+  .wrap{padding:40px 24px}
+  h1{font-size:38px}
+  .coming{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="tag">PROTOTYPE · v0.3</div>
+  <h1>Family Journey</h1>
+  <div class="cn">亲子旅游攻略 · 原型展示</div>
+  <div class="ciao">— 让娃在真实世界里读懂一本书 —</div>
+
+  <div class="live-card">
+    <div class="live">● LIVE · 已上线预览</div>
+    <h3>Italia · 意大利</h3>
+    <div class="zh">10 天 · 4 城 · 3-12 岁 · 文艺复兴艺术启蒙</div>
+    <a href="./italy/">浏览攻略 →</a>
+  </div>
+
+  <div style="text-align:left;margin-top:32px">
+    <div style="font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.2em;color:#8a8a8a;margin-bottom:14px">COMING SOON · 伊娃 17 段攻略整理中</div>
+    <div class="coming">
+      <div class="item"><span class="flag">🇪🇸</span>西班牙</div>
+      <div class="item"><span class="flag">🇨🇳</span>福建</div>
+      <div class="item"><span class="flag">🇦🇪</span>迪拜</div>
+      <div class="item"><span class="flag">🇺🇸</span>美东</div>
+      <div class="item"><span class="flag">🇰🇭</span>柬埔寨</div>
+      <div class="item"><span class="flag">🇨🇳</span>云南</div>
+      <div class="item"><span class="flag">🇨🇳</span>山西</div>
+      <div class="item"><span class="flag">🇨🇳</span>江西</div>
+      <div class="item"><span class="flag">🇨🇳</span>洛阳</div>
+      <div class="item"><span class="flag">🇨🇳</span>成都</div>
+      <div class="item"><span class="flag">🇨🇳</span>南京</div>
+      <div class="item"><span class="flag">🇨🇳</span>大西北</div>
+      <div class="item"><span class="flag">🇰🇷</span>韩国</div>
+      <div class="item"><span class="flag">🇨🇳</span>台湾</div>
+      <div class="item"><span class="flag">🇯🇵</span>日本</div>
+      <div class="item">+ 你的攻略</div>
+    </div>
+  </div>
+
+  <div class="foot">
+    本期攻略作者 · <strong>伊娃 · 亲子游攻略大师</strong><br/>
+    所有数据真实可溯源 · 持续打磨中
+  </div>
+</div>
+</body>
+</html>
