@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>亲子旅游攻略网站 · 方案介绍 v0.3</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700;900&family=Noto+Serif+SC:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ng-yellow:#FFCC00;
+  --ink:#1a1a1a;
+  --ink-soft:#4a4a4a;
+  --ink-mute:#8a8a8a;
+  --paper:#fefcf7;
+  --paper-soft:#f5f1e8;
+  --line:#e0dcd0;
+  --kid-pink:#ff7b7b;
+  --kid-blue:#5bc0de;
+  --kid-green:#6bbf59;
+}
+html,body{font-family:'Noto Serif SC',serif;background:var(--paper);color:var(--ink);font-size:15px;line-height:1.75;-webkit-font-smoothing:antialiased}
+body{max-width:900px;margin:0 auto;padding-bottom:80px}
+
+/* Header */
+.head{padding:80px 50px 50px;position:relative;background:#000;color:#fff;margin-bottom:40px;overflow:hidden}
+.head::before{content:"";position:absolute;top:-60px;right:-60px;width:300px;height:300px;background:var(--ng-yellow);border-radius:50%;opacity:.15}
+.head::after{content:"";position:absolute;bottom:-80px;left:-40px;width:200px;height:200px;background:var(--kid-pink);border-radius:50%;opacity:.15}
+.head .tag{display:inline-block;background:var(--ng-yellow);color:#000;padding:5px 14px;font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.2em;font-weight:700;margin-bottom:20px;position:relative;z-index:2}
+.head h1{font-family:'Playfair Display',serif;font-size:64px;font-weight:900;line-height:1.05;margin-bottom:12px;letter-spacing:-.02em;position:relative;z-index:2}
+.head .sub{font-family:'Noto Serif SC',serif;font-size:22px;color:#eee;margin-bottom:18px;position:relative;z-index:2}
+.head .for{font-family:'Caveat',cursive;font-size:28px;color:var(--ng-yellow);position:relative;z-index:2}
+.head .meta{margin-top:28px;display:flex;gap:32px;font-family:'Inter',sans-serif;font-size:12px;color:#aaa;position:relative;z-index:2;border-top:1px solid rgba(255,255,255,.2);padding-top:20px}
+.head .meta span strong{color:var(--ng-yellow);display:block;font-size:10px;letter-spacing:.15em;margin-bottom:4px}
+
+/* Section */
+.sec{padding:0 50px;margin-bottom:60px}
+.sec-num{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:var(--ng-yellow);letter-spacing:.3em;margin-bottom:6px}
+.sec-num::before{content:"";display:inline-block;width:30px;height:2px;background:var(--ng-yellow);vertical-align:middle;margin-right:10px}
+.sec h2{font-family:'Playfair Display',serif;font-size:36px;font-weight:700;line-height:1.15;margin-bottom:20px;letter-spacing:-.01em}
+.sec h2 .zh{font-family:'Noto Serif SC',serif;font-weight:700}
+.sec .kid-sub{font-family:'Caveat',cursive;font-size:22px;color:var(--kid-pink);margin-bottom:28px;display:block}
+.sec p{margin-bottom:16px;color:var(--ink-soft)}
+
+.hero-photo{margin:0 0 32px;position:relative;overflow:hidden}
+.hero-photo img{width:100%;display:block}
+.hero-photo .credit{position:absolute;bottom:8px;right:12px;font-family:'Inter',sans-serif;font-size:10px;color:rgba(255,255,255,.85);background:rgba(0,0,0,.45);padding:3px 8px}
+
+/* 两大板块卡片 */
+.dual-plate{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:24px 0}
+.plate{background:#fff;border:1px solid var(--line);padding:28px 24px;position:relative;overflow:hidden}
+.plate.a{border-top:3px solid var(--ng-yellow)}
+.plate.b{border-top:3px solid #000}
+.plate .plate-lab{font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.2em;font-weight:700;margin-bottom:8px}
+.plate.a .plate-lab{color:var(--ng-yellow)}
+.plate.b .plate-lab{color:#000}
+.plate h3{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;margin-bottom:6px}
+.plate .zh{font-size:15px;font-weight:600;color:var(--ink-soft);margin-bottom:14px}
+.plate .demo-box{margin:16px 0;padding:14px 16px;background:var(--paper-soft);font-family:'Inter',sans-serif;font-size:13px;line-height:1.8;border-left:2px solid var(--ng-yellow)}
+.plate .demo-box .tok{display:inline-block;padding:2px 8px;background:#fff;border:1px dashed var(--ng-yellow);margin:0 3px;color:#000;font-weight:600}
+.plate ul{list-style:none;margin-top:14px}
+.plate li{padding:6px 0;color:var(--ink-soft);font-size:13px;border-bottom:1px dashed var(--line)}
+.plate li::before{content:"✓ ";color:var(--ng-yellow);font-weight:700}
+
+/* 5 Part 流程 */
+.parts-flow{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:24px 0}
+.part-cell{padding:18px 12px;background:#fff;border:1px solid var(--line);text-align:center;position:relative}
+.part-cell .num{font-family:'Playfair Display',serif;font-size:28px;color:var(--ng-yellow);font-weight:700;line-height:1}
+.part-cell h6{font-family:'Noto Serif SC',serif;font-size:13px;font-weight:600;margin:6px 0 4px}
+.part-cell p{font-size:11px;color:var(--ink-mute);line-height:1.5;margin:0}
+
+/* 三段式讲解示例 */
+.three-demo{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin:24px 0;border:1px solid var(--line)}
+.three-demo .tier{padding:20px 18px;border-right:1px solid var(--line)}
+.three-demo .tier:last-child{border-right:none}
+.three-demo .tier:nth-child(1){background:#fff8e1}
+.three-demo .tier:nth-child(2){background:#e3f2fd}
+.three-demo .tier:nth-child(3){background:#f3e5f5}
+.three-demo .tag{font-family:'Caveat',cursive;font-size:20px;font-weight:700;margin-bottom:6px}
+.three-demo .tier:nth-child(1) .tag{color:#e67e22}
+.three-demo .tier:nth-child(2) .tag{color:#2980b9}
+.three-demo .tier:nth-child(3) .tag{color:#8e44ad}
+.three-demo h6{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;margin-bottom:6px}
+.three-demo p{font-size:12px;color:var(--ink-soft);line-height:1.65;margin:0}
+
+/* 作者区别对比 */
+.author-compare{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:24px 0}
+.author-box{padding:20px;background:#fff;border:1px solid var(--line)}
+.author-box.eva{border-left:3px solid var(--ng-yellow)}
+.author-box.ai{border-left:3px solid var(--kid-blue)}
+.author-box .hdr{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.author-box .avatar{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-family:'Playfair Display',serif}
+.author-box.eva .avatar{background:var(--ng-yellow);color:#000}
+.author-box.ai .avatar{background:#000;color:var(--ng-yellow)}
+.author-box h6{font-family:'Playfair Display',serif;font-size:16px;font-weight:700}
+.author-box .meta{font-size:11px;color:var(--ink-mute);font-family:'Inter',sans-serif}
+.author-box p{font-size:13px;color:var(--ink-soft);line-height:1.65}
+
+/* 真实性红线 */
+.redline{margin:24px 0;padding:24px 28px;background:#fff8e8;border-left:4px solid #c89a3a;border-radius:2px}
+.redline h4{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:#5a3a0a;margin-bottom:10px}
+.redline p{color:#7a5a1f;font-size:13px;margin:0}
+
+/* 远期愿景 */
+.vision{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:24px 0}
+.vision-card{padding:18px 14px;background:#fff;border:1px solid var(--line);text-align:center}
+.vision-card .ico{font-family:'Caveat',cursive;font-size:28px;color:var(--ng-yellow);font-weight:700;line-height:1}
+.vision-card h6{font-family:'Noto Serif SC',serif;font-size:13px;font-weight:600;margin:8px 0 4px}
+.vision-card p{font-size:11px;color:var(--ink-mute);line-height:1.5;margin:0}
+
+/* 攻略预览卡 */
+.preview-card{background:#000;color:#fff;padding:32px;margin:24px 0;text-align:center;position:relative;overflow:hidden}
+.preview-card::before{content:"";position:absolute;top:-40px;left:-40px;width:160px;height:160px;background:var(--ng-yellow);border-radius:50%;opacity:.2}
+.preview-card h3{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;margin-bottom:8px;position:relative;z-index:2}
+.preview-card .sub{color:#ccc;font-size:14px;margin-bottom:22px;position:relative;z-index:2}
+.preview-card a{display:inline-block;padding:12px 36px;background:var(--ng-yellow);color:#000;text-decoration:none;font-family:'Inter',sans-serif;font-size:13px;font-weight:700;letter-spacing:.1em;position:relative;z-index:2}
+
+/* 下一步行动 */
+.cta{padding:40px 50px;background:var(--paper-soft);text-align:center;margin:60px 0 0}
+.cta .kid-tag{font-family:'Caveat',cursive;font-size:26px;color:var(--kid-pink);margin-bottom:10px}
+.cta h3{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;margin-bottom:14px}
+.cta p{color:var(--ink-soft);margin-bottom:24px}
+.cta .actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.cta .btn{padding:12px 28px;text-decoration:none;font-family:'Inter',sans-serif;font-size:13px;font-weight:600;letter-spacing:.05em}
+.cta .btn.primary{background:#000;color:var(--ng-yellow)}
+.cta .btn.ghost{background:#fff;color:#000;border:1px solid var(--line)}
+
+.footer{padding:24px 50px 0;text-align:center;font-family:'Inter',sans-serif;font-size:11px;color:var(--ink-mute);letter-spacing:.05em}
+
+@media(max-width:720px){
+  body{padding-bottom:40px}
+  .head{padding:50px 28px 40px}
+  .head h1{font-size:44px}
+  .sec{padding:0 28px}
+  .sec h2{font-size:28px}
+  .dual-plate,.author-compare{grid-template-columns:1fr}
+  .parts-flow{grid-template-columns:repeat(2,1fr)}
+  .vision{grid-template-columns:repeat(2,1fr)}
+  .three-demo{grid-template-columns:1fr;border-right:0}
+  .three-demo .tier{border-right:0;border-bottom:1px solid var(--line)}
+  .cta{padding:32px 28px}
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="head">
+  <div class="tag">方案介绍 · PROPOSAL v0.3</div>
+  <h1>亲子旅游攻略网站</h1>
+  <div class="sub">Family Journey Planner</div>
+  <div class="for">致 · 伊娃 ✦</div>
+  <div class="meta">
+    <span><strong>PROPOSER</strong>Iris Wong</span>
+    <span><strong>INVITEE</strong>伊娃 · 亲子游攻略大师</span>
+    <span><strong>DATE</strong>2026.05.13</span>
+    <span><strong>STAGE</strong>原型确认</span>
+  </div>
+</div>
+
+<!-- 1. Why -->
+<div class="sec">
+  <div class="sec-num">01 · WHY</div>
+  <h2>为什么做这件事</h2>
+  <span class="kid-sub">你的攻略，不该只有你一个人用到 ✨</span>
+
+  <div class="hero-photo">
+    <img src="https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=1600&q=80" alt="意大利罗马斗兽场">
+    <div class="credit">© Unsplash · Free License</div>
+  </div>
+
+  <p>这是我和你聊的初心：你这 10 年带娃走过 17 段路，从罗马到佛罗伦萨，从京都到清迈，<strong style="color:#000">每一段都不是打卡，都是让娃在真实世界里读懂一本书</strong>。这些攻略的价值远超一般旅游博主——有知识储备、有互动任务、有深度讲解。</p>
+
+  <p>但它们现在只躺在一份 Excel 里。<strong style="color:#000">我希望这些内容被打磨成一个产品</strong>——让更多想认真陪娃旅行的家长，能直接照着你的经验走；也让你的亲子游方法论被系统化、被传承。</p>
+</div>
+
+<!-- 2. 网站定位 + 两大板块 -->
+<div class="sec">
+  <div class="sec-num">02 · POSITIONING</div>
+  <h2>网站定位与两大板块</h2>
+  <span class="kid-sub">一个入口，两种用法 🎯</span>
+
+  <p>打开网站，主视觉是「<strong>一句话定制</strong>」——极简乔布斯式入口。想快速看你 17 段历史档案的人，点显眼位置的「<strong>伊娃游世界</strong>」。</p>
+
+  <div class="dual-plate">
+    <div class="plate a">
+      <div class="plate-lab">主入口 · PLATE A</div>
+      <h3>One Sentence</h3>
+      <div class="zh">一句话定制</div>
+      <div class="demo-box">
+        "我想带 <span class="tok">👶 2岁</span> 的孩子，<br/>
+        在 <span class="tok">📅 9月</span>，<br/>
+        做一件 <span class="tok">🎨 艺术启蒙</span> 的事。"
+      </div>
+      <ul>
+        <li>用户改任何胶囊，下方实时重排推荐</li>
+        <li>优先从伊娃 17 段攻略库匹配</li>
+        <li>库里没有 → 点"换一批"→ AI 基于伊娃风格拓展</li>
+        <li>零跳转、零注册、单手可用</li>
+      </ul>
+    </div>
+    <div class="plate b">
+      <div class="plate-lab">书架入口 · PLATE B</div>
+      <h3>伊娃游世界</h3>
+      <div class="zh">17 段攻略图书馆</div>
+      <div class="demo-box" style="border-left-color:#000">
+        🇮🇹 意大利 &nbsp; 🇪🇸 西班牙 &nbsp; 🇯🇵 日本<br/>
+        🇨🇳 云南 &nbsp; 🇰🇭 柬埔寨 &nbsp; 🇰🇷 韩国<br/>
+        🇦🇪 迪拜 &nbsp; 🇺🇸 美东 …… 共 17 段
+      </div>
+      <ul>
+        <li>每段都是国家地理风大图详情页</li>
+        <li>按国家/时长/主题/年龄可筛</li>
+        <li>支持收藏、下载 PDF、同步腾讯文档</li>
+        <li>每段都标注"作者：伊娃"</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 3. 攻略结构 5 Part -->
+<div class="sec">
+  <div class="sec-num">03 · STRUCTURE</div>
+  <h2>攻略结构 · 5 大 Part</h2>
+  <span class="kid-sub">伊娃的方法论被系统化 📐</span>
+
+  <p>基于你那份意大利 Excel 里的行程/故事记录/每日行程/费用/门票/酒店等字段，提炼出一份「亲子旅游攻略通用框架」。每段攻略都按这 5 个 Part 组织：</p>
+
+  <div class="parts-flow">
+    <div class="part-cell">
+      <div class="num">01</div>
+      <h6>目的地档案</h6>
+      <p>年龄/时长/季节/预算</p>
+    </div>
+    <div class="part-cell">
+      <div class="num">02</div>
+      <h6>行前准备</h6>
+      <p>D-30/15/7/1 倒计时</p>
+    </div>
+    <div class="part-cell">
+      <div class="num">03</div>
+      <h6>行中体验</h6>
+      <p>每日行程+景点深玩</p>
+    </div>
+    <div class="part-cell">
+      <div class="num">04</div>
+      <h6>行后升华</h6>
+      <p>手账/Vlog/美食还原</p>
+    </div>
+    <div class="part-cell">
+      <div class="num">05</div>
+      <h6>攻略元数据</h6>
+      <p>作者/反馈/适配标签</p>
+    </div>
+  </div>
+</div>
+
+<!-- 4. 核心亮点：三段式讲解 -->
+<div class="sec">
+  <div class="sec-num">04 · HIGHLIGHT</div>
+  <h2>核心亮点 · 三段式讲解</h2>
+  <span class="kid-sub">每个景点都有 3 种讲法 🎨</span>
+
+  <p>这是你的 Excel 给我的最大启发——你在"故事记录"里抄了一整段蒋勋讲米开朗基罗，但给娃讲的时候一定不是原文。所以我把每个景点的讲解拆成 3 个版本，妈妈扫一眼就能挑：</p>
+
+  <div class="three-demo">
+    <div class="tier">
+      <div class="tag">Story Time ~</div>
+      <h6>3-6 岁 · 绘本版</h6>
+      <p>有个爷爷爬到很高的屋顶，画了 4 年，他把自己偷偷画成了一张软软的人皮哦！</p>
+    </div>
+    <div class="tier">
+      <div class="tag">Know More</div>
+      <h6>6-12 岁 · 百科版</h6>
+      <p>米开朗基罗 33 岁画创世纪，9 幅画 3×3 排列。他在《最后的审判》里把自己画成被剥下的人皮。</p>
+    </div>
+    <div class="tier">
+      <div class="tag">Deep Dive</div>
+      <h6>家长 · 蒋勋讲艺术</h6>
+      <p>"雕刻就是石头从山上滚落，悬崖将多余的部分刮掉，留下浑然天成。"石匠的孩子，70 岁还在做自己的墓碑。</p>
+    </div>
+  </div>
+
+  <p style="margin-top:16px">配合"找 / 猜 / 演 / 拍"四类互动任务卡，让娃不是被拖着逛，而是主动参与。</p>
+</div>
+
+<!-- 5. 作者区分 -->
+<div class="sec">
+  <div class="sec-num">05 · AUTHORSHIP</div>
+  <h2>AI 与伊娃的区别</h2>
+  <span class="kid-sub">每条推荐都能看见作者是谁 ✦</span>
+
+  <p>这是我们约定的红线：用户浏览任何一份攻略，必须一眼能看出<strong style="color:#000">这是伊娃亲历的，还是 AI 基于伊娃风格扩展的</strong>。</p>
+
+  <div class="author-compare">
+    <div class="author-box eva">
+      <div class="hdr">
+        <div class="avatar">伊</div>
+        <div>
+          <h6>伊娃 · 亲子游攻略大师</h6>
+          <div class="meta">ORIGINAL · 2025.01 实地走过</div>
+        </div>
+      </div>
+      <p>10 天实地路线、预算记录、餐厅清单、孩子反馈……每个细节都是你亲身验证过的。</p>
+    </div>
+    <div class="author-box ai">
+      <div class="hdr">
+        <div class="avatar">AI</div>
+        <div>
+          <h6>AI · 基于伊娃风格拓展</h6>
+          <div class="meta">EXTENDED · 联网实时检索</div>
+        </div>
+      </div>
+      <p>伊娃没去过的目的地，AI 会按你的攻略框架（5 Part/三段式/任务卡），从权威信源拼接。</p>
+    </div>
+  </div>
+</div>
+
+<!-- 6. 已上线原型 -->
+<div class="sec">
+  <div class="sec-num">06 · LIVE PROTOTYPE</div>
+  <h2>已上线原型 · 意大利版</h2>
+  <span class="kid-sub">点进去看，5 分钟就懂 →</span>
+
+  <div class="hero-photo">
+    <img src="https://images.unsplash.com/photo-1543429776-2782fc8e1acd?w=1600&q=80" alt="佛罗伦萨全景">
+    <div class="credit">© Unsplash · Free License</div>
+  </div>
+
+  <p>基于你 2025 年 1 月的意大利攻略已经做出来一版，包含全部 5 Part 的完整结构、三段式讲解、任务卡、国家地理风大图、伊娃作者卡。所有图片来自 Unsplash 可溯源摄影作品。</p>
+
+  <div class="preview-card">
+    <h3>Italia · 意大利</h3>
+    <div class="sub">10 天 · 4 城 · 3-12 岁 · 艺术启蒙</div>
+    <a href="https://iriswong31.github.io/family-travel-planner/italy/" target="_blank">打开预览 →</a>
+  </div>
+</div>
+
+<!-- 7. 真实性红线 -->
+<div class="sec">
+  <div class="sec-num">07 · RED LINE</div>
+  <h2>真实性承诺 · 绝不虚构</h2>
+  <span class="kid-sub">信源中心独立维护 📎</span>
+
+  <div class="redline">
+    <h4>⚑ 核心原则</h4>
+    <p>所有景点信息、历史讲解、门票价格、酒店推荐必须<strong>真实可溯源</strong>。AI 生成的内容可以"加工风格"，但事实点必须有来源。搭建一份「信源中心」专项文档——列出所有可信的信源（博物馆官网、蒋勋作品、维基百科、伊娃信任的小红书/公号达人），持续维护。</p>
+  </div>
+
+  <p>由你和我共同维护信源清单；遇到任何空白信息，AI 通过 web-access 实时联网从官方源拉取并标注出处，绝不编造。</p>
+</div>
+
+<!-- 8. 远期愿景 -->
+<div class="sec">
+  <div class="sec-num">08 · VISION</div>
+  <h2>远期愿景</h2>
+  <span class="kid-sub">从网站走到小程序 🚀</span>
+
+  <p>MVP 做扎实后，这个产品有明确的生长路径：</p>
+
+  <div class="vision">
+    <div class="vision-card">
+      <div class="ico">→</div>
+      <h6>小程序版</h6>
+      <p>同一套数据驱动</p>
+    </div>
+    <div class="vision-card">
+      <div class="ico">↗</div>
+      <h6>真实预订</h6>
+      <p>联网机票/酒店/门票一键下单</p>
+    </div>
+    <div class="vision-card">
+      <div class="ico">⇢</div>
+      <h6>PDF 下载</h6>
+      <p>打印出来照着玩</p>
+    </div>
+    <div class="vision-card">
+      <div class="ico">↔</div>
+      <h6>一键同步腾讯文档</h6>
+      <p>用户可在文档里加私人笔记</p>
+    </div>
+  </div>
+</div>
+
+<!-- 9. 邀请共创 -->
+<div class="sec">
+  <div class="sec-num">09 · INVITATION</div>
+  <h2>邀请伊娃共创</h2>
+  <span class="kid-sub">你主创，我落地 ✦</span>
+
+  <p>这个产品的灵魂是你的经验，我只是把它翻译成代码和网页。希望能在腾讯文档的「<strong>亲子旅游</strong>」共享空间里，我们一起打磨每一段攻略——</p>
+
+  <p>✦ 你负责<strong>内容把关</strong>：哪些景点必看，哪些地方的讲解是否准确，哪些信源可信；<br/>
+  ✦ 我负责<strong>技术落地</strong>：网页开发、数据整理、AI 推荐引擎、联网检索、PDF 生成；<br/>
+  ✦ 你<strong>审核频率</strong>完全由你定，你很忙，我知道——我会把需要你决策的点精准列清，省你时间。</p>
+
+  <div class="hero-photo" style="margin-top:28px">
+    <img src="https://images.unsplash.com/photo-1525874684015-58379d421a52?w=1600&q=80" alt="罗马许愿池">
+    <div class="credit">© Unsplash · Free License</div>
+  </div>
+</div>
+
+<!-- 下一步 CTA -->
+<div class="cta">
+  <div class="kid-tag">下一步 ✦ Next Step</div>
+  <h3>等你的反馈</h3>
+  <p>意大利原型你看完后，告诉我哪里要改。<br/>框架 OK 后，我们从 17 段攻略里挑下一段开始整理。</p>
+  <div class="actions">
+    <a class="btn primary" href="https://iriswong31.github.io/family-travel-planner/italy/" target="_blank">打开意大利原型 →</a>
+    <a class="btn ghost" href="https://docs.qq.com/desktop/mydoc/folder/ZHaJLSifOhvx" target="_blank">进亲子旅游空间</a>
+  </div>
+</div>
+
+<div class="footer">
+  Iris Wong × 伊娃 · 亲子游攻略大师 · 2026.05.13
+</div>
+
+</body>
+</html>
