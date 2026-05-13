@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>亲子旅游 · 意大利 · 视觉样板 v0.3</title>
+<title>亲子旅游 · 意大利 · v0.4</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700;900&family=Noto+Serif+SC:wght@400;600;700&family=Inter:wght@400;500;600&family=Caveat:wght@500;700&family=Gochi+Hand&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -211,6 +211,99 @@ section{padding:80px 60px;position:relative}
 .source-note{margin:30px 60px 0;padding:20px 24px;background:#fff;border:1px dashed #c89a3a;font-size:12px;color:#7a5a1f;font-family:'Inter',sans-serif;border-radius:2px;display:flex;gap:14px;align-items:flex-start}
 .source-note .icon{font-size:18px;color:#c89a3a}
 .source-note strong{color:#5a3a0a}
+
+/* ============ v0.4 新增样式 ============ */
+/* Part2 可展开详情卡 */
+.prep-item-detailed{border-bottom:1px dashed var(--line)}
+.prep-item-detailed:last-child{border:0}
+.prep-item-detailed summary{list-style:none;cursor:pointer;padding:10px 0;display:flex;justify-content:space-between;align-items:center;font-size:13px;color:var(--ink-soft);-webkit-user-select:none;user-select:none}
+.prep-item-detailed summary::-webkit-details-marker{display:none}
+.prep-item-detailed summary::after{content:"▸";color:var(--ng-yellow);font-size:12px;transition:transform .2s}
+.prep-item-detailed[open] summary::after{transform:rotate(90deg)}
+.prep-item-detailed summary::before{content:"";display:inline-block;width:6px;height:6px;background:var(--ng-yellow);border-radius:50%;margin-right:10px;flex-shrink:0}
+.prep-item-detailed summary>span{flex:1}
+.prep-detail{padding:12px 14px 16px 26px;background:#fafaf5;border-left:2px solid var(--ng-yellow);margin:4px 0 10px}
+.prep-detail h6{font-family:'Playfair Display',serif;font-size:13px;font-weight:700;margin-bottom:6px;color:#000}
+.prep-detail p{font-size:12px;color:var(--ink-soft);line-height:1.7;margin-bottom:8px}
+.prep-detail ol,.prep-detail ul{margin:6px 0 8px 18px;font-size:12px;color:var(--ink-soft);line-height:1.7}
+.prep-detail li{margin-bottom:3px}
+.prep-detail a{color:var(--kid-pink);text-decoration:underline;font-size:12px;word-break:break-all}
+.prep-detail .tip{margin-top:8px;padding:8px 10px;background:#fff8e1;border-left:2px solid var(--kid-orange);font-size:11px;color:#7a5a1f}
+.prep-detail .miss{margin-top:6px;padding:6px 10px;background:#f3f3f3;border-left:2px solid #aaa;font-size:11px;color:#666;font-style:italic}
+.prep-detail .eva{margin-top:8px;padding:8px 10px;background:#fff3e0;border-left:2px solid var(--ng-yellow);font-size:11px;color:#3a3a3a}
+.prep-detail .eva::before{content:"✦ 伊娃实测：";color:var(--ng-yellow);font-weight:700}
+
+/* Part 2.5 交通航班 */
+.transport{padding:60px 50px;background:#0d0d0d;color:#fff;margin:0;overflow:hidden}
+.transport .sec-label{color:var(--ng-yellow)}
+.transport h2{color:#fff}
+.transport .sec-sub{color:var(--ng-yellow)}
+.transport-desc{color:#ccc;font-size:14px;line-height:1.8;margin-bottom:28px;max-width:720px}
+.time-bars{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:32px}
+.time-bar{background:#1a1a1a;border:1px solid #2a2a2a;padding:16px 14px}
+.time-bar.best{border-color:var(--ng-yellow)}
+.time-bar h6{font-family:'Caveat',cursive;font-size:22px;font-weight:700;margin-bottom:4px}
+.time-bar.best h6{color:var(--ng-yellow)}
+.time-bar .range{font-family:'Inter',sans-serif;font-size:11px;color:#888;margin-bottom:6px;letter-spacing:.1em}
+.time-bar p{font-size:11px;color:#bbb;line-height:1.6}
+.flight-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:24px 0}
+.flight-card{background:#fff;color:#000;padding:22px 20px}
+.flight-card.eva{border-top:3px solid var(--ng-yellow);position:relative}
+.flight-card.eva::before{content:"✦ 伊娃同款";position:absolute;top:-12px;right:12px;background:var(--ng-yellow);color:#000;font-family:'Caveat',cursive;font-weight:700;font-size:16px;padding:3px 10px;transform:rotate(2deg)}
+.flight-card .from{font-family:'Inter',sans-serif;font-size:11px;letter-spacing:.15em;color:#888;margin-bottom:4px}
+.flight-card h5{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;margin-bottom:8px;line-height:1.2}
+.flight-card .cn{font-size:12px;color:var(--ink-soft);margin-bottom:14px}
+.flight-card .flight-row{padding:8px 0;border-bottom:1px dashed var(--line);font-size:12px;display:flex;justify-content:space-between;align-items:center}
+.flight-card .flight-row:last-child{border:0}
+.flight-card .flight-row .lab{color:#888;font-family:'Inter',sans-serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase}
+.flight-card .flight-row .v{color:#000;font-weight:500}
+.flight-card .flight-actions{margin-top:14px;display:flex;gap:8px;flex-wrap:wrap}
+.flight-card .flight-actions a{flex:1;text-align:center;padding:8px 6px;background:#000;color:var(--ng-yellow);text-decoration:none;font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:.05em}
+.flight-card .flight-actions a.ghost{background:#fff;color:#000;border:1px solid #000}
+
+/* Day-by-day */
+.day-nav{display:flex;gap:6px;margin:24px 0;overflow-x:auto;padding-bottom:6px}
+.day-nav::-webkit-scrollbar{height:4px}
+.day-nav::-webkit-scrollbar-thumb{background:var(--line)}
+.day-nav .dn{flex-shrink:0;padding:8px 14px;border:1px solid var(--line);font-family:'Inter',sans-serif;font-size:12px;color:var(--ink-mute);cursor:pointer;background:#fff;white-space:nowrap}
+.day-nav .dn.highlight{background:var(--ng-yellow);border-color:var(--ng-yellow);color:#000;font-weight:600}
+.day-nav .dn:hover{border-color:#000}
+
+.day-block{margin-bottom:20px;border:1px solid var(--line);background:#fff;overflow:hidden}
+.day-block summary{list-style:none;cursor:pointer;display:flex;gap:20px;padding:20px 24px;align-items:center;background:#fff;-webkit-user-select:none;user-select:none}
+.day-block summary::-webkit-details-marker{display:none}
+.day-block summary::after{content:"展开看详细 ▸";font-family:'Inter',sans-serif;font-size:11px;color:var(--ng-yellow);letter-spacing:.1em;font-weight:600;margin-left:auto;flex-shrink:0}
+.day-block[open] summary{border-bottom:1px solid var(--line)}
+.day-block[open] summary::after{content:"收起 ▾";color:#888}
+.day-block .day-badge-big{font-family:'Playfair Display',serif;font-size:32px;font-weight:900;color:var(--ng-yellow);line-height:1;min-width:80px}
+.day-block .day-head-info{flex:1}
+.day-block .day-head-info h4{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;margin-bottom:4px}
+.day-block .day-head-info .meta{font-family:'Inter',sans-serif;font-size:12px;color:var(--ink-mute);letter-spacing:.05em}
+.day-block .day-head-info .meta span{margin-right:12px}
+.day-block .day-head-info .hint{margin-top:6px;font-family:'Caveat',cursive;font-size:16px;color:var(--kid-pink)}
+.day-body{padding:0 24px 24px}
+.day-body .timeline-simple{position:relative;padding-left:24px;border-left:2px solid var(--paper-soft);margin-top:16px}
+.day-body .tl-row{position:relative;padding:14px 0 14px 4px;border-bottom:1px dashed var(--line-soft,var(--line))}
+.day-body .tl-row:last-child{border:0}
+.day-body .tl-row::before{content:"";position:absolute;left:-30px;top:20px;width:10px;height:10px;border-radius:50%;background:#fff;border:2px solid var(--ng-yellow)}
+.day-body .tl-time{display:inline-block;font-family:'Inter',sans-serif;font-size:11px;background:#000;color:var(--ng-yellow);padding:2px 10px;letter-spacing:.1em;font-weight:600;margin-bottom:6px}
+.day-body .tl-title{font-size:15px;font-weight:600;color:#000;margin-bottom:4px}
+.day-body .tl-desc{font-size:12px;color:var(--ink-soft);line-height:1.65;margin-bottom:6px}
+.day-body .tl-meta{display:flex;gap:14px;flex-wrap:wrap;font-family:'Inter',sans-serif;font-size:11px;color:var(--ink-mute)}
+.day-body .tl-meta span{display:inline-flex;align-items:center;gap:4px}
+.day-body .tl-meta .price{color:var(--kid-pink);font-weight:600}
+.day-body .tl-meta .traffic::before{content:"◷ ";color:var(--ng-yellow)}
+.day-body .tl-meta a{color:var(--kid-pink);text-decoration:underline}
+.day-body .spot-expand{margin-top:8px;padding:10px 12px;background:var(--paper-soft);border-left:2px solid var(--ng-yellow);font-size:11px;color:var(--ink-soft);line-height:1.7}
+.day-body .spot-expand strong{color:#000}
+
+/* 每日概览 */
+.day-summary-card{margin:14px 0 18px;padding:14px 16px;background:#fff8e1;border-left:3px solid var(--ng-yellow);font-size:13px;color:var(--ink-soft);line-height:1.75}
+.day-summary-card strong{color:#000}
+
+/* 推荐景点深度 */
+.spot-deep{margin:24px 0;padding:24px 0 0;border-top:2px solid #000}
+.spot-deep-head{font-family:'Caveat',cursive;color:var(--kid-pink);font-size:22px;margin-bottom:10px}
 </style>
 </head>
 <body>
@@ -361,237 +454,990 @@ section{padding:80px 60px;position:relative}
   <div class="prep-bg"></div>
   <div class="sec-label">Part 02 · Before You Go</div>
   <h2 class="sec-title">行前准备</h2>
-  <div class="sec-sub">给娃的兴趣点燃 🔥</div>
+  <div class="sec-sub">每一项点开都有保姆级步骤 🔥</div>
 
   <div class="prep-cards">
+    <!-- D-30 知识启蒙 -->
     <div class="prep-card">
       <div class="day-sticky">D-30</div>
       <h5>知识启蒙</h5>
-      <ul>
-        <li>《Usborne 古罗马》绘本</li>
-        <li>米菲在罗马（动画）</li>
-        <li>地图上找"靴子"</li>
-      </ul>
+
+      <details class="prep-item-detailed">
+        <summary><span>《尤斯伯恩看里面·揭秘古罗马》</span></summary>
+        <div class="prep-detail">
+          <h6>📖 英国 Usborne 原版引进</h6>
+          <p>翻翻书，40+ 机关，适合 4-10 岁。展示竞技场、罗马士兵、庞贝城、浴场、学校生活。</p>
+          <p><strong>ISBN：</strong>9787544857949 · 译林出版社 2019 年</p>
+          <p><a href="https://book.douban.com/search?q=%E5%B0%A4%E6%96%AF%E4%BC%AF%E6%81%A9%E7%9C%8B%E9%87%8C%E9%9D%A2%20%E6%8F%AD%E7%A7%98%E5%8F%A4%E7%BD%97%E9%A9%AC" target="_blank">豆瓣读书查看 →</a></p>
+          <div class="eva">这本娃翻了 30+ 次，对斗兽场有了先入为主的印象，到现场看到实物直接叫出来"这就是那个有升降机的地方！"</div>
+        </div>
+      </details>
+
+      <details class="prep-item-detailed">
+        <summary><span>电影《罗马假日》（Roman Holiday）</span></summary>
+        <div class="prep-detail">
+          <h6>🎬 家长版 · 1953 派拉蒙 · 豆瓣 8.8</h6>
+          <p>奥黛丽·赫本的经典之作，许愿池、西班牙广场、真理之口、圣天使堡都是景点"导游"。建议爸妈先看一遍，现场带娃"对照场景"。</p>
+          <p><a href="https://movie.douban.com/subject/1293839/" target="_blank">豆瓣电影 →</a></p>
+          <div class="tip">💡 娃年龄小可只看"许愿池投币"、"真理之口被咬手"两个片段</div>
+        </div>
+      </details>
+
+      <details class="prep-item-detailed">
+        <summary><span>和娃一起在地图上找"靴子"</span></summary>
+        <div class="prep-detail">
+          <h6>🗺️ 地理启蒙小游戏</h6>
+          <p>意大利版图像一只踢球的靴子。打印一张欧洲地图，让娃找到：意大利在哪里？罗马 / 佛罗伦萨 / 威尼斯 / 米兰分别在哪？威尼斯靠海吗？</p>
+          <p><a href="https://www.google.com/maps/place/%E6%84%8F%E5%A4%A7%E5%88%A9/" target="_blank">Google Maps 打开 →</a></p>
+          <div class="tip">💡 可以把娃喜欢的贴纸贴在目的地上，每到一个就让娃自己揭开</div>
+        </div>
+      </details>
     </div>
+
+    <!-- D-15 实操预订 -->
     <div class="prep-card">
       <div class="day-sticky">D-15</div>
       <h5>实操预订</h5>
-      <ul>
-        <li>申根签证</li>
-        <li>梵蒂冈博物馆预约</li>
-        <li>斗兽场官方预约</li>
-      </ul>
+
+      <details class="prep-item-detailed">
+        <summary><span>意大利申根签证（C 类旅游）</span></summary>
+        <div class="prep-detail">
+          <h6>📋 核心材料清单（2026）</h6>
+          <ol>
+            <li>护照（6 个月以上有效期，2 页空白）</li>
+            <li>申请表（英文，意大利签证中心官网下载）</li>
+            <li>近 6 个月 3.5×4.5cm 白底彩照 2 张</li>
+            <li>在职证明 + 营业执照复印件</li>
+            <li>近 6 个月银行流水（余额建议 ≥ 3 万）</li>
+            <li>往返机票预订单 + 全程酒店订单</li>
+            <li>每日行程表（英文）</li>
+            <li>申根保险（30 万医疗险，覆盖全程）</li>
+            <li>孩子：出生证公证、父母同意书公证、户口本翻译件</li>
+          </ol>
+          <p><strong>费用：</strong>签证费 80 欧 + 服务费 180 元 ≈ 780 元/人（6 岁以下儿童免签证费）</p>
+          <p><strong>周期：</strong>递交后 7-15 工作日</p>
+          <p><strong>申请地（华南）：</strong>广州意大利签证中心（广州市天河区林和中路 63 号沃顿广场 2306 室）</p>
+          <p>
+            <a href="https://visa.vfsglobal.com/one-pager/italy/china/guangzhou/chinese/" target="_blank">广州 VFS Global 官网 →</a><br/>
+            <a href="https://visa.vfsglobal.com/one-pager/italy/china/chinese/" target="_blank">VFS 全国入口 →</a>
+          </p>
+          <div class="tip">💡 旺季（暑假/春节前 2 月）请提前 30-45 天递交，避免出签延误</div>
+          <div class="eva">伊娃 2025 年 1 月这趟：签证+邮寄+照片共 4980 元（两大一小）</div>
+        </div>
+      </details>
+
+      <details class="prep-item-detailed">
+        <summary><span>梵蒂冈博物馆 · 预约（极重要）</span></summary>
+        <div class="prep-detail">
+          <h6>🎟️ 必须提前 1 个月预约</h6>
+          <p>含梵蒂冈博物馆 + 西斯廷礼拜堂，可从西斯廷右手门直接进圣彼得大教堂省排队。</p>
+          <ul>
+            <li><strong>票价：</strong>20 欧 + 5 欧预订费（儿童 8-18 岁半价）</li>
+            <li><strong>开放：</strong>周一至周六 8:00-19:00（周日闭馆，但每月最后一个周日免费）</li>
+            <li><strong>推荐时段：</strong>早上 8:00 第一波入场，人少光好</li>
+            <li><strong>讲解器：</strong>中文 7 欧/个，现场租</li>
+          </ul>
+          <p><a href="https://tickets.museivaticani.va/home" target="_blank">梵蒂冈博物馆官网 →</a></p>
+          <div class="eva">伊娃预约了早上 8:00 第一波（Booking code: 2L132ZDS0000000FR1），63 欧/人</div>
+        </div>
+      </details>
+
+      <details class="prep-item-detailed">
+        <summary><span>罗马斗兽场 · 预约</span></summary>
+        <div class="prep-detail">
+          <h6>🏛️ 建议买"地下层+竞技场地面"升级票</h6>
+          <ul>
+            <li><strong>普通票：</strong>18 欧（24 小时通票，含古罗马遗迹+帕拉丁山）</li>
+            <li><strong>地下升级票：</strong>22 欧（能下到斗士升降机遗址）</li>
+            <li><strong>提前：</strong>1 周-半个月出票即可</li>
+            <li><strong>入场：</strong>提前 15 分钟到门口</li>
+          </ul>
+          <p><a href="https://ticketing.colosseo.it/" target="_blank">斗兽场官方购票 →</a></p>
+          <div class="eva">伊娃买的是普通票（2 人 36 欧），建议时间紧的直接升级到地下票</div>
+        </div>
+      </details>
+
+      <details class="prep-item-detailed">
+        <summary><span>佛罗伦萨 · 圣母百花大教堂登顶</span></summary>
+        <div class="prep-detail">
+          <h6>⛪ 必约登顶（布鲁内莱斯基穹顶）</h6>
+          <ul>
+            <li><strong>登顶 + 套票：</strong>30 欧（含洗礼堂、钟楼、博物馆、穹顶）</li>
+            <li><strong>套票有效期：</strong>自购票日起 3 个日历日内</li>
+            <li><strong>登顶台阶：</strong>463 级，鱼骨状砖砌，不走回头路</li>
+            <li><strong>限制：</strong>6 岁以下不建议登顶</li>
+          </ul>
+          <p><a href="https://tickets.duomo.firenze.it/en/store" target="_blank">圣母百花官方购票 →</a></p>
+          <div class="eva">伊娃 2 人 72 欧 · 预约 1 月 29 日上午 9:45 入场</div>
+        </div>
+      </details>
+
+      <details class="prep-item-detailed">
+        <summary><span>米兰 · 《最后的晚餐》预约</span></summary>
+        <div class="prep-detail">
+          <h6>🎨 全意大利最难约的票</h6>
+          <p>达芬奇 1498 年真迹，每波限 15 分钟，每次限 30 人。</p>
+          <ul>
+            <li><strong>票价：</strong>15 欧起（淘宝代抢约 470 元/人，更省心）</li>
+            <li><strong>提前：</strong>2-3 个月官网抢，淘宝代抢提前 1-2 个月约</li>
+            <li><strong>建议：</strong>第一波早上 8:15 最安静</li>
+          </ul>
+          <p><a href="https://cenacolovinciano.vivaticket.it/en/event/cenacolo-vinciano/151991" target="_blank">Vivaticket 官方购票 →</a></p>
+          <div class="eva">伊娃走的淘宝代抢，470 元/人，1 月下旬出票，省心</div>
+        </div>
+      </details>
+
+      <details class="prep-item-detailed">
+        <summary><span>乌菲兹美术馆 + 学院美术馆</span></summary>
+        <div class="prep-detail">
+          <h6>🎨 佛罗伦萨必看 2 馆</h6>
+          <ul>
+            <li><strong>乌菲兹：</strong>早鸟 23 欧 · 其他时段 29 欧 · 镇馆《维纳斯的诞生》《春》</li>
+            <li><strong>学院美术馆：</strong>20 欧 · 看大卫雕像真迹</li>
+            <li><strong>提前：</strong>淡季半个月，旺季 1.5-2 个月</li>
+          </ul>
+          <p>
+            <a href="https://www.uffizi.it/en/tickets" target="_blank">乌菲兹官方购票 →</a><br/>
+            <a href="https://www.galleriaaccademiafirenze.it/en/tickets/" target="_blank">学院美术馆官方购票 →</a>
+          </p>
+          <div class="eva">伊娃：乌菲兹当天刷二维码进，不用看时间；学院美术馆必须守时进场</div>
+        </div>
+      </details>
     </div>
+
+    <!-- D-7 家长深度 -->
     <div class="prep-card">
       <div class="day-sticky">D-7</div>
       <h5>家长深度</h5>
-      <ul>
-        <li>蒋勋《西方美术史》</li>
-        <li>陈丹青《局部》卡拉瓦乔</li>
-        <li>BBC《文艺复兴》纪录片</li>
-      </ul>
+
+      <details class="prep-item-detailed">
+        <summary><span>蒋勋 · 写给大家的西方美术史</span></summary>
+        <div class="prep-detail">
+          <h6>📚 给爸妈打艺术底子</h6>
+          <p>从古希腊到印象派，尤其文艺复兴章节，讲米开朗基罗、达芬奇、拉斐尔的故事最好。</p>
+          <ul>
+            <li><strong>书：</strong>ISBN 9787549601356 · 湖南美术出版社</li>
+            <li><strong>音频：</strong>喜马拉雅"蒋勋细说艺术"</li>
+          </ul>
+          <p><a href="https://book.douban.com/subject/4873098/" target="_blank">豆瓣读书 →</a></p>
+          <div class="tip">💡 书第 3 章文艺复兴是精华，读 1 小时即可应付意大利行</div>
+        </div>
+      </details>
+
+      <details class="prep-item-detailed">
+        <summary><span>陈丹青 ·《局部》</span></summary>
+        <div class="prep-detail">
+          <h6>🎞️ 看着画讲故事</h6>
+          <p>第一季专讲意大利文艺复兴，卡拉瓦乔、马萨乔、乔托。陈丹青的切入点非常适合普通人听。</p>
+          <p>视频平台：优酷（看理想 & 梁文道出品）</p>
+          <p><a href="https://www.bilibili.com/bangumi/media/md28221046/" target="_blank">B 站搜索《局部》→</a></p>
+          <div class="eva">伊娃在行程"故事记录"里大量引用陈丹青的讲法，非常落地</div>
+        </div>
+      </details>
+
+      <details class="prep-item-detailed">
+        <summary><span>BBC《文艺复兴》纪录片</span></summary>
+        <div class="prep-detail">
+          <h6>📺 3 集速通</h6>
+          <p>BBC 2014 年出品，3 集共 180 分钟。从布鲁内莱斯基的穹顶开始，到米开朗基罗的西斯廷。看完去实地震撼感翻倍。</p>
+          <p><a href="https://search.douban.com/movie/subject_search?search_text=%E6%96%87%E8%89%BA%E5%A4%8D%E5%85%B4%20BBC" target="_blank">豆瓣搜索 BBC《文艺复兴》→</a></p>
+          <div class="miss">缺数据 · 具体哪个视频平台可看待后续补充</div>
+        </div>
+      </details>
     </div>
+
+    <!-- D-1 装备 -->
     <div class="prep-card">
       <div class="day-sticky">D-1</div>
       <h5>装备 + 预热</h5>
-      <ul>
-        <li>婴儿车、便携餐椅</li>
-        <li>欧标插头、退烧药</li>
-        <li>教娃 3 句意大利语</li>
-      </ul>
+
+      <details class="prep-item-detailed">
+        <summary><span>婴儿车 + 便携餐椅</span></summary>
+        <div class="prep-detail">
+          <h6>🛒 意大利带娃装备</h6>
+          <ul>
+            <li><strong>婴儿车：</strong>大部分博物馆可推入或可寄存（梵蒂冈博物馆实测可带）</li>
+            <li><strong>便携餐椅：</strong>意大利餐厅 baby chair 不是常备，建议带卡扣式便携款</li>
+            <li><strong>背带：</strong>石板路多，婴儿车有时不如背带灵活</li>
+          </ul>
+          <div class="tip">💡 威尼斯一定要用背带！水上巴士+桥梁多，婴儿车实用度低</div>
+        </div>
+      </details>
+
+      <details class="prep-item-detailed">
+        <summary><span>欧标插头 + 药品</span></summary>
+        <div class="prep-detail">
+          <h6>🔌 必带清单</h6>
+          <ul>
+            <li>欧标转换插头（意大利是 L 型三圆孔，普通欧标可能不通）</li>
+            <li>退烧药（美林/泰诺林）· 温差大易感冒</li>
+            <li>止泻药（蒙脱石散）· 意面吃多了</li>
+            <li>创可贴 · 石板路磨脚</li>
+            <li>防晒霜 · 冬天紫外线也强</li>
+          </ul>
+        </div>
+      </details>
+
+      <details class="prep-item-detailed">
+        <summary><span>给娃教 3 句意大利语</span></summary>
+        <div class="prep-detail">
+          <h6>🇮🇹 Ciao! 的魔法</h6>
+          <ul>
+            <li>Ciao（你好 / 再见）· 发音"恰奥"</li>
+            <li>Grazie（谢谢）· 发音"咖吱耶"</li>
+            <li>Gelato（冰淇淋）· 发音"杰拉多"</li>
+          </ul>
+          <div class="tip">💡 娃在意大利说 Ciao，服务员会立刻给她送一块饼干或小糖</div>
+        </div>
+      </details>
+
+      <details class="prep-item-detailed">
+        <summary><span>手机卡 / eSIM</span></summary>
+        <div class="prep-detail">
+          <h6>📱 实测推荐</h6>
+          <p>意大利 TIM / Vodafone 主流运营商都不错。深圳/香港出发可直接淘宝买欧洲 eSIM（10-12 天 100-200 元）。</p>
+          <div class="eva">伊娃 2025.01 总花 215 元搞定 10 天通信</div>
+        </div>
+      </details>
     </div>
   </div>
 </section>
+
+<!-- Part 2.5 交通+航班 -->
+<div class="transport">
+  <div class="sec-label">Part 02.5 · Transport</div>
+  <h2>交通与航班</h2>
+  <div class="sec-sub">从深圳出发，3 种路线可选 ✈️</div>
+
+  <p class="transport-desc">深圳宝安机场目前有 <strong style="color:var(--ng-yellow)">海航 HU437</strong> 直飞罗马（伊娃这次就是这趟），其他多数需要从香港或广州转机。下面列出 3 种出发地方案，以及最佳出行时间。</p>
+
+  <div class="time-bars">
+    <div class="time-bar best">
+      <h6>❄️ 春节档</h6>
+      <div class="range">1 月末 – 2 月初</div>
+      <p>淡季价格最优，意大利人少，博物馆舒服；冷但不至于不适合娃</p>
+    </div>
+    <div class="time-bar">
+      <h6>🌸 春秋黄金</h6>
+      <div class="range">4-6 月 / 9-10 月</div>
+      <p>气候最舒服（18-26°C），但暑假人多票贵，秋季性价比高</p>
+    </div>
+    <div class="time-bar">
+      <h6>☀️ 五一 / 十一</h6>
+      <div class="range">小长假</div>
+      <p>5 月凉爽适合，10 月人稍多；节假日国内航班贵</p>
+    </div>
+    <div class="time-bar">
+      <h6>🚫 避开</h6>
+      <div class="range">7-8 月</div>
+      <p>酷暑 35°C+，暴晒 + 游客潮，带娃极度不推荐</p>
+    </div>
+  </div>
+
+  <div class="flight-cards">
+    <div class="flight-card eva">
+      <div class="from">⚡ 深圳直飞 · SHENZHEN</div>
+      <h5>海航 HU437</h5>
+      <div class="cn">SZX → FCO 菲乌米奇诺</div>
+      <div class="flight-row"><span class="lab">起飞</span><span class="v">01:30（+1）到 07:45</span></div>
+      <div class="flight-row"><span class="lab">时长</span><span class="v">13h 20m 直飞</span></div>
+      <div class="flight-row"><span class="lab">伊娃购票</span><span class="v">¥ 20,442（2 大 · 往返）</span></div>
+      <div class="flight-row"><span class="lab">返程</span><span class="v">HU7974 · 10:35 起飞</span></div>
+      <div class="flight-actions">
+        <a href="https://flights.ctrip.com/international/search/round-szx-rom" target="_blank">携程实时查询 →</a>
+        <a class="ghost" href="https://www.skyscanner.com/routes/szx/rome/" target="_blank">Skyscanner</a>
+      </div>
+    </div>
+    <div class="flight-card">
+      <div class="from">🇭🇰 香港中转 · HONG KONG</div>
+      <h5>国泰 / 阿联酋 / 卡塔尔</h5>
+      <div class="cn">HKG → FCO / MXP</div>
+      <div class="flight-row"><span class="lab">时长</span><span class="v">14-18h（1 次中转）</span></div>
+      <div class="flight-row"><span class="lab">价格参考</span><span class="v">¥ 6,000-15,000 往返</span></div>
+      <div class="flight-row"><span class="lab">优势</span><span class="v">班次多、托运多</span></div>
+      <div class="flight-row"><span class="lab">提醒</span><span class="v">深圳→香港机场 1.5h（高铁/口岸）</span></div>
+      <div class="flight-actions">
+        <a href="https://flights.ctrip.com/international/search/round-hkg-rom" target="_blank">携程实时查询 →</a>
+        <a class="ghost" href="https://www.skyscanner.com/routes/hkg/rome/" target="_blank">Skyscanner</a>
+      </div>
+    </div>
+    <div class="flight-card">
+      <div class="from">🇨🇳 广州出发 · GUANGZHOU</div>
+      <h5>南航 / 中转欧洲</h5>
+      <div class="cn">CAN → FCO / MXP</div>
+      <div class="flight-row"><span class="lab">时长</span><span class="v">14-20h（多中转）</span></div>
+      <div class="flight-row"><span class="lab">价格参考</span><span class="v">¥ 7,000-15,000 往返</span></div>
+      <div class="flight-row"><span class="lab">优势</span><span class="v">深圳北站高铁 30 分钟可达</span></div>
+      <div class="flight-row"><span class="lab">提醒</span><span class="v">旺季南航直飞米兰偶尔开</span></div>
+      <div class="flight-actions">
+        <a href="https://flights.ctrip.com/international/search/round-can-rom" target="_blank">携程实时查询 →</a>
+        <a class="ghost" href="https://www.skyscanner.com/routes/can/rome/" target="_blank">Skyscanner</a>
+      </div>
+    </div>
+  </div>
+
+  <div style="padding:20px 24px;background:#1a1a1a;border-left:3px solid var(--ng-yellow);margin-top:24px">
+    <div style="font-family:'Caveat',cursive;font-size:22px;color:var(--ng-yellow);margin-bottom:6px">✦ 伊娃的建议</div>
+    <p style="color:#ddd;font-size:13px;line-height:1.75">我去过意大利 2 次，这次选深圳直飞纯粹因为娃大了扛得住 13 小时。如果娃 3 岁以下，<strong style="color:#fff">建议走香港国泰或阿联酋中转</strong>——虽然总时长长，但中途能下飞机休息一次，娃状态更好。机票价格实时在变，上面链接点进去看当前最新报价。</p>
+  </div>
+</div>
 
 <!-- Part 3 -->
 <section>
   <div class="sec-label">Part 03 · Day-by-Day</div>
-  <h2 class="sec-title">行中体验</h2>
-  <div class="sec-sub">每个景点都有 3 种讲法，看娃爱听哪种 🎨</div>
+  <h2 class="sec-title">行中体验 · 完整 10 天行程</h2>
+  <div class="sec-sub">点每一天展开，看伊娃真实走过的路线 🎨</div>
 
-  <div class="day-badge">DAY 02 · 罗马 · 梵蒂冈</div>
+  <p style="color:var(--ink-soft);margin-bottom:8px">以下是伊娃 2025 年 1 月 26 日 - 2 月 3 日 10 天行程的完整版本。每一天都有当天重点、时间安排、票务、交通、餐厅和娃的反馈。</p>
 
-  <!-- 景点 1：西斯廷礼拜堂 -->
-  <div class="spot-showcase">
-    <div class="spot-cover">
-      <img src="https://images.unsplash.com/photo-1531572753322-ad063cecc140?w=1600&q=85" alt="圣彼得大教堂">
-      <div class="photo-credit">© Unsplash · Free License</div>
-      <div class="time-stamp">◷ 09:00 – 12:00</div>
-    </div>
-    <div class="spot-body">
-      <h3 class="spot-title">Cappella Sistina</h3>
-      <div class="spot-title-zh">西斯廷礼拜堂 · 米开朗基罗的穹顶</div>
-
-      <div class="spot-intro">
-        <div class="lead">米开朗基罗 33 岁那年开始爬上脚手架，仰着脖子画西斯廷礼拜堂的穹顶。他一画就是 4 年——9 幅画，1080 米长的壁画，讲的是《创世纪》的故事。500 年后的今天，全世界的家长牵着孩子的手走进这座小礼拜堂，仰起头，第一句脱口而出的，往往是"哇"。</div>
-        <div class="side-photo">
-          <img src="https://images.unsplash.com/photo-1606744824163-985d376605aa?w=600&q=80" alt="西斯廷穹顶细节">
-          <div class="credit">© Unsplash</div>
-        </div>
-      </div>
-
-      <div class="info-strip">
-        <div class="cell">
-          <div class="lab">门票</div>
-          <div class="val">€ 20 成人</div>
-          <div class="src">来源：museivaticani.va</div>
-        </div>
-        <div class="cell">
-          <div class="lab">开放</div>
-          <div class="val">周一–六 8:00-19:00</div>
-          <div class="src">来源：梵蒂冈博物馆官网</div>
-        </div>
-        <div class="cell">
-          <div class="lab">婴儿车</div>
-          <div class="val">可推入/可寄存</div>
-          <div class="src">来源：伊娃实地反馈</div>
-        </div>
-        <div class="cell">
-          <div class="lab">建议</div>
-          <div class="val">3 小时</div>
-          <div class="src">来源：伊娃实测</div>
-        </div>
-      </div>
-
-      <div class="three-tier">
-        <div class="tier">
-          <div class="age-badge">3-6 岁</div>
-          <div class="tier-tag">Story Time ~</div>
-          <h6>会画画的爷爷</h6>
-          <p>有个爷爷爬到很高的屋顶，在天花板上画了 9 幅大画。他画了 4 年，脖子都歪啦。找找看——他把自己偷偷画成了一张软软的人皮哦！</p>
-        </div>
-        <div class="tier">
-          <div class="age-badge">6-12 岁</div>
-          <div class="tier-tag">Know More</div>
-          <h6>米开朗基罗的穹顶</h6>
-          <p>米开朗基罗 33-36 岁画了创世纪穹顶，9 幅画 3×3 排列，讲旧约故事：宇宙创造、亚当夏娃、诺亚方舟。他在《最后的审判》里把自己画成被剥下的人皮。</p>
-        </div>
-        <div class="tier">
-          <div class="age-badge">家长</div>
-          <div class="tier-tag">Deep Dive</div>
-          <h6>蒋勋讲米开朗基罗</h6>
-          <p>石匠的孩子，受美第奇家族资助。23 岁做圣殇，70 岁还在做自己的墓碑。"雕刻就是石头从山上滚落，悬崖将多余的部分刮掉，留下浑然天成。"</p>
-        </div>
-      </div>
-
-      <div class="tasks-wrap">
-        <div class="tasks-head">
-          <h4>带娃玩的 4 件小事</h4>
-          <span class="kid-note">→ 撕下来带走！</span>
-        </div>
-        <div class="task-grid">
-          <div class="task-card">
-            <div class="action">找 · Find</div>
-            <h6>人皮自画像</h6>
-            <p>在《最后的审判》里找到米开朗基罗自己——那张被剥下的人皮</p>
-          </div>
-          <div class="task-card">
-            <div class="action">猜 · Guess</div>
-            <h6>诺亚方舟</h6>
-            <p>9 幅画里哪幅讲诺亚方舟？为什么大洪水里大家手拉手？</p>
-          </div>
-          <div class="task-card">
-            <div class="action">演 · Play</div>
-            <h6>创世纪积木</h6>
-            <p>回酒店用积木"创造世界"——第一天：创造光明和黑暗</p>
-          </div>
-          <div class="task-card">
-            <div class="action">拍 · Pose</div>
-            <h6>仰头画穹顶</h6>
-            <p>和爸爸妈妈仰头，模仿米开朗基罗画穹顶 4 年的样子</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="pref-strip">
-        <span class="lab">ADAPTS TO</span>
-        <span class="pref-item">艺术线 <span class="stars">★★★★★</span></span>
-        <span class="pref-item">历史线 <span class="stars">★★★★<span class="empty">★</span></span></span>
-        <span class="pref-item">宗教线 <span class="stars">★★★★★</span></span>
-        <span class="pref-item">体力消耗 <span class="stars">★★★<span class="empty">★★</span></span></span>
-      </div>
-    </div>
+  <div class="day-nav">
+    <div class="dn">D1 · 深圳→罗马</div>
+    <div class="dn highlight">D2 · 罗马 梵蒂冈</div>
+    <div class="dn">D3 · 罗马→佛罗伦萨</div>
+    <div class="dn">D4 · 佛罗伦萨 春节</div>
+    <div class="dn">D5 · 佛罗伦萨</div>
+    <div class="dn">D6 · 佛→威尼斯</div>
+    <div class="dn">D7 · 威尼斯→米兰</div>
+    <div class="dn">D8 · 米兰</div>
+    <div class="dn">D9 · 返程</div>
+    <div class="dn">D10 · 到深圳</div>
   </div>
 
-  <!-- 景点 2：许愿池（图文左右分布） -->
-  <div class="spot-flip">
-    <div class="side-img">
-      <img src="https://images.unsplash.com/photo-1525874684015-58379d421a52?w=1200&q=85" alt="许愿池">
-      <div class="photo-credit">© Unsplash · Free License</div>
-    </div>
-    <div class="side-body">
-      <div class="time-stamp">◷ DAY 01 · 下午</div>
-      <h3>Fontana di Trevi</h3>
-      <div class="zh">特雷维喷泉 · 罗马的许愿池</div>
-      <p class="desc">这是罗马最大的巴洛克式喷泉。古罗马军团士兵出征前会在这里投硬币祈祷凯旋归来；电影《罗马假日》之后，"背身投币"成了全世界游客的浪漫仪式。和娃一起投三枚硬币——传说第一枚保佑你重回罗马，第二枚带来爱情，第三枚成就一段美好婚姻。</p>
-      <div class="quick">
-        <div class="qcell"><div class="qlab">门票</div><div class="qval">免费</div></div>
-        <div class="qcell"><div class="qlab">最佳时间</div><div class="qval">清晨/夜晚</div></div>
-        <div class="qcell"><div class="qlab">娃的玩法</div><div class="qval">投币 + 数雕像</div></div>
-        <div class="qcell"><div class="qlab">来源</div><div class="qval">伊娃 2025.01</div></div>
+  <!-- DAY 1 -->
+  <details class="day-block">
+    <summary>
+      <div class="day-badge-big">01</div>
+      <div class="day-head-info">
+        <h4>深圳 → 罗马（夜航）</h4>
+        <div class="meta"><span>📅 1月26日 星期日</span><span>✈️ 飞行 13h20m</span><span>🏨 宿 · 罗马</span></div>
+        <div class="hint">抵达即玩半日，轻装探索罗马古城</div>
+      </div>
+    </summary>
+    <div class="day-body">
+      <div class="day-summary-card">
+        <strong>关键词：</strong>飞行 · 入住 · 万神殿 · 许愿池 · 西班牙广场 · 冰淇淋 gelato
+      </div>
+      <div class="timeline-simple">
+        <div class="tl-row">
+          <div class="tl-time">01:30 → 07:45</div>
+          <div class="tl-title">海航 HU437 · 深圳→罗马</div>
+          <div class="tl-desc">直飞 13h20m，抵达菲乌米奇诺机场 T3</div>
+          <div class="tl-meta"><span class="price">¥ 20,442</span><span class="traffic">13h20m</span></div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">10:00</div>
+          <div class="tl-title">机场 → 酒店（Uber 打车）</div>
+          <div class="tl-desc">T3 入境 Terminal 1，出发层拿行李后坐电梯上一层</div>
+          <div class="tl-meta"><span class="price">€ 55</span><span class="traffic">50 min</span></div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">中午</div>
+          <div class="tl-title">入住 · Via dei Serpenti 93</div>
+          <div class="tl-desc">00184 罗马 拉齐奥 · 2 晚 ¥3,500 · 位置在蒙蒂区中心</div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">下午</div>
+          <div class="tl-title">🏛️ 万神殿（Pantheon）</div>
+          <div class="tl-desc">现场买票含中文导览 · 公元 609 年东罗马皇帝献给教宗波尼法爵四世 · 拉斐尔葬于此</div>
+          <div class="tl-meta"><span>酒店坐公车到达</span><span>🍦 出门吃 gelato</span></div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">下午</div>
+          <div class="tl-title">纳沃纳广场 · 圣王路易堂</div>
+          <div class="tl-desc">但丁 + 《天使与魔鬼》取景地 · 圣王路易堂里有卡拉瓦乔 3 幅名作（陈丹青讲：《圣马太蒙召》一欧元的神迹）</div>
+          <div class="tl-meta"><span>走路可达</span></div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">下午</div>
+          <div class="tl-title">🪙 特雷维喷泉（许愿池）</div>
+          <div class="tl-desc">巴洛克风格喷泉 · 古罗马军团出征前在此投币祈求凯旋 · 《罗马假日》《天使与魔鬼》取景地</div>
+          <div class="spot-expand">
+            <strong>带娃玩法：</strong>背身扔 3 枚硬币许愿（第 1 枚保佑重回罗马 · 第 2 枚带来爱情 · 第 3 枚成就婚姻）· 数数有几个海神雕像
+          </div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">傍晚</div>
+          <div class="tl-title">西班牙广场 · 胜利之后圣母堂</div>
+          <div class="tl-desc">贝尼尼破船喷泉 · 西班牙阶梯右侧黄白建筑曾是济慈雪莱住所 · 胜利之后圣母堂有贝尼尼《圣女大德兰神魂超拔》</div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">晚上</div>
+          <div class="tl-title">🍝 预订好吃的餐厅，早睡倒时差</div>
+          <div class="tl-desc">第一天不要折腾，让娃吃饱早睡</div>
+        </div>
       </div>
     </div>
-  </div>
+  </details>
 
-  <!-- 景点 3：斗兽场 -->
-  <div class="spot-flip" style="grid-template-columns:1fr 1fr">
-    <div class="side-body" style="order:1">
-      <div class="time-stamp">◷ DAY 03 · 上午</div>
-      <h3>Colosseo</h3>
-      <div class="zh">古罗马斗兽场 · 2000 年的圆形剧场</div>
-      <p class="desc">公元 80 年开放，能容纳 50000 人。沙地是为了血液好清理；地下有 80 个升降机，野兽和角斗士从地底升起来登场。这是娃第一次直观理解"历史厚度"——不是课本里的字，是脚下踩着的真实地面。一定要约上"地下层 + 竞技场地面"通票，体验感翻倍。</p>
-      <div class="quick">
-        <div class="qcell"><div class="qlab">门票</div><div class="qval">€ 18 起</div></div>
-        <div class="qcell"><div class="qlab">必约</div><div class="qval">地下层+地面</div></div>
-        <div class="qcell"><div class="qlab">娃的玩法</div><div class="qval">数拱门 + 角色扮演</div></div>
-        <div class="qcell"><div class="qlab">来源</div><div class="qval">colosseo.it</div></div>
+  <!-- DAY 2 -->
+  <details class="day-block" open>
+    <summary>
+      <div class="day-badge-big">02</div>
+      <div class="day-head-info">
+        <h4>罗马 · 梵蒂冈日</h4>
+        <div class="meta"><span>📅 1月27日 星期一</span><span>⛪ 全程步行</span><span>🏨 宿 · 罗马</span></div>
+        <div class="hint">此日为本趟艺术启蒙核心，3 个 ⭐⭐⭐⭐⭐ 景点连打</div>
+      </div>
+    </summary>
+    <div class="day-body">
+      <div class="day-summary-card">
+        <strong>关键词：</strong>梵蒂冈博物馆 · 西斯廷礼拜堂 · 圣彼得大教堂 · 圣天使城堡 · <strong style="color:#000">米开朗基罗深度日</strong>
+      </div>
+      <div class="timeline-simple">
+        <div class="tl-row">
+          <div class="tl-time">08:00</div>
+          <div class="tl-title">🎟️ 梵蒂冈博物馆（第一波入场）</div>
+          <div class="tl-desc">Booking code: 2L132ZDS0000000FR1 · 提前预约关键</div>
+          <div class="tl-meta"><span class="price">€ 63/人</span><span class="traffic">地铁 30 分钟 / Uber</span><span>⏱ 3 小时</span><span><a href="https://tickets.museivaticani.va/home" target="_blank">官网</a></span></div>
+          <div class="spot-expand">
+            <strong>路线：</strong>埃及馆 → 基亚拉蒙蒂馆 → Braccio Nuovo → 庇护克莱蒙特馆 → 伊特鲁尼亚馆 → 挂毯画廊 → 地图馆 → 拉斐尔房间 → 现当代艺术馆 → 西斯廷 → 图书馆 → 梵蒂冈画廊<br/>
+            <strong>重点：</strong>先知拉奥孔的断手（米/拉对决）· 拉斐尔房间《雅典学院》· 克尼多斯的维纳斯
+          </div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">10:30</div>
+          <div class="tl-title">🎨 西斯廷礼拜堂（馆内）</div>
+          <div class="tl-desc">米开朗基罗 33 岁创世纪穹顶 · 9 幅画 3×3 旧约 · 最后的审判里的人皮自画像（剥皮雕塑）· 出口右手门直接到圣彼得不用排队</div>
+          <div class="spot-expand">
+            <strong>娃的玩法：</strong>找一找人皮自画像 / 猜诺亚方舟哪幅 / 数 9 幅画分别讲什么 / 拍仰头模仿画画的样子
+          </div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">13:00</div>
+          <div class="tl-title">⛪ 圣彼得大教堂（从西斯廷右门直通）</div>
+          <div class="tl-desc">米开朗基罗《圣殇》· 贝尼尼青铜华盖 · 贝尼尼椅套 · 登顶穹顶必买！租讲解器</div>
+          <div class="tl-meta"><span>⏱ 1h</span><span class="price">穹顶 电梯 10 欧</span><span><a href="https://www.basilicasanpietro.va/it" target="_blank">官网</a></span></div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">14:30</div>
+          <div class="tl-title">圣彼得广场</div>
+          <div class="tl-desc">贝尼尼马蹄形广场，钥匙形（寓意打开天堂）</div>
+          <div class="tl-meta"><span class="price">免费</span><span>⏱ 0.5h</span></div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">15:30</div>
+          <div class="tl-title">🏰 圣天使城堡</div>
+          <div class="tl-desc">《罗马假日》《天使与魔鬼》拍摄地 · 从圣彼得步行 1.1 公里</div>
+          <div class="tl-meta"><span class="price">免费参观外部</span><span>⏱ 1h</span></div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">傍晚</div>
+          <div class="tl-title">回酒店休息 · 娃午睡</div>
+          <div class="tl-desc">博物馆日极耗体力，不要再安排满</div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">晚上</div>
+          <div class="tl-title">可选：鲜花广场（24h 营业） / 博尔盖赛美术馆（需提前订）</div>
+          <div class="tl-desc">博尔盖赛有卡拉瓦乔作品 · 但今日已重度 ⭐⭐⭐⭐⭐ 建议娃扛不住就直接回酒店</div>
+        </div>
+      </div>
+
+      <!-- 西斯廷礼拜堂 三段式讲解 -->
+      <div class="spot-deep">
+        <div class="spot-deep-head">🎨 今日必讲 · 西斯廷礼拜堂</div>
+
+        <div class="info-strip">
+          <div class="cell">
+            <div class="lab">门票</div>
+            <div class="val">€ 20 成人</div>
+            <div class="src">来源：museivaticani.va</div>
+          </div>
+          <div class="cell">
+            <div class="lab">开放</div>
+            <div class="val">周一–六 8:00-19:00</div>
+            <div class="src">梵蒂冈博物馆官网</div>
+          </div>
+          <div class="cell">
+            <div class="lab">婴儿车</div>
+            <div class="val">可推入/可寄存</div>
+            <div class="src">伊娃实地反馈</div>
+          </div>
+          <div class="cell">
+            <div class="lab">建议时长</div>
+            <div class="val">3 小时</div>
+            <div class="src">伊娃实测</div>
+          </div>
+        </div>
+
+        <div class="three-tier">
+          <div class="tier">
+            <div class="age-badge">3-6 岁</div>
+            <div class="tier-tag">Story Time ~</div>
+            <h6>会画画的爷爷</h6>
+            <p>有个爷爷爬到很高的屋顶，在天花板上画了 9 幅大画。他画了 4 年，脖子都歪啦。找找看——他把自己偷偷画成了一张软软的人皮哦！</p>
+          </div>
+          <div class="tier">
+            <div class="age-badge">6-12 岁</div>
+            <div class="tier-tag">Know More</div>
+            <h6>米开朗基罗的穹顶</h6>
+            <p>米开朗基罗 33-36 岁画了创世纪穹顶，9 幅画 3×3 排列，讲旧约故事：宇宙创造、亚当夏娃、诺亚方舟。他在《最后的审判》里把自己画成被剥下的人皮。</p>
+          </div>
+          <div class="tier">
+            <div class="age-badge">家长</div>
+            <div class="tier-tag">Deep Dive</div>
+            <h6>蒋勋讲米开朗基罗</h6>
+            <p>石匠的孩子，受美第奇家族资助。23 岁做圣殇，70 岁还在做自己的墓碑。"雕刻就是石头从山上滚落，悬崖将多余的部分刮掉，留下浑然天成。"</p>
+          </div>
+        </div>
+
+        <div class="tasks-wrap">
+          <div class="tasks-head">
+            <h4>带娃玩的 4 件小事</h4>
+            <span class="kid-note">→ 撕下来带走！</span>
+          </div>
+          <div class="task-grid">
+            <div class="task-card">
+              <div class="action">找 · Find</div>
+              <h6>人皮自画像</h6>
+              <p>在《最后的审判》里找到米开朗基罗自己——那张被剥下的人皮</p>
+            </div>
+            <div class="task-card">
+              <div class="action">猜 · Guess</div>
+              <h6>诺亚方舟</h6>
+              <p>9 幅画里哪幅讲诺亚方舟？为什么大洪水里大家手拉手？</p>
+            </div>
+            <div class="task-card">
+              <div class="action">演 · Play</div>
+              <h6>创世纪积木</h6>
+              <p>回酒店用积木"创造世界"——第一天：创造光明和黑暗</p>
+            </div>
+            <div class="task-card">
+              <div class="action">拍 · Pose</div>
+              <h6>仰头画穹顶</h6>
+              <p>和爸爸妈妈仰头，模仿米开朗基罗画穹顶 4 年的样子</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="side-img" style="order:2">
-      <img src="https://images.unsplash.com/photo-1515542622106-78bda8ba0e5b?w=1200&q=85" alt="斗兽场内部">
-      <div class="photo-credit">© Unsplash · Free License</div>
+  </details>
+
+  <!-- DAY 3 -->
+  <details class="day-block">
+    <summary>
+      <div class="day-badge-big">03</div>
+      <div class="day-head-info">
+        <h4>罗马 → 佛罗伦萨（除夕）</h4>
+        <div class="meta"><span>📅 1月28日 星期二</span><span>🚄 火车 1.5h</span><span>🏨 宿 · 佛罗伦萨</span></div>
+        <div class="hint">上午古罗马遗迹，下午火车到佛罗伦萨看春晚</div>
+      </div>
+    </summary>
+    <div class="day-body">
+      <div class="day-summary-card">
+        <strong>关键词：</strong>斗兽场 · 古罗马遗迹 · 火车到佛罗伦萨 · 智能电视春晚
+      </div>
+      <div class="timeline-simple">
+        <div class="tl-row">
+          <div class="tl-time">09:45</div>
+          <div class="tl-title">🏛️ 古罗马遗迹 + 圆形竞技场（斗兽场）</div>
+          <div class="tl-desc">已预约 9:45 门票（提前 15 分钟到）· 灶神庙（维护圣火的贞女，基督教后关闭）· 凯撒的墓 · 沙土地是为了血液好清理 · 前身是尼禄的皇宫</div>
+          <div class="tl-meta"><span class="price">€ 36 · 24h 通票</span><span>⏱ 2-3h</span><span class="traffic">步行 1km</span><span><a href="https://ticketing.colosseo.it/" target="_blank">官网</a></span></div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">中午</div>
+          <div class="tl-title">君士坦丁凯旋门 · 帕拉丁山 · 图拉真广场</div>
+          <div class="tl-desc">这几个都在一起，一路走过去</div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">中午</div>
+          <div class="tl-title">威尼斯广场</div>
+          <div class="tl-desc">维克多·埃曼纽尔二世雕像</div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">下午</div>
+          <div class="tl-title">可选：圣克莱门蒂教堂 / 卡比托利欧博物馆</div>
+          <div class="tl-desc">圣克莱门蒂：陈丹青讲"文艺复兴的清晨"马索利诺壁画 · 卡比托利欧：罗马人民的博物馆，母狼雕塑</div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">17:40</div>
+          <div class="tl-title">🚄 罗马 Termini → 佛罗伦萨新圣母玛利亚站</div>
+          <div class="tl-desc">车次 9952，车厢 2 座位 13-15 · 到达时间 19:17 · 大熊 App 购票</div>
+          <div class="tl-meta"><span class="price">¥ 691</span><span>⏱ 1h37m</span></div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">19:30</div>
+          <div class="tl-title">步行 8 分钟 550 米到酒店</div>
+          <div class="tl-desc">Via dell'Alloro 6 · 佛罗伦萨 · 3 晚 ¥5,040</div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">20:00</div>
+          <div class="tl-title">🎊 看春晚（智能电视联网）</div>
+          <div class="tl-desc">酒店智能电视已确认可上网，除夕晚上和娃一起看春晚</div>
+        </div>
+      </div>
     </div>
+  </details>
+
+  <!-- DAY 4 -->
+  <details class="day-block">
+    <summary>
+      <div class="day-badge-big">04</div>
+      <div class="day-head-info">
+        <h4>佛罗伦萨（春节 · 大年初一）</h4>
+        <div class="meta"><span>📅 1月29日 星期三</span><span>🚶 步行日</span><span>🏨 宿 · 佛罗伦萨</span></div>
+        <div class="hint">文艺复兴摇篮全开：圣母百花登顶 + 乌菲兹</div>
+      </div>
+    </summary>
+    <div class="day-body">
+      <div class="day-summary-card">
+        <strong>关键词：</strong>圣母百花大教堂（登顶）· 乌菲兹美术馆 · 米开朗基罗广场 · 日落观景
+      </div>
+      <div class="timeline-simple">
+        <div class="tl-row">
+          <div class="tl-time">09:45</div>
+          <div class="tl-title">⛪ 圣母百花大教堂 · 套票登顶</div>
+          <div class="tl-desc">已买套票（圆顶+钟楼+洗礼堂+博物馆+圣雷帕拉塔，自日期起 3 日内有效）· 右边门进 · 左边门出去重新安检 · 463 级鱼骨状台阶 · 6 岁以下不建议登顶</div>
+          <div class="tl-meta"><span class="price">€ 72/2人</span><span>⏱ 1h 登顶</span><span><a href="https://tickets.duomo.firenze.it/en/store" target="_blank">官网</a></span></div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">11:30</div>
+          <div class="tl-title">🍦 休闲吃 gelato</div>
+          <div class="tl-desc">有盖子的最好（方便推车带走），坚果味最好</div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">中午</div>
+          <div class="tl-title">乔托钟楼 · 圣乔凡尼洗礼堂 · 主教堂博物馆</div>
+          <div class="tl-desc">钟楼：414 级哥特式 · 洗礼堂：八角形（第 8 天代表基督复活）穹顶"魔鬼吃一个人，主教堂吃 3 个"· 吉贝尔蒂的天堂之门 · 博物馆：米开朗基罗《班迪尼圣殇》、多纳泰罗《抹大拉的马利亚》唯一消瘦版</div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">中午</div>
+          <div class="tl-title">但丁之石 · 但丁故居</div>
+          <div class="tl-desc">教堂门口几步就有真正的但丁之石（但丁之石餐厅在旁）· 但丁故居余秋雨提过，不大，墙上有幔布</div>
+          <div class="spot-expand">
+            <strong>吃：</strong>但丁之石餐厅 · Mister Pizza
+          </div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">14:00</div>
+          <div class="tl-title">🎨 乌菲兹美术馆</div>
+          <div class="tl-desc">已购票，刷二维码进 · 波提切利《维纳斯的诞生》《春》· 达芬奇 · 米开朗基罗 · 拉斐尔都在这</div>
+          <div class="tl-meta"><span class="price">€ 36/2人</span><span>⏱ 3h</span><span><a href="https://www.uffizi.it/en/tickets" target="_blank">官网</a></span></div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">17:00</div>
+          <div class="tl-title">瓦萨里长廊 · 老桥</div>
+          <div class="tl-desc">从乌菲兹通过瓦萨里走廊走到老桥 · 老桥是但丁和贝特丽丝相遇的浪漫地点 · 欣赏阿诺河和金铺</div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">傍晚</div>
+          <div class="tl-title">🌅 米开朗基罗广场观日落</div>
+          <div class="tl-desc">观赏佛罗伦萨最好的角度 · 有大卫雕像复制品 · 人多时可去玫瑰园（7:30 关门）· 公交车前往</div>
+          <div class="spot-expand">
+            <strong>晚餐预约：</strong>Zaza 的牛扒（只能预约）· 或吃帕尼尼 + Gailli 咖啡
+          </div>
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <!-- DAY 5 -->
+  <details class="day-block">
+    <summary>
+      <div class="day-badge-big">05</div>
+      <div class="day-head-info">
+        <h4>佛罗伦萨 · 深度日</h4>
+        <div class="meta"><span>📅 1月30日 星期四</span><span>🎨 学院美术馆 · 美第奇</span><span>🏨 宿 · 佛罗伦萨</span></div>
+        <div class="hint">看大卫真迹日</div>
+      </div>
+    </summary>
+    <div class="day-body">
+      <div class="day-summary-card">
+        <strong>关键词：</strong>学院美术馆（大卫真迹）· 中央市场美食 · 美第奇礼拜堂 · 皮蒂宫
+      </div>
+      <div class="timeline-simple">
+        <div class="tl-row">
+          <div class="tl-time">09:00</div>
+          <div class="tl-title">🗿 学院美术馆（门票已预约）</div>
+          <div class="tl-desc">纪念市政倒退事件 · 最完美的大理石 · 29 岁米开朗基罗：大卫就在里面，我只要去掉多余部分 · 还有 4 个未完成作品</div>
+          <div class="tl-meta"><span class="price">€ 40/2人</span><span class="traffic">步行 750m</span><span><a href="https://www.galleriaaccademiafirenze.it/en/tickets/" target="_blank">官网</a></span></div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">12:00</div>
+          <div class="tl-title">🍝 佛罗伦萨中央市场 2 楼美食广场</div>
+          <div class="tl-desc">松露 · 牛肚包 · 意大利面 · 烤肉</div>
+          <div class="tl-meta"><span class="traffic">步行 400m</span></div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">下午</div>
+          <div class="tl-title">美第奇-里卡迪宫（皮蒂宫）</div>
+          <div class="tl-desc">陈丹青推荐屋顶壁画 · Complesso Museale Santa Maria della Scala</div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">下午</div>
+          <div class="tl-title">美第奇礼拜堂</div>
+          <div class="tl-desc">米开朗基罗设计 · 小，金色屋顶 · 陈丹青讲过"戈佐利比了 4"· 可能门票要预约</div>
+          <div class="tl-meta"><span class="price">€ 9</span></div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">可选</div>
+          <div class="tl-title">圣十字圣殿</div>
+          <div class="tl-desc">伽利略、米开朗基罗的埋骨之地 · 公交车前往</div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">晚上</div>
+          <div class="tl-title">领主广场 / 共和广场</div>
+          <div class="tl-desc">大卫雕像复制品 · 美杜莎雕像（科西莫·美第奇胜利之作）· 强掳萨宾妇女 · 夜晚有人唱歌 · 餐厅多</div>
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <!-- DAY 6 -->
+  <details class="day-block">
+    <summary>
+      <div class="day-badge-big">06</div>
+      <div class="day-head-info">
+        <h4>佛罗伦萨 → 威尼斯</h4>
+        <div class="meta"><span>📅 1月31日 星期五</span><span>🚄 火车 2h13m</span><span>🏨 宿 · 威尼斯</span></div>
+        <div class="hint">漂浮城市初见，贡多拉+墨鱼面</div>
+      </div>
+    </summary>
+    <div class="day-body">
+      <div class="day-summary-card">
+        <strong>关键词：</strong>新圣母大殿 · 火车 · 威尼斯水上巴士 · 圣马可 · 叹息桥 · 贡多拉
+      </div>
+      <div class="timeline-simple">
+        <div class="tl-row">
+          <div class="tl-time">上午</div>
+          <div class="tl-title">酒店 → 新圣母大殿</div>
+          <div class="tl-desc">步行 600 米 9 分钟 · 陈丹青讲马萨桥壁画 · 乔托耶稣受难十字架 · 乌切洛《洪水》· 骷髅头：我是曾经的你，也是你不远的未来</div>
+          <div class="tl-meta"><span class="price">€ 15</span></div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">10:39</div>
+          <div class="tl-title">🚄 佛罗伦萨 → 威尼斯</div>
+          <div class="tl-desc">车次 8906 · 车厢 3 座位 7-9</div>
+          <div class="tl-meta"><span class="price">¥ 735</span><span>⏱ 2h13m</span></div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">12:55</div>
+          <div class="tl-title">抵达威尼斯圣露西亚火车站（岛上）</div>
+          <div class="tl-desc">出岛右手边 P1 机器买 24h 水上巴士票（20 欧 · 包含去玻璃岛）</div>
+          <div class="tl-meta"><span class="price">€ 20 水上巴士 24h</span></div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">14:00</div>
+          <div class="tl-title">🏨 入住卢纳巴格里奥尼酒店（2 点入住）</div>
+          <div class="tl-desc">Calle Larga Dell'Ascensione 1243 · 圣马可 · 威尼斯 · 1 晚 ¥2,472 · 立鼎世酒店集团</div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">下午</div>
+          <div class="tl-title">🍝 餐饮推荐：墨鱼面</div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">下午</div>
+          <div class="tl-title">圣马可大教堂 + 圣马可广场</div>
+          <div class="tl-desc">可考虑登顶 · 酒店旁边 100 米</div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">傍晚</div>
+          <div class="tl-title">叹息桥（桥下亲亲）· 沉船书店 · 里亚托桥市场</div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">日落</div>
+          <div class="tl-title">🚣 贡多拉之旅</div>
+          <div class="tl-desc">威尼斯最浪漫的体验</div>
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <!-- DAY 7 -->
+  <details class="day-block">
+    <summary>
+      <div class="day-badge-big">07</div>
+      <div class="day-head-info">
+        <h4>威尼斯 → 米兰</h4>
+        <div class="meta"><span>📅 2月1日 星期六</span><span>🚄 火车 2.5h</span><span>🏨 宿 · 米兰</span></div>
+        <div class="hint">玻璃岛小半日 + 米兰大教堂夜景</div>
+      </div>
+    </summary>
+    <div class="day-body">
+      <div class="day-summary-card">
+        <strong>关键词：</strong>玻璃岛 · 米兰大教堂夜景 · 登顶 · 艾曼纽二世长廊
+      </div>
+      <div class="timeline-simple">
+        <div class="tl-row">
+          <div class="tl-time">早上</div>
+          <div class="tl-title">🏝️ 水上巴士去玻璃岛（可选）</div>
+          <div class="tl-desc">圣马可广场码头 45 分钟船 · 最早 7 点多，半小时一班 · 看玻璃制造 · 可以再去彩色岛 · 12 点前回</div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">12:00</div>
+          <div class="tl-title">回酒店拿行李</div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">13:57</div>
+          <div class="tl-title">🚄 威尼斯 → 米兰</div>
+          <div class="tl-desc">车次 8984 · 座位 53-55</div>
+          <div class="tl-meta"><span class="price">¥ 671</span><span>⏱ 2.5h</span></div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">16:25</div>
+          <div class="tl-title">抵达米兰火车站</div>
+          <div class="tl-desc">鹰的雕塑象征古罗马，有法西斯遗迹</div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">傍晚</div>
+          <div class="tl-title">🍕 米兰火车站 Spontini 披萨</div>
+          <div class="tl-desc">号称米兰最好吃的比萨</div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">傍晚</div>
+          <div class="tl-title">入住米兰酒店</div>
+          <div class="tl-desc">Corso di Porta Romana 48 · 2 晚 ¥2,875 · 地铁 6 站 + 350 米 / 打车 5.8km</div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">晚上</div>
+          <div class="tl-title">⛪ 米兰大教堂（夜景更美）</div>
+          <div class="tl-desc">正立面 600 年修建 · 拿破仑加冕地 · 圣钉 · 达芬奇升降机 · 剥皮雕塑 · 小孔+铜线+黄道 12 宫</div>
+          <div class="spot-expand"><strong>⚠️ 提醒：</strong>不要喂鸽子（骗局）</div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">晚上</div>
+          <div class="tl-title">电梯登顶米兰大教堂</div>
+          <div class="tl-desc">需预约具体小时 · 日落登顶最美 · 能看到飞扶壁（佛罗伦萨无）· 金色小圣母 108 米制高点</div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">晚上</div>
+          <div class="tl-title">艾曼纽二世青铜纪念碑 · 达芬奇纪念碑</div>
+          <div class="tl-desc">罗马第一任国王 + 索尔费里诺浮雕 · 达芬奇武器、拱顶、运河设计 · 有大弟子萨拉</div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">晚上</div>
+          <div class="tl-title">埃马努埃莱长廊</div>
+          <div class="tl-desc">看画 · 买买买 · 公牛蛋蛋踩三圈好运</div>
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <!-- DAY 8 -->
+  <details class="day-block">
+    <summary>
+      <div class="day-badge-big">08</div>
+      <div class="day-head-info">
+        <h4>米兰 · 达芬奇日</h4>
+        <div class="meta"><span>📅 2月2日 星期日</span><span>🎨 最后的晚餐 · 斯福尔扎城堡</span><span>🏨 宿 · 米兰</span></div>
+        <div class="hint">以达芬奇结束整趟旅程</div>
+      </div>
+    </summary>
+    <div class="day-body">
+      <div class="day-summary-card">
+        <strong>关键词：</strong>最后的晚餐（已预约）· 斯福尔扎城堡 · 布雷拉美术馆 · 斯卡拉歌剧院
+      </div>
+      <div class="timeline-simple">
+        <div class="tl-row">
+          <div class="tl-time">08:15</div>
+          <div class="tl-title">🎨 圣玛利亚修道院 · 最后的晚餐</div>
+          <div class="tl-desc">淘宝已预约 2 月 2 日早上 8:15-10:15 第一波 · 每人固定 15 分钟 · 米兰大教堂 20 分钟</div>
+          <div class="tl-meta"><span class="price">¥ 470/人</span><span class="traffic">开车 11min / 地铁 15min</span><span><a href="https://cenacolovinciano.vivaticket.it/en/event/cenacolo-vinciano/151991" target="_blank">官网</a></span></div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">上午</div>
+          <div class="tl-title">斯福尔扎城堡</div>
+          <div class="tl-desc">家族蛇形 logo · 博物馆美男子将军石雕 · 米开朗基罗 89 岁做的圣殇（开放想象）</div>
+          <div class="tl-meta"><span class="traffic">步行 900m</span></div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">下午</div>
+          <div class="tl-title">森皮奥内公园 · 拿破仑和平门</div>
+          <div class="tl-desc">取决于天气冷不冷</div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">午餐</div>
+          <div class="tl-title">🍕 罗马方披萨</div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">下午</div>
+          <div class="tl-title">布雷拉美术馆</div>
+          <div class="tl-desc">拉斐尔画作 · 镇馆之宝《死去的耶稣》透视法杰作 · 两幅最后的晚餐 · 莫兰迪静物</div>
+          <div class="tl-meta"><span class="traffic">步行 650m</span></div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">可选</div>
+          <div class="tl-title">达芬奇体验馆 · 安波罗修图书馆（《大西洋手稿》）</div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">晚上</div>
+          <div class="tl-title">🎭 斯卡拉歌剧院</div>
+          <div class="tl-desc">歌剧麦加 · 提早现场/网上看票 +10%溢价 · 夜间售票处当天 -25% 折扣</div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">晚餐</div>
+          <div class="tl-title">🍷 可预订 El Barbapedana</div>
+          <div class="tl-desc">炸牛排 + 炖小牛膝 + 米兰顿饭</div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">晚上</div>
+          <div class="tl-title">运河边散步</div>
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <!-- DAY 9 -->
+  <details class="day-block">
+    <summary>
+      <div class="day-badge-big">09</div>
+      <div class="day-head-info">
+        <h4>米兰 → 深圳（返程）</h4>
+        <div class="meta"><span>📅 2月3日 星期一</span><span>✈️ HU7974</span></div>
+        <div class="hint">收尾日</div>
+      </div>
+    </summary>
+    <div class="day-body">
+      <div class="timeline-simple">
+        <div class="tl-row">
+          <div class="tl-time">早上</div>
+          <div class="tl-title">🚐 送机服务（请房东帮忙定）</div>
+          <div class="tl-desc">50 公里开车 1 小时</div>
+        </div>
+        <div class="tl-row">
+          <div class="tl-time">10:35</div>
+          <div class="tl-title">✈️ 海航 HU7974 返程</div>
+          <div class="tl-desc">通知改为 10:35 起飞</div>
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <!-- DAY 10 -->
+  <details class="day-block">
+    <summary>
+      <div class="day-badge-big">10</div>
+      <div class="day-head-info">
+        <h4>抵达深圳</h4>
+        <div class="meta"><span>📅 2月4日 星期二</span><span>🏡 到家</span></div>
+        <div class="hint">到家啦！</div>
+      </div>
+    </summary>
+    <div class="day-body">
+      <div class="timeline-simple">
+        <div class="tl-row">
+          <div class="tl-time">05:00</div>
+          <div class="tl-title">✈️ 回到深圳</div>
+          <div class="tl-desc">预约接机服务</div>
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <!-- 总费用概览 -->
+  <div style="margin-top:40px;padding:28px;background:#000;color:#fff">
+    <div style="font-family:'Caveat',cursive;font-size:22px;color:var(--ng-yellow);margin-bottom:10px">✦ 伊娃 2025 年 1 月实际花费</div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:14px">
+      <div><div style="font-size:11px;color:#888;font-family:'Inter',sans-serif;letter-spacing:.1em">机票</div><div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--ng-yellow);margin-top:4px">¥ 20,442</div></div>
+      <div><div style="font-size:11px;color:#888;font-family:'Inter',sans-serif;letter-spacing:.1em">酒店 8 晚</div><div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--ng-yellow);margin-top:4px">¥ 13,888</div></div>
+      <div><div style="font-size:11px;color:#888;font-family:'Inter',sans-serif;letter-spacing:.1em">签证 + 公证</div><div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--ng-yellow);margin-top:4px">¥ 5,657</div></div>
+      <div><div style="font-size:11px;color:#888;font-family:'Inter',sans-serif;letter-spacing:.1em">门票 + 火车</div><div style="font-family:'Playfair Display',serif;font-size:24px;font-weight:700;color:var(--ng-yellow);margin-top:4px">¥ 4,525</div></div>
+    </div>
+    <p style="margin-top:16px;color:#ccc;font-size:13px;line-height:1.7">总计约 <strong style="color:#fff;font-size:16px">¥ 66,166</strong>（2 大 1 小 · 10 天）· 餐饮/纪念品/外币/其他预估 <strong style="color:#fff">¥ 21,655</strong>。数据真实来自伊娃 Excel 费用记录。</p>
   </div>
 </section>
 
-<!-- Part 4 -->
-<section style="padding-top:40px">
-  <div class="sec-label">Part 04 · After The Trip</div>
-  <h2 class="sec-title">行后升华</h2>
-  <div class="sec-sub">让这场旅行，在娃心里继续长 🌱</div>
-
-  <div class="after-hero">
-    <div class="overlay">
-      <div>
-        <h3>Make The Memory Last</h3>
-        <div class="kid">回家后，还有 5 件事可以做 →</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="after-grid">
-    <div class="after-card">
-      <div class="photo"><img src="https://images.unsplash.com/photo-1517842645767-c639042777db?w=600&q=80" alt="手账"></div>
-      <div class="body"><h6>手账</h6><p>贴票根，画印象</p></div>
-    </div>
-    <div class="after-card">
-      <div class="photo"><img src="https://images.unsplash.com/photo-1519682337058-a94d519337bc?w=600&q=80" alt="故事书"></div>
-      <div class="body"><h6>故事书</h6><p>把旅程写成绘本</p></div>
-    </div>
-    <div class="after-card">
-      <div class="photo"><img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=600&q=80" alt="Vlog"></div>
-      <div class="body"><h6>Vlog</h6><p>剪 3 分钟短片</p></div>
-    </div>
-    <div class="after-card">
-      <div class="photo"><img src="https://images.unsplash.com/photo-1542868727-5ff66795f1f1?w=600&q=80" alt="角色扮演"></div>
-      <div class="body"><h6>角色扮演</h6><p>在家重现工作室</p></div>
-    </div>
-    <div class="after-card">
-      <div class="photo"><img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&q=80" alt="意面"></div>
-      <div class="body"><h6>美食还原</h6><p>一起做意面、披萨</p></div>
-    </div>
-  </div>
-</section>
+<!-- Part 4 (架构保留，内容暂时隐藏，未来补充) -->
+<!-- 行后升华章节暂时从 v0.4 移除，架构保留 -->
 
 <!-- Author 伊娃 -->
 <div class="author-block">
