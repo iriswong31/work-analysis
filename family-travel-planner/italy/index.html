@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>亲子旅游 · 意大利 · v0.4</title>
+<title>亲子旅游 · 意大利 · v0.5</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700;900&family=Noto+Serif+SC:wght@400;600;700&family=Inter:wght@400;500;600&family=Caveat:wght@500;700&family=Gochi+Hand&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -62,14 +62,85 @@ section{padding:80px 60px;position:relative}
 .sec-title{font-family:'Playfair Display',serif;font-size:42px;font-weight:700;margin-bottom:8px;letter-spacing:-.01em}
 .sec-sub{font-family:'Caveat',cursive;font-size:26px;color:var(--kid-pink);margin-bottom:48px}
 
+/* 通用：标题旁的全展开/折叠按钮 - 极简无框 */
+.sec-head-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:48px}
+.sec-head-row .sec-sub{margin:0}
+.toggle-all-btn{padding:0;border:0;background:transparent;font-family:'Inter',sans-serif;font-size:12px;font-weight:600;letter-spacing:.05em;cursor:pointer;color:#000;transition:color .2s;display:inline-flex;align-items:center;gap:4px;white-space:nowrap;position:relative;line-height:1.2}
+.toggle-all-btn::after{content:"";position:absolute;left:0;right:0;bottom:-3px;height:2px;background:var(--ng-yellow);transform:scaleX(0);transform-origin:left;transition:transform .25s ease}
+.toggle-all-btn:hover::after{transform:scaleX(1)}
+.toggle-all-btn:hover{color:var(--kid-pink)}
+.toggle-all-btn .icon{font-size:11px;line-height:1;opacity:.7}
+
+/* 片单书单模块 */
+.library{margin-top:48px;padding:32px 28px;background:#fff;border:1px solid var(--line);border-radius:4px;position:relative}
+.library-head{display:flex;align-items:center;gap:14px;margin-bottom:10px;flex-wrap:wrap}
+.library-head h3{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;display:flex;align-items:center;gap:10px}
+.library-head h3::before{content:"";display:inline-block;width:36px;height:2px;background:var(--ng-yellow);vertical-align:middle}
+.library-sub{font-family:'Caveat',cursive;font-size:20px;color:var(--kid-pink);margin-bottom:24px}
+.library-desc{font-size:13px;color:var(--ink-soft);line-height:1.75;margin-bottom:28px;padding-left:14px;border-left:3px solid var(--ng-yellow);background:var(--paper-soft);padding:14px 18px}
+
+/* 3 张横排分类卡片 */
+.cat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:6px;align-items:stretch}
+.lib-cat-card{border:1px solid #000;background:#fff;cursor:pointer;padding:22px 20px;transition:all .25s ease;position:relative;overflow:hidden;display:flex;flex-direction:column}
+.lib-cat-card:hover{background:#fffbe8;transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.08)}
+.lib-cat-card.open{cursor:default;background:#fff;transform:none;box-shadow:none;border-color:#000;padding:20px 24px;grid-column:1/-1;display:block}
+.lib-cat-card.open:hover{background:#fff;transform:none}
+.lib-cat-card .cat-ic-big{font-size:28px;margin-bottom:10px;display:block;flex:0 0 auto}
+.lib-cat-card h4{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;margin-bottom:6px;color:#000;flex:0 0 auto}
+.lib-cat-card .cat-count{font-family:'Caveat',cursive;font-size:22px;color:var(--kid-pink);margin-bottom:10px;flex:0 0 auto}
+.lib-cat-card .cat-count b{font-family:'Playfair Display',serif;font-size:32px;font-weight:700;color:var(--ng-yellow);margin-right:4px}
+.lib-cat-card .cat-keywords{font-size:12px;color:var(--ink-soft);line-height:1.65;margin-bottom:10px;flex:1 1 auto}
+.lib-cat-card .cat-action{font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:.1em;color:#000;display:inline-flex;align-items:center;gap:4px;padding-top:8px;border-top:1px dashed var(--line);width:100%;flex:0 0 auto}
+/* 展开态：只隐藏大图标/大数字/关键词/action；标题保留并参与紧凑头部 */
+.lib-cat-card.open .cat-ic-big,.lib-cat-card.open .cat-count,.lib-cat-card.open .cat-keywords,.lib-cat-card.open .cat-action{display:none}
+/* 展开态折叠态默认的 h4 也隐藏，头部在 cat-expanded 里有独立 h4 */
+.lib-cat-card.open > h4{display:none}
+.cat-expanded{display:none}
+.lib-cat-card.open .cat-expanded{display:block}
+.cat-expanded-head{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:16px;padding-bottom:10px;border-bottom:2px solid #000}
+.cat-expanded-head h4{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;display:flex;align-items:center;gap:10px;margin:0}
+.cat-expanded-head h4 .ic{font-size:20px}
+.cat-expanded-head h4 .meta{font-family:'Caveat',cursive;font-size:18px;color:var(--kid-pink);font-weight:400;margin-left:6px}
+.cat-expanded-head .cat-close{background:transparent;border:0;font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:.1em;cursor:pointer;color:#000;padding:4px 8px}
+.cat-expanded-head .cat-close:hover{color:var(--kid-pink)}
+
+.lib-item{border-bottom:1px dashed var(--line);margin-bottom:4px}
+.lib-item:last-child{border:0}
+.lib-item summary{cursor:pointer;padding:12px 0;list-style:none;display:flex;align-items:flex-start;gap:14px;-webkit-user-select:none;user-select:none}
+.lib-item summary::-webkit-details-marker{display:none}
+.lib-item summary::before{content:"▸";color:var(--ng-yellow);font-size:13px;margin-top:3px;transition:transform .2s;flex-shrink:0}
+.lib-item[open] summary::before{transform:rotate(90deg)}
+.lib-item summary:hover .lib-name{color:var(--kid-pink)}
+.lib-item .lib-title{flex:1;min-width:0}
+.lib-item .lib-name{font-size:14px;font-weight:600;color:#000;margin-bottom:2px;transition:color .2s}
+.lib-item .lib-brief{font-size:12px;color:var(--ink-soft);line-height:1.5}
+.lib-item .lib-platform{flex-shrink:0;font-family:'Inter',sans-serif;font-size:10px;padding:2px 8px;background:var(--paper-soft);color:var(--ink-mute);letter-spacing:.05em;margin-top:2px;border-radius:2px}
+.lib-item a.lib-platform-link{text-decoration:none;cursor:pointer;transition:all .15s}
+.lib-item a.lib-platform-link:hover{background:var(--ng-yellow);color:#000;transform:scale(1.05)}
+.lib-item .lib-detail{padding:6px 0 18px 28px;background:#fafaf5;margin-left:-14px;padding-left:42px;margin-right:-14px;padding-right:14px;border-left:3px solid var(--ng-yellow);margin-top:2px}
+.lib-item .lib-detail > div{margin-bottom:10px}
+.lib-item .lib-detail > div:last-child{margin-bottom:0}
+.lib-item .lib-label{font-family:'Inter',sans-serif;font-size:10px;color:var(--ng-yellow);letter-spacing:.15em;font-weight:700;text-transform:uppercase;margin-bottom:4px}
+.lib-item .lib-value{font-size:12px;color:var(--ink-soft);line-height:1.7}
+.lib-item .lib-value a{color:var(--kid-pink);text-decoration:underline;margin-right:10px;word-break:break-all}
+.lib-item .lib-value a.primary-link{background:var(--ng-yellow);color:#000;padding:3px 10px;text-decoration:none;font-weight:600;border-radius:2px;font-size:11px}
+.lib-item .lib-value a.primary-link:hover{background:#000;color:var(--ng-yellow)}
+.lib-item .lib-why{padding:10px 12px;background:#fff8e1;border-left:2px solid var(--kid-orange);font-size:12px;color:#5a3a0a;line-height:1.65;margin-top:8px}
+.lib-item .lib-why::before{content:"✦ 为什么要看：";color:var(--kid-orange);font-weight:700}
+
+@media (max-width:900px){
+  .cat-row{grid-template-columns:1fr}
+}
+
 /* ====== 新增：4 城跨页大图陈列 ====== */
-.cities-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:48px}
-.city-cell{position:relative;height:260px;overflow:hidden;cursor:pointer}
-.city-cell img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
-.city-cell:hover img{transform:scale(1.08)}
-.city-cell .label{position:absolute;bottom:0;left:0;right:0;padding:18px 16px;background:linear-gradient(transparent,rgba(0,0,0,.9));color:#fff}
-.city-cell .label .en{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;line-height:1}
-.city-cell .label .cn{font-family:'Noto Serif SC',serif;font-size:14px;color:#eee;margin-top:4px}
+.cities-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:48px;align-items:stretch}
+.city-cell{position:relative;overflow:visible;cursor:pointer;background:#fff;border:1px solid var(--line);display:flex;flex-direction:column;height:100%}
+.city-cell .photo{position:relative;height:220px;overflow:hidden;flex:0 0 auto}
+.city-cell .photo img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.city-cell:hover .photo img{transform:scale(1.06)}
+.city-cell .label{position:absolute;bottom:0;left:0;right:0;padding:16px 14px;background:linear-gradient(transparent,rgba(0,0,0,.9));color:#fff}
+.city-cell .label .en{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;line-height:1}
+.city-cell .label .cn{font-family:'Noto Serif SC',serif;font-size:13px;color:#eee;margin-top:3px}
 .city-cell .days{position:absolute;top:14px;right:14px;background:var(--ng-yellow);color:#000;padding:4px 10px;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;letter-spacing:.05em}
 
 /* ===== Part 1 ===== */
@@ -240,12 +311,11 @@ section{padding:80px 60px;position:relative}
 .transport .sec-sub{color:var(--ng-yellow)}
 .transport-desc{color:#ccc;font-size:14px;line-height:1.8;margin-bottom:28px;max-width:720px}
 .time-bars{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:32px}
-.time-bar{background:#1a1a1a;border:1px solid #2a2a2a;padding:16px 14px}
-.time-bar.best{border-color:var(--ng-yellow)}
-.time-bar h6{font-family:'Caveat',cursive;font-size:22px;font-weight:700;margin-bottom:4px}
-.time-bar.best h6{color:var(--ng-yellow)}
+.time-bar{background:#1a1a1a;border:1px solid #2a2a2a;padding:16px 14px;position:relative}
+.time-bar h6{font-family:'Caveat',cursive;font-size:22px;font-weight:700;margin-bottom:4px;color:#fff}
 .time-bar .range{font-family:'Inter',sans-serif;font-size:11px;color:#888;margin-bottom:6px;letter-spacing:.1em}
 .time-bar p{font-size:11px;color:#bbb;line-height:1.6}
+.time-bar .eva-badge{position:absolute;top:-8px;right:10px;background:var(--ng-yellow);color:#000;font-family:'Inter',sans-serif;font-size:9px;font-weight:700;padding:3px 8px;letter-spacing:.05em;border-radius:2px;white-space:nowrap;box-shadow:0 2px 8px rgba(255,204,0,.4)}
 .flight-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:24px 0}
 .flight-card{background:#fff;color:#000;padding:22px 20px}
 .flight-card.eva{border-top:3px solid var(--ng-yellow);position:relative}
@@ -261,13 +331,95 @@ section{padding:80px 60px;position:relative}
 .flight-card .flight-actions a{flex:1;text-align:center;padding:8px 6px;background:#000;color:var(--ng-yellow);text-decoration:none;font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:.05em}
 .flight-card .flight-actions a.ghost{background:#fff;color:#000;border:1px solid #000}
 
+/* === Part 2.6 住宿模块 === */
+.hotels{padding:60px 50px;background:var(--paper);margin:0;overflow:hidden}
+.hotels .sec-label{color:var(--rome-red)}
+.hotels-desc{color:var(--ink-soft);font-size:14px;line-height:1.8;margin-bottom:28px;max-width:720px}
+.hotel-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:24px}
+.hotel-card{background:#fff;border:1px solid var(--line);overflow:hidden;display:flex;flex-direction:column}
+.hotel-card .h-photo{height:140px;overflow:hidden;background:#eee;position:relative}
+.hotel-card .h-photo img{width:100%;height:100%;object-fit:cover}
+.hotel-card .h-badge{position:absolute;top:10px;left:10px;background:var(--ng-yellow);color:#000;padding:3px 10px;font-family:'Inter',sans-serif;font-size:11px;font-weight:700;letter-spacing:.05em;border-radius:2px}
+.hotel-card .h-body{padding:14px 16px;flex:1 1 auto;display:flex;flex-direction:column}
+.hotel-card .h-city{font-family:'Inter',sans-serif;font-size:10px;color:var(--ink-mute);letter-spacing:.15em;margin-bottom:4px}
+.hotel-card h5{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;margin-bottom:6px;line-height:1.3}
+.hotel-card .h-meta{font-size:11px;color:var(--ink-mute);margin-bottom:10px}
+.hotel-card .h-meta strong{color:var(--ink);font-family:'Inter',sans-serif;font-weight:600}
+.hotel-card .h-eva{padding:8px 10px;background:var(--paper-soft);border-left:2px solid var(--ng-yellow);font-size:11px;color:var(--ink-soft);line-height:1.6;flex:1 1 auto;position:relative;max-height:180px;overflow:hidden;transition:max-height .35s ease}
+.hotel-card .h-eva.expanded{max-height:none}
+.hotel-card .h-eva::after{content:"";position:absolute;left:0;right:0;bottom:0;height:48px;background:linear-gradient(to bottom,transparent,var(--paper-soft) 80%);pointer-events:none;opacity:1;transition:opacity .25s}
+.hotel-card .h-eva.expanded::after{opacity:0}
+.hotel-card .h-eva-toggle{position:absolute;left:50%;bottom:6px;transform:translateX(-50%);width:28px;height:28px;border:1px solid var(--ink-mute);background:#fff;color:var(--ink);border-radius:50%;cursor:pointer;font-size:14px;line-height:1;display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;transition:all .2s;z-index:2;box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.hotel-card .h-eva-toggle:hover{background:#000;color:var(--ng-yellow);border-color:#000}
+.hotel-card .h-eva.expanded .h-eva-toggle{position:static;transform:none;margin:8px auto 0;display:flex}
+.hotel-card .h-eva b{color:var(--rome-red);display:block;font-family:'Caveat',cursive;font-size:14px;margin-bottom:2px;font-weight:700}
+.hotel-card{cursor:pointer;transition:transform .2s,box-shadow .2s,border-color .2s}
+.hotel-card:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.12)}
+.hotel-card.distance-open{border-color:#000;box-shadow:0 6px 22px rgba(0,0,0,.16)}
+
+/* 酒店卡 → 距离辐射图（点击在卡片下方原地展开） */
+.hotel-distance-panel{
+  grid-column:1 / -1;
+  background:#fff;
+  border:1.5px solid #000;
+  border-radius:4px;
+  margin-top:-8px;
+  margin-bottom:8px;
+  padding:0;
+  overflow:hidden;
+  display:none;
+  animation:hdpFadeIn .25s ease;
+}
+@keyframes hdpFadeIn{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+.hotel-distance-panel.visible{display:block}
+.hdp-head{background:#000;color:#fff;padding:10px 16px;display:flex;justify-content:space-between;align-items:center}
+.hdp-head .hdp-title{font-family:'Playfair Display',serif;font-size:16px;font-weight:700}
+.hdp-head .hdp-title small{font-family:'Noto Serif SC',serif;font-size:11px;color:#aaa;font-weight:400;margin-left:8px;letter-spacing:.05em}
+.hdp-head .hdp-close{background:transparent;color:#fff;border:1px solid #fff;border-radius:50%;width:24px;height:24px;cursor:pointer;font-size:14px;line-height:1;display:flex;align-items:center;justify-content:center}
+.hdp-head .hdp-close:hover{background:#fff;color:#000}
+.hdp-body{padding:20px 24px 24px;display:grid;grid-template-columns:1.1fr 1fr;gap:24px;align-items:center}
+@media (max-width:760px){.hdp-body{grid-template-columns:1fr}}
+.hdp-radial{position:relative;width:100%;aspect-ratio:1.1;background:#fafaf5;border-radius:4px;border:1px dashed var(--line)}
+.hdp-radial svg{width:100%;height:100%}
+/* SVG 元素 */
+.hdp-radial .ring{fill:none;stroke:#ddd;stroke-dasharray:3 3}
+.hdp-radial .ring-label{font-family:'Inter',sans-serif;font-size:9px;fill:#999;letter-spacing:.05em}
+.hdp-radial .spoke{stroke:#bbb;stroke-width:1;stroke-dasharray:2 3}
+.hdp-radial .hotel-dot{fill:var(--rome-red);stroke:#fff;stroke-width:2.5}
+.hdp-radial .hotel-icon{font-family:'Inter',sans-serif;font-size:10px;font-weight:700;fill:#fff;text-anchor:middle}
+.hdp-radial .spot-dot{fill:var(--ng-yellow);stroke:#000;stroke-width:1.5;cursor:pointer;transition:r .2s}
+.hdp-radial .spot-dot:hover{r:11}
+.hdp-radial .spot-num{font-family:'Inter',sans-serif;font-size:10px;font-weight:700;fill:#000;text-anchor:middle;pointer-events:none}
+.hdp-radial .dist-label{font-family:'Inter',sans-serif;font-size:9px;fill:#666;text-anchor:middle}
+/* 列表 */
+.hdp-list{font-size:13px}
+.hdp-hotel-meta{padding:10px 14px;background:#fff8e1;border-left:3px solid var(--rome-red);margin-bottom:14px;line-height:1.65}
+.hdp-hotel-meta b{display:block;font-family:'Playfair Display',serif;font-size:14px;color:#000;margin-bottom:2px}
+.hdp-hotel-meta small{display:block;color:var(--ink-mute);font-size:11px}
+.hdp-spot-list{list-style:none;padding:0;margin:0}
+.hdp-spot-list li{display:grid;grid-template-columns:24px 1fr auto;gap:10px;align-items:center;padding:7px 0;border-bottom:1px dashed var(--line);font-size:12.5px;cursor:pointer;transition:background .15s}
+.hdp-spot-list li:hover{background:#fafaf5}
+.hdp-spot-list li:last-child{border-bottom:0}
+.hdp-spot-list .num{width:22px;height:22px;background:var(--ng-yellow);border:1.5px solid #000;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-size:11px;font-weight:700}
+.hdp-spot-list .name{color:var(--ink)}
+.hdp-spot-list .dist{font-family:'Inter',sans-serif;font-size:11px;color:var(--ink-soft);text-align:right;line-height:1.4}
+.hdp-spot-list .dist b{display:block;color:#000;font-weight:700}
+.hotel-cost-bar{display:flex;justify-content:space-between;align-items:center;margin-top:24px;padding:14px 20px;background:#000;color:#fff}
+.hotel-cost-bar .label{font-family:'Inter',sans-serif;font-size:11px;color:#888;letter-spacing:.15em}
+.hotel-cost-bar .value{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--ng-yellow)}
+.hotel-cost-bar .breakdown{font-family:'Inter',sans-serif;font-size:11px;color:#aaa}
+
+@media (max-width:900px){
+  .hotel-grid{grid-template-columns:repeat(2,1fr)}
+}
+
 /* Day-by-day */
-.day-nav{display:flex;gap:6px;margin:24px 0;overflow-x:auto;padding-bottom:6px}
+.day-nav{display:flex;gap:6px;margin:24px 0;overflow-x:auto;padding:8px 6px;position:sticky;top:0;background:rgba(254,252,247,.96);backdrop-filter:blur(8px);z-index:50;border-bottom:1px solid var(--line)}
 .day-nav::-webkit-scrollbar{height:4px}
 .day-nav::-webkit-scrollbar-thumb{background:var(--line)}
-.day-nav .dn{flex-shrink:0;padding:8px 14px;border:1px solid var(--line);font-family:'Inter',sans-serif;font-size:12px;color:var(--ink-mute);cursor:pointer;background:#fff;white-space:nowrap}
-.day-nav .dn.highlight{background:var(--ng-yellow);border-color:var(--ng-yellow);color:#000;font-weight:600}
-.day-nav .dn:hover{border-color:#000}
+.day-nav .dn{flex-shrink:0;padding:8px 14px;border:1px solid var(--line);font-family:'Inter',sans-serif;font-size:12px;color:var(--ink-mute);cursor:pointer;background:#fff;white-space:nowrap;transition:all .2s;border-radius:2px}
+.day-nav .dn.highlight{background:var(--ng-yellow);border-color:var(--ng-yellow);color:#000;font-weight:600;box-shadow:0 2px 8px rgba(255,204,0,.4)}
+.day-nav .dn:hover{border-color:#000;color:#000}
 
 .day-block{margin-bottom:20px;border:1px solid var(--line);background:#fff;overflow:hidden}
 .day-block summary{list-style:none;cursor:pointer;display:flex;gap:20px;padding:20px 24px;align-items:center;background:#fff;-webkit-user-select:none;user-select:none}
@@ -293,6 +445,16 @@ section{padding:80px 60px;position:relative}
 .day-body .tl-meta span{display:inline-flex;align-items:center;gap:4px}
 .day-body .tl-meta .price{color:var(--kid-pink);font-weight:600}
 .day-body .tl-meta .traffic::before{content:"◷ ";color:var(--ng-yellow)}
+/* 夜晚住宿行：橙红色 timeline 节点 + 浅黄背景 */
+.day-body .tl-row.stay-row{margin-top:8px;padding:14px 14px 14px 14px;background:#fff8e1;border-left:3px solid var(--rome-red);border-bottom:0;border-radius:0 4px 4px 0}
+.day-body .tl-row.stay-row::before{background:var(--rome-red);border-color:var(--rome-red)}
+.day-body .tl-row.stay-row .tl-time{background:var(--rome-red);color:#fff}
+.day-body .tl-row.stay-row .tl-desc{color:#5a3a0a;font-size:12px}
+/* 精确到分钟入场的票务（伊娃铁律） */
+.day-body .tl-row.timed-strict::after{content:"⚠ 精确入场 · 迟到作废";position:absolute;top:14px;right:0;background:var(--rome-red);color:#fff;padding:3px 10px;font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:.05em;border-radius:2px;white-space:nowrap;z-index:2}
+.day-body .tl-row.timed-strict{border-left:3px solid var(--rome-red);padding-left:14px;background:linear-gradient(to right,#fff5f5,transparent 40%)}
+.day-body .tl-row.timed-strict::before{background:var(--rome-red);border-color:var(--rome-red);box-shadow:0 0 0 4px rgba(168,58,42,.12)}
+.day-body .tl-row.timed-strict .tl-time{background:var(--rome-red);color:#fff}
 .day-body .tl-meta a{color:var(--kid-pink);text-decoration:underline}
 .day-body .spot-expand{margin-top:8px;padding:10px 12px;background:var(--paper-soft);border-left:2px solid var(--ng-yellow);font-size:11px;color:var(--ink-soft);line-height:1.7}
 .day-body .spot-expand strong{color:#000}
@@ -304,6 +466,201 @@ section{padding:80px 60px;position:relative}
 /* 推荐景点深度 */
 .spot-deep{margin:24px 0;padding:24px 0 0;border-top:2px solid #000}
 .spot-deep-head{font-family:'Caveat',cursive;color:var(--kid-pink);font-size:22px;margin-bottom:10px}
+
+/* === v0.5 新增样式 === */
+/* 意大利地图 */
+.italy-map{margin:24px 0;padding:24px 32px;background:#fff;border:1px solid var(--line);position:relative}
+.map-wrap{position:relative}
+.map-pin{cursor:pointer}
+.map-pin circle{transition:fill .2s,r .2s}
+.map-pin:hover circle{fill:#ff7b7b;r:13}
+.map-pin.mcp-active circle{fill:#ff7b7b;stroke:#000;stroke-width:2}
+
+/* 城市详情浮动卡（点击 pin 打开，可以移到卡上交互，点外部关闭） */
+.map-tooltip{
+  position:absolute;
+  top:0;left:0;
+  width:320px;
+  background:#fff;
+  border:1.5px solid #000;
+  box-shadow:0 10px 30px rgba(0,0,0,.22);
+  border-radius:4px;
+  overflow:hidden;
+  opacity:0;visibility:hidden;
+  transform:translate(-9999px,-9999px);
+  pointer-events:none;
+  transition:opacity .15s ease;
+  z-index:50;
+  font-size:12px;
+  max-height:75vh;
+  overflow-y:auto;
+}
+.map-tooltip.visible{opacity:1;visibility:visible;pointer-events:auto}
+.mt-photo{position:relative;height:140px;overflow:hidden}
+.mt-photo img{width:100%;height:100%;object-fit:cover;display:block}
+.mt-badge{position:absolute;top:10px;left:10px;background:var(--ng-yellow);color:#000;padding:3px 10px;font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;border-radius:2px}
+.mt-close{position:absolute;top:8px;right:8px;width:24px;height:24px;background:rgba(0,0,0,.6);color:#fff;border:0;border-radius:50%;cursor:pointer;font-size:14px;line-height:1;display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif}
+.mt-close:hover{background:#000}
+.mt-info{padding:14px 16px 16px}
+.mt-en{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;line-height:1;color:#000}
+.mt-cn{font-family:'Noto Serif SC',serif;font-size:12px;color:var(--ink-mute);margin:4px 0 10px}
+.mt-tags{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px}
+.mt-tags span{padding:2px 9px;background:#fafaf5;border:1px solid var(--line);font-family:'Inter',sans-serif;font-size:10px;color:var(--ink-soft);border-radius:100px}
+.mt-plan{font-size:12px;color:var(--ink-soft);line-height:1.7;margin-bottom:12px}
+.mt-plan strong{color:#000;display:block;margin-bottom:4px;font-size:12.5px}
+
+/* 吃喝玩乐二级展开 */
+.mt-extras{margin-top:8px;border-top:1px dashed var(--line);padding-top:10px}
+.mt-extras details{margin-bottom:6px}
+.mt-extras summary{cursor:pointer;font-family:'Inter',sans-serif;font-size:11px;font-weight:600;color:var(--ink);padding:6px 10px;background:#fafaf5;border-radius:3px;list-style:none;display:flex;justify-content:space-between;align-items:center;transition:background .15s}
+.mt-extras summary::-webkit-details-marker{display:none}
+.mt-extras summary::after{content:"+";font-size:16px;color:var(--ink-mute);transition:transform .2s}
+.mt-extras details[open] summary::after{content:"−"}
+.mt-extras summary:hover{background:#f0ede0}
+.mt-extras .mte-body{padding:8px 10px 4px;font-size:11.5px;line-height:1.7;color:var(--ink-soft)}
+.mt-extras .mte-body ul{margin:0;padding-left:16px}
+.mt-extras .mte-body li{margin-bottom:3px}
+.mt-extras .mte-body li b{color:var(--ink)}
+
+.mt-jump{display:inline-flex;align-items:center;gap:4px;background:#000;color:var(--ng-yellow);padding:8px 14px;font-family:'Inter',sans-serif;font-size:11px;font-weight:600;text-decoration:none;letter-spacing:.05em;border-radius:2px;margin-top:12px;transition:all .2s}
+.mt-jump:hover{background:var(--ng-yellow);color:#000}
+
+/* SVG hover 卡片用 HTML 绝对定位 */
+.pin-popup{position:absolute;width:260px;background:#fff;border:1px solid var(--line);box-shadow:0 8px 24px rgba(0,0,0,.18);z-index:20;opacity:0;visibility:hidden;transform:translateY(8px);transition:all .25s ease;pointer-events:none}
+.pin-popup.visible{opacity:1;visibility:visible;transform:translateY(0);pointer-events:auto}
+.pin-popup .thumb{position:relative;height:120px;overflow:hidden}
+.pin-popup .thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.pin-popup .thumb .badge{position:absolute;top:8px;left:8px;background:var(--ng-yellow);color:#000;padding:3px 10px;font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em}
+.pin-popup .body-pop{padding:14px 16px 16px}
+.pin-popup h6{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;margin-bottom:4px}
+.pin-popup .zh{font-size:12px;color:var(--ink-mute);font-family:'Noto Serif SC',serif;margin-bottom:8px}
+.pin-popup p{font-size:11px;color:var(--ink-soft);line-height:1.7;margin-bottom:8px}
+.pin-popup p strong{color:#000}
+.pin-popup .pop-tags{display:flex;gap:4px;flex-wrap:wrap;margin-top:6px}
+.pin-popup .pop-tags span{font-size:10px;padding:2px 8px;background:var(--paper-soft);color:var(--ink-soft);font-family:'Inter',sans-serif}
+
+/* 4 个 popup 位置（基于 map-wrap 容器） */
+.pin-popup.pop-roma{top:48%;left:54%}
+.pin-popup.pop-firenze{top:33%;left:50%}
+.pin-popup.pop-venezia{top:24%;left:60%}
+.pin-popup.pop-milano{top:22%;left:2%}
+
+/* ============ 打印优化（A4 小册子模式） ============ */
+@media print {
+  @page{size:A4;margin:1.5cm 1.2cm}
+  body{max-width:100%;background:#fff;color:#000;font-size:11pt;line-height:1.5}
+  .nav,.switcher-bar,.day-nav,.diy,.future-hint,.source-note,.archive-switcher,.author-block .author-info .tags{display:none !important}
+  .author-block{padding:20px 0;background:#fff;color:#000;grid-template-columns:80px 1fr;gap:16px;page-break-before:always}
+  .author-avatar{width:60px;height:60px;font-size:32px;border:2px solid #000;background:#fff;color:#000}
+  .author-avatar::after{display:none}
+  .author-info h3{color:#000;font-size:18pt}
+  .author-info p{color:#444;font-size:10pt}
+  .author-info .kid-tag{color:#000}
+  /* Hero 缩小，避免占整页 */
+  .hero{height:auto;page-break-inside:avoid;background:#fff}
+  .hero img{position:static;width:100%;height:220px;opacity:1}
+  .hero-overlay{display:none}
+  .hero-content{position:static;padding:16px 0;color:#000}
+  .hero-vol,.hero-title,.hero-sub,.hero-tagline,.hero-meta{color:#000}
+  .hero-title{font-size:32pt;color:#000}
+  .hero-sub{font-size:14pt;color:#222}
+  .hero-tagline{color:#444}
+  .hero-meta{color:#444;border-top:1px solid #888}
+  .hero-meta .lab{color:#888}
+  .sticker,.doodle-star,.photo-credit,.city-cell-toggle .city-cell::after,.day-block summary::after{display:none !important}
+  /* section 紧凑化 */
+  section{padding:20px 0;border-bottom:1px solid #aaa;page-break-inside:auto}
+  .sec-title{font-size:18pt;color:#000;margin-bottom:6px}
+  .sec-sub{font-size:11pt;color:#444;margin-bottom:14px}
+  .sec-label{color:#666}
+  /* 强制展开所有 details */
+  details>summary::after,details>summary::-webkit-details-marker{display:none !important}
+  details>summary{cursor:default;background:#f5f5f5;padding:8px 14px;border-bottom:1px solid #ccc}
+  details>summary>*{color:#000 !important}
+  details:not([open]){display:block}
+  details:not([open]) > *{display:block !important}
+  /* 行前准备 抽屉 */
+  .prep-item-detailed[open] summary::after,.prep-item-detailed summary::after{display:none}
+  .prep-detail{background:#fafafa;border-left:2px solid #888;page-break-inside:avoid}
+  .prep-detail a{color:#000;text-decoration:underline}
+  /* 城市卡片 */
+  .city-cell-toggle{break-inside:avoid;page-break-inside:avoid}
+  .city-cell-toggle .city-expand{display:block !important;border:1px solid #ccc;padding:14px}
+  /* 主题详情 强制全部显示 */
+  .tag-detail{display:block !important;page-break-inside:avoid;margin-bottom:14px;border:1px solid #ccc}
+  .tag-detail .tag-photo{height:140px}
+  .tag-pill{display:inline-block;border:1px solid #888;background:#fff !important;color:#000 !important}
+  .tag-pill::after{display:none}
+  /* 行中体验 day-block 全展开 */
+  .day-block{page-break-inside:avoid;break-inside:avoid;border:1px solid #aaa;margin-bottom:14px}
+  .day-block summary{background:#000;color:#fff}
+  .day-block summary *{color:#fff !important}
+  .day-block .day-badge-big{color:#FFCC00 !important}
+  .day-body{display:block !important}
+  /* 交通卡片 */
+  .transport{background:#fff;color:#000;border:2px solid #000;padding:24px}
+  .transport h2,.transport .sec-sub,.transport-desc,.transport p,.transport h6,.transport .v,.transport .lab{color:#000 !important}
+  .transport .sec-label{color:#666}
+  .flight-card{border:1px solid #888}
+  .flight-card.eva::before{background:#000;color:#FFCC00}
+  .flight-card .flight-actions a{display:none}
+  /* 地图弹窗隐藏 */
+  .pin-popup{display:none !important}
+  /* 链接彩色变黑 */
+  a{color:#000 !important}
+  /* 任务卡 */
+  .task-card{transform:none !important;box-shadow:none;border:1px solid #aaa;page-break-inside:avoid}
+  .three-tier{display:grid !important;page-break-inside:avoid}
+  /* 总费用黑底 */
+  section > div[style*="background:#000"]{background:#fff !important;color:#000 !important;border:2px solid #000}
+  section > div[style*="background:#000"] *{color:#000 !important}
+  section > div[style*="background:#000"] [style*="color:var(--ng-yellow)"]{color:#000 !important;font-weight:900}
+  /* 大图统一压扁 */
+  img{max-height:280px;object-fit:cover}
+  /* 顶部加打印 banner */
+  body::before{content:"🌿 伊娃保姆级亲子游 · 意大利 10 天攻略 · 打印小册子";display:block;text-align:center;font-family:'Playfair Display',serif;font-size:12pt;font-weight:700;padding:6px 0;border-bottom:2px solid #000;margin-bottom:10px}
+}
+
+/* 4 城卡片改造为可展开 */
+.city-cell-toggle{position:relative}
+.city-cell-toggle summary{list-style:none;-webkit-user-select:none;user-select:none}
+.city-cell-toggle summary::-webkit-details-marker{display:none}
+.city-cell-toggle .city-cell{cursor:pointer;transition:transform .3s;height:auto;overflow:visible}
+.city-cell-toggle .city-cell .photo{position:relative;height:240px;overflow:hidden}
+.city-cell-toggle .city-cell .photo img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.city-cell-toggle:hover .city-cell .photo img{transform:scale(1.05)}
+.city-cell-toggle .city-cell .summary-bar{padding:12px 14px;background:#fff;border-top:2px solid var(--ng-yellow);font-size:12px;color:var(--ink-soft);line-height:1.55;flex:1 1 auto;display:flex;flex-direction:column;min-height:120px}
+.city-cell-toggle .city-cell .summary-bar .kw-label{font-family:'Inter',sans-serif;font-size:9px;color:var(--ng-yellow);letter-spacing:.15em;font-weight:700;margin-bottom:3px;text-transform:uppercase;flex:0 0 auto}
+.city-cell-toggle .city-cell .summary-bar .kw-text{flex:1 1 auto}
+.city-cell-toggle .city-cell::after{content:"悬停看详情";position:absolute;top:14px;left:14px;background:rgba(0,0,0,.7);color:var(--ng-yellow);padding:3px 10px;font-family:'Inter',sans-serif;font-size:11px;font-weight:600;letter-spacing:.05em;z-index:2;border-radius:2px;transition:all .2s}
+.city-cell-toggle[open] .city-cell::after{content:"✦ 详情已展开";background:var(--ng-yellow);color:#000}
+.city-cell-toggle .city-expand{grid-column:1/-1;background:#fff;border:1px solid var(--line);padding:22px 28px;margin-top:8px;animation:slideDown .35s ease}
+.city-cell-toggle .city-expand p{font-size:14px;color:var(--ink-soft);line-height:1.75;margin-bottom:10px}
+.city-cell-toggle .city-expand ul{list-style:none;margin:8px 0 14px}
+.city-cell-toggle .city-expand li{padding:6px 0;font-size:13px;color:var(--ink-soft);border-bottom:1px dashed var(--line)}
+.city-cell-toggle .city-expand li:last-child{border:0}
+.city-cell-toggle .city-expand strong{color:#000}
+.city-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:8px}
+.city-gallery img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.city-jump{display:inline-block;margin-top:10px;padding:8px 18px;background:#000;color:var(--ng-yellow);text-decoration:none;font-family:'Inter',sans-serif;font-size:12px;font-weight:600;letter-spacing:.05em}
+.city-jump:hover{background:var(--ng-yellow);color:#000}
+@keyframes slideDown{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+
+/* Part1 标签可点击展开 */
+.tag-detail{display:none;margin-top:14px;padding:18px 22px;background:#fff;border:1px solid var(--line);border-left:3px solid var(--ng-yellow);animation:slideDown .3s ease}
+.tag-detail.active{display:block}
+.tag-detail h4{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;margin-bottom:8px}
+.tag-detail .tag-photo{margin:-18px -22px 14px;height:200px;overflow:hidden;position:relative}
+.tag-detail .tag-photo img{width:100%;height:100%;object-fit:cover}
+.tag-detail .tag-photo .credit{position:absolute;bottom:6px;right:10px;background:rgba(0,0,0,.5);color:#fff;font-size:10px;padding:2px 6px;font-family:'Inter',sans-serif}
+.tag-detail p{font-size:13px;color:var(--ink-soft);line-height:1.75;margin-bottom:8px}
+.tag-detail strong{color:#000}
+.tag-pill{cursor:pointer;transition:all .2s;position:relative}
+.tag-pill::after{content:"";position:absolute;left:50%;bottom:-6px;width:0;height:2px;background:var(--ng-yellow);transition:all .25s ease;transform:translateX(-50%)}
+.tag-pill:hover{background:#fff;color:#000;border-color:#000}
+.tag-pill:hover::after{width:60%}
+.tag-pill.tag-active{background:#000;color:#fff;border-color:#000}
+.tag-pill.tag-active::after{width:80%;background:var(--ng-yellow)}
 </style>
 </head>
 <body>
@@ -313,8 +670,8 @@ section{padding:80px 60px;position:relative}
   <div class="nav-right">
     <a onclick="window.scrollTo({top:0,behavior:'smooth'});setTimeout(()=>alert('📚 伊娃游世界 · 攻略图书馆\n\n敬请期待 ✨\n伊娃 17 段亲子游档案正在整理中：\n意大利 · 西班牙 · 福建 · 迪拜 · 美东 · 柬埔寨\n云南 · 山西 · 江西 · 洛阳 · 成都 · 南京\n大西北 · 韩国 · 台湾 · 日本'),300)" style="color:var(--ng-yellow);font-weight:600">📚 伊娃游世界</a>
     <a onclick="alert('🎯 DIY 我的攻略\n\n敬请期待 ✨\n输入孩子年龄 + 出行月份 + 偏好\nAI 基于伊娃的攻略框架自动生成')">DIY 我的攻略</a>
-    <a onclick="alert('📤 一键同步腾讯文档\n\n敬请期待 ✨\nMVP 上线后开放此功能')">一键同步腾讯文档</a>
-    <a onclick="alert('📄 下载 PDF\n\n敬请期待 ✨\n保姆级攻略 PDF · 打印出来照着玩')">下载 PDF</a>
+    <a onclick="openChecklist()">📋 保姆级待办清单</a>
+    <a onclick="printBooklet()">📄 导出攻略 PDF</a>
   </div>
 </nav>
 
@@ -365,41 +722,191 @@ section{padding:80px 60px;position:relative}
   <div class="chip" onclick="alert('✨ 敬请期待\n\n用户原创攻略上传通道，MVP 后开放')">+ 我的新攻略</div>
 </div>
 
-<div class="source-note">
-  <div class="icon">◉</div>
-  <div>
-    <strong>真实性承诺：</strong>本页所有图片均来自 Unsplash 摄影师作品（免费商用授权，已标注摄影师署名，可溯源）。正式版数据（门票/开放时间/历史讲解）会全部附上来源链接，绝不虚构。
-  </div>
-</div>
+<!-- Source note 已移到内部规则记录，不在页面展示 -->
 
-<!-- ====== 4 城跨页大图陈列 ====== -->
+<!-- ====== Part 00 · 地图+四城路线 ====== -->
 <section style="padding-bottom:40px">
   <div class="sec-label">Part 00 · The Journey</div>
   <h2 class="sec-title">四座城，一段路</h2>
-  <div class="sec-sub">从罗马走到威尼斯 ✦</div>
+  <div class="sec-sub">从罗马走到米兰 · 1213 公里 ✦</div>
 
-  <div class="cities-strip">
-    <div class="city-cell">
-      <img src="https://images.unsplash.com/photo-1531572753322-ad063cecc140?w=900&q=80" alt="罗马">
-      <div class="days">DAY 1-3</div>
-      <div class="label"><div class="en">Roma</div><div class="cn">罗马 · 永恒之城</div></div>
+  <!-- 意大利地图+路线 -->
+  <div class="italy-map">
+    <div class="map-wrap">
+    <svg viewBox="0 0 680 520" width="100%" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="意大利路线图">
+      <defs>
+        <marker id="route-arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+          <path d="M0 0L10 5L0 10Z" fill="#FFCC00"/>
+        </marker>
+        <marker id="return-arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+          <path d="M0 0L10 5L0 10Z" fill="#ff7b7b"/>
+        </marker>
+      </defs>
+
+      <!-- ============================= -->
+      <!-- 周边地图底层（半透明，衬托用） -->
+      <!-- ============================= -->
+      <g opacity="0.5">
+        <!-- 地中海背景（整片浅蓝） -->
+        <rect x="0" y="0" width="680" height="520" fill="#e8f0f5"/>
+
+        <!-- 法国（意大利西北偏北，含尼斯/马赛海岸+普罗旺斯） -->
+        <path d="M 0 0 L 280 0 L 275 40 Q 265 55 245 60 Q 220 65 200 75 Q 180 88 165 100 Q 145 110 115 115 L 85 120 L 55 118 L 0 125 Z"
+              fill="#ede8dc" stroke="#bbb" stroke-width="0.4"/>
+        <!-- 瑞士 -->
+        <path d="M 280 0 L 360 0 L 355 35 Q 340 45 320 50 Q 300 53 285 55 L 275 40 Z"
+              fill="#ede8dc" stroke="#bbb" stroke-width="0.4"/>
+        <!-- 奥地利 -->
+        <path d="M 360 0 L 460 0 L 455 35 Q 440 50 420 55 Q 400 60 380 58 L 360 55 L 355 35 Z"
+              fill="#ede8dc" stroke="#bbb" stroke-width="0.4"/>
+        <!-- 德国南缘 -->
+        <path d="M 300 0 L 450 0 L 445 20 L 310 22 Z"
+              fill="#ede8dc" stroke="#bbb" stroke-width="0.3" opacity="0.7"/>
+        <!-- 斯洛文尼亚+克罗地亚（亚得里亚海东岸） -->
+        <path d="M 460 0 L 560 0 L 555 50 Q 540 70 510 85 Q 485 105 470 130 L 460 160 Q 455 185 465 210 L 478 235 Q 490 260 485 285 L 475 310 L 460 330 L 445 340 L 455 320 L 470 290 L 470 260 L 460 230 L 450 200 L 445 170 L 450 140 L 455 110 L 465 80 L 475 50 Z"
+              fill="#ede8dc" stroke="#bbb" stroke-width="0.4"/>
+        <!-- 巴尔干（波斯尼亚/塞尔维亚/黑山/阿尔巴尼亚） -->
+        <path d="M 560 0 L 680 0 L 680 330 L 610 340 L 560 350 L 510 345 L 490 335 L 505 320 L 530 305 L 550 280 L 560 250 L 570 220 L 575 190 L 580 160 L 585 130 L 585 100 L 580 70 L 570 40 L 560 15 Z"
+              fill="#ede8dc" stroke="#bbb" stroke-width="0.4"/>
+        <!-- 希腊（南部） -->
+        <path d="M 540 370 Q 560 365 580 375 Q 600 385 610 400 Q 615 415 605 425 Q 590 430 570 425 Q 550 418 540 405 Q 535 385 540 370 Z"
+              fill="#ede8dc" stroke="#bbb" stroke-width="0.4"/>
+        <path d="M 620 380 Q 640 378 655 390 L 660 410 L 645 420 L 625 415 L 615 400 Z"
+              fill="#ede8dc" stroke="#bbb" stroke-width="0.3"/>
+        <!-- 科西嘉岛（法属，撒丁岛北边） -->
+        <ellipse cx="228" cy="355" rx="18" ry="26" fill="#ede8dc" stroke="#bbb" stroke-width="0.4"/>
+        <!-- 北非（突尼斯/利比亚海岸，意大利南） -->
+        <path d="M 0 495 L 250 500 Q 290 510 330 505 Q 380 495 440 505 Q 520 510 600 500 L 680 495 L 680 520 L 0 520 Z"
+              fill="#ede8dc" stroke="#bbb" stroke-width="0.4"/>
+        <!-- 马耳他（小岛） -->
+        <circle cx="395" cy="510" r="3.5" fill="#ede8dc" stroke="#bbb" stroke-width="0.3"/>
+
+        <!-- 浅灰国名 -->
+        <text x="55" y="85" font-family="'Inter',sans-serif" font-size="10" fill="#9a9285" letter-spacing="0.1em" font-weight="500">FRANCE</text>
+        <text x="305" y="30" font-family="'Inter',sans-serif" font-size="9" fill="#9a9285" letter-spacing="0.1em" font-weight="500">SWITZERLAND</text>
+        <text x="400" y="30" font-family="'Inter',sans-serif" font-size="9" fill="#9a9285" letter-spacing="0.1em" font-weight="500">AUSTRIA</text>
+        <text x="510" y="80" font-family="'Inter',sans-serif" font-size="9" fill="#9a9285" letter-spacing="0.1em" font-weight="500">SLOVENIA</text>
+        <text x="535" y="130" font-family="'Inter',sans-serif" font-size="9" fill="#9a9285" letter-spacing="0.1em" font-weight="500">CROATIA</text>
+        <text x="600" y="230" font-family="'Inter',sans-serif" font-size="9" fill="#9a9285" letter-spacing="0.1em" font-weight="500">BALKANS</text>
+        <text x="565" y="410" font-family="'Inter',sans-serif" font-size="9" fill="#9a9285" letter-spacing="0.1em" font-weight="500">GREECE</text>
+        <text x="210" y="355" font-family="'Inter',sans-serif" font-size="7" fill="#9a9285" letter-spacing="0.08em">CORSICA</text>
+        <text x="120" y="513" font-family="'Inter',sans-serif" font-size="9" fill="#9a9285" letter-spacing="0.1em" font-weight="500">NORTH AFRICA · TUNISIA</text>
+      </g>
+      <!-- ============================= -->
+      <!-- 周边底层结束，下面是正主（本次旅游路线，不变） -->
+      <!-- ============================= -->
+
+      <!-- 意大利轮廓（简化版） -->
+      <path d="M 220 60 Q 230 90 235 120 L 245 145 Q 240 175 250 200 L 260 230 Q 270 260 285 285 L 305 320 Q 315 340 305 360 L 295 385 Q 305 410 320 425 L 340 445 L 370 460 Q 395 470 410 455 L 425 440 Q 440 420 460 425 L 480 435 Q 495 425 490 410 L 480 390 Q 465 375 445 370 L 430 360 Q 410 345 400 325 L 385 305 Q 365 285 345 270 L 335 245 Q 320 220 305 200 L 295 175 Q 305 150 310 130 L 320 105 Q 310 80 290 70 Q 270 60 250 55 Q 230 50 220 60 Z" fill="#f5f1e8" stroke="#333" stroke-width="1"/>
+      <!-- 西西里岛 -->
+      <ellipse cx="370" cy="490" rx="40" ry="15" fill="#f5f1e8" stroke="#333" stroke-width="0.8"/>
+      <!-- 撒丁岛 -->
+      <ellipse cx="230" cy="395" rx="22" ry="32" fill="#f5f1e8" stroke="#333" stroke-width="0.8"/>
+
+      <!-- 意大利国名（加粗突出） -->
+      <text x="355" y="310" font-family="'Inter',sans-serif" font-size="11" fill="#222" letter-spacing="0.2em" font-weight="700">ITALIA</text>
+
+      <!-- 标题 -->
+      <text x="40" y="50" font-family="'Playfair Display',serif" font-size="22" font-weight="700" fill="#000">Italia · 10 天路线</text>
+      <text x="40" y="68" font-family="'Inter',sans-serif" font-size="11" fill="#888" letter-spacing="0.1em">SHENZHEN → ROMA → FIRENZE → VENEZIA → MILANO → SHENZHEN</text>
+      <text x="40" y="86" font-family="'Caveat',cursive" font-size="15" fill="#ff7b7b">↓ 点击城市标点，看吃喝玩乐 + 跳转详细行程</text>
+
+      <!-- 飞行起点 -->
+      <g transform="translate(80, 380)">
+        <text font-family="'Inter',sans-serif" font-size="10" font-weight="600" fill="#888" letter-spacing="0.1em">FROM</text>
+        <text y="18" font-family="'Playfair Display',serif" font-size="14" font-weight="700" fill="#000">深圳 SZX</text>
+        <text y="32" font-family="'Caveat',cursive" font-size="14" fill="#ff7b7b">海航 HU437 · 13h20m ✈️</text>
+      </g>
+
+      <!-- 去程飞行虚线（深圳→罗马，黄色） -->
+      <path d="M 130 365 Q 200 240 290 195" fill="none" stroke="#FFCC00" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#route-arrow)"/>
+      <!-- 返程飞行虚线（米兰→深圳，粉红色，走外圈弧线避开路线） -->
+      <path d="M 260 105 Q 150 130 80 260 Q 70 330 125 378" fill="none" stroke="#ff7b7b" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#return-arrow)" opacity="0.85"/>
+      <!-- 返程小标注 -->
+      <text x="78" y="208" font-family="'Caveat',cursive" font-size="12" fill="#ff7b7b">返程 HU7974 ↩</text>
+
+      <!-- 4 个城市标点（onmouseenter/leave 触发对应 popup） -->
+      <!-- 罗马 -->
+      <g class="map-pin" data-city="roma" onmouseenter="showPin('roma',event)" onclick="showPin('roma',event)">
+        <circle cx="305" cy="200" r="10" fill="#FFCC00" stroke="#000" stroke-width="1.5"/>
+        <text x="305" y="204" text-anchor="middle" font-family="'Playfair Display',serif" font-size="11" font-weight="900" fill="#000" pointer-events="none">1</text>
+        <text x="320" y="200" font-family="'Playfair Display',serif" font-size="13" font-weight="700" fill="#000" pointer-events="none">Roma · 罗马</text>
+        <text x="320" y="214" font-family="'Inter',sans-serif" font-size="10" fill="#888" pointer-events="none">Day 1-3 · 永恒之城</text>
+      </g>
+
+      <!-- 佛罗伦萨 -->
+      <g class="map-pin" data-city="firenze" onmouseenter="showPin('firenze',event)" onclick="showPin('firenze',event)">
+        <circle cx="288" cy="155" r="10" fill="#FFCC00" stroke="#000" stroke-width="1.5"/>
+        <text x="288" y="159" text-anchor="middle" font-family="'Playfair Display',serif" font-size="11" font-weight="900" fill="#000" pointer-events="none">2</text>
+        <text x="305" y="155" font-family="'Playfair Display',serif" font-size="13" font-weight="700" fill="#000" pointer-events="none">Firenze · 佛罗伦萨</text>
+        <text x="305" y="169" font-family="'Inter',sans-serif" font-size="10" fill="#888" pointer-events="none">Day 4-6 · 文艺复兴摇篮</text>
+      </g>
+
+      <!-- 威尼斯 -->
+      <g class="map-pin" data-city="venezia" onmouseenter="showPin('venezia',event)" onclick="showPin('venezia',event)">
+        <circle cx="320" cy="115" r="10" fill="#FFCC00" stroke="#000" stroke-width="1.5"/>
+        <text x="320" y="119" text-anchor="middle" font-family="'Playfair Display',serif" font-size="11" font-weight="900" fill="#000" pointer-events="none">3</text>
+        <text x="338" y="115" font-family="'Playfair Display',serif" font-size="13" font-weight="700" fill="#000" pointer-events="none">Venezia · 威尼斯</text>
+        <text x="338" y="129" font-family="'Inter',sans-serif" font-size="10" fill="#888" pointer-events="none">Day 7 · 漂浮的迷宫</text>
+      </g>
+
+      <!-- 米兰 -->
+      <g class="map-pin" data-city="milano" onmouseenter="showPin('milano',event)" onclick="showPin('milano',event)">
+        <circle cx="260" cy="105" r="10" fill="#FFCC00" stroke="#000" stroke-width="1.5"/>
+        <text x="260" y="109" text-anchor="middle" font-family="'Playfair Display',serif" font-size="11" font-weight="900" fill="#000" pointer-events="none">4</text>
+        <text x="160" y="105" font-family="'Playfair Display',serif" font-size="13" font-weight="700" fill="#000" pointer-events="none">Milano · 米兰</text>
+        <text x="160" y="119" font-family="'Inter',sans-serif" font-size="10" fill="#888" pointer-events="none">Day 8-9 · 离别一站</text>
+      </g>
+
+      <!-- 城市间连线（火车路线） -->
+      <path d="M 305 200 L 288 155" fill="none" stroke="#000" stroke-width="2" stroke-dasharray="2 3"/>
+      <path d="M 288 155 L 320 115" fill="none" stroke="#000" stroke-width="2" stroke-dasharray="2 3"/>
+      <path d="M 320 115 L 260 105" fill="none" stroke="#000" stroke-width="2" stroke-dasharray="2 3"/>
+
+      <!-- 路线标注 -->
+      <text x="299" y="180" font-family="'Caveat',cursive" font-size="13" fill="#ff7b7b">🚄 1h37m</text>
+      <text x="304" y="138" font-family="'Caveat',cursive" font-size="13" fill="#ff7b7b">🚄 2h13m</text>
+      <text x="283" y="98" font-family="'Caveat',cursive" font-size="13" fill="#ff7b7b">🚄 2h30m</text>
+
+      <!-- 图例 -->
+      <g transform="translate(440, 60)">
+        <rect x="0" y="0" width="200" height="85" fill="#fff" stroke="#e0dcd0" stroke-width="0.5" rx="2"/>
+        <text x="12" y="20" font-family="'Inter',sans-serif" font-size="10" font-weight="600" fill="#000" letter-spacing="0.1em">LEGEND</text>
+        <circle cx="20" cy="35" r="6" fill="#FFCC00" stroke="#000" stroke-width="1"/>
+        <text x="34" y="39" font-family="'Inter',sans-serif" font-size="10" fill="#444">主要停留城市 · 鼠标悬停看详情</text>
+        <line x1="14" y1="50" x2="28" y2="50" stroke="#000" stroke-width="2" stroke-dasharray="2 3"/>
+        <text x="34" y="53" font-family="'Inter',sans-serif" font-size="10" fill="#444">🚄 高铁路线</text>
+        <line x1="14" y1="63" x2="28" y2="63" stroke="#FFCC00" stroke-width="2" stroke-dasharray="4 3"/>
+        <text x="34" y="66" font-family="'Inter',sans-serif" font-size="10" fill="#444">✈️ 去程（深圳 → 罗马）</text>
+        <line x1="14" y1="76" x2="28" y2="76" stroke="#ff7b7b" stroke-width="2" stroke-dasharray="4 3"/>
+        <text x="34" y="79" font-family="'Inter',sans-serif" font-size="10" fill="#444">↩ 返程（米兰 → 深圳）</text>
+      </g>
+
+      <!-- 海洋字 -->
+      <text x="160" y="270" font-family="'Caveat',cursive" font-size="16" fill="#aac" opacity="0.5">Tyrrhenian Sea</text>
+      <text x="430" y="220" font-family="'Caveat',cursive" font-size="16" fill="#aac" opacity="0.5">Adriatic Sea</text>
+    </svg>
+
+    <!-- 城市详情卡（点 pin 打开 / 鼠标可移到卡上 / 点外部关闭） -->
+    <div class="map-tooltip" id="map-tooltip">
+      <div class="mt-photo">
+        <img id="mt-img" src="" alt="">
+        <div class="mt-badge" id="mt-badge"></div>
+        <button class="mt-close" type="button" onclick="hidePin()" aria-label="关闭">×</button>
+      </div>
+      <div class="mt-info">
+        <div class="mt-en" id="mt-en"></div>
+        <div class="mt-cn" id="mt-cn"></div>
+        <div class="mt-tags" id="mt-tags"></div>
+        <div class="mt-plan" id="mt-plan"></div>
+        <div class="mt-extras" id="mt-extras"></div>
+        <a class="mt-jump" id="mt-jump" href="#">跳到详细行程 →</a>
+      </div>
     </div>
-    <div class="city-cell">
-      <img src="https://images.unsplash.com/photo-1543429258-c8aae5d23ef8?w=900&q=80" alt="佛罗伦萨">
-      <div class="days">DAY 4-6</div>
-      <div class="label"><div class="en">Firenze</div><div class="cn">佛罗伦萨 · 文艺复兴摇篮</div></div>
-    </div>
-    <div class="city-cell">
-      <img src="https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=900&q=80" alt="威尼斯">
-      <div class="days">DAY 7-9</div>
-      <div class="label"><div class="en">Venezia</div><div class="cn">威尼斯 · 漂浮的迷宫</div></div>
-    </div>
-    <div class="city-cell">
-      <img src="https://images.unsplash.com/photo-1520176508928-15e3e7e9b16e?w=900&q=80" alt="米兰">
-      <div class="days">DAY 10</div>
-      <div class="label"><div class="en">Milano</div><div class="cn">米兰 · 离别一站</div></div>
-    </div>
+
+    </div><!-- /.map-wrap -->
   </div>
+
 </section>
 
 <!-- Part 1 -->
@@ -439,14 +946,579 @@ section{padding:80px 60px;position:relative}
     </div>
   </div>
 
+  <p style="margin:24px 0 12px;font-family:'Caveat',cursive;font-size:20px;color:var(--kid-pink)">↓ 鼠标悬停任意主题标签切换，看伊娃为什么这么定位 ↓</p>
   <div class="tag-row">
-    <span class="tag-pill yellow">文艺复兴艺术</span>
-    <span class="tag-pill">古罗马历史</span>
-    <span class="tag-pill">天主教文化</span>
-    <span class="tag-pill">意大利美食</span>
-    <span class="tag-pill">城市探险</span>
-    <span class="tag-pill">威尼斯海洋</span>
+    <span class="tag-pill" onmouseenter="showTag('art')" onclick="showTag('art')" id="tag-art">文艺复兴艺术</span>
+    <span class="tag-pill" onmouseenter="showTag('rome')" onclick="showTag('rome')" id="tag-rome">古罗马历史</span>
+    <span class="tag-pill" onmouseenter="showTag('church')" onclick="showTag('church')" id="tag-church">天主教文化</span>
+    <span class="tag-pill" onmouseenter="showTag('food')" onclick="showTag('food')" id="tag-food">意大利美食</span>
+    <span class="tag-pill" onmouseenter="showTag('city')" onclick="showTag('city')" id="tag-city">城市探险</span>
+    <span class="tag-pill" onmouseenter="showTag('venice')" onclick="showTag('venice')" id="tag-venice">威尼斯海洋</span>
   </div>
+
+  <!-- 6 个主题详情面板 -->
+  <div class="tag-detail" id="detail-art">
+    <div class="tag-photo">
+      <img src="https://images.unsplash.com/photo-1531572753322-ad063cecc140?w=1400&q=85" alt="文艺复兴艺术">
+      <div class="credit">© Unsplash</div>
+    </div>
+    <h4>🎨 文艺复兴艺术 · 整趟旅行的灵魂</h4>
+    <p>意大利之所以值得带娃来一次，最大的理由就是这里——<strong>整个西方艺术的源头</strong>。从乔托打破中世纪呆板，到马萨乔发现透视法，再到米开朗基罗、达芬奇、拉斐尔三巨头同时在世，整个 14-16 世纪意大利人解决了西方人"如何画好一个真实的世界"。</p>
+    <p><strong>娃能看到什么：</strong>乌菲兹的《维纳斯诞生》、学院美术馆的大卫真迹、西斯廷穹顶、最后的晚餐 · 4 件作品都是教科书上的内容，娃站在原作前会一辈子记得。</p>
+    <p><strong>怎么准备：</strong>提前看蒋勋《西方美术史》、陈丹青《局部》第一季、BBC《文艺复兴》（详见 D-7 家长深度）</p>
+  </div>
+
+  <div class="tag-detail" id="detail-rome">
+    <div class="tag-photo">
+      <img src="https://images.unsplash.com/photo-1515542622106-78bda8ba0e5b?w=1400&q=85" alt="古罗马">
+      <div class="credit">© Unsplash</div>
+    </div>
+    <h4>🏛️ 古罗马历史 · 触摸 2000 年时间厚度</h4>
+    <p>斗兽场建于公元 80 年，万神殿建于公元 118 年——这些不是教科书上的字，是娃<strong>脚下踩着的真实地面</strong>。和"中国故宫 600 年"对比，让娃直观理解"古老"这个词。</p>
+    <p><strong>娃能看到什么：</strong>斗兽场（角斗士升降机）、古罗马遗迹（凯撒墓、灶神庙）、万神殿（拉斐尔葬于此）、君士坦丁凯旋门、帕拉丁山</p>
+    <p><strong>娃的玩法：</strong>数斗兽场拱门有几个、角色扮演角斗士、看灶神庙的祭祀沙土地</p>
+  </div>
+
+  <div class="tag-detail" id="detail-church">
+    <div class="tag-photo">
+      <img src="https://images.unsplash.com/photo-1531572753322-ad063cecc140?w=1400&q=85" alt="教堂">
+      <div class="credit">© Unsplash</div>
+    </div>
+    <h4>⛪ 天主教文化 · 教堂建筑奇迹</h4>
+    <p>意大利每个城市都有一座史诗级教堂。<strong>这不是宗教课</strong>，而是建筑课——拜占庭、罗马式、哥特、巴洛克 4 种风格，娃在一趟旅行里全部看完。</p>
+    <p><strong>必看 4 座：</strong>圣彼得大教堂（巴洛克，贝尼尼）· 圣母百花大教堂（哥特+穹顶）· 圣马可大教堂（拜占庭+金色马赛克）· 米兰大教堂（哥特，飞扶壁）</p>
+    <p><strong>家长视角：</strong>建筑的演变 = 西方思想的演变。从"为神而建"到"为人而建"。</p>
+  </div>
+
+  <div class="tag-detail" id="detail-food">
+    <div class="tag-photo">
+      <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=1400&q=85" alt="意面">
+      <div class="credit">© Unsplash</div>
+    </div>
+    <h4>🍝 意大利美食 · 每个城市都有专属味道</h4>
+    <p>娃在意大利绝对吃得开心。<strong>4 个城市 4 种风味</strong>：</p>
+    <ul>
+      <li><strong>罗马：</strong>奶酪胡椒面 Cacio e Pepe · 培根芝士面 Carbonara · gelato（必须有盖子的）</li>
+      <li><strong>佛罗伦萨：</strong>松露 · 牛肚包 · T-bone 牛排（中央市场 2 楼美食广场超棒）</li>
+      <li><strong>威尼斯：</strong>墨鱼面（嘴黑黑娃笑死）· 海鲜烩饭</li>
+      <li><strong>米兰：</strong>炸牛排 · 番红花烩饭 · Spontini 披萨（车站旁号称米兰最好吃）</li>
+    </ul>
+    <p><strong>预订餐厅推荐：</strong>佛罗伦萨 Zaza 牛排（只能预约）· 米兰 El Barbapedana 炖小牛膝</p>
+  </div>
+
+  <div class="tag-detail" id="detail-city">
+    <div class="tag-photo">
+      <img src="https://images.unsplash.com/photo-1525874684015-58379d421a52?w=1400&q=85" alt="城市探险">
+      <div class="credit">© Unsplash</div>
+    </div>
+    <h4>🗺️ 城市探险 · 巷子里的意外</h4>
+    <p>意大利城市的奇妙在于：你<strong>走着走着，下一个街角就是一处历史</strong>。但丁之石餐厅旁地上嵌着真正的但丁之石；西班牙广场右侧那栋黄白色建筑曾是济慈雪莱住所；瓦萨里走廊连接着乌菲兹和老桥；老桥是但丁和贝特丽丝相遇的地方……</p>
+    <p><strong>带娃玩法：</strong>给娃一张地图，让她标出"今天走过几条街"；让娃找许愿池里有几个海神雕像；让娃数斗兽场有几道拱门。</p>
+    <p><strong>装备建议：</strong>石板路多，带耐磨好走的鞋；威尼斯一定要用背带（婴儿车进不去很多桥洞）</p>
+  </div>
+
+  <div class="tag-detail" id="detail-venice">
+    <div class="tag-photo">
+      <img src="https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=1400&q=85" alt="威尼斯">
+      <div class="credit">© Unsplash</div>
+    </div>
+    <h4>🚣 威尼斯海洋 · 浮在水上的童话</h4>
+    <p>威尼斯是意大利<strong>最童话的城市</strong>。整座城浮在海上，118 个小岛、177 条运河、400 多座桥。没有汽车，只有<strong>水上巴士、贡多拉、自己的脚</strong>。</p>
+    <p><strong>必须体验的 3 件事：</strong></p>
+    <ul>
+      <li>傍晚乘贡多拉穿越运河（最浪漫的体验）</li>
+      <li>水上巴士去玻璃岛看玻璃工艺（45 分钟船程）</li>
+      <li>圣马可广场喂鸽子+看叹息桥+爬大教堂</li>
+    </ul>
+    <p><strong>娃的反馈：</strong>这是 4 个城市里娃最爱的一个，因为"全是水"。</p>
+  </div>
+
+  <script>
+    function showTag(id){
+      const detail=document.getElementById('detail-'+id);
+      const pill=document.getElementById('tag-'+id);
+      if(!detail||!pill) return;
+      // 已显示就不重复操作（避免 mouseenter 频繁触发 scrollIntoView）
+      if(pill.classList.contains('tag-active')) return;
+      // 互斥：清掉所有其他
+      document.querySelectorAll('.tag-detail').forEach(el=>el.classList.remove('active'));
+      document.querySelectorAll('.tag-pill').forEach(el=>el.classList.remove('tag-active'));
+      detail.classList.add('active');
+      pill.classList.add('tag-active');
+    }
+    // 关闭所有 day-block 除了 keepN（不传则全关）
+    function closeOtherDays(keepN){
+      document.querySelectorAll('.day-block').forEach(d=>{
+        const id=d.id; // day-N
+        const n=parseInt(id.replace('day-',''),10);
+        if(n!==keepN) d.removeAttribute('open');
+      });
+    }
+    function openDay(n){
+      const d=document.getElementById('day-'+n);
+      if(!d) return;
+      closeOtherDays(n);
+      d.setAttribute('open','');
+      setTimeout(()=>d.scrollIntoView({behavior:'smooth',block:'start'}),100);
+      document.querySelectorAll('.day-nav .dn').forEach((el,idx)=>{
+        el.classList.toggle('highlight', idx+1===n);
+      });
+    }
+    function jumpDay(n, el){
+      document.querySelectorAll('.day-nav .dn').forEach(d=>d.classList.remove('highlight'));
+      if(el) el.classList.add('highlight');
+      const target=document.getElementById('day-'+n);
+      if(!target) return;
+      closeOtherDays(n);
+      target.setAttribute('open','');
+      setTimeout(()=>{
+        const rect=target.getBoundingClientRect();
+        const scrollTop=window.pageYOffset+rect.top-80;
+        window.scrollTo({top:scrollTop,behavior:'smooth'});
+      },100);
+    }
+    // 给所有 day-block 的 summary 绑定互斥点击
+    function initDayMutex(){
+      document.querySelectorAll('.day-block').forEach(d=>{
+        const summary=d.querySelector('summary');
+        if(!summary) return;
+        summary.addEventListener('click',(ev)=>{
+          ev.preventDefault();
+          const n=parseInt(d.id.replace('day-',''),10);
+          if(d.hasAttribute('open')){
+            d.removeAttribute('open');
+            document.querySelectorAll('.day-nav .dn').forEach(x=>x.classList.remove('highlight'));
+          }else{
+            closeOtherDays(n);
+            d.setAttribute('open','');
+            document.querySelectorAll('.day-nav .dn').forEach((x,idx)=>{
+              x.classList.toggle('highlight', idx+1===n);
+            });
+          }
+        });
+      });
+      // 初始化：清空所有高亮，再给 D1 加（避免 HTML 里残留 highlight）
+      document.querySelectorAll('.day-nav .dn').forEach(d=>d.classList.remove('highlight'));
+      const firstDn=document.querySelector('.day-nav .dn');
+      if(firstDn) firstDn.classList.add('highlight');
+    }
+    if(document.readyState==='loading'){
+      document.addEventListener('DOMContentLoaded', initDayMutex);
+    }else{
+      initDayMutex();
+    }
+    // ===== 城市详情卡（点击/hover pin 打开 · 可移到卡上 · 点外部关闭） =====
+    const cityData={
+      roma:{
+        en:'Roma',cn:'罗马 · 永恒之城',badge:'DAY 1-3',
+        img:'https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=900&q=80',
+        tags:['古罗马','梵蒂冈','卡拉瓦乔'],
+        plan:'<strong>3 天玩什么</strong>D1 抵达探古城（万神殿/许愿池/西班牙广场） · D2 梵蒂冈日（博物馆+西斯廷+圣彼得） · D3 斗兽场+古罗马遗迹，傍晚火车去佛罗伦萨',
+        day:1,
+        eat:['<b>Da Enzo al 29</b>（提前订）真正罗马味，番茄意面/烤洋蓟','<b>Roscioli</b> 经典 carbonara 培根蛋面','<b>Giolitti</b> 1900 年开张的老牌 gelato'],
+        play:['梵蒂冈博物馆 + 西斯廷礼拜堂（米开朗基罗《创世纪》）','圆形竞技场 + 古罗马遗迹（24h 通票）','圣天使堡 + 圣天使桥贝尼尼天使群','卡拉瓦乔三件套：圣母百花/纳沃纳广场/法兰西人圣路易堂'],
+        tips:['餐厅 12-14 点 / 19:30 后才开门，错峰会扑空','地铁少且老，走路或打车更靠谱','蒙蒂区夜晚有市井烟火，下楼小酒馆都有惊喜']
+      },
+      firenze:{
+        en:'Firenze',cn:'佛罗伦萨 · 文艺复兴的摇篮',badge:'DAY 4-6',
+        img:'https://images.unsplash.com/photo-1543429776-2782fc8e1acd?w=900&q=80',
+        tags:['米开朗基罗','文艺复兴','美第奇'],
+        plan:'<strong>2.5 天玩什么</strong>D4 圣母百花登顶+乌菲兹+米开朗基罗广场日落 · D5 学院美术馆看大卫真迹+美第奇礼拜堂 · D6 上午新圣母大殿，10:39 火车去威尼斯',
+        day:4,
+        eat:['<b>All\'Antico Vinaio</b> Schiacciata 大牛肉三明治（伊娃强推）','<b>Trattoria Mario</b> 经典佛罗伦萨牛排（中午限定）','<b>Vivoli</b> 1929 年的老牌 gelato'],
+        play:['圣母百花穹顶登顶（463 级，鱼骨砖砌）','乌菲兹美术馆（《维纳斯诞生》《春》）','学院美术馆看大卫真迹','米开朗基罗广场日落（必去）'],
+        tips:['佛罗伦萨核心步行可达，住老城内省 1 小时通勤','登顶+乌菲兹门票最难抢，至少提前 30 天','日落比白天美 10 倍，预留 1 小时上山']
+      },
+      venezia:{
+        en:'Venezia',cn:'威尼斯 · 漂浮的迷宫',badge:'DAY 6-7',
+        img:'https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=900&q=80',
+        tags:['运河','贡多拉','玻璃岛'],
+        plan:'<strong>1.5 天玩什么</strong>D6 傍晚抵达：水上巴士+圣马可+叹息桥+贡多拉日落 · D7 上午玻璃岛，下午 13:57 火车去米兰',
+        day:6,
+        eat:['<b>Cantina Do Spade</b> Cicchetti（威尼斯小吃 tapas）','<b>Trattoria alla Madonna</b> 经典墨鱼面（黑得吓人但好吃）','<b>Suso Gelato</b> 隐藏在小巷的网红冰淇淋'],
+        play:['圣马可大教堂（拜占庭金色马赛克）','叹息桥 + 总督宫','贡多拉日落 €80/船 30min（傍晚最美）','玻璃岛 Murano 看吹玻璃工艺'],
+        tips:['必用背带，婴儿车进不了很多桥洞','酒店只能坐船到，行李轻装','水上巴士 ACTV 24h 票 €25']
+      },
+      milano:{
+        en:'Milano',cn:'米兰 · 达芬奇之城',badge:'DAY 7-9',
+        img:'https://images.unsplash.com/photo-1520440229-6469a149ac59?w=900&q=80',
+        tags:['达芬奇','大教堂','最后的晚餐'],
+        plan:'<strong>2 天玩什么</strong>D7 傍晚抵达：登顶大教堂（必 18:10 前）+ 广场夜景 · D8 达芬奇日（8:15《最后的晚餐》+斯福尔扎+布雷拉） · D9 早上送机 HU7974 返程',
+        day:7,
+        eat:['<b>Ratanà</b> 米兰传统炖小牛膝 Ossobuco','<b>Luini</b> Panzerotti 油炸三角饺（大教堂旁排长队也值）','<b>Pavè Ice Cream</b> 米其林推荐 gelato'],
+        play:['米兰大教堂登顶（必 18:10 前入场）','《最后的晚餐》8:15 第一波最安静','埃马努埃莱二世长廊（公牛蛋蛋踩三圈好运）','斯福尔扎城堡 + 布雷拉美术馆','斯卡拉歌剧院（有空可看一场）'],
+        tips:['《最后的晚餐》必须淘宝代抢，每人 15 分钟','米兰冷，2 月需要厚外套','大教堂内部 19:00 关闭，登顶 18:10 截止']
+      }
+    };
+    const mt=document.getElementById('map-tooltip');
+    let pinHoverTimer=null;
+    function buildExtras(d){
+      const make=(title,emo,arr,ord)=>arr&&arr.length?
+        '<details'+(ord?' open':'')+'><summary>'+emo+' '+title+'</summary><div class="mte-body"><ul>'+arr.map(x=>'<li>'+x+'</li>').join('')+'</ul></div></details>':'';
+      return make('吃什么','🍝',d.eat)+make('玩什么','🎨',d.play)+make('伊娃 Tips','💡',d.tips);
+    }
+    function renderTooltip(city){
+      const d=cityData[city];if(!d) return;
+      document.getElementById('mt-img').src=d.img;
+      document.getElementById('mt-img').alt=d.en;
+      document.getElementById('mt-badge').textContent=d.badge;
+      document.getElementById('mt-en').textContent=d.en;
+      document.getElementById('mt-cn').textContent=d.cn;
+      document.getElementById('mt-tags').innerHTML=d.tags.map(t=>'<span>'+t+'</span>').join('');
+      document.getElementById('mt-plan').innerHTML=d.plan;
+      document.getElementById('mt-extras').innerHTML=buildExtras(d);
+      document.getElementById('mt-jump').href='#day-'+d.day;
+      document.getElementById('mt-jump').textContent='跳到 Day '+d.day+' 详细行程 →';
+      document.getElementById('mt-jump').onclick=function(ev){ev.preventDefault();hidePin();openDay(d.day);};
+      // 高亮 pin
+      document.querySelectorAll('.map-pin circle').forEach(c=>c.setAttribute('r','10'));
+      document.querySelectorAll('.map-pin').forEach(g=>g.classList.remove('mcp-active'));
+      const pinG=document.querySelector('[data-city="'+city+'"]');
+      if(pinG){
+        pinG.classList.add('mcp-active');
+        const c=pinG.querySelector('circle');
+        if(c) c.setAttribute('r','13');
+      }
+    }
+    // 在 pin 旁边定位（不再跟随鼠标）
+    function positionTooltip(ev){
+      const wrap=document.querySelector('.map-wrap');
+      if(!wrap||!mt) return;
+      const wrapRect=wrap.getBoundingClientRect();
+      const tipW=mt.offsetWidth||320;
+      const tipH=Math.min(mt.offsetHeight||500, window.innerHeight*0.75);
+      let x=ev.clientX-wrapRect.left+20;
+      let y=ev.clientY-wrapRect.top-40;
+      if(x+tipW>wrapRect.width-8) x=ev.clientX-wrapRect.left-tipW-20;
+      if(y+tipH>wrapRect.height-8) y=Math.max(8,wrapRect.height-tipH-8);
+      if(y<8) y=8;
+      if(x<8) x=8;
+      mt.style.transform='translate('+x+'px,'+y+'px)';
+    }
+    function showPin(city,ev){
+      clearTimeout(pinHoverTimer);
+      renderTooltip(city);
+      mt.classList.add('visible');
+      if(ev) positionTooltip(ev);
+      // 重新初始化滚动到顶
+      mt.scrollTop=0;
+    }
+    function hidePin(){
+      mt.classList.remove('visible');
+      document.querySelectorAll('.map-pin circle').forEach(c=>c.setAttribute('r','10'));
+      document.querySelectorAll('.map-pin').forEach(g=>g.classList.remove('mcp-active'));
+    }
+    // 兼容老接口
+    function movePin(){}
+    function keepPin(){}
+    // 点击卡片外区域 → 关闭
+    document.addEventListener('click',function(ev){
+      if(!mt || !mt.classList.contains('visible')) return;
+      // 点在卡片上不关
+      if(mt.contains(ev.target)) return;
+      // 点在 SVG pin 上不关（让 pin 的 onclick 处理）
+      const pin=ev.target.closest('.map-pin');
+      if(pin) return;
+      hidePin();
+    });
+    // ESC 关闭
+    document.addEventListener('keydown',function(ev){
+      if(ev.key==='Escape') hidePin();
+    });
+
+    // ===== 酒店距离辐射图（点击酒店卡 → 在卡片下方原地展开 SVG 极坐标距离图） =====
+    const hotelMapData={
+      roma:{
+        title:'罗马 · 蒙蒂区',hotelLabel:'Via dei Serpenti 93',hotelDesc:'D1-2 · 蒙蒂区老城',
+        hotel:{lat:41.8946,lng:12.4928},
+        spots:[
+          {lat:41.8986,lng:12.4768,n:'1',label:'万神殿',day:'D1'},
+          {lat:41.9009,lng:12.4833,n:'2',label:'许愿池',day:'D1'},
+          {lat:41.9056,lng:12.4823,n:'3',label:'西班牙广场',day:'D1'},
+          {lat:41.9036,lng:12.4663,n:'4',label:'圣天使堡',day:'D2'},
+          {lat:41.9069,lng:12.4536,n:'5',label:'梵蒂冈博物馆',day:'D2'},
+          {lat:41.8902,lng:12.4922,n:'6',label:'斗兽场',day:'D3'},
+          {lat:41.8926,lng:12.4854,n:'7',label:'古罗马遗迹',day:'D3'}
+        ]
+      },
+      firenze:{
+        title:'佛罗伦萨 · 圣母百花圈',hotelLabel:"Via dell'Alloro 6",hotelDesc:'D3-5 · 老城核心',
+        hotel:{lat:43.7727,lng:11.2528},
+        spots:[
+          {lat:43.7731,lng:11.2560,n:'1',label:'圣母百花大教堂',day:'D4'},
+          {lat:43.7681,lng:11.2533,n:'2',label:'乌菲兹美术馆',day:'D4'},
+          {lat:43.7770,lng:11.2588,n:'3',label:'学院美术馆 · 大卫真迹',day:'D5'},
+          {lat:43.7625,lng:11.2655,n:'4',label:'米开朗基罗广场',day:'D4 日落'},
+          {lat:43.7679,lng:11.2531,n:'5',label:'老桥',day:'D4'},
+          {lat:43.7749,lng:11.2486,n:'6',label:'新圣母大殿',day:'D6'}
+        ]
+      },
+      venezia:{
+        title:'威尼斯 · 圣马可核心',hotelLabel:'卢纳巴格里奥尼酒店',hotelDesc:'D6 · 圣马可水边',
+        hotel:{lat:45.4337,lng:12.3375},
+        spots:[
+          {lat:45.4341,lng:12.3388,n:'1',label:'圣马可大教堂',day:'D6'},
+          {lat:45.4337,lng:12.3403,n:'2',label:'叹息桥',day:'D6'},
+          {lat:45.4380,lng:12.3358,n:'3',label:'里阿尔托桥',day:'D6'},
+          {lat:45.4341,lng:12.3388,n:'4',label:'圣马可广场',day:'D6'},
+          {lat:45.4574,lng:12.3540,n:'5',label:'玻璃岛 Murano',day:'D7 上午'}
+        ]
+      },
+      milano:{
+        title:'米兰 · Porta Romana',hotelLabel:'Corso di Porta Romana 48',hotelDesc:'D7-8 · 民居公寓',
+        hotel:{lat:45.4516,lng:9.2027},
+        spots:[
+          {lat:45.4642,lng:9.1900,n:'1',label:'米兰大教堂',day:'D7 傍晚'},
+          {lat:45.4659,lng:9.1819,n:'2',label:'最后的晚餐',day:'D8 8:15'},
+          {lat:45.4707,lng:9.1798,n:'3',label:'斯福尔扎城堡',day:'D8'},
+          {lat:45.4719,lng:9.1875,n:'4',label:'布雷拉美术馆',day:'D8'},
+          {lat:45.4673,lng:9.1894,n:'5',label:'斯卡拉歌剧院',day:'D8'},
+          {lat:45.4655,lng:9.1898,n:'6',label:'埃马努埃莱长廊',day:'D7'}
+        ]
+      }
+    };
+    // Haversine 公式：经纬度→距离（米）
+    function haversine(lat1,lng1,lat2,lng2){
+      const R=6371000;
+      const toRad=d=>d*Math.PI/180;
+      const dLat=toRad(lat2-lat1),dLng=toRad(lng2-lng1);
+      const a=Math.sin(dLat/2)**2+Math.cos(toRad(lat1))*Math.cos(toRad(lat2))*Math.sin(dLng/2)**2;
+      return 2*R*Math.asin(Math.sqrt(a));
+    }
+    function bearing(lat1,lng1,lat2,lng2){
+      const toRad=d=>d*Math.PI/180;
+      const y=Math.sin(toRad(lng2-lng1))*Math.cos(toRad(lat2));
+      const x=Math.cos(toRad(lat1))*Math.sin(toRad(lat2))-Math.sin(toRad(lat1))*Math.cos(toRad(lat2))*Math.cos(toRad(lng2-lng1));
+      return (Math.atan2(y,x)*180/Math.PI+360)%360;
+    }
+    function fmtDist(m){
+      if(m<1000) return Math.round(m)+' m';
+      return (m/1000).toFixed(1)+' km';
+    }
+    function walkMin(m){ return Math.max(1,Math.round(m/80)); } // 80米/分钟
+    const hdpPanel=document.getElementById('hotel-distance-panel');
+    let hdpCurrent=null;
+    function toggleHotelDistance(card,city){
+      // 已展开同一张 → 关闭
+      if(hdpCurrent===city){ closeHotelDistance(); return; }
+      hdpCurrent=city;
+      const data=hotelMapData[city]; if(!data || !hdpPanel) return;
+      // 清除其他卡的高亮
+      document.querySelectorAll('.hotel-card').forEach(c=>c.classList.remove('distance-open'));
+      card.classList.add('distance-open');
+      // 把 panel 移到当前 card 的下一行（grid 跨行）
+      card.parentElement.insertBefore(hdpPanel, card.nextSibling);
+      // 计算每个景点的距离 + 角度
+      const spotsCalc=data.spots.map(s=>{
+        const m=haversine(data.hotel.lat,data.hotel.lng,s.lat,s.lng);
+        const b=bearing(data.hotel.lat,data.hotel.lng,s.lat,s.lng);
+        return Object.assign({},s,{m:m,b:b});
+      });
+      const maxDist=Math.max(...spotsCalc.map(s=>s.m),100);
+      // 渲染标题
+      document.getElementById('hdp-title').innerHTML=data.title+' <small>从酒店出发的步行距离</small>';
+      // 渲染辐射图 SVG（极坐标）
+      const size=320, cx=size/2, cy=size/2, maxR=size/2-40;
+      let rings='';
+      // 距离环：根据 maxDist 选合适的步长
+      const step=maxDist<800?200:maxDist<2000?500:1000;
+      for(let d=step;d<=maxDist*1.05;d+=step){
+        const r=(d/maxDist)*maxR;
+        rings+=`<circle class="ring" cx="${cx}" cy="${cy}" r="${r}"/>`;
+        rings+=`<text class="ring-label" x="${cx+r+2}" y="${cy-2}">${fmtDist(d)}</text>`;
+      }
+      // 8 方向辐条（仅参考）
+      let spokes='';
+      for(let a=0;a<360;a+=45){
+        const rad=(a-90)*Math.PI/180;
+        const x2=cx+Math.cos(rad)*maxR, y2=cy+Math.sin(rad)*maxR;
+        spokes+=`<line class="spoke" x1="${cx}" y1="${cy}" x2="${x2}" y2="${y2}"/>`;
+      }
+      // 景点点
+      let spotsSvg='';
+      spotsCalc.forEach(s=>{
+        const r=(s.m/maxDist)*maxR;
+        const rad=(s.b-90)*Math.PI/180;
+        const x=cx+Math.cos(rad)*r, y=cy+Math.sin(rad)*r;
+        // 距离标签放在点和酒店连线的中点附近
+        const midR=r*0.55;
+        const lx=cx+Math.cos(rad)*midR, ly=cy+Math.sin(rad)*midR;
+        spotsSvg+=`<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="#000" stroke-width="0.5" stroke-dasharray="2 2" opacity="0.4"/>`;
+        spotsSvg+=`<text class="dist-label" x="${lx}" y="${ly-4}">${walkMin(s.m)}min</text>`;
+        spotsSvg+=`<g><circle class="spot-dot" cx="${x}" cy="${y}" r="9" data-spot="${s.n}"><title>${s.n}. ${s.label} · ${fmtDist(s.m)} · 步行 ${walkMin(s.m)} 分钟</title></circle><text class="spot-num" x="${x}" y="${y+3.5}">${s.n}</text></g>`;
+      });
+      // 酒店点（中心）
+      const hotelSvg=`<circle class="hotel-dot" cx="${cx}" cy="${cy}" r="14"/><text class="hotel-icon" x="${cx}" y="${cy+4}">H</text><title>🏨 ${data.hotelLabel}</title>`;
+      document.getElementById('hdp-radial').innerHTML=
+        `<svg viewBox="0 0 ${size} ${size}" xmlns="http://www.w3.org/2000/svg">
+          ${rings}${spokes}${spotsSvg}<g>${hotelSvg}</g>
+        </svg>`;
+      // 渲染右侧列表
+      const sortedSpots=[...spotsCalc].sort((a,b)=>a.m-b.m);
+      let listHtml=`<div class="hdp-hotel-meta"><b>🏨 ${data.hotelLabel}</b><small>${data.hotelDesc} · 中心点</small></div><ul class="hdp-spot-list">`;
+      sortedSpots.forEach(s=>{
+        listHtml+=`<li><span class="num">${s.n}</span><span class="name">${s.label}<br><small style="color:#aaa;font-size:10px">${s.day||''}</small></span><span class="dist"><b>${fmtDist(s.m)}</b>步行 ${walkMin(s.m)} 分钟</span></li>`;
+      });
+      listHtml+='</ul>';
+      document.getElementById('hdp-list').innerHTML=listHtml;
+      // 显示
+      hdpPanel.classList.add('visible');
+      // 滚动到 panel
+      setTimeout(()=>hdpPanel.scrollIntoView({behavior:'smooth',block:'nearest'}),100);
+    }
+    function closeHotelDistance(){
+      if(!hdpPanel) return;
+      hdpPanel.classList.remove('visible');
+      hdpCurrent=null;
+      document.querySelectorAll('.hotel-card').forEach(c=>c.classList.remove('distance-open'));
+    }
+    // 兼容老接口
+    function showHotelMap(){}
+    function moveHotelMap(){}
+    function hideHotelMap(){closeHotelDistance();}
+    // 待办清单：打开腾讯文档（在亲子旅游空间中）
+    function openChecklist(){
+      window.open('https://docs.qq.com/aio/DWm96UGhOUGJxcGJG?_fid=ZozPhNPbqpbF', '_blank');
+    }
+    // 片单书单分类卡片：仅点击「折叠态空白区域」展开。已展开后只能用收起按钮关。
+    function toggleLibCat(card,ev){
+      // 已展开状态下，点击大卡内部任何地方都不折叠（避免误触）——必须用 ✕ 收起按钮
+      if(card.classList.contains('open')) return;
+      // 折叠态：点开
+      card.classList.add('open');
+      setTimeout(()=>card.scrollIntoView({behavior:'smooth',block:'start'}),100);
+      syncLibToggleAllBtn();
+    }
+    function closeLibCat(ev, btn){
+      ev.stopPropagation();
+      const card=btn.closest('.lib-cat-card');
+      card.classList.remove('open');
+      card.querySelectorAll('.lib-item[open]').forEach(el=>el.removeAttribute('open'));
+      syncLibToggleAllBtn();
+    }
+    function toggleAllLibCats(btn){
+      const cards=document.querySelectorAll('#library-italy .lib-cat-card');
+      const allOpen=Array.from(cards).every(c=>c.classList.contains('open'));
+      cards.forEach(c=>{
+        if(allOpen){
+          c.classList.remove('open');
+          c.querySelectorAll('.lib-item[open]').forEach(el=>el.removeAttribute('open'));
+        }else{
+          c.classList.add('open');
+        }
+      });
+      syncLibToggleAllBtn();
+    }
+    function syncLibToggleAllBtn(){
+      const btn=document.getElementById('lib-toggle-all');
+      if(!btn) return;
+      const cards=document.querySelectorAll('#library-italy .lib-cat-card');
+      const allOpen=cards.length>0 && Array.from(cards).every(c=>c.classList.contains('open'));
+      const icon=btn.querySelector('.icon');
+      const txt=btn.querySelector('.txt');
+      if(allOpen){icon.textContent='▴';txt.textContent='全部折叠';}
+      else{icon.textContent='▾';txt.textContent='全部展开';}
+    }
+    // 片单书单条目：阻止冒泡 + 平台标签升级为链接
+    function initLibItems(){
+      // 1. 阻止 details summary 的点击冒泡到 .lib-cat-card（否则误触整卡折叠）
+      document.querySelectorAll('.lib-cat-card .lib-item').forEach(item=>{
+        item.addEventListener('click',ev=>ev.stopPropagation());
+      });
+      // 2. 阻止 .cat-expanded-head（标题+收起按钮）的冒泡
+      document.querySelectorAll('.lib-cat-card .cat-expanded-head').forEach(h=>{
+        h.addEventListener('click',ev=>ev.stopPropagation());
+      });
+      // 3. .lib-platform 自动升级为链接（找同 details 内 primary-link 的 href）
+      document.querySelectorAll('.lib-cat-card .lib-item').forEach(item=>{
+        const platform=item.querySelector('summary > .lib-platform');
+        if(!platform) return;
+        const link=item.querySelector('.lib-detail .primary-link[href]');
+        if(!link) return;
+        const href=link.getAttribute('href');
+        // 用 a 包裹原 span 内容，保持样式
+        const a=document.createElement('a');
+        a.href=href;
+        a.target='_blank';
+        a.rel='noopener';
+        a.className='lib-platform lib-platform-link';
+        a.textContent=platform.textContent;
+        a.title='点击直接打开「'+platform.textContent.trim()+'」搜索/查看';
+        a.addEventListener('click',ev=>ev.stopPropagation());
+        platform.replaceWith(a);
+      });
+    }
+    if(document.readyState==='loading'){
+      document.addEventListener('DOMContentLoaded', initLibItems);
+    }else{
+      initLibItems();
+    }
+    // 酒店卡伊娃心得：超过 180px 自动加展开按钮（只展开当前卡）
+    function initHotelEvaCollapse(){
+      document.querySelectorAll('.hotel-card .h-eva').forEach(eva=>{
+        // 检查内容真实高度是否超过 max-height
+        const isOverflow=eva.scrollHeight > eva.clientHeight + 4;
+        if(!isOverflow) {
+          // 不超长就移除遮罩
+          eva.style.maxHeight='none';
+          eva.classList.add('expanded');
+          return;
+        }
+        const btn=document.createElement('button');
+        btn.className='h-eva-toggle';
+        btn.type='button';
+        btn.setAttribute('aria-label','展开/收起伊娃心得');
+        btn.textContent='⌄';
+        btn.addEventListener('click',(ev)=>{
+          ev.stopPropagation();
+          const expanded=eva.classList.toggle('expanded');
+          btn.textContent=expanded?'⌃':'⌄';
+        });
+        eva.appendChild(btn);
+      });
+    }
+    if(document.readyState==='loading'){
+      document.addEventListener('DOMContentLoaded', initHotelEvaCollapse);
+    }else{
+      // 等图片加载后高度才稳定
+      window.addEventListener('load',initHotelEvaCollapse);
+      setTimeout(initHotelEvaCollapse, 200);
+    }
+    // （cities-strip 已合并到地图模块，这里不再需要 initCitiesHover）
+    // 全展开/折叠切换器
+    function toggleAll(btn, selector){
+      const list=document.querySelectorAll(selector);
+      if(!list.length) return;
+      const allOpen=Array.from(list).every(el=>el.hasAttribute('open'));
+      list.forEach(el=>{
+        if(allOpen) el.removeAttribute('open');
+        else el.setAttribute('open','');
+      });
+      const icon=btn.querySelector('.icon');
+      const txt=btn.querySelector('.txt');
+      if(allOpen){
+        icon.textContent='▾';
+        txt.textContent='全部展开';
+      }else{
+        icon.textContent='▴';
+        txt.textContent='全部折叠';
+      }
+    }
+    // 下载攻略 PDF：在新标签页打开打印版，调用浏览器原生打印对话框
+    function printBooklet(){
+      const w = window.open('./print-italy.html', '_blank');
+      if(!w){
+        alert('请允许弹出窗口以打开 PDF 打印版');
+        return;
+      }
+      // 等打印版加载完后自动调用 print（用户也可在页面顶部按钮再触发）
+      w.addEventListener('load', ()=>{
+        // 留 800ms 让图片和字体加载
+        setTimeout(()=>{ try{ w.focus(); w.print(); }catch(e){} }, 1200);
+      });
+    }
+    document.addEventListener('DOMContentLoaded',()=>{showTag('art');});
+  </script>
 </section>
 
 <!-- Part 2 -->
@@ -454,7 +1526,10 @@ section{padding:80px 60px;position:relative}
   <div class="prep-bg"></div>
   <div class="sec-label">Part 02 · Before You Go</div>
   <h2 class="sec-title">行前准备</h2>
-  <div class="sec-sub">每一项点开都有保姆级步骤 🔥</div>
+  <div class="sec-head-row">
+    <div class="sec-sub">每一项点开都有保姆级步骤</div>
+    <button class="toggle-all-btn" onclick="toggleAll(this, '.prep-cards .prep-item-detailed')"><span class="icon">▾</span><span class="txt">全部展开</span></button>
+  </div>
 
   <div class="prep-cards">
     <!-- D-30 知识启蒙 -->
@@ -465,10 +1540,13 @@ section{padding:80px 60px;position:relative}
       <details class="prep-item-detailed">
         <summary><span>《尤斯伯恩看里面·揭秘古罗马》</span></summary>
         <div class="prep-detail">
-          <h6>📖 英国 Usborne 原版引进</h6>
+          <h6>📖 英国 Usborne 原版引进 · 接力出版社 2019 年</h6>
           <p>翻翻书，40+ 机关，适合 4-10 岁。展示竞技场、罗马士兵、庞贝城、浴场、学校生活。</p>
-          <p><strong>ISBN：</strong>9787544857949 · 译林出版社 2019 年</p>
-          <p><a href="https://book.douban.com/search?q=%E5%B0%A4%E6%96%AF%E4%BC%AF%E6%81%A9%E7%9C%8B%E9%87%8C%E9%9D%A2%20%E6%8F%AD%E7%A7%98%E5%8F%A4%E7%BD%97%E9%A9%AC" target="_blank">豆瓣读书查看 →</a></p>
+          <p><strong>ISBN：</strong>9787544857949</p>
+          <p>
+            <a href="https://www.szlib.org.cn/opac/searchShow?library=all&v_tablearray=bibliosm,serbibm,apabibibm,mmbibm,&sortfield=ptitle&sorttype=desc&pageNum=10&v_index=title&v_value=%E6%8F%AD%E7%A7%98%E5%8F%A4%E7%BD%97%E9%A9%AC" target="_blank" style="background:var(--ng-yellow);color:#000;padding:4px 12px;text-decoration:none;font-weight:600;border-radius:2px;font-size:12px">深圳图书馆借阅 →</a>
+          </p>
+          <p style="font-size:12px;color:var(--ink-mute);margin-top:6px">※ 若馆藏无此书，建议电商平台自行选购（翻翻书是实体书才有机关互动）</p>
           <div class="eva">这本娃翻了 30+ 次，对斗兽场有了先入为主的印象，到现场看到实物直接叫出来"这就是那个有升降机的地方！"</div>
         </div>
       </details>
@@ -476,9 +1554,12 @@ section{padding:80px 60px;position:relative}
       <details class="prep-item-detailed">
         <summary><span>电影《罗马假日》（Roman Holiday）</span></summary>
         <div class="prep-detail">
-          <h6>🎬 家长版 · 1953 派拉蒙 · 豆瓣 8.8</h6>
+          <h6>🎬 家长版 · 1953 派拉蒙</h6>
           <p>奥黛丽·赫本的经典之作，许愿池、西班牙广场、真理之口、圣天使堡都是景点"导游"。建议爸妈先看一遍，现场带娃"对照场景"。</p>
-          <p><a href="https://movie.douban.com/subject/1293839/" target="_blank">豆瓣电影 →</a></p>
+          <p>
+            ▶ <a href="https://www.bilibili.com/bangumi/play/ss27504" target="_blank">B 站点开就播（4K 官修）→</a><br/>
+            ▶ <a href="https://v.qq.com/x/cover/4nxabytt44ngpry.html" target="_blank">腾讯视频 · 原声+普通话双版本 →</a>
+          </p>
           <div class="tip">💡 娃年龄小可只看"许愿池投币"、"真理之口被咬手"两个片段</div>
         </div>
       </details>
@@ -498,6 +1579,26 @@ section{padding:80px 60px;position:relative}
     <div class="prep-card">
       <div class="day-sticky">D-15</div>
       <h5>实操预订</h5>
+
+      <!-- 伊娃预约铁律（折叠卡片） -->
+      <details class="prep-item-detailed">
+        <summary><span>⏱️ 伊娃铁律：意大利是 P 人地狱，但 J 人能玩得很顶级</span></summary>
+        <div class="prep-detail">
+          <h6>📋 精确到分钟入场的门票（必须按时到）</h6>
+          <p><strong>意大利所有"精确到分钟入场"的门票，必须按时到——不给提早进，迟到也会作废。</strong></p>
+          <ol>
+            <li><strong>罗马斗兽场</strong> · 票上写几点几分进就要按时到</li>
+            <li><strong>佛罗伦萨圣母百花穹顶登顶</strong> · 同样精确到分钟</li>
+            <li><strong>米兰《最后的晚餐》</strong> · 错过就再也进不去（每人固定 15 分钟）</li>
+            <li><strong>梵蒂冈博物馆</strong> · 时段票，过期作废</li>
+          </ol>
+          <div class="tip">
+            <strong>P 人</strong> 没提前订票 or 磨磨蹭蹭迟到 → 很吃亏，热门票全卖光，热门时段全错过<br/>
+            <strong>J 人</strong> 提前 2-3 个月订完所有时段票 → 成就感拉满，一切顺利，体验很顶级
+          </div>
+          <div class="tip">📌 <strong>规划建议：</strong>用一张表把所有时段票的"日期+时间+地址+预约码"列出来，到日历提醒。一定提前 30 分钟到现场排队过安检。</div>
+        </div>
+      </details>
 
       <details class="prep-item-detailed">
         <summary><span>意大利申根签证（C 类旅游）</span></summary>
@@ -615,22 +1716,23 @@ section{padding:80px 60px;position:relative}
         <div class="prep-detail">
           <h6>📚 给爸妈打艺术底子</h6>
           <p>从古希腊到印象派，尤其文艺复兴章节，讲米开朗基罗、达芬奇、拉斐尔的故事最好。</p>
-          <ul>
-            <li><strong>书：</strong>ISBN 9787549601356 · 湖南美术出版社</li>
-            <li><strong>音频：</strong>喜马拉雅"蒋勋细说艺术"</li>
-          </ul>
-          <p><a href="https://book.douban.com/subject/4873098/" target="_blank">豆瓣读书 →</a></p>
-          <div class="tip">💡 书第 3 章文艺复兴是精华，读 1 小时即可应付意大利行</div>
+          <p>
+            ▶ <a href="https://v.qq.com/x/page/a09165dsa7k.html" target="_blank">腾讯视频 · 蒋勋看米开朗基罗（圣殇）→</a><br/>
+            ▶ <a href="https://search.bilibili.com/all?keyword=%E8%92%8B%E5%8B%8B+%E7%B1%B3%E5%BC%80%E6%9C%97%E5%9F%BA%E7%BD%97" target="_blank">B 站 · 蒋勋讲米开朗基罗系列 →</a><br/>
+            ▶ <a href="https://www.ximalaya.com/search/album/q_%E8%92%8B%E5%8B%8B" target="_blank">喜马拉雅 · 蒋勋官方专辑 →</a>
+          </p>
+          <div class="tip">💡 听一集"米开朗基罗"+"达芬奇"+"拉斐尔"，意大利艺术线就够用了</div>
         </div>
       </details>
 
       <details class="prep-item-detailed">
-        <summary><span>陈丹青 ·《局部》</span></summary>
+        <summary><span>陈丹青 ·《局部》第一季</span></summary>
         <div class="prep-detail">
-          <h6>🎞️ 看着画讲故事</h6>
+          <h6>🎞️ 看着画讲故事 · 优酷独家</h6>
           <p>第一季专讲意大利文艺复兴，卡拉瓦乔、马萨乔、乔托。陈丹青的切入点非常适合普通人听。</p>
-          <p>视频平台：优酷（看理想 & 梁文道出品）</p>
-          <p><a href="https://www.bilibili.com/bangumi/media/md28221046/" target="_blank">B 站搜索《局部》→</a></p>
+          <p>
+            ▶ <a href="https://www.youku.com/show/id_z0a3a83a8966011e5b522.html" target="_blank">优酷 · 局部第一季全 16 集（独家）→</a>
+          </p>
           <div class="eva">伊娃在行程"故事记录"里大量引用陈丹青的讲法，非常落地</div>
         </div>
       </details>
@@ -638,10 +1740,12 @@ section{padding:80px 60px;position:relative}
       <details class="prep-item-detailed">
         <summary><span>BBC《文艺复兴》纪录片</span></summary>
         <div class="prep-detail">
-          <h6>📺 3 集速通</h6>
-          <p>BBC 2014 年出品，3 集共 180 分钟。从布鲁内莱斯基的穹顶开始，到米开朗基罗的西斯廷。看完去实地震撼感翻倍。</p>
-          <p><a href="https://search.douban.com/movie/subject_search?search_text=%E6%96%87%E8%89%BA%E5%A4%8D%E5%85%B4%20BBC" target="_blank">豆瓣搜索 BBC《文艺复兴》→</a></p>
-          <div class="miss">缺数据 · 具体哪个视频平台可看待后续补充</div>
+          <h6>📺 3 集速通 · BBC 2014</h6>
+          <p>3 集共 180 分钟。从布鲁内莱斯基的穹顶开始，到米开朗基罗的西斯廷。看完去实地震撼感翻倍。</p>
+          <p>
+            ▶ <a href="https://www.bilibili.com/video/av9373395/" target="_blank">B 站 · BBC 文艺复兴全 3 集 →</a><br/>
+            ▶ <a href="https://search.bilibili.com/all?keyword=BBC+%E6%96%87%E8%89%BA%E5%A4%8D%E5%85%B4" target="_blank">B 站搜索（多版本可选）→</a>
+          </p>
         </div>
       </details>
     </div>
@@ -661,6 +1765,19 @@ section{padding:80px 60px;position:relative}
             <li><strong>背带：</strong>石板路多，婴儿车有时不如背带灵活</li>
           </ul>
           <div class="tip">💡 威尼斯一定要用背带！水上巴士+桥梁多，婴儿车实用度低</div>
+        </div>
+      </details>
+
+      <details class="prep-item-detailed">
+        <summary><span>🏠 伊娃住宿生活经验（实测）</span></summary>
+        <div class="prep-detail">
+          <h6>🛁 酒店体验 & 带娃神器</h6>
+          <ul>
+            <li><strong>一次性浴缸纸 + 泡泡玩具：</strong>娃需要！酒店浴缸不一定干净，一次性套上放心玩水</li>
+            <li><strong>时差倒不过来？</strong>我俩有时差每天 5 点就起来——自己做早餐（煎蛋、培根），正好当晨间亲子时光</li>
+            <li><strong>airbnb 在意大利配置不错：</strong>做饭很方便（连洗碗机都有），超市遍地，食材新鲜</li>
+            <li><strong>娃想中餐怎么办？</strong>不用锅煮就能吃的白米饭、米线带上，热水泡一泡就能吃，娃能接受</li>
+          </ul>
         </div>
       </details>
 
@@ -701,6 +1818,402 @@ section{padding:80px 60px;position:relative}
       </details>
     </div>
   </div>
+
+  <!-- 片单书单模块：旅行的知识滋养（v0.9 横排卡片版） -->
+  <div class="library" id="library-italy">
+    <div class="library-head">
+      <h3>旅行前的知识滋养 · 片单书单</h3>
+    </div>
+    <div class="library-sub" style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+      <span>伊娃为意大利行沉淀的 22 部必看清单 ✦</span>
+      <button class="toggle-all-btn" onclick="toggleAllLibCats(this)" id="lib-toggle-all"><span class="icon">▾</span><span class="txt">全部展开</span></button>
+    </div>
+    <div class="library-desc">
+      这是伊娃为这趟意大利亲子游准备的"充电清单"——从罗马建筑史讲到文艺复兴三杰，从陈丹青讲到浪漫电影。看完再去意大利，每座教堂、每幅画都能读出故事。<strong>点击下方任意卡片展开清单</strong>，每一项再点开就是摘要和推荐理由。
+    </div>
+
+    <!-- 3 张横排分类卡片 -->
+    <div class="cat-row" id="lib-cat-row">
+
+      <!-- 卡片 1：书籍 -->
+      <div class="lib-cat-card" data-cat="books" onclick="toggleLibCat(this)">
+        <!-- 折叠态 -->
+        <span class="cat-ic-big">📖</span>
+        <h4>书籍</h4>
+        <div class="cat-count"><b>6</b>本</div>
+        <div class="cat-keywords">罗马建筑史 · 文艺复兴三杰 · 蒋勋艺术启蒙 · 余秋雨欧洲游记 · 顾爷艺术八卦</div>
+        <div class="cat-action">点击展开清单 →</div>
+        <!-- 展开态 -->
+        <div class="cat-expanded">
+          <div class="cat-expanded-head">
+            <h4>📖 书籍（6 本）</h4>
+            <button class="cat-close" onclick="closeLibCat(event, this)">✕ 收起</button>
+          </div>
+
+          <details class="lib-item">
+            <summary>
+              <div class="lib-title">
+                <div class="lib-name">巨人的文明：罗马，从共和国到帝国，从恺撒到基督</div>
+                <div class="lib-brief">陈文捷 · 配套 B 站 20 集公开课</div>
+              </div>
+              <span class="lib-platform">微信读书</span>
+            </summary>
+            <div class="lib-detail">
+              <div><div class="lib-label">去哪读</div><div class="lib-value"><a class="primary-link" href="https://weread.qq.com/web/bookDetail/be132b2071cab134be1b34c" target="_blank">微信读书</a></div></div>
+              <div><div class="lib-label">内容摘要</div><div class="lib-value">同济大学建筑学教授陈文捷的罗马建筑史巨著，从罗马共和国一路讲到帝国衰落。每章都以建筑为切入点，讲政治、宗教、文化的演变。微信读书推荐值 83.2%。</div></div>
+              <div class="lib-why">罗马斗兽场、万神殿、古罗马遗迹、君士坦丁凯旋门——这趟行程的核心建筑都在书里。Day 3 走古罗马遗迹那天，书里的画面会在眼前重现。</div>
+            </div>
+          </details>
+
+          <details class="lib-item">
+            <summary>
+              <div class="lib-title">
+                <div class="lib-name">看得见的世界史：意大利</div>
+                <div class="lib-brief">图文史书 · 按城市脉络梳理 2000 年历史</div>
+              </div>
+              <span class="lib-platform">深圳图书馆</span>
+            </summary>
+            <div class="lib-detail">
+              <div><div class="lib-label">去哪读</div><div class="lib-value"><a class="primary-link" href="https://www.szlib.org.cn/opac/searchShow?library=all&v_tablearray=bibliosm,serbibm,apabibibm,mmbibm,&sortfield=ptitle&sorttype=desc&pageNum=10&v_index=title&v_value=%E7%9C%8B%E5%BE%97%E8%A7%81%E7%9A%84%E4%B8%96%E7%95%8C%E5%8F%B2" target="_blank">深圳图书馆借阅</a></div></div>
+              <div><div class="lib-label">内容摘要</div><div class="lib-value">从罗马帝国到教皇国到统一意大利的通俗历史。地图+老照片+人物画像，按城市维度讲故事，适合带娃前快速通读。</div></div>
+              <div class="lib-why">娃在罗马看到凯撒墓、在佛罗伦萨看到美第奇家族宅邸、在威尼斯看到圣马可的狮子——这些"为什么会存在"的答案都在这本书里。</div>
+            </div>
+          </details>
+
+          <details class="lib-item">
+            <summary>
+              <div class="lib-title">
+                <div class="lib-name">建筑也可以很好玩：欧洲篇</div>
+                <div class="lib-brief">儿童向建筑启蒙 · 漫画+知识点</div>
+              </div>
+              <span class="lib-platform">深圳图书馆</span>
+            </summary>
+            <div class="lib-detail">
+              <div><div class="lib-label">去哪读</div><div class="lib-value"><a class="primary-link" href="https://www.szlib.org.cn/opac/searchShow?library=all&v_tablearray=bibliosm,serbibm,apabibibm,mmbibm,&sortfield=ptitle&sorttype=desc&pageNum=10&v_index=title&v_value=%E5%BB%BA%E7%AD%91%E4%B9%9F%E5%8F%AF%E4%BB%A5%E5%BE%88%E5%A5%BD%E7%8E%A9" target="_blank">深圳图书馆借阅</a></div></div>
+              <div><div class="lib-label">内容摘要</div><div class="lib-value">把拜占庭、罗马式、哥特、巴洛克、新古典 5 种建筑风格用孩子能懂的方式讲出来。配有欧洲各个教堂/宫殿的手绘插画。</div></div>
+              <div class="lib-why">意大利之行会看 4 种不同风格的大教堂——圣彼得（巴洛克）、圣母百花（哥特+穹顶）、圣马可（拜占庭）、米兰大教堂（哥特）。看完这本娃分得清每座的差别。</div>
+            </div>
+          </details>
+
+          <details class="lib-item">
+            <summary>
+              <div class="lib-title">
+                <div class="lib-name">写给大家的西方美术史（增订版）</div>
+                <div class="lib-brief">蒋勋 · 从古希腊到现代艺术的普及讲本</div>
+              </div>
+              <span class="lib-platform">微信读书</span>
+            </summary>
+            <div class="lib-detail">
+              <div><div class="lib-label">去哪读</div><div class="lib-value"><a class="primary-link" href="https://weread.qq.com/web/bookDetail/28f32f30811e1a4e7g01023e" target="_blank">微信读书</a></div></div>
+              <div><div class="lib-label">内容摘要</div><div class="lib-value">蒋勋以讲述性的语言梳理西方艺术 2500 年。文艺复兴章节占全书三分之一，讲米开朗基罗尤其深刻。2003 年台湾东华书局问鼎台湾金鼎奖。</div></div>
+              <div class="lib-why">意大利就是整本书的"高潮章节"。乌菲兹、西斯廷、学院美术馆三座博物馆的藏品几乎都是书里的"主角"。</div>
+            </div>
+          </details>
+
+          <details class="lib-item">
+            <summary>
+              <div class="lib-title">
+                <div class="lib-name">欧洲之旅</div>
+                <div class="lib-brief">余秋雨 · 散文式文化游记</div>
+              </div>
+              <span class="lib-platform">微信读书</span>
+            </summary>
+            <div class="lib-detail">
+              <div><div class="lib-label">去哪读</div><div class="lib-value"><a class="primary-link" href="https://r.qq.com/web/reader/39332ac0717c3f6739350d0" target="_blank">微信读书</a></div></div>
+              <div><div class="lib-label">内容摘要</div><div class="lib-value">余秋雨 1999 年走遍欧洲的随笔。意大利章节对但丁故居、佛罗伦萨、罗马有非常动情的书写。微信读书推荐值 77.9%。</div></div>
+              <div class="lib-why">站在佛罗伦萨但丁故居门口时，你会想起余秋雨写"墙上那层幔布"的那段文字——这是文字和现场相遇的化学反应。</div>
+            </div>
+          </details>
+
+          <details class="lib-item">
+            <summary>
+              <div class="lib-title">
+                <div class="lib-name">小顾聊绘画：文艺复兴</div>
+                <div class="lib-brief">顾爷 · 段子手版艺术史</div>
+              </div>
+              <span class="lib-platform">微信读书</span>
+            </summary>
+            <div class="lib-detail">
+              <div><div class="lib-label">去哪读</div><div class="lib-value"><a class="primary-link" href="https://weread.qq.com/web/bookDetail/49a327505e0c5a49a312e9a" target="_blank">微信读书</a></div></div>
+              <div><div class="lib-label">内容摘要</div><div class="lib-value">微博大 V"顾爷"的艺术八卦书，用段子手的笔调讲文艺复兴画家的生活、情感、竞争。</div></div>
+              <div class="lib-why">适合当"搞笑版"的入门读物，尤其讲米开朗基罗和达芬奇互相看不顺眼、拉斐尔抢师兄女友的八卦，娃一听就记住。</div>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- 卡片 2：公开课/纪录片 -->
+      <div class="lib-cat-card" data-cat="video" onclick="toggleLibCat(this)">
+        <span class="cat-ic-big">🎞️</span>
+        <h4>公开课 / 纪录片</h4>
+        <div class="cat-count"><b>10</b>部</div>
+        <div class="cat-keywords">陈丹青《局部》· 蒋勋破解达芬奇+米开朗基罗 · 巨人的文明 20 集 · 梵蒂冈博物馆 3D · 文艺复兴解锁 · 卡拉瓦乔纪录片</div>
+        <div class="cat-action">点击展开清单 →</div>
+        <div class="cat-expanded">
+          <div class="cat-expanded-head">
+            <h4>🎞️ 公开课 / 纪录片（10 部）</h4>
+            <button class="cat-close" onclick="closeLibCat(event, this)">✕ 收起</button>
+          </div>
+
+          <details class="lib-item">
+            <summary>
+              <div class="lib-title">
+                <div class="lib-name">陈丹青《局部》第三季 · 伟大的工匠（伊娃看了 5 遍）</div>
+                <div class="lib-brief">深度走访意大利十几座教堂讲文艺复兴湿壁画</div>
+              </div>
+              <span class="lib-platform">优酷</span>
+            </summary>
+            <div class="lib-detail">
+              <div><div class="lib-label">去哪看</div><div class="lib-value"><a class="primary-link" href="https://www.youku.com/show/id_ze26aaa6a0dc911e5b522.html" target="_blank">优酷观看</a></div></div>
+              <div><div class="lib-label">内容摘要</div><div class="lib-value">陈丹青第三季《伟大的工匠》—— 走访意大利十几座教堂，专讲文艺复兴湿壁画。2020 年 1 月优酷与看理想联合出品，共 12 集。陈丹青有意避开"达芬奇/米开朗基罗/拉斐尔三巨头"，把镜头对准被过度传播之外的意大利壁画工匠。</div></div>
+              <div class="lib-why">这就是伊娃说"看了 5 遍"的原因——陈丹青走过的教堂，很多就在你接下来要去的地方（佛罗伦萨、罗马、阿西西、帕多瓦）。看完再到现场，每一面壁画都不一样。</div>
+            </div>
+          </details>
+
+          <details class="lib-item">
+            <summary>
+              <div class="lib-title">
+                <div class="lib-name">嘉的人文之旅</div>
+                <div class="lib-brief">独立博主的深度旅行人文频道</div>
+              </div>
+              <span class="lib-platform">YouTube</span>
+            </summary>
+            <div class="lib-detail">
+              <div><div class="lib-label">去哪看</div><div class="lib-value"><a class="primary-link" href="https://www.youtube.com/results?search_query=%E5%98%89%E7%9A%84%E4%BA%BA%E6%96%87%E4%B9%8B%E6%97%85" target="_blank">YouTube 观看</a></div></div>
+              <div><div class="lib-label">内容摘要</div><div class="lib-value">博主一个人带着相机深入欧洲，从建筑、宗教、历史三个维度讲每座城市。慢节奏、有思想。</div></div>
+              <div class="lib-why">持续更新的"电子笔记本"。出发前看相关国家的视频，到达当地那种"我知道这地方的秘密"的感觉会让旅行深一层。</div>
+            </div>
+          </details>
+
+          <details class="lib-item">
+            <summary>
+              <div class="lib-title">
+                <div class="lib-name">意大利博物馆 1~6</div>
+                <div class="lib-brief">带你提前云游 6 大博物馆</div>
+              </div>
+              <span class="lib-platform">YouTube</span>
+            </summary>
+            <div class="lib-detail">
+              <div><div class="lib-label">去哪看</div><div class="lib-value"><a class="primary-link" href="https://www.youtube.com/results?search_query=%E6%84%8F%E5%A4%A7%E5%88%A9%E5%8D%9A%E7%89%A9%E9%A6%86" target="_blank">YouTube 观看</a></div></div>
+              <div><div class="lib-label">内容摘要</div><div class="lib-value">系列合集，每集讲一座主要博物馆的藏品、历史、镇馆之宝和参观建议。</div></div>
+              <div class="lib-why">提前 15 分钟"云游"过乌菲兹和梵蒂冈博物馆，到现场不会在门口茫然。带娃看时直接指着说"你记得那个画吗？"</div>
+            </div>
+          </details>
+
+          <details class="lib-item">
+            <summary>
+              <div class="lib-title">
+                <div class="lib-name">蒋勋破解达芬奇</div>
+                <div class="lib-brief">蒋勋 2011 年台湾专题讲座</div>
+              </div>
+              <span class="lib-platform">B 站</span>
+            </summary>
+            <div class="lib-detail">
+              <div><div class="lib-label">去哪看</div><div class="lib-value"><a class="primary-link" href="https://search.bilibili.com/all?keyword=%E8%92%8B%E5%8B%8B%E7%A0%B4%E8%A7%A3%E8%BE%BE%E8%8A%AC%E5%A5%87" target="_blank">B 站观看</a></div></div>
+              <div><div class="lib-label">内容摘要</div><div class="lib-value">蒋勋专讲达芬奇的一生：画家、解剖学家、工程师、发明家。《最后的晚餐》《蒙娜丽莎》背后的故事。</div></div>
+              <div class="lib-why">Day 8 米兰看《最后的晚餐》前必看。蒋勋会告诉你为什么每位门徒的表情都不一样，为什么犹大的手是那样摆放。</div>
+            </div>
+          </details>
+
+          <details class="lib-item">
+            <summary>
+              <div class="lib-title">
+                <div class="lib-name">蒋勋破解米开朗基罗</div>
+                <div class="lib-brief">蒋勋专题讲座 · 雕塑/壁画/诗人</div>
+              </div>
+              <span class="lib-platform">B 站</span>
+            </summary>
+            <div class="lib-detail">
+              <div><div class="lib-label">去哪看</div><div class="lib-value"><a class="primary-link" href="https://search.bilibili.com/all?keyword=%E8%92%8B%E5%8B%8B%E7%A0%B4%E8%A7%A3%E7%B1%B3%E5%BC%80%E6%9C%97%E5%9F%BA%E7%BD%97" target="_blank">B 站观看</a></div></div>
+              <div><div class="lib-label">内容摘要</div><div class="lib-value">从 23 岁圣殇到 70 岁圣殇，讲尽米开朗基罗一生。西斯廷穹顶、大卫、美第奇陵墓逐件讲解。</div></div>
+              <div class="lib-why">伊娃行程"故事记录"里大量文字都来自这套。看完再去西斯廷礼拜堂、学院美术馆，抬头的时候眼泪会下来。</div>
+            </div>
+          </details>
+
+          <details class="lib-item">
+            <summary>
+              <div class="lib-title">
+                <div class="lib-name">巨人的文明（厦大公开课 20 集）</div>
+                <div class="lib-brief">陈文捷教授罗马建筑史全集</div>
+              </div>
+              <span class="lib-platform">B 站</span>
+            </summary>
+            <div class="lib-detail">
+              <div><div class="lib-label">去哪看</div><div class="lib-value"><a class="primary-link" href="https://www.bilibili.com/video/BV1mm4y1N7DJ/" target="_blank">B 站完整 20 集</a></div></div>
+              <div><div class="lib-label">内容摘要</div><div class="lib-value">书的视频版。从古罗马建筑基因讲到帝国衰落，20 集系统讲课，B 站免费看。</div></div>
+              <div class="lib-why">时间够的话挑 5-6 集讲斗兽场、万神殿、拜占庭的看。看完娃在罗马会对"拱门"、"穹顶"、"柱式"有概念。</div>
+            </div>
+          </details>
+
+          <details class="lib-item">
+            <summary>
+              <div class="lib-title">
+                <div class="lib-name">文艺复兴解锁</div>
+                <div class="lib-brief">系统梳理 14-16 世纪意大利艺术</div>
+              </div>
+              <span class="lib-platform">B 站</span>
+            </summary>
+            <div class="lib-detail">
+              <div><div class="lib-label">去哪看</div><div class="lib-value"><a class="primary-link" href="https://search.bilibili.com/all?keyword=%E6%96%87%E8%89%BA%E5%A4%8D%E5%85%B4%E8%A7%A3%E9%94%81" target="_blank">B 站观看</a></div></div>
+              <div><div class="lib-label">内容摘要</div><div class="lib-value">从乔托、马萨乔、达芬奇、拉斐尔、米开朗基罗到丁托列托，系统梳理每位大师的历史地位和代表作。</div></div>
+              <div class="lib-why">意大利之行的"艺术家人物关系图谱"。看完再到现场，看到画作知道"这是谁画的、他是谁的学生、他在跟谁较劲"。</div>
+            </div>
+          </details>
+
+          <details class="lib-item">
+            <summary>
+              <div class="lib-title">
+                <div class="lib-name">米开朗基罗无限</div>
+                <div class="lib-brief">沉浸式讲米开朗基罗生平</div>
+              </div>
+              <span class="lib-platform">B 站</span>
+            </summary>
+            <div class="lib-detail">
+              <div><div class="lib-label">去哪看</div><div class="lib-value"><a class="primary-link" href="https://search.bilibili.com/all?keyword=%E7%B1%B3%E5%BC%80%E6%9C%97%E5%9F%BA%E7%BD%97%E6%97%A0%E9%99%90" target="_blank">B 站观看</a></div></div>
+              <div><div class="lib-label">内容摘要</div><div class="lib-value">纪录片式讲述米开朗基罗一生与作品。视频质量和讲述深度都很好。</div></div>
+              <div class="lib-why">蒋勋那套偏艺术评论，这部偏纪录片呈现，两者互补。看完圣殇 70 岁版再看学院美术馆大卫，感触完全不同。</div>
+            </div>
+          </details>
+
+          <details class="lib-item">
+            <summary>
+              <div class="lib-title">
+                <div class="lib-name">梵蒂冈博物馆 3D</div>
+                <div class="lib-brief">虚拟漫游梵蒂冈博物馆</div>
+              </div>
+              <span class="lib-platform">B 站</span>
+            </summary>
+            <div class="lib-detail">
+              <div><div class="lib-label">去哪看</div><div class="lib-value"><a class="primary-link" href="https://search.bilibili.com/all?keyword=%E6%A2%B5%E8%92%82%E5%86%88%E5%8D%9A%E7%89%A9%E9%A6%86%203D" target="_blank">B 站观看</a></div></div>
+              <div><div class="lib-label">内容摘要</div><div class="lib-value">3D 建模还原梵蒂冈博物馆全景，可以"走过"每个展厅。</div></div>
+              <div class="lib-why">Day 2 梵蒂冈日前必看！提前 20 分钟云游一次，到现场知道"接下来要进哪个房间、别错过哪幅画"，不浪费预约的 3 小时。</div>
+            </div>
+          </details>
+
+          <details class="lib-item">
+            <summary>
+              <div class="lib-title">
+                <div class="lib-name">今夜卡拉瓦乔 纪录片</div>
+                <div class="lib-brief">卡拉瓦乔专题纪录片</div>
+              </div>
+              <span class="lib-platform">B 站</span>
+            </summary>
+            <div class="lib-detail">
+              <div><div class="lib-label">去哪看</div><div class="lib-value"><a class="primary-link" href="https://search.bilibili.com/all?keyword=%E4%BB%8A%E5%A4%9C%E5%8D%A1%E6%8B%89%E7%93%A6%E4%B9%94" target="_blank">B 站观看</a></div></div>
+              <div><div class="lib-label">内容摘要</div><div class="lib-value">讲这位"光线魔术师"的短暂一生。流浪、杀人、被教廷通缉的天才画家。</div></div>
+              <div class="lib-why">Day 1 圣王路易堂有卡拉瓦乔的 3 幅名作，Day 2 可选巴贝里尼宫也有他的画。看完纪录片能看出画中"一欧元的神迹"的含义。</div>
+            </div>
+          </details>
+        </div>
+      </div>
+
+      <!-- 卡片 3：电影 -->
+      <div class="lib-cat-card" data-cat="movie" onclick="toggleLibCat(this)">
+        <span class="cat-ic-big">🎬</span>
+        <h4>电影（故事+风景）</h4>
+        <div class="cat-count"><b>6</b>部</div>
+        <div class="cat-keywords">天使与魔鬼 · 达芬奇密码 · 致命伴旅 · 托斯卡纳艳阳下 · 爱在罗马 · 情迷翡冷翠</div>
+        <div class="cat-action">点击展开清单 →</div>
+        <div class="cat-expanded">
+          <div class="cat-expanded-head">
+            <h4>🎬 电影 · 故事+风景（6 部）</h4>
+            <button class="cat-close" onclick="closeLibCat(event, this)">✕ 收起</button>
+          </div>
+
+          <details class="lib-item">
+            <summary>
+              <div class="lib-title">
+                <div class="lib-name">天使与魔鬼 Angels & Demons</div>
+                <div class="lib-brief">2009 · 汤姆汉克斯 · 梵蒂冈悬疑</div>
+              </div>
+              <span class="lib-platform">腾讯</span>
+            </summary>
+            <div class="lib-detail">
+              <div><div class="lib-label">去哪看</div><div class="lib-value"><a class="primary-link" href="https://v.qq.com/x/cover/0ppb9hf7r7iyzdl.html" target="_blank">腾讯视频观看</a></div></div>
+              <div><div class="lib-label">内容摘要</div><div class="lib-value">达·芬奇密码续集。汤姆汉克斯在罗马和梵蒂冈追查"光照会"组织。电影中大量场景就是你即将去的地方。</div></div>
+              <div class="lib-why">这是"用电影当地图"的经典——万神殿、纳沃纳广场、圣彼得广场、圣天使城堡全是电影拍摄地。带娃到现场可以对照"这就是电影里那个场景！"</div>
+            </div>
+          </details>
+
+          <details class="lib-item">
+            <summary>
+              <div class="lib-title">
+                <div class="lib-name">达·芬奇密码 The Da Vinci Code</div>
+                <div class="lib-brief">2006 · 达·芬奇 + 符号学解谜</div>
+              </div>
+              <span class="lib-platform">腾讯</span>
+            </summary>
+            <div class="lib-detail">
+              <div><div class="lib-label">去哪看</div><div class="lib-value"><a class="primary-link" href="https://v.qq.com/x/cover/yu2o38dw5u17fhw.html" target="_blank">腾讯视频观看</a></div></div>
+              <div><div class="lib-label">内容摘要</div><div class="lib-value">虽然主战场是法国，但对《最后的晚餐》、耶稣的真相、达·芬奇的密码给了极其戏剧化的解读。</div></div>
+              <div class="lib-why">Day 8 米兰看真·《最后的晚餐》前必看，你会对"画中哪个人是抹大拉的玛利亚"这个悬念充满期待。</div>
+            </div>
+          </details>
+
+          <details class="lib-item">
+            <summary>
+              <div class="lib-title">
+                <div class="lib-name">致命伴旅 The Tourist</div>
+                <div class="lib-brief">2010 · 朱莉 + 德普 · 威尼斯</div>
+              </div>
+              <span class="lib-platform">腾讯</span>
+            </summary>
+            <div class="lib-detail">
+              <div><div class="lib-label">去哪看</div><div class="lib-value"><a class="primary-link" href="https://search.v.qq.com/search?q=%E8%87%B4%E5%91%BD%E4%BC%B4%E6%97%85" target="_blank">腾讯视频搜索</a></div></div>
+              <div><div class="lib-label">内容摘要</div><div class="lib-value">朱莉玩转威尼斯的爱情片。水上巴士、贡多拉、圣马可广场、叹息桥全部出镜。</div></div>
+              <div class="lib-why">Day 6-7 威尼斯前看完，你会知道贡多拉该坐哪段水道最美，圣马可广场上哪个角度拍照最好。</div>
+            </div>
+          </details>
+
+          <details class="lib-item">
+            <summary>
+              <div class="lib-title">
+                <div class="lib-name">托斯卡纳艳阳下 Under the Tuscan Sun</div>
+                <div class="lib-brief">2003 · 戴安·莱恩 · 豆瓣 8.1</div>
+              </div>
+              <span class="lib-platform">腾讯</span>
+            </summary>
+            <div class="lib-detail">
+              <div><div class="lib-label">去哪看</div><div class="lib-value"><a class="primary-link" href="https://search.v.qq.com/search?q=%E6%89%98%E6%96%AF%E5%8D%A1%E7%BA%B3%E8%89%B3%E9%98%B3%E4%B8%8B" target="_blank">腾讯视频搜索</a></div></div>
+              <div><div class="lib-label">内容摘要</div><div class="lib-value">美国作家被渣男伤害后逃到托斯卡纳买老房子重启人生。整部片子就是托斯卡纳乡村风光。</div></div>
+              <div class="lib-why">如果有额外 1-2 天时间从佛罗伦萨开车进托斯卡纳乡村，这部片子就是最佳"预习片"。即使不去托斯卡纳，也能让娃看到意大利乡村和城市的反差。</div>
+            </div>
+          </details>
+
+          <details class="lib-item">
+            <summary>
+              <div class="lib-title">
+                <div class="lib-name">爱在罗马 To Rome with Love</div>
+                <div class="lib-brief">2012 · 伍迪艾伦 · 罗马四段式</div>
+              </div>
+              <span class="lib-platform">B 站</span>
+            </summary>
+            <div class="lib-detail">
+              <div><div class="lib-label">去哪看</div><div class="lib-value"><a class="primary-link" href="https://search.bilibili.com/all?keyword=%E7%88%B1%E5%9C%A8%E7%BD%97%E9%A9%AC" target="_blank">B 站搜索</a></div></div>
+              <div><div class="lib-label">内容摘要</div><div class="lib-value">伍迪艾伦用 4 段看似无关的故事勾勒罗马众生相。西班牙广场、特雷维喷泉、纳沃纳广场都是关键场景。</div></div>
+              <div class="lib-why">Day 1 和 Day 2 在罗马的必看。伍迪艾伦式的幽默会让你带着微笑走在罗马的古街道里。</div>
+            </div>
+          </details>
+
+          <details class="lib-item">
+            <summary>
+              <div class="lib-title">
+                <div class="lib-name">情迷翡冷翠 A Room with a View</div>
+                <div class="lib-brief">1985 · 英国文学改编 · 佛罗伦萨</div>
+              </div>
+              <span class="lib-platform">B 站</span>
+            </summary>
+            <div class="lib-detail">
+              <div><div class="lib-label">去哪看</div><div class="lib-value"><a class="primary-link" href="https://search.bilibili.com/all?keyword=%E6%83%85%E8%BF%B7%E7%BF%A1%E5%86%B7%E7%BF%A0" target="_blank">B 站搜索</a></div></div>
+              <div><div class="lib-label">内容摘要</div><div class="lib-value">改编自 E.M. 福斯特小说。英国女孩在佛罗伦萨遇到爱情的古典故事。翡冷翠 = 佛罗伦萨老译名。</div></div>
+              <div class="lib-why">"翡冷翠"是徐志摩对 Firenze 的译名，充满诗意。电影让你看到 1905 年的佛罗伦萨，与现代对照观感震撼。</div>
+            </div>
+          </details>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </section>
 
 <!-- Part 2.5 交通+航班 -->
@@ -712,7 +2225,8 @@ section{padding:80px 60px;position:relative}
   <p class="transport-desc">深圳宝安机场目前有 <strong style="color:var(--ng-yellow)">海航 HU437</strong> 直飞罗马（伊娃这次就是这趟），其他多数需要从香港或广州转机。下面列出 3 种出发地方案，以及最佳出行时间。</p>
 
   <div class="time-bars">
-    <div class="time-bar best">
+    <div class="time-bar">
+      <span class="eva-badge">✦ 伊娃 2025.01 实际出游</span>
       <h6>❄️ 春节档</h6>
       <div class="range">1 月末 – 2 月初</div>
       <p>淡季价格最优，意大利人少，博物馆舒服；冷但不至于不适合娃</p>
@@ -782,29 +2296,150 @@ section{padding:80px 60px;position:relative}
   </div>
 </div>
 
+<!-- Part 2.6 住宿安排 -->
+<div class="hotels">
+  <div class="sec-label">Part 02.6 · Stay</div>
+  <h2 class="sec-title">住宿安排</h2>
+  <div class="sec-sub">4 城 4 家酒店 · 伊娃实测推荐 🏨</div>
+
+  <p class="hotels-desc">10 天住 8 晚（D1 是夜航，D9 早上返程）。伊娃这趟全部选了<strong>步行可达核心景区</strong>的住宿——带娃的核心策略是"减少交通时间"，把精力留给娃在街角发现的小惊喜。下面 4 家都是真实入住过的，含房型/价格/位置/伊娃的细节心得。</p>
+
+  <div class="hotel-grid">
+
+    <!-- 罗马 -->
+    <div class="hotel-card" data-hotel="roma" onclick="toggleHotelDistance(this,'roma')">
+      <div class="h-photo">
+        <img src="https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=600&q=80" alt="罗马住宿">
+        <div class="h-badge">D1-2 · 2 晚</div>
+      </div>
+      <div class="h-body">
+        <div class="h-city">ROMA · 罗马</div>
+        <h5>Via dei Serpenti 93</h5>
+        <div class="h-meta">📍 蒙蒂区 · 古罗马遗迹步行 8 分钟<br/>💰 <strong>¥3,500 / 2 晚</strong> · 一家三口家庭房</div>
+        <div class="h-eva">
+          <b>✦ 伊娃心得</b>
+          蒙蒂区是罗马最有"市井烟火气"的老街区，下楼就是小餐馆和 Gelato 店。Via dei Serpenti 是一条拍照圣地，傍晚伴着夕阳特别美。<strong>缺点：</strong>电梯非常小（一次最多 2 个大人），婴儿车要折叠。
+        </div>
+      </div>
+    </div>
+
+    <!-- 佛罗伦萨 -->
+    <div class="hotel-card" data-hotel="firenze" onclick="toggleHotelDistance(this,'firenze')">
+      <div class="h-photo">
+        <img src="https://images.unsplash.com/photo-1543429776-2782fc8e1acd?w=600&q=80" alt="佛罗伦萨住宿">
+        <div class="h-badge">D3-5 · 3 晚</div>
+      </div>
+      <div class="h-body">
+        <div class="h-city">FIRENZE · 佛罗伦萨</div>
+        <h5>Via dell'Alloro 6</h5>
+        <div class="h-meta">📍 老城核心 · 圣母百花大教堂 5 分钟<br/>💰 <strong>¥5,040 / 3 晚</strong> · 公寓式</div>
+        <div class="h-eva">
+          <b>✦ 伊娃心得</b>
+          全程最满意的住宿。公寓有小厨房可以煮意面，娃每天早上能吃到现做的鸡蛋。出门就是中央市场（D5 中午吃饭那里）。<strong>注意：</strong>除夕住这里看春晚最舒服，电视有 4K 智能系统。
+        </div>
+      </div>
+    </div>
+
+    <!-- 威尼斯 -->
+    <div class="hotel-card" data-hotel="venezia" onclick="toggleHotelDistance(this,'venezia')">
+      <div class="h-photo">
+        <img src="https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=600&q=80" alt="威尼斯住宿">
+        <div class="h-badge">D6 · 1 晚</div>
+      </div>
+      <div class="h-body">
+        <div class="h-city">VENEZIA · 威尼斯</div>
+        <h5>卢纳巴格里奥尼酒店</h5>
+        <div class="h-meta">📍 圣马可广场旁 100m · 立鼎世<br/>💰 <strong>¥2,472 / 1 晚</strong> · 豪华双人房</div>
+        <div class="h-eva">
+          <b>✦ 伊娃心得</b>
+          <strong>女儿住过 50+ 酒店里排名前三的爱</strong>。威尼斯只住 1 晚，必须挑圣马可广场圈内。这家是 5 星百年老牌奢华酒店，立鼎世旗下。
+          <br/><br/>
+          🛶 到了威尼斯火车站后<strong>只能坐船到</strong>——没有车能开过来，酒店就在水边，下楼就是大运河。装修是非常有味道的<strong>"老钱风"</strong>，不是那种网红设计感，而是真正沉淀下来的优雅。
+          <br/><br/>
+          ✨ <strong>细节控会尖叫：</strong><br/>
+          · 沐浴露、洗手液全是帕尔玛之水（Acqua di Parma）<br/>
+          · 晚上开床服务是黑人姐姐大辫子，仪式感拉满<br/>
+          · 早餐在水边露台吃，娃眼里全是"漂浮的城市"<br/>
+          · 叹息桥步行 3 分钟<br/>
+          <br/>
+          <strong>性价比？</strong>对 1 晚来说绝对值得——百年老酒店的体验就是不一样。3 晚就别住了。
+        </div>
+      </div>
+    </div>
+
+    <!-- 米兰 -->
+    <div class="hotel-card" data-hotel="milano" onclick="toggleHotelDistance(this,'milano')">
+      <div class="h-photo">
+        <img src="https://images.unsplash.com/photo-1520440229-6469a149ac59?w=600&q=80" alt="米兰住宿">
+        <div class="h-badge">D7-8 · 2 晚</div>
+      </div>
+      <div class="h-body">
+        <div class="h-city">MILANO · 米兰</div>
+        <h5>Corso di Porta Romana 48</h5>
+        <div class="h-meta">📍 大教堂步行 15 分钟 · 民居公寓<br/>💰 <strong>¥2,875 / 2 晚</strong> · 一卧公寓</div>
+        <div class="h-eva">
+          <b>✦ 伊娃心得</b>
+          米兰房价比威尼斯低很多。这家在地铁 Porta Romana 旁，去《最后的晚餐》3 站地铁直达。房东人很好，免费帮忙预约送机服务（50 公里 1 小时返程接机）。<strong>注意：</strong>米兰冬天冷，记得问清楚房间有没有地暖。
+        </div>
+      </div>
+    </div>
+
+    <!-- 距离辐射图浮窗（点击酒店卡时填充内容并显示，跨整行） -->
+    <div class="hotel-distance-panel" id="hotel-distance-panel">
+      <div class="hdp-head">
+        <div class="hdp-title" id="hdp-title">— · —</div>
+        <button class="hdp-close" type="button" onclick="closeHotelDistance()" aria-label="关闭">×</button>
+      </div>
+      <div class="hdp-body">
+        <div class="hdp-radial" id="hdp-radial"></div>
+        <div class="hdp-list" id="hdp-list"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="hotel-cost-bar">
+    <div>
+      <div class="label">8 晚总住宿成本</div>
+      <div class="breakdown">罗马 ¥3500 + 佛 ¥5040 + 威 ¥2472 + 米 ¥2875</div>
+    </div>
+    <div class="value">¥13,887</div>
+  </div>
+
+  <div style="padding:20px 24px;background:#fff8e1;border-left:3px solid var(--kid-orange);margin-top:24px">
+    <div style="font-family:'Caveat',cursive;font-size:22px;color:var(--rome-red);margin-bottom:6px">✦ 伊娃的住宿哲学</div>
+    <p style="color:var(--ink-soft);font-size:13px;line-height:1.75">
+      亲子游住宿铁律：<strong>核心地段 &gt; 五星硬件</strong>。带娃的精力有限，一天能玩 6-8 小时，每多走 15 分钟通勤都是浪费。我宁可花更多预算在"步行 5-10 分钟到核心景区"，也不会为了便宜住到地铁 30 分钟外的"五星酒店"。这次 4 家全部步行 15 分钟内可达主要景点。
+    </p>
+  </div>
+</div>
+
 <!-- Part 3 -->
 <section>
   <div class="sec-label">Part 03 · Day-by-Day</div>
   <h2 class="sec-title">行中体验 · 完整 10 天行程</h2>
-  <div class="sec-sub">点每一天展开，看伊娃真实走过的路线 🎨</div>
+  <div class="sec-head-row">
+    <div class="sec-sub">点每一天展开，看伊娃真实走过的路线 🎨</div>
+    <button class="toggle-all-btn" onclick="toggleAll(this, '.day-block')"><span class="icon">▾</span><span class="txt">全部展开</span></button>
+  </div>
 
   <p style="color:var(--ink-soft);margin-bottom:8px">以下是伊娃 2025 年 1 月 26 日 - 2 月 3 日 10 天行程的完整版本。每一天都有当天重点、时间安排、票务、交通、餐厅和娃的反馈。</p>
 
   <div class="day-nav">
-    <div class="dn">D1 · 深圳→罗马</div>
-    <div class="dn highlight">D2 · 罗马 梵蒂冈</div>
-    <div class="dn">D3 · 罗马→佛罗伦萨</div>
-    <div class="dn">D4 · 佛罗伦萨 春节</div>
-    <div class="dn">D5 · 佛罗伦萨</div>
-    <div class="dn">D6 · 佛→威尼斯</div>
-    <div class="dn">D7 · 威尼斯→米兰</div>
-    <div class="dn">D8 · 米兰</div>
-    <div class="dn">D9 · 返程</div>
-    <div class="dn">D10 · 到深圳</div>
+    <div class="dn highlight" onclick="jumpDay(1, this)">D1 · 深圳→罗马</div>
+    <div class="dn" onclick="jumpDay(2, this)">D2 · 罗马 梵蒂冈</div>
+    <div class="dn" onclick="jumpDay(3, this)">D3 · 罗马→佛罗伦萨</div>
+    <div class="dn" onclick="jumpDay(4, this)">D4 · 佛罗伦萨 春节</div>
+    <div class="dn" onclick="jumpDay(5, this)">D5 · 佛罗伦萨</div>
+    <div class="dn" onclick="jumpDay(6, this)">D6 · 佛→威尼斯</div>
+    <div class="dn" onclick="jumpDay(7, this)">D7 · 威尼斯→米兰</div>
+    <div class="dn" onclick="jumpDay(8, this)">D8 · 米兰</div>
+    <div class="dn" onclick="jumpDay(9, this)">D9 · 返程</div>
+    <div class="dn" onclick="jumpDay(10, this)">D10 · 到深圳</div>
   </div>
 
   <!-- DAY 1 -->
-  <details class="day-block">
+  <details class="day-block" id="day-1" open>
     <summary>
       <div class="day-badge-big">01</div>
       <div class="day-head-info">
@@ -865,12 +2500,24 @@ section{padding:80px 60px;position:relative}
           <div class="tl-title">🍝 预订好吃的餐厅，早睡倒时差</div>
           <div class="tl-desc">第一天不要折腾，让娃吃饱早睡</div>
         </div>
-      </div>
+
+        <div class="tl-row stay-row">
+          <div class="tl-time">🏨 入住</div>
+          <div class="tl-title">Via dei Serpenti 93（罗马 · 蒙蒂区）</div>
+          <div class="tl-desc"><strong>📍 今晚住 罗马</strong> · 晚饭后早睡倒时差。蒙蒂区夜晚有市井烟火气，下楼小酒馆能喝杯当地葡萄酒。</div>
+          <div class="spot-expand">
+            <strong>💰 预订思路：</strong>¥3,500 / 2 晚 · 一家三口家庭房 · Booking 直定<br/>
+            <strong>✦ 为什么选这家：</strong>蒙蒂区是罗马最有"市井烟火气"的老街区，下楼就是小餐馆和 Gelato 店；步行 8 分钟到古罗马遗迹，省一大笔交通钱<br/>
+            <strong>📷 实测体验：</strong>Via dei Serpenti 是一条拍照圣地，傍晚伴着夕阳特别美<br/>
+            <strong>⚠️ 缺点：</strong>电梯非常小，一次最多 2 个大人，婴儿车要折叠
+          </div>
+        </div>
+          </div>
     </div>
   </details>
 
   <!-- DAY 2 -->
-  <details class="day-block" open>
+  <details class="day-block" id="day-2">
     <summary>
       <div class="day-badge-big">02</div>
       <div class="day-head-info">
@@ -1008,12 +2655,18 @@ section{padding:80px 60px;position:relative}
             </div>
           </div>
         </div>
-      </div>
+
+        <div class="tl-row stay-row">
+          <div class="tl-time">🏨 入住</div>
+          <div class="tl-title">Via dei Serpenti 93</div>
+          <div class="tl-desc"><strong>📍 今晚住 罗马</strong> · 梵蒂冈日走累了，回酒店附近 trattoria 吃 Cacio e Pepe（罗马奶酪胡椒面）。Via dei Serpenti 街上有几家不错的 gelato 店。</div>
+        </div>
+          </div>
     </div>
   </details>
 
   <!-- DAY 3 -->
-  <details class="day-block">
+  <details class="day-block" id="day-3">
     <summary>
       <div class="day-badge-big">03</div>
       <div class="day-head-info">
@@ -1027,10 +2680,10 @@ section{padding:80px 60px;position:relative}
         <strong>关键词：</strong>斗兽场 · 古罗马遗迹 · 火车到佛罗伦萨 · 智能电视春晚
       </div>
       <div class="timeline-simple">
-        <div class="tl-row">
+        <div class="tl-row timed-strict">
           <div class="tl-time">09:45</div>
           <div class="tl-title">🏛️ 古罗马遗迹 + 圆形竞技场（斗兽场）</div>
-          <div class="tl-desc">已预约 9:45 门票（提前 15 分钟到）· 灶神庙（维护圣火的贞女，基督教后关闭）· 凯撒的墓 · 沙土地是为了血液好清理 · 前身是尼禄的皇宫</div>
+          <div class="tl-desc"><strong style="color:var(--rome-red)">⚠️ 票面写 9:45 入场 · 提前 15 分钟到 · 迟到作废</strong>。灶神庙（维护圣火的贞女，基督教后关闭）· 凯撒的墓 · 沙土地是为了血液好清理 · 前身是尼禄的皇宫</div>
           <div class="tl-meta"><span class="price">€ 36 · 24h 通票</span><span>⏱ 2-3h</span><span class="traffic">步行 1km</span><span><a href="https://ticketing.colosseo.it/" target="_blank">官网</a></span></div>
         </div>
         <div class="tl-row">
@@ -1064,12 +2717,24 @@ section{padding:80px 60px;position:relative}
           <div class="tl-title">🎊 看春晚（智能电视联网）</div>
           <div class="tl-desc">酒店智能电视已确认可上网，除夕晚上和娃一起看春晚</div>
         </div>
-      </div>
+
+        <div class="tl-row stay-row">
+          <div class="tl-time">🏨 入住</div>
+          <div class="tl-title">Via dell'Alloro 6（佛罗伦萨 · 老城核心）</div>
+          <div class="tl-desc"><strong>📍 今晚住 佛罗伦萨</strong> · 除夕到佛罗伦萨，公寓厨房煮一碗速食面 + 意面看春晚很温馨。智能电视有 4K 系统。</div>
+          <div class="spot-expand">
+            <strong>💰 预订思路：</strong>¥5,040 / 3 晚 · 公寓式 · Airbnb 长租划算<br/>
+            <strong>✦ 为什么选这家：</strong>老城核心位置，圣母百花步行 5 分钟；公寓有小厨房可煮意面/煎蛋，娃想中餐时直接上手；公寓楼下就是中央市场（D5 中午吃饭点）<br/>
+            <strong>📷 实测体验：</strong>全程最满意的住宿。除夕住这里看春晚最舒服，电视有 4K 智能系统。出门即中央市场，性价比拉满<br/>
+            <strong>⚠️ 提示：</strong>周边超市晚 8 点关门，提前买好夜宵
+          </div>
+        </div>
+          </div>
     </div>
   </details>
 
   <!-- DAY 4 -->
-  <details class="day-block">
+  <details class="day-block" id="day-4">
     <summary>
       <div class="day-badge-big">04</div>
       <div class="day-head-info">
@@ -1083,10 +2748,10 @@ section{padding:80px 60px;position:relative}
         <strong>关键词：</strong>圣母百花大教堂（登顶）· 乌菲兹美术馆 · 米开朗基罗广场 · 日落观景
       </div>
       <div class="timeline-simple">
-        <div class="tl-row">
+        <div class="tl-row timed-strict">
           <div class="tl-time">09:45</div>
           <div class="tl-title">⛪ 圣母百花大教堂 · 套票登顶</div>
-          <div class="tl-desc">已买套票（圆顶+钟楼+洗礼堂+博物馆+圣雷帕拉塔，自日期起 3 日内有效）· 右边门进 · 左边门出去重新安检 · 463 级鱼骨状台阶 · 6 岁以下不建议登顶</div>
+          <div class="tl-desc"><strong style="color:var(--rome-red)">⚠️ 登顶票精确到 9:45 入场 · 迟到作废</strong>。已买套票（圆顶+钟楼+洗礼堂+博物馆+圣雷帕拉塔，自日期起 3 日内有效）· 右边门进 · 左边门出去重新安检 · 463 级鱼骨状台阶 · 6 岁以下不建议登顶</div>
           <div class="tl-meta"><span class="price">€ 72/2人</span><span>⏱ 1h 登顶</span><span><a href="https://tickets.duomo.firenze.it/en/store" target="_blank">官网</a></span></div>
         </div>
         <div class="tl-row">
@@ -1126,12 +2791,18 @@ section{padding:80px 60px;position:relative}
             <strong>晚餐预约：</strong>Zaza 的牛扒（只能预约）· 或吃帕尼尼 + Gailli 咖啡
           </div>
         </div>
-      </div>
+
+        <div class="tl-row stay-row">
+          <div class="tl-time">🏨 入住</div>
+          <div class="tl-title">Via dell'Alloro 6 · 公寓式</div>
+          <div class="tl-desc"><strong>📍 今晚住 佛罗伦萨</strong> · 米开朗基罗广场看完日落直接公交回酒店。早上能在公寓自己煎鸡蛋，省一顿早餐钱。</div>
+        </div>
+          </div>
     </div>
   </details>
 
   <!-- DAY 5 -->
-  <details class="day-block">
+  <details class="day-block" id="day-5">
     <summary>
       <div class="day-badge-big">05</div>
       <div class="day-head-info">
@@ -1178,12 +2849,21 @@ section{padding:80px 60px;position:relative}
           <div class="tl-title">领主广场 / 共和广场</div>
           <div class="tl-desc">大卫雕像复制品 · 美杜莎雕像（科西莫·美第奇胜利之作）· 强掳萨宾妇女 · 夜晚有人唱歌 · 餐厅多</div>
         </div>
-      </div>
+
+        <div class="tl-row stay-row">
+          <div class="tl-time">🏨 入住</div>
+          <div class="tl-title">Via dell'Alloro 6 · 公寓式</div>
+          <div class="tl-desc"><strong>📍 今晚住 佛罗伦萨</strong> · 最后一晚住佛罗伦萨。明早早起去新圣母大殿（火车站附近），10:39 去威尼斯的火车不能错过。</div>
+          <div class="spot-expand">
+            <strong>📦 离店准备：</strong>今晚收拾行李，明早 9:30 退房寄存（Airbnb 一般免费寄存）。轻装去新圣母大殿，10:39 直接到火车站。
+          </div>
+        </div>
+          </div>
     </div>
   </details>
 
   <!-- DAY 6 -->
-  <details class="day-block">
+  <details class="day-block" id="day-6">
     <summary>
       <div class="day-badge-big">06</div>
       <div class="day-head-info">
@@ -1215,10 +2895,10 @@ section{padding:80px 60px;position:relative}
           <div class="tl-desc">出岛右手边 P1 机器买 24h 水上巴士票（20 欧 · 包含去玻璃岛）</div>
           <div class="tl-meta"><span class="price">€ 20 水上巴士 24h</span></div>
         </div>
-        <div class="tl-row">
+        <div class="tl-row stay-row">
           <div class="tl-time">14:00</div>
-          <div class="tl-title">🏨 入住卢纳巴格里奥尼酒店（2 点入住）</div>
-          <div class="tl-desc">Calle Larga Dell'Ascensione 1243 · 圣马可 · 威尼斯 · 1 晚 ¥2,472 · 立鼎世酒店集团</div>
+          <div class="tl-title">🏨 入住卢纳巴格里奥尼酒店（女儿住过 50+ 酒店里 Top 3 的爱）</div>
+          <div class="tl-desc"><strong>百年老牌奢华 · 立鼎世</strong>· 只能坐船到（没有车能开过来）· 水边老钱风装修 · 帕尔玛之水全套洗护 · 开床服务仪式感拉满 · 1 晚 ¥2,472</div>
         </div>
         <div class="tl-row">
           <div class="tl-time">下午</div>
@@ -1238,12 +2918,29 @@ section{padding:80px 60px;position:relative}
           <div class="tl-title">🚣 贡多拉之旅</div>
           <div class="tl-desc">威尼斯最浪漫的体验</div>
         </div>
-      </div>
+
+        <div class="tl-row stay-row">
+          <div class="tl-time">🏨 入住</div>
+          <div class="tl-title">卢纳巴格里奥尼酒店 · 立鼎世（女儿 Top 3 至爱）</div>
+          <div class="tl-desc"><strong>📍 今晚住 威尼斯</strong> · 圣马可广场旁 100m 的 5 星老牌奢华酒店。叹息桥步行 3 分钟。这是全程最贵但最值的一晚。</div>
+          <div class="spot-expand">
+            <strong>💰 预订思路：</strong>¥2,472 / 1 晚 · 豪华双人房 · 立鼎世官网或 Booking · 提前 3 个月订有豪华房早餐套餐<br/>
+            <strong>✦ 为什么选这家：</strong>威尼斯只住 1 晚就要挑圣马可圈内、能看运河的；这家是百年老牌奢华，下楼就是水道，叹息桥步行 3 分钟<br/>
+            <strong>📷 实测体验（女儿住过 50+ 酒店里 Top 3 的爱）：</strong><br/>
+            🛶 到威尼斯火车站后<strong>只能坐船到</strong>（没有车能开过来），酒店就在水边<br/>
+            ✨ 装修是非常有味道的<strong>"老钱风"</strong>，不是网红设计感，是真正沉淀下来的优雅<br/>
+            🧴 沐浴露、洗手液全是<strong>帕尔玛之水（Acqua di Parma）</strong><br/>
+            🛏️ 晚上开床服务是<strong>黑人姐姐大辫子</strong>，仪式感拉满<br/>
+            🥐 早餐在水边露台吃，娃眼里全是"漂浮的城市"<br/>
+            <strong>📌 必体验：</strong>提前预约水边露台早餐位置；百年老酒店的体验就是不一样
+          </div>
+        </div>
+          </div>
     </div>
   </details>
 
   <!-- DAY 7 -->
-  <details class="day-block">
+  <details class="day-block" id="day-7">
     <summary>
       <div class="day-badge-big">07</div>
       <div class="day-head-info">
@@ -1288,15 +2985,16 @@ section{padding:80px 60px;position:relative}
           <div class="tl-desc">Corso di Porta Romana 48 · 2 晚 ¥2,875 · 地铁 6 站 + 350 米 / 打车 5.8km</div>
         </div>
         <div class="tl-row">
-          <div class="tl-time">晚上</div>
-          <div class="tl-title">⛪ 米兰大教堂（夜景更美）</div>
-          <div class="tl-desc">正立面 600 年修建 · 拿破仑加冕地 · 圣钉 · 达芬奇升降机 · 剥皮雕塑 · 小孔+铜线+黄道 12 宫</div>
-          <div class="spot-expand"><strong>⚠️ 提醒：</strong>不要喂鸽子（骗局）</div>
+          <div class="tl-time">傍晚</div>
+          <div class="tl-title">电梯登顶米兰大教堂（必须 18:10 前入场）</div>
+          <div class="tl-desc">⚠️ 屋顶 9:00-19:00 开放，<strong>最晚 18:10 入场</strong>。日落前登顶最美 · 飞扶壁、金色小圣母、108 米制高点 · 提前在 ticket.duomomilano.it 预约具体时段，<strong>建议预约 16:30-17:30 段</strong></div>
+          <div class="spot-expand"><strong>注意：</strong>恶劣天气可能临时关闭。冬季日落约 17:00，提前 1-1.5 小时上去最佳</div>
         </div>
         <div class="tl-row">
           <div class="tl-time">晚上</div>
-          <div class="tl-title">电梯登顶米兰大教堂</div>
-          <div class="tl-desc">需预约具体小时 · 日落登顶最美 · 能看到飞扶壁（佛罗伦萨无）· 金色小圣母 108 米制高点</div>
+          <div class="tl-title">⛪ 米兰大教堂广场夜景</div>
+          <div class="tl-desc">登顶下来后大教堂主体 19:00 关闭。但<strong>广场夜景</strong>更美——正立面打灯下哥特尖塔金光闪闪 · 600 年修建 · 拿破仑加冕地 · 圣钉 · 达芬奇升降机</div>
+          <div class="spot-expand"><strong>⚠️ 提醒：</strong>不要喂鸽子（骗局）</div>
         </div>
         <div class="tl-row">
           <div class="tl-time">晚上</div>
@@ -1308,12 +3006,24 @@ section{padding:80px 60px;position:relative}
           <div class="tl-title">埃马努埃莱长廊</div>
           <div class="tl-desc">看画 · 买买买 · 公牛蛋蛋踩三圈好运</div>
         </div>
-      </div>
+
+        <div class="tl-row stay-row">
+          <div class="tl-time">🏨 入住</div>
+          <div class="tl-title">Corso di Porta Romana 48 · 一卧公寓（米兰）</div>
+          <div class="tl-desc"><strong>📍 今晚住 米兰</strong> · 地铁 Porta Romana 旁，去《最后的晚餐》3 站直达。</div>
+          <div class="spot-expand">
+            <strong>💰 预订思路：</strong>¥2,875 / 2 晚 · 一卧公寓 · Airbnb<br/>
+            <strong>✦ 为什么选这家：</strong>米兰房价比威尼斯低很多。去《最后的晚餐》3 站地铁直达，房东人很好可以免费帮忙预约送机服务（D9 早上去 MXP）<br/>
+            <strong>📷 实测体验：</strong>公寓适合 2-3 晚长住，洗碗机+地暖+完整厨房，娃想吃中餐的话煮米线/煎蛋都方便<br/>
+            <strong>⚠️ 注意：</strong>米兰冬天冷，下单前确认<strong>有地暖</strong>。送机记得提前一天和房东沟通，50 公里到 MXP 约 1 小时车程
+          </div>
+        </div>
+          </div>
     </div>
   </details>
 
   <!-- DAY 8 -->
-  <details class="day-block">
+  <details class="day-block" id="day-8">
     <summary>
       <div class="day-badge-big">08</div>
       <div class="day-head-info">
@@ -1327,10 +3037,10 @@ section{padding:80px 60px;position:relative}
         <strong>关键词：</strong>最后的晚餐（已预约）· 斯福尔扎城堡 · 布雷拉美术馆 · 斯卡拉歌剧院
       </div>
       <div class="timeline-simple">
-        <div class="tl-row">
+        <div class="tl-row timed-strict">
           <div class="tl-time">08:15</div>
           <div class="tl-title">🎨 圣玛利亚修道院 · 最后的晚餐</div>
-          <div class="tl-desc">淘宝已预约 2 月 2 日早上 8:15-10:15 第一波 · 每人固定 15 分钟 · 米兰大教堂 20 分钟</div>
+          <div class="tl-desc"><strong style="color:var(--rome-red)">⚠️ 精确到 8:15 入场 · 每人固定 15 分钟 · 迟到 = 作废 = 再也进不去</strong>。淘宝已预约 8:15-10:15 第一波。提前 20 分钟到场排队安检。米兰大教堂步行约 20 分钟可顺路</div>
           <div class="tl-meta"><span class="price">¥ 470/人</span><span class="traffic">开车 11min / 地铁 15min</span><span><a href="https://cenacolovinciano.vivaticket.it/en/event/cenacolo-vinciano/151991" target="_blank">官网</a></span></div>
         </div>
         <div class="tl-row">
@@ -1372,12 +3082,21 @@ section{padding:80px 60px;position:relative}
           <div class="tl-time">晚上</div>
           <div class="tl-title">运河边散步</div>
         </div>
-      </div>
+
+        <div class="tl-row stay-row">
+          <div class="tl-time">🏨 入住</div>
+          <div class="tl-title">Corso di Porta Romana 48 · 一卧公寓</div>
+          <div class="tl-desc"><strong>📍 今晚住 米兰</strong> · 最后一晚意大利。回酒店收拾行李，提前请房东预约送机服务（50 公里到 MXP 机场约 1 小时车程）。</div>
+          <div class="spot-expand">
+            <strong>📦 离店准备：</strong>整理行李 · 把伴手礼分箱 · 退税单整理（D9 在 MXP T1 办 Tax Free） · 早 6:00 起床赶 9:55 HU7974
+          </div>
+        </div>
+          </div>
     </div>
   </details>
 
   <!-- DAY 9 -->
-  <details class="day-block">
+  <details class="day-block" id="day-9">
     <summary>
       <div class="day-badge-big">09</div>
       <div class="day-head-info">
@@ -1403,7 +3122,7 @@ section{padding:80px 60px;position:relative}
   </details>
 
   <!-- DAY 10 -->
-  <details class="day-block">
+  <details class="day-block" id="day-10">
     <summary>
       <div class="day-badge-big">10</div>
       <div class="day-head-info">
@@ -1458,7 +3177,7 @@ section{padding:80px 60px;position:relative}
 <div class="diy">
   <div class="kid-tag">下一步 Next →</div>
   <h2>定制你自己的亲子游</h2>
-  <p>输入孩子生日、出行日期、偏好标签<br/>AI 基于伊娃的攻略框架，为你生成专属方案 · 一键同步到腾讯文档</p>
+  <p>输入孩子生日、出行日期、偏好标签<br/>AI 基于伊娃的攻略框架，为你生成专属方案 · 在网页上直接查阅，右上角按钮一键导出</p>
   <button onclick="alert('🌟 敬请期待 ✨\n\nDIY 亲子游定制功能正在打磨中\n关注伊娃 · 亲子游攻略大师，第一时间体验')">开始 DIY →</button>
 </div>
 
